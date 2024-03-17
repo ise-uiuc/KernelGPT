@@ -1,0 +1,333 @@
+# Please infer the domain and type related to the socket based on its operation handler and usage information. Please generate the Syzkaller specification for the initialization of the socket.
+
+## Output Format
+
+```json
+{
+	"socket": {
+		"domain": "SOCKET_DOMAIN",
+		"type": "SOCKET_TYPE",
+		"spec": "SOCKET_SPEC"
+	},
+	"resources": {
+		"RESOURCE_NAME": {
+			"type": "sock",
+			"spec": "RESOURCE_SPEC"
+		}
+	},
+	"types": {
+		"TYPE_NAME": "TYPE_DESCRIPTION"
+	}
+}
+```
+
+# Examples
+
+## Operation Handler in `linux/net/rose/af_rose.c`
+
+```c
+static const struct proto_ops rose_proto_ops = {
+	.family		=	PF_ROSE,
+	.owner		=	THIS_MODULE,
+	.release	=	rose_release,
+	.bind		=	rose_bind,
+	.connect	=	rose_connect,
+	.socketpair	=	sock_no_socketpair,
+	.accept		=	rose_accept,
+	.getname	=	rose_getname,
+	.poll		=	datagram_poll,
+	.ioctl		=	rose_ioctl,
+	.gettstamp	=	sock_gettstamp,
+	.listen		=	rose_listen,
+	.shutdown	=	sock_no_shutdown,
+	.setsockopt	=	rose_setsockopt,
+	.getsockopt	=	rose_getsockopt,
+	.sendmsg	=	rose_sendmsg,
+	.recvmsg	=	rose_recvmsg,
+	.mmap		=	sock_no_mmap,
+};
+```
+
+## Usage of Operation Handler in `linux/net/rose/af_rose.c`.
+
+```c
+static int rose_create(struct net *net, struct socket *sock, int protocol,
+		       int kern)
+{
+	struct sock *sk;
+	struct rose_sock *rose;
+
+	if (!net_eq(net, &init_net))
+		return -EAFNOSUPPORT;
+
+	if (sock->type != SOCK_SEQPACKET || protocol != 0)
+		return -ESOCKTNOSUPPORT;
+
+	sk = sk_alloc(net, PF_ROSE, GFP_ATOMIC, &rose_proto, kern);
+	if (sk == NULL)
+		return -ENOMEM;
+
+	rose = rose_sk(sk);
+
+	sock_init_data(sock, sk);
+
+	skb_queue_head_init(&rose->ack_queue);
+#ifdef M_BIT
+	skb_queue_head_init(&rose->frag_queue);
+	rose->fraglen    = 0;
+#endif
+
+	sock->ops    = &rose_proto_ops;
+	sk->sk_protocol = protocol;
+
+	timer_setup(&rose->timer, NULL, 0);
+	timer_setup(&rose->idletimer, NULL, 0);
+
+	rose->t1   = msecs_to_jiffies(sysctl_rose_call_request_timeout);
+	rose->t2   = msecs_to_jiffies(sysctl_rose_reset_request_timeout);
+	rose->t3   = msecs_to_jiffies(sysctl_rose_clear_request_timeout);
+	rose->hb   = msecs_to_jiffies(sysctl_rose_ack_hold_back_timeout);
+	rose->idle = msecs_to_jiffies(sysctl_rose_no_activity_timeout);
+
+	rose->state = ROSE_STATE_0;
+
+	return 0;
+}
+```
+
+## Syzkaller Specification
+
+```json
+{
+  "socket": {
+    "domain": "AF_ROSE",
+    "type": "SOCK_SEQPACKET",
+    "spec": "syz_init_net_socket$rose(domain const[AF_ROSE], type const[SOCK_SEQPACKET], proto const[0]) sock_rose"
+  },
+  "resources": {
+    "sock_rose": {
+      "type": "sock",
+      "spec": "resource sock_rose[sock]"
+    }
+  },
+	"types": {}
+}
+```
+
+## Operation Handler in `linux/net/packet/af_packet.c`
+
+```c
+static const struct proto_ops packet_ops = {
+	.family =	PF_PACKET,
+	.owner =	THIS_MODULE,
+	.release =	packet_release,
+	.bind =		packet_bind,
+	.connect =	sock_no_connect,
+	.socketpair =	sock_no_socketpair,
+	.accept =	sock_no_accept,
+	.getname =	packet_getname,
+	.poll =		packet_poll,
+	.ioctl =	packet_ioctl,
+	.gettstamp =	sock_gettstamp,
+	.listen =	sock_no_listen,
+	.shutdown =	sock_no_shutdown,
+	.setsockopt =	packet_setsockopt,
+	.getsockopt =	packet_getsockopt,
+	.sendmsg =	packet_sendmsg,
+	.recvmsg =	packet_recvmsg,
+	.mmap =		packet_mmap,
+};
+```
+
+## Usage of Operation Handler in `linux/net/packet/af_packet.c`:
+
+```c
+static int packet_create(struct net *net, struct socket *sock, int protocol,
+			 int kern)
+{
+	struct sock *sk;
+	struct packet_sock *po;
+	__be16 proto = (__force __be16)protocol; /* weird, but documented */
+	int err;
+
+	if (!ns_capable(net->user_ns, CAP_NET_RAW))
+		return -EPERM;
+	if (sock->type != SOCK_DGRAM && sock->type != SOCK_RAW &&
+	    sock->type != SOCK_PACKET)
+		return -ESOCKTNOSUPPORT;
+
+	sock->state = SS_UNCONNECTED;
+
+	err = -ENOBUFS;
+	sk = sk_alloc(net, PF_PACKET, GFP_KERNEL, &packet_proto, kern);
+	if (sk == NULL)
+		goto out;
+
+	sock->ops = &packet_ops;
+	if (sock->type == SOCK_PACKET)
+		sock->ops = &packet_ops_spkt;
+
+	sock_init_data(sock, sk);
+
+	po = pkt_sk(sk);
+	init_completion(&po->skb_completion);
+	sk->sk_family = PF_PACKET;
+	po->num = proto;
+
+	err = packet_alloc_pending(po);
+	if (err)
+		goto out2;
+
+	packet_cached_dev_reset(po);
+
+	sk->sk_destruct = packet_sock_destruct;
+
+	/*
+	 *	Attach a protocol block
+	 */
+
+	spin_lock_init(&po->bind_lock);
+	mutex_init(&po->pg_vec_lock);
+	po->rollover = NULL;
+	po->prot_hook.func = packet_rcv;
+
+	if (sock->type == SOCK_PACKET)
+		po->prot_hook.func = packet_rcv_spkt;
+
+	po->prot_hook.af_packet_priv = sk;
+	po->prot_hook.af_packet_net = sock_net(sk);
+
+	if (proto) {
+		po->prot_hook.type = proto;
+		__register_prot_hook(sk);
+	}
+
+	mutex_lock(&net->packet.sklist_lock);
+	sk_add_node_tail_rcu(sk, &net->packet.sklist);
+	mutex_unlock(&net->packet.sklist_lock);
+
+	sock_prot_inuse_add(net, &packet_proto, 1);
+
+	return 0;
+out2:
+	sk_free(sk);
+out:
+	return err;
+}
+```
+
+## Syzkaller Specification
+
+```json
+{
+  "socket": {
+    "domain": "AF_PACKET",
+    "type": "SOCK_DGRAM",
+    "spec": "socket$packet(domain const[AF_PACKET], type flags[packet_socket_type], proto const[ETH_P_ALL_BE]) sock_packet"
+  },
+  "resources": {
+    "sock_packet": {
+      "type": "sock",
+      "spec": "resource sock_packet[sock]"
+    }
+  },
+  "types": {
+    "packet_socket_type": "packet_socket_type = SOCK_RAW, SOCK_DGRAM",
+    "ETH_P_ALL_BE": "define ETH_P_ALL_BE\thtons(ETH_P_ALL)"
+  }
+}
+```
+
+## Operation Handler in `linux/drivers/isdn/mISDN/socket.c`
+
+```c
+static const struct proto_ops rds_proto_ops = {
+	.family =	AF_RDS,
+	.owner =	THIS_MODULE,
+	.release =	rds_release,
+	.bind =		rds_bind,
+	.connect =	rds_connect,
+	.socketpair =	sock_no_socketpair,
+	.accept =	sock_no_accept,
+	.getname =	rds_getname,
+	.poll =		rds_poll,
+	.ioctl =	rds_ioctl,
+	.listen =	sock_no_listen,
+	.shutdown =	sock_no_shutdown,
+	.setsockopt =	rds_setsockopt,
+	.getsockopt =	rds_getsockopt,
+	.sendmsg =	rds_sendmsg,
+	.recvmsg =	rds_recvmsg,
+	.mmap =		sock_no_mmap,
+};
+```
+
+## Usage of Operation Handler in `linux/drivers/isdn/mISDN/socket.c`
+
+```c
+static int __rds_create(struct socket *sock, struct sock *sk, int protocol)
+{
+	struct rds_sock *rs;
+
+	sock_init_data(sock, sk);
+	sock->ops		= &rds_proto_ops;
+	sk->sk_protocol		= protocol;
+	sk->sk_destruct		= rds_sock_destruct;
+
+	rs = rds_sk_to_rs(sk);
+	spin_lock_init(&rs->rs_lock);
+	rwlock_init(&rs->rs_recv_lock);
+	INIT_LIST_HEAD(&rs->rs_send_queue);
+	INIT_LIST_HEAD(&rs->rs_recv_queue);
+	INIT_LIST_HEAD(&rs->rs_notify_queue);
+	INIT_LIST_HEAD(&rs->rs_cong_list);
+	rds_message_zcopy_queue_init(&rs->rs_zcookie_queue);
+	spin_lock_init(&rs->rs_rdma_lock);
+	rs->rs_rdma_keys = RB_ROOT;
+	rs->rs_rx_traces = 0;
+	rs->rs_tos = 0;
+	rs->rs_conn = NULL;
+
+	spin_lock_bh(&rds_sock_lock);
+	list_add_tail(&rs->rs_item, &rds_sock_list);
+	rds_sock_count++;
+	spin_unlock_bh(&rds_sock_lock);
+
+	return 0;
+}
+```
+
+## Syzkaller Specification
+
+```json
+{
+  "socket": {
+    "domain": "AF_RDS",
+    "type": "SOCK_SEQPACKET",
+    "spec": "socket$RDS(domain const[AF_RDS], type const[SOCK_SEQPACKET], proto const[0]) sock_rds"
+  },
+  "resources": {
+    "sock_rds": {
+      "type": "sock",
+      "spec": "resource sock_rds[sock]"
+    }
+  },
+	"types": {}
+}
+```
+
+# Target to Generate
+
+## Operation Handler in `PATH_PLACEHOLDER`
+
+```c
+SOURCE_CODE_PLACEHOLDER
+```
+
+## Usage of Operation Handler in `PATH_PLACEHOLDER`
+
+```c
+USED_SOURCE_CODE_PLACEHOLDER
+```
+
+## Syzkaller Specification

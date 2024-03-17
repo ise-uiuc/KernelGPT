@@ -1,0 +1,281 @@
+# Please infer the argument type of the syscall based on its usage information and the source code of its relative functions.
+
+## Output Format
+```
+{
+    "NAME": {
+        "level": "UNKNOWN_LEVEL" | "",
+        "val": "UNKNOWN_VAL" | "VAL_TYPE",
+        "len": "UNKNOWN_LEN" | "",
+        "val_inference": null | {
+            "function": ["FUNCTION_NAME_RELATIVE_TO_VAL"],
+            "type": ["TYPE_NAME_RELATIVE_TO_VAL"],
+            "usage": ["USAGE_CODE_RELATIVE_TO_VAL"]
+        } # if it is "UNKNOWN_VAL"
+    },
+    "types": {
+        "NAME": "TYPE_DESCRIPTION" or "UNKNOWN"
+    }
+}
+```
+
+# Examples
+
+## Unknown for `linux/net/rds/af_rds.c`
+
+```json
+{
+    "RDS_CANCEL_SENT_TO": {
+        "level": "SOL_RDS",
+        "val": "UNKNOWN_VAL",
+        "len": "UNKNOWN_LEN",
+        "val_inference": {
+            "function": ["rds_cancel_sent_to"],
+            "type": [],
+            "usage": ["ret = rds_cancel_sent_to(rs, optval, optlen);"]
+        }
+    }
+}
+```
+
+## [Optional] Relevant Source Code for `linux/net/rds/af_rds.c`
+
+```c
+static int rds_cancel_sent_to(struct rds_sock *rs, sockptr_t optval, int len)
+{
+	struct sockaddr_in6 sin6;
+	struct sockaddr_in sin;
+	int ret = 0;
+
+	/* racing with another thread binding seems ok here */
+	if (ipv6_addr_any(&rs->rs_bound_addr)) {
+		ret = -ENOTCONN; /* XXX not a great errno */
+		goto out;
+	}
+
+	if (len < sizeof(struct sockaddr_in)) {
+		ret = -EINVAL;
+		goto out;
+	} else if (len < sizeof(struct sockaddr_in6)) {
+		/* Assume IPv4 */
+		if (copy_from_sockptr(&sin, optval,
+				sizeof(struct sockaddr_in))) {
+			ret = -EFAULT;
+			goto out;
+		}
+		ipv6_addr_set_v4mapped(sin.sin_addr.s_addr, &sin6.sin6_addr);
+		sin6.sin6_port = sin.sin_port;
+	} else {
+		if (copy_from_sockptr(&sin6, optval,
+				   sizeof(struct sockaddr_in6))) {
+			ret = -EFAULT;
+			goto out;
+		}
+	}
+
+	rds_send_drop_to(rs, &sin6);
+out:
+	return ret;
+}
+```
+
+## Syzkaller Specification
+
+```json
+{
+    "RDS_CANCEL_SENT_TO": {
+        "level": "SOL_RDS",
+        "val": "ptr[in, sockaddr_in]",
+        "len": "len[val]",
+        "val_inference": null
+    },
+    "types": {
+        "sockaddr_in": "UNKNOWN"
+    }
+}
+```
+
+## Unknown for `linux/net/rds/af_rds.c`
+
+```json
+{
+    "RDS_RECVERR": {
+        "level": "SOL_RDS",
+        "val": "UNKNOWN_VAL",
+        "len": "UNKNOWN_LEN",
+        "val_inference": {
+            "function": ["rds_set_bool_option"],
+            "type": [],
+            "usage": ["ret = rds_set_bool_option(&rs->rs_recverr, optval, optlen);"]
+        }
+    }
+}
+```
+
+## [Optional] Relevant Source Code for `linux/net/rds/af_rds.c`
+
+```c
+static int rds_set_bool_option(unsigned char *optvar, sockptr_t optval,
+			       int optlen)
+{
+	int value;
+
+	if (optlen < sizeof(int))
+		return -EINVAL;
+	if (copy_from_sockptr(&value, optval, sizeof(int)))
+		return -EFAULT;
+	*optvar = !!value;
+	return 0;
+}
+```
+
+## Syzkaller Specification
+
+```json
+{
+    "RDS_RECVERR": {
+        "level": "SOL_RDS",
+        "val": "ptr[in, bool32]",
+        "len": "len[val]",
+        "val_inference": null
+    },
+    "types": {}
+}
+```
+
+## Unknown for `linux/net/rds/af_rds.c`
+
+```json
+{
+    "RDS_INFO_LAST": {
+        "level": "SOL_RDS",
+        "val": "UNKNOWN_VAL",
+        "len": "UNKNOWN_LEN",
+        "val_inference": {
+            "function": ["rds_info_getsockopt"],
+            "type": [],
+            "usage": ["ret = rds_info_getsockopt(sock, optname, optval, optlen);"]
+        }
+    }
+}
+```
+
+## [Optional] Relevant Source Code for `linux/net/rds/af_rds.c`
+
+```c
+int rds_info_getsockopt(struct socket *sock, int optname, char __user *optval,
+			int __user *optlen)
+{
+	struct rds_info_iterator iter;
+	struct rds_info_lengths lens;
+	unsigned long nr_pages = 0;
+	unsigned long start;
+	rds_info_func func;
+	struct page **pages = NULL;
+	int ret;
+	int len;
+	int total;
+
+	if (get_user(len, optlen)) {
+		ret = -EFAULT;
+		goto out;
+	}
+
+	/* check for all kinds of wrapping and the like */
+	start = (unsigned long)optval;
+	if (len < 0 || len > INT_MAX - PAGE_SIZE + 1 || start + len < start) {
+		ret = -EINVAL;
+		goto out;
+	}
+
+	/* a 0 len call is just trying to probe its length */
+	if (len == 0)
+		goto call_func;
+
+	nr_pages = (PAGE_ALIGN(start + len) - (start & PAGE_MASK))
+			>> PAGE_SHIFT;
+
+	pages = kmalloc_array(nr_pages, sizeof(struct page *), GFP_KERNEL);
+	if (!pages) {
+		ret = -ENOMEM;
+		goto out;
+	}
+	ret = pin_user_pages_fast(start, nr_pages, FOLL_WRITE, pages);
+	if (ret != nr_pages) {
+		if (ret > 0)
+			nr_pages = ret;
+		else
+			nr_pages = 0;
+		ret = -EAGAIN; /* XXX ? */
+		goto out;
+	}
+
+	rdsdebug("len %d nr_pages %lu\n", len, nr_pages);
+
+call_func:
+	func = rds_info_funcs[optname - RDS_INFO_FIRST];
+	if (!func) {
+		ret = -ENOPROTOOPT;
+		goto out;
+	}
+
+	iter.pages = pages;
+	iter.addr = NULL;
+	iter.offset = start & (PAGE_SIZE - 1);
+
+	func(sock, len, &iter, &lens);
+	BUG_ON(lens.each == 0);
+
+	total = lens.nr * lens.each;
+
+	rds_info_iter_unmap(&iter);
+
+	if (total > len) {
+		len = total;
+		ret = -ENOSPC;
+	} else {
+		len = total;
+		ret = lens.each;
+	}
+
+	if (put_user(len, optlen))
+		ret = -EFAULT;
+
+out:
+	if (pages)
+		unpin_user_pages(pages, nr_pages);
+	kfree(pages);
+
+	return ret;
+}
+```
+
+## Syzkaller Specification
+
+```json
+{
+    "RDS_INFO_LAST": {
+        "level": "SOL_RDS",
+        "val": "buffer[out]",
+        "len": "len[val]",
+        "val_inference": null
+    },
+    "types": {}
+}
+```
+
+# Target to Generate
+
+## Unknown for `PATH_PLACEHOLDER`
+
+```json
+INPUT_SYZKALLER_PLACEHOLDER
+```
+
+## [Optional] Relevant Source Code for `PATH_PLACEHOLDER`
+
+```c
+MISSING_SOURCE_CODE_PLACEHOLDER
+```
+
+## Syzkaller Specification

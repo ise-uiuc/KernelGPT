@@ -1,0 +1,12 @@
+diff --git a/syz-manager/rpc.go b/syz-manager/rpc.go
+index 3186fece5..53cdfa883 100644
+--- a/syz-manager/rpc.go
++++ b/syz-manager/rpc.go
+@@ -242,6 +242,7 @@ func (serv *RPCServer) Check(a *rpctype.CheckArgs, r *int) error {
+ 	serv.targetEnabledSyscalls = make(map[*prog.Syscall]bool)
+ 	for _, call := range a.EnabledCalls[serv.cfg.Sandbox] {
+ 		serv.targetEnabledSyscalls[serv.cfg.Target.Syscalls[call]] = true
++		log.Logf(0, "enabling syscall %v", serv.cfg.Target.Syscalls[call].Name)
+ 	}
+ 	log.Logf(0, "machine check:")
+ 	log.Logf(0, "%-24v: %v/%v", "syscalls", len(serv.targetEnabledSyscalls), len(serv.cfg.Target.Syscalls))

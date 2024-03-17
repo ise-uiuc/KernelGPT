@@ -1,0 +1,278 @@
+# Please infer the argument type of the `ioctl` syscall based on its usage information and the source code of its relative functions.
+
+## Output Format
+```
+{
+	"CMD": {
+		"arg": "UNKNOWN_ARG" | "UNUSED_ARG",
+		"arg_name_in_usage": "NAME_OF_ARG_IN_USAGE",
+		"arg_inference": {
+			"function": ["FUNCTION_NAME_RELATIVE_TO_ARG"],
+			"type": ["TYPE_NAME_RELATIVE_TO_ARG"],
+			"usage": ["USAGE_CODE_RELATIVE_TO_ARG"]
+		} | null # if it is "UNUSED_ARG"
+	}
+	"types": {
+		"NAME": "TYPE_DESCRIPTION" or "UNKNOWN"
+	}
+}
+```
+
+## Grammar
+```
+syscallname "(" [arg ["," arg]*] ")" [type] ["(" attribute* ")"]
+arg = argname type
+argname = identifier
+type = typename [ "[" type-options "]" ]
+typename = "const" | "intN" | "intptr" | "flags" | "array" | "ptr" |
+	   "string" | "strconst" | "filename" | "glob" | "len" |
+	   "bytesize" | "bytesizeN" | "bitsize" | "vma" | "proc" |
+	   "compressed_image"
+type-options = [type-opt ["," type-opt]]
+```
+
+Flags:
+```
+flagname = const ["," const]*
+```
+or for string flags as:
+```
+flagname = "\"" literal "\"" ["," "\"" literal "\""]*
+```
+You need to use `flags[flagname]` as the type.
+
+### Int
+`int8`, `int16`, `int32` and `int64` denote an integer of the corresponding size. `intptr` denotes a pointer-sized integer, i.e. C long type
+
+### Struct
+```
+structname "{" "\n"
+	(fieldname type ("(" fieldattribute* ")")? "\n")+
+"}" ("[" attribute* "]")?
+```
+
+### Union
+```
+unionname "[" "\n"
+	(fieldname type "\n")+
+"]" ("[" attribute* "]")?
+```
+
+### Type Alias
+```
+type identifier underlying_type
+```
+
+# Examples
+
+## IOCTL in `linux/drivers/block/nbd.c`
+
+```json
+{
+	"NBD_SET_FLAGS": {
+		"arg": "UNKNOWN_ARG",
+		"arg_name_in_usage": "arg",
+		"arg_inference": {
+			"function": [],
+			"type": ["nbd_config"],
+			"usage": ["struct nbd_config *config = nbd->config;\n\tcase NBD_SET_FLAGS:\n\t\tconfig->flags = arg;"]
+		}
+	}
+}
+```
+
+## [Optional] Relevant Source Code for `linux/drivers/block/nbd.c`
+```c
+struct nbd_config {
+	u32 flags;
+	unsigned long runtime_flags;
+	u64 dead_conn_timeout;
+
+	struct nbd_sock **socks;
+	int num_connections;
+	atomic_t live_connections;
+	wait_queue_head_t conn_wait;
+
+	atomic_t recv_threads;
+	wait_queue_head_t recv_wq;
+	unsigned int blksize_bits;
+	loff_t bytesize;
+#if IS_ENABLED(CONFIG_DEBUG_FS)
+	struct dentry *dbg_dir;
+#endif
+};
+
+/* values for flags field, these are server interaction specific. */
+#define NBD_FLAG_HAS_FLAGS	(1 << 0) /* nbd-server supports flags */
+#define NBD_FLAG_READ_ONLY	(1 << 1) /* device is read-only */
+#define NBD_FLAG_SEND_FLUSH	(1 << 2) /* can flush writeback cache */
+#define NBD_FLAG_SEND_FUA	(1 << 3) /* send FUA (forced unit access) */
+/* there is a gap here to match userspace */
+#define NBD_FLAG_SEND_TRIM	(1 << 5) /* send trim/discard */
+#define NBD_FLAG_CAN_MULTI_CONN	(1 << 8)	/* Server supports multiple connections per export. */
+```
+
+## Syzkaller Specification for `linux/drivers/block/nbd.c`
+
+```json
+{
+	"NBD_SET_FLAGS": {
+		"arg": "flags[nbd_config_flags, int32]",
+		"arg_name_in_usage": "",
+		"arg_inference": null
+	},
+	"types": {
+		"nbd_config_flags": "nbd_config_flags = NBD_FLAG_HAS_FLAGS, NBD_FLAG_READ_ONLY, NBD_FLAG_SEND_FLUSH, NBD_FLAG_SEND_FUA, NBD_FLAG_SEND_TRIM, NBD_FLAG_CAN_MULTI_CONN"
+	}
+}
+```
+
+
+## IOCTL in `linux/drivers/block/nbd.c`
+
+```json
+{
+	"NBD_SET_TIMEOUT": {
+		"arg": "UNKNOWN_ARG",
+		"arg_name_in_usage": "arg",
+		"arg_inference": {
+			"function": ["nbd_set_cmd_timeout"],
+			"type": [],
+			"usage": ["nbd_set_cmd_timeout(nbd, arg);"]
+		}
+	}
+}
+```
+
+## [Optional] Relevant Source Code for `linux/drivers/block/nbd.c`
+
+```c
+static void nbd_set_cmd_timeout(struct nbd_device *nbd, u64 timeout)
+{
+	nbd->tag_set.timeout = timeout * HZ;
+	if (timeout)
+		blk_queue_rq_timeout(nbd->disk->queue, timeout * HZ);
+	else
+		blk_queue_rq_timeout(nbd->disk->queue, 30 * HZ);
+}
+```
+
+## Syzkaller Specification for `linux/drivers/block/nbd.c`
+
+```json
+{
+	"NBD_SET_TIMEOUT": {
+		"arg": "int64",
+		"arg_name_in_usage": "",
+		"arg_inference": null
+	},
+	"types": {}
+}
+```
+
+## IOCTL in `linux/drivers/tty/vt/vt.c`
+
+```json
+{
+	"VT_WAITEVENT": {
+		"arg": "UNKNOWN_ARG",
+		"arg_name_in_usage": "arg",
+		"arg_inference": {
+			"function": ["vt_event_wait"],
+			"type": [],
+			"usage": ["return vt_event_wait(arg);"]
+		}
+	}
+}
+```
+
+## [Optional] Relevant Source Code for `linux/drivers/tty/vt/vt.c`
+
+```c
+static int vt_event_wait_ioctl(struct vt_event __user *event)
+{
+	struct vt_event_wait vw;
+
+	if (copy_from_user(&vw.event, event, sizeof(struct vt_event)))
+		return -EFAULT;
+	/* Highest supported event for now */
+	if (vw.event.event & ~VT_MAX_EVENT)
+		return -EINVAL;
+
+	vt_event_wait(&vw);
+	/* If it occurred report it */
+	if (vw.done) {
+		if (copy_to_user(event, &vw.event, sizeof(struct vt_event)))
+			return -EFAULT;
+		return 0;
+	}
+	return -EINTR;
+}
+```
+
+## Syzkaller Specification for `linux/drivers/tty/vt/vt.c`
+
+```json
+{
+	"VT_WAITEVENT": {
+		"arg": "ptr[in, vt_event]",
+		"arg_name_in_usage": "",
+		"arg_inference": null
+	},
+	"types": {
+		"vt_event": "UNKNOWN"
+	}
+}
+```
+
+## IOCTL in `net/ipv6/af_inet6.c`
+
+```json
+{
+	"SIOCDELRT": {
+		"arg": "UNKNOWN_ARG",
+		"arg_name_in_usage": "argp",
+		"arg_inference": {
+			"function": [],
+			"type": [],
+			"usage": ["struct in6_rtmsg rtmsg;\n\t\tif (copy_from_user(&rtmsg, argp, sizeof(rtmsg)))"]
+		}
+	}
+}
+```
+
+## [Optional] Relevant Source Code for `net/ipv6/af_inet6.c`
+
+```c
+```
+
+## Syzkaller Specification for `net/ipv6/af_inet6.c`
+
+```json
+{
+	"SIOCDELRT": {
+		"arg": "ptr[in, in6_rtmsg]",
+		"arg_name_in_usage": "",
+		"arg_inference": null
+	},
+	"types": {
+		"in6_rtmsg": "UNKNOWN"
+	}
+}
+```
+
+# Target to Generate
+
+## IOCTL in `PATH_PLACEHOLDER`
+
+```json
+INPUT_SYZKALLER_PLACEHOLDER
+```
+
+## [Optional] Relevant Source Code for `PATH_PLACEHOLDER`
+
+```c
+MISSING_SOURCE_CODE_PLACEHOLDER
+```
+
+## Syzkaller Specification for `PATH_PLACEHOLDER`

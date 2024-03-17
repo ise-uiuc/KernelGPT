@@ -1,0 +1,454 @@
+# Please repair the Syzkaller description based on the error message.
+# Some will have the related Linux source code provided, some will not.
+
+## Output Format
+
+```json
+{
+	"syscalls": {
+		"SYSCALL_NAME": "SYSCALL_DESCRIPTION"
+	},
+	"types": {
+		"NAME": "TYPE_DESCRIPTION"
+	}
+}
+```
+
+## Grammar
+```
+syscallname "(" [arg ["," arg]*] ")" [type] ["(" attribute* ")"]
+arg = argname type
+argname = identifier
+type = typename [ "[" type-options "]" ]
+typename = "const" | "intN" | "intptr" | "flags" | "array" | "ptr" |
+	   "string" | "strconst" | "filename" | "glob" | "len" |
+	   "bytesize" | "bytesizeN" | "bitsize" | "vma" | "proc" |
+	   "compressed_image"
+type-options = [type-opt ["," type-opt]]
+```
+
+Flags:
+```
+flagname = const ["," const]*
+```
+or for string flags as:
+```
+flagname = "\"" literal "\"" ["," "\"" literal "\""]*
+```
+You need to use `flags[flagname]` as the type.
+
+### Int
+`int8`, `int16`, `int32` and `int64` denote an integer of the corresponding size. `intptr` denotes a pointer-sized integer, i.e. C long type
+
+### Struct
+```
+structname "{" "\n"
+	(fieldname type ("(" fieldattribute* ")")? "\n")+
+"}" ("[" attribute* "]")?
+```
+
+### Union
+```
+unionname "[" "\n"
+	(fieldname type "\n")+
+"]" ("[" attribute* "]")?
+```
+
+### Type Alias
+```
+type identifier underlying_type
+```
+
+# Examples
+
+## Wrong Syzkaller Description of `vfio_pci_hot_reset_info`
+
+```
+vfio_pci_hot_reset_info {
+	argsz	int32
+	flags	flags[vfio_pci_hot_reset_flags, int32]
+	count	int32
+	devices	array[vfio_pci_dependent_device, count]
+}
+```
+
+## Error Message of `vfio_pci_hot_reset_info`
+
+```
+count is unsupported on all arches (typo?)
+```
+
+## [Optional] Related Linux source code of `vfio_pci_hot_reset_info`
+
+```c
+
+```
+
+## Correct Syzkaller Description of `vfio_pci_hot_reset_info`
+
+```json
+{
+	"syscalls": {},
+	"types": {
+		"vfio_pci_hot_reset_info": "vfio_pci_hot_reset_info {\n\targsz\tint32\n\tflags\tflags[vfio_pci_hot_reset_flags, int32]\n\tcount\tlen[devices, int32]\n\tdevices\tptr[inout, array[vfio_pci_dependent_device]]\n}"
+	}
+}
+```
+
+## Wrong Syzkaller Description of `dtv_properties`
+
+```
+dtv_properties {
+	num	int32
+	props	ptr[dtv_property]
+}
+```
+
+## Error Message of `dtv_properties`
+
+```
+wrong number of arguments for type ptr, expect direction, type, [opt]
+```
+
+## [Optional] Related Linux source code of `dtv_properties`
+
+```c
+```
+
+## Correct Syzkaller Description of `dtv_properties`
+
+```json
+{
+	"syscalls": {},
+	"types": {
+		"dtv_properties": "dtv_properties {\n\tnum\tint32\n\tprops\tptr[inout, dtv_property]\n}"
+	}
+}
+```
+
+## Wrong Syzkaller Description of `comedi_cmd`
+
+```
+comedi_cmd {
+	subdev	int32
+	flags	int32
+	start_src	int32
+	start_arg	int32
+	scan_begin_src	int32
+	scan_begin_arg	int32
+	convert_src	int32
+	convert_arg	int32
+	scan_end_src	int32
+	scan_end_arg	int32
+	stop_src	int32
+	stop_arg	int32
+	chanlist	array[int32]
+	chanlist_len	int32
+	data	array[int16]
+	data_len	int32
+}
+```
+
+## Error Message of `comedi_cmd`
+
+```
+variable size field chanlist in the middle of non-packed struct comedi_cmd
+variable size field data in the middle of non-packed struct comedi_cmd
+```
+
+## [Optional] Related Linux source code of `comedi_cmd`
+
+```c
+struct comedi_cmd {
+	unsigned int subdev;
+	unsigned int flags;
+
+	unsigned int start_src;
+	unsigned int start_arg;
+
+	unsigned int scan_begin_src;
+	unsigned int scan_begin_arg;
+
+	unsigned int convert_src;
+	unsigned int convert_arg;
+
+	unsigned int scan_end_src;
+	unsigned int scan_end_arg;
+
+	unsigned int stop_src;
+	unsigned int stop_arg;
+
+	unsigned int *chanlist;
+	unsigned int chanlist_len;
+
+	short __user *data;
+	unsigned int data_len;
+};
+```
+
+## Correct Syzkaller Description of `comedi_cmd`
+
+```json
+{
+	"syscalls": {},
+	"types": {
+		"comedi_cmd": "comedi_cmd {\n\tsubdev\tint32\n\tflags\tint32\n\tstart_src\tint32\n\tstart_arg\tint32\n\tscan_begin_src\tint32\n\tscan_begin_arg\tint32\n\tconvert_src\tint32\n\tconvert_arg\tint32\n\tscan_end_src\tint32\n\tscan_end_arg\tint32\n\tstop_src\tint32\n\tstop_arg\tint32\n\tchanlist\tptr[inout, array[int32]]\n\tchanlist_len\tint32\n\tdata\tptr[inout, array[int16]]\n\tdata_len\tint32\n}"
+	}
+}
+```
+
+## Wrong Syzkaller Description of `counter_component`
+
+```
+counter_component {
+	type	int8
+	scope	int8
+	parent	int8
+	id	int8
+}
+```
+
+## Error Message of `counter_component`
+
+```
+reserved field name parent in struct counter_component
+```
+
+
+## [Optional] Related Linux source code of `counter_component`
+
+```c
+
+```
+
+## Correct Syzkaller Description of `counter_component`
+
+```json
+{
+	"syscalls": {},
+	"types": {
+		"counter_component": "counter_component {\n\ttype\tint8\n\tscope\tint8\n\tparent_t\tint8\n\tid\tint8\n}"
+	}
+}
+```
+
+## Wrong Syzkaller Description of `MoreErrInfo_struct`
+
+```
+MoreErrInfo_struct [
+	Common_Info {
+		Reserved	array[int8, 3]
+		Type	int8
+		ErrorInfo	int32
+	}
+	Invalid_Cmd {
+		Reserved	array[int8, 2]
+		offense_size	int8
+		offense_num	int8
+		offense_value	int32
+	}
+]
+```
+
+## Error Message of `MoreErrInfo_struct`
+
+```
+unexpected '{', expecting int, identifier, string
+unexpected identifier, expecting '(', '{', '[', '='
+```
+
+## [Optional] Related Linux source code of `MoreErrInfo_struct`
+
+```c
+typedef union _MoreErrInfo_struct{
+  struct {
+    BYTE  Reserved[3];
+    BYTE  Type;
+    DWORD ErrorInfo;
+  } Common_Info;
+  struct{
+    BYTE  Reserved[2];
+    BYTE  offense_size; /* size of offending entry */
+    BYTE  offense_num;  /* byte # of offense 0-base */
+    DWORD offense_value;
+  } Invalid_Cmd;
+} MoreErrInfo_struct
+```
+
+## Correct Syzkaller Description of `MoreErrInfo_struct`
+
+```json
+{
+	"syscalls": {},
+	"types": {
+		"MoreErrInfo_struct": "MoreErrInfo_struct [\n\tcommon_info\tCommon_Info\n\tinvalid_cmd\tInvalid_Cmd\n]",
+		"Common_Info": "Common_Info {\n\tReserved\tarray[int8, 3]\n\tType\tint8\n\tErrorInfo\tint32\n}",
+		"Invalid_Cmd": "Invalid_Cmd {\n\tReserved\tarray[int8, 2]\n\toffense_size\tint8\n\toffense_num\tint8\n\toffense_value\tint32\n}"
+	}
+}
+```
+
+## Wrong Syzkaller Description of `SCSI3Addr_LogUnit`
+
+```
+SCSI3Addr_LogUnit {
+	Dev	int8[5]
+	Bus	int8[3]
+	Targ	int8[6]
+	Mode	int8[2]
+}
+```
+
+## Error Message of `SCSI3Addr_LogUnit`
+
+```
+first argument of int8 needs to be a range
+```
+
+## [Optional] Related Linux source code of `SCSI3Addr_LogUnit`
+
+```c
+struct {
+	BYTE Dev:5;
+	BYTE Bus:3;
+	BYTE Targ:6;
+	BYTE Mode:2;        /* b10 */
+} LogUnit;
+```
+
+## Correct Syzkaller Description of `SCSI3Addr_LogUnit`
+
+```json
+{
+	"syscalls": {},
+	"types": {
+		"SCSI3Addr_LogUnit": "SCSI3Addr_LogUnit {\n\tDev\tint8:5\n\tBus\tint8:3\n\tTarg\tint8:6\n\tMode\tint8:2\n}"
+	}
+}
+```
+
+## Wrong Syzkaller Description of `ubi_rnvol_req_entry`
+
+```
+ubi_rnvol_req_entry {
+	vol_id	int32
+	name_len	int16
+	padding2	array[int8, 2]
+	name	array[int8, UBI_MAX_VOLUME_NAME+1]
+}
+```
+
+## Error Message of `ubi_rnvol_req_entry`
+
+```
+unexpected ILLEGAL, expecting ']'
+illegal character U+002B '+'
+```
+
+## [Optional] Related Linux source code of `ubi_rnvol_req_entry`
+
+```c
+```
+
+## Correct Syzkaller Description of `ubi_rnvol_req_entry`
+
+```json
+{
+	"syscalls": {},
+	"types": {
+		"ubi_rnvol_req_entry": "ubi_rnvol_req_entry {\n\tvol_id\tint32\n\tname_len\tint16\n\tpadding2\tarray[int8, 2]\n\tname\tarray[int8, UBI_MAX_VOLUME_NAME_ADD_ONE]\n}",
+		"UBI_MAX_VOLUME_NAME_ADD_ONE": "define UBI_MAX_VOLUME_NAME_ADD_ONE 128"
+	}
+}
+```
+
+## Wrong Syzkaller description of `ioctl$KGPT_DRM_VMW_EXECBUF`
+
+```
+ioctl$KGPT_DRM_VMW_EXECBUF(fd fd_vmwgfx, cmd const[DRM_VMW_EXECBUF], arg ptr[in, drm_vmw_execbuf_arg])
+```
+
+## Error Message of `ioctl$KGPT_DRM_VMW_EXECBUF`
+
+```
+unknown type drm_vmw_execbuf_arg
+```
+
+## [Optional] Related Linux source code of `ioctl$KGPT_DRM_VMW_EXECBUF`
+
+```c
+
+```
+
+## Correct Syzkaller description of `ioctl$KGPT_DRM_VMW_EXECBUF`
+
+```json
+{
+	"syscalls": {
+		"ioctl$KGPT_DRM_VMW_EXECBUF": "ioctl$KGPT_DRM_VMW_EXECBUF(fd fd_vmwgfx, cmd const[DRM_VMW_EXECBUF], arg ptr[in, array[int8]])"
+	},
+	"types": {}
+}
+```
+
+## Wrong Syzkaller Description of `dmx_pes_filter_params_partial`
+
+```
+dmx_pes_filter_params_partial {
+	pid	int16
+	input	dmx_input
+	flags	int32
+}
+```
+
+## Error Message of `dmx_pes_filter_params_partial`
+
+```
+unknown type dmx_output
+```
+
+## [Optional] Related Linux source code of `dmx_pes_filter_params_partial`
+
+```c
+struct dmx_pes_filter_params_partial {
+	__u16           pid;
+	enum dmx_input  input;
+	__u32           flags;
+}
+```
+
+## Correct Syzkaller Description of `dmx_pes_filter_params_partial`
+
+```json
+{
+	"syscalls": {},
+	"types": {
+		"dmx_pes_filter_params_partial": "dmx_pes_filter_params {\n\tpid\tint16\n\tinput\tflags[dmx_input, int32]\n\tflags\tint32\n}",
+		"dmx_input": "dmx_input = DMX_IN_FRONTEND, DMX_IN_DVR",
+		"DMX_IN_FRONTEND": "define DMX_IN_FRONTEND 0",
+		"DMX_IN_DVR": "define DMX_IN_DVR 1"
+	}
+}
+```
+
+# Target to Generate
+
+## Wrong Syzkaller Description of `NAME_PLACEHOLDER`
+
+```
+DESCRIPTION_PLACEHOLDER
+```
+
+## Error Message of `NAME_PLACEHOLDER`
+
+```
+ERROR_PLACEHOLDER
+```
+
+## [Optional] Related Linux source code of `NAME_PLACEHOLDER`
+
+```c
+SOURCE_PLACEHOLDER
+```
+
+## Correct Syzkaller Description of `NAME_PLACEHOLDER`

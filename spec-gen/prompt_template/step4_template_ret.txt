@@ -1,0 +1,268 @@
+# Please identify the file operation handler created by the given source code by analysis.
+If the file operation handler is unclear in the current functions and dependent on other functions, please label it with "UNKNOWN" and list the usage information and missing functions in the `inference` field.
+If the functions have no possibility to create a file operation handler, please set the `fops` field to null.
+
+Note, do not return the same inference information for the same function/type/usage multiple times. If the function/type/usage is the same as the previous one, please skip it.
+
+## Output Format
+```
+{
+	"fops": "FOPS_NAME" | "UNKNOWN" | null, # null if no fops
+	"inference": {
+		"function": ["FUNCTION_NAME_RELATIVE_TO_FOPS"],
+		"type": ["TYPE_NAME_RELATIVE_TO_FOPS"],
+		"usage": ["USAGE_CODE_RELATIVE_TO_FOPS"]
+	} | null # if fops is known
+}
+```
+
+# Examples
+
+## fops Inference for `linux/drivers/dma-buf/udmabuf.c`
+
+```json
+{
+	"inference": {
+		"function": ["udmabuf_ioctl_create"],
+		"type": [],
+		"usage": ["ret = udmabuf_ioctl_create(filp, arg);"]
+	}
+}
+```
+
+## Source Code for `linux/drivers/dma-buf/udmabuf.c`
+
+```c
+static long udmabuf_ioctl_create(struct file *filp, unsigned long arg)
+{
+	struct udmabuf_create create;
+	struct udmabuf_create_list head;
+	struct udmabuf_create_item list;
+
+	if (copy_from_user(&create, (void __user *)arg,
+			   sizeof(create)))
+		return -EFAULT;
+
+	head.flags  = create.flags;
+	head.count  = 1;
+	list.memfd  = create.memfd;
+	list.offset = create.offset;
+	list.size   = create.size;
+
+	return udmabuf_create(filp->private_data, &head, &list);
+}
+```
+
+## fops Result for `linux/drivers/dma-buf/udmabuf.c`
+
+```json
+{
+	"fops": "UNKNOWN",
+	"inference": {
+		"function": ["udmabuf_create"],
+		"type": [],
+		"usage": ["return udmabuf_create(filp->private_data, &head, &list);"]
+	}
+}
+```
+
+## fops Inference for `linux/virt/kvm/kvm_main.c`
+
+```json
+{
+	"inference": {
+		"function": ["kvm_dev_ioctl_create_vm"],
+		"type": [],
+		"usage": ["r = kvm_dev_ioctl_create_vm(arg);"]
+	}
+}
+```
+
+## Source Code for `linux/virt/kvm/kvm_main.c`
+
+```c
+static int kvm_dev_ioctl_create_vm(unsigned long type)
+{
+	char fdname[ITOA_MAX_LEN + 1];
+	int r, fd;
+	struct kvm *kvm;
+	struct file *file;
+
+	fd = get_unused_fd_flags(O_CLOEXEC);
+	if (fd < 0)
+		return fd;
+
+	snprintf(fdname, sizeof(fdname), "%d", fd);
+
+	kvm = kvm_create_vm(type, fdname);
+	if (IS_ERR(kvm)) {
+		r = PTR_ERR(kvm);
+		goto put_fd;
+	}
+
+	file = anon_inode_getfile("kvm-vm", &kvm_vm_fops, kvm, O_RDWR);
+	if (IS_ERR(file)) {
+		r = PTR_ERR(file);
+		goto put_kvm;
+	}
+
+	/*
+	 * Don't call kvm_put_kvm anymore at this point; file->f_op is
+	 * already set, with ->release() being kvm_vm_release().  In error
+	 * cases it will be called by the final fput(file) and will take
+	 * care of doing kvm_put_kvm(kvm).
+	 */
+	kvm_uevent_notify_change(KVM_EVENT_CREATE_VM, kvm);
+
+	fd_install(fd, file);
+	return fd;
+
+put_kvm:
+	kvm_put_kvm(kvm);
+put_fd:
+	put_unused_fd(fd);
+	return r;
+}
+```
+
+## fops Result for `linux/virt/kvm/kvm_main.c`
+
+```json
+{
+	"fops": "kvm_vm_fops",
+	"inference": null
+}
+```
+
+## fops Inference for `linux/drivers/dma-buf/udmabuf.c`
+
+```json
+{
+  "inference": {
+    "function": [
+      "dma_buf_export"
+    ],
+    "type": [],
+    "usage": [
+      "buf = dma_buf_export(&exp_info);"
+    ]
+  }
+}
+```
+
+## Source Code for `linux/drivers/dma-buf/udmabuf.c`
+
+```c
+struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_info)
+{
+	struct dma_buf *dmabuf;
+	struct dma_resv *resv = exp_info->resv;
+	struct file *file;
+	size_t alloc_size = sizeof(struct dma_buf);
+	int ret;
+
+	if (WARN_ON(!exp_info->priv || !exp_info->ops
+		    || !exp_info->ops->map_dma_buf
+		    || !exp_info->ops->unmap_dma_buf
+		    || !exp_info->ops->release))
+		return ERR_PTR(-EINVAL);
+
+	if (WARN_ON(exp_info->ops->cache_sgt_mapping &&
+		    (exp_info->ops->pin || exp_info->ops->unpin)))
+		return ERR_PTR(-EINVAL);
+
+	if (WARN_ON(!exp_info->ops->pin != !exp_info->ops->unpin))
+		return ERR_PTR(-EINVAL);
+
+	if (!try_module_get(exp_info->owner))
+		return ERR_PTR(-ENOENT);
+
+	file = dma_buf_getfile(exp_info->size, exp_info->flags);
+	if (IS_ERR(file)) {
+		ret = PTR_ERR(file);
+		goto err_module;
+	}
+
+	if (!exp_info->resv)
+		alloc_size += sizeof(struct dma_resv);
+	else
+		/* prevent &dma_buf[1] == dma_buf->resv */
+		alloc_size += 1;
+	dmabuf = kzalloc(alloc_size, GFP_KERNEL);
+	if (!dmabuf) {
+		ret = -ENOMEM;
+		goto err_file;
+	}
+
+	dmabuf->priv = exp_info->priv;
+	dmabuf->ops = exp_info->ops;
+	dmabuf->size = exp_info->size;
+	dmabuf->exp_name = exp_info->exp_name;
+	dmabuf->owner = exp_info->owner;
+	spin_lock_init(&dmabuf->name_lock);
+	init_waitqueue_head(&dmabuf->poll);
+	dmabuf->cb_in.poll = dmabuf->cb_out.poll = &dmabuf->poll;
+	dmabuf->cb_in.active = dmabuf->cb_out.active = 0;
+	INIT_LIST_HEAD(&dmabuf->attachments);
+
+	if (!resv) {
+		dmabuf->resv = (struct dma_resv *)&dmabuf[1];
+		dma_resv_init(dmabuf->resv);
+	} else {
+		dmabuf->resv = resv;
+	}
+
+	ret = dma_buf_stats_setup(dmabuf, file);
+	if (ret)
+		goto err_dmabuf;
+
+	file->private_data = dmabuf;
+	file->f_path.dentry->d_fsdata = dmabuf;
+	dmabuf->file = file;
+
+	mutex_lock(&db_list.lock);
+	list_add(&dmabuf->list_node, &db_list.head);
+	mutex_unlock(&db_list.lock);
+
+	return dmabuf;
+
+err_dmabuf:
+	if (!resv)
+		dma_resv_fini(dmabuf->resv);
+	kfree(dmabuf);
+err_file:
+	fput(file);
+err_module:
+	module_put(exp_info->owner);
+	return ERR_PTR(ret);
+}
+```
+
+## fops Result for `linux/drivers/dma-buf/udmabuf.c`
+
+```json
+{
+	"fops": "UNKNOWN",
+	"inference": {
+		"function": ["dma_buf_getfile"],
+		"type": [],
+		"usage": ["file = dma_buf_getfile(exp_info->size, exp_info->flags);"]
+	}
+}
+```
+
+# Target to Generate
+
+## fops Inference for `PATH_PLACEHOLDER`
+
+```json
+INFERENCE_PLACEHOLDER
+```
+
+## Source Code for `PATH_PLACEHOLDER`
+
+```c
+MISSING_SOURCE_CODE_PLACEHOLDER
+```
+
+## fops Result for `PATH_PLACEHOLDER`

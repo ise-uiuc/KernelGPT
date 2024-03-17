@@ -1,0 +1,369 @@
+# Please generate the Syzkaller specification for the `getsockopt` syscalls related to the socket based on the source code.
+# If the optname is unclear and dependent on other function/type, please list it in the `unknown` field with the usage information and missing function/type.
+
+## Output Format
+Please list all `getsockopt` in the filed `getsockopt`, with the format of
+```
+{
+    "getsockope": {
+        "OPTNAME": {
+            "level": "UNKNOWN_LEVEL" | "",
+            "val": "UNKNOWN_VAL" | "VAL_TYPE",
+            "len": "UNKNOWN_LEN" | "",
+            "val_inference": null | {
+                "function": ["FUNCTION_NAME_RELATIVE_TO_VAL"],
+                "type": ["TYPE_NAME_RELATIVE_TO_VAL"],
+                "usage": ["USAGE_CODE_RELATIVE_TO_VAL"]
+            } # if it is "UNKNOWN_VAL"
+        },
+        "unknown": [
+            {
+                "function": ["FUNCTION_NAME_RELATIVE_TO_UNKNOWN_OPTNAME"],
+                "type": ["TYPE_NAME_RELATIVE_TO_UNKNOWN_OPTNAME"],
+                "opt_usage": ["USAGE_CODE_RELATIVE_TO_OPTNAME"]
+            }
+        ]
+    },
+    "types": {
+        "NAME": "TYPE_DESCRIPTION" | "UNKNOWN"
+    }
+}
+```
+For `unknown` field, the function/type/usage information is relative to the inference of remaining unknown optname.
+For `types` field, please list all non-primitive types used in the `setsockopt` field.
+
+# Examples
+
+## Unknown Getsockopt in `linux/net/xdp/xsk.c`
+
+```json
+{
+    "function": ["xsk_getsockopt"],
+    "type": [],
+    "opt_usage": []
+}
+```
+
+## Source Code in `linux/net/xdp/xsk.c`
+
+```c
+static int xsk_getsockopt(struct socket *sock, int level, int optname,
+			  char __user *optval, int __user *optlen)
+{
+	struct sock *sk = sock->sk;
+	struct xdp_sock *xs = xdp_sk(sk);
+	int len;
+
+	if (level != SOL_XDP)
+		return -ENOPROTOOPT;
+
+	if (get_user(len, optlen))
+		return -EFAULT;
+	if (len < 0)
+		return -EINVAL;
+
+	switch (optname) {
+	case XDP_STATISTICS:
+	{
+		struct xdp_statistics stats = {};
+		bool extra_stats = true;
+		size_t stats_size;
+
+		if (len < sizeof(struct xdp_statistics_v1)) {
+			return -EINVAL;
+		} else if (len < sizeof(stats)) {
+			extra_stats = false;
+			stats_size = sizeof(struct xdp_statistics_v1);
+		} else {
+			stats_size = sizeof(stats);
+		}
+
+		mutex_lock(&xs->mutex);
+		stats.rx_dropped = xs->rx_dropped;
+		if (extra_stats) {
+			stats.rx_ring_full = xs->rx_queue_full;
+			stats.rx_fill_ring_empty_descs =
+				xs->pool ? xskq_nb_queue_empty_descs(xs->pool->fq) : 0;
+			stats.tx_ring_empty_descs = xskq_nb_queue_empty_descs(xs->tx);
+		} else {
+			stats.rx_dropped += xs->rx_queue_full;
+		}
+		stats.rx_invalid_descs = xskq_nb_invalid_descs(xs->rx);
+		stats.tx_invalid_descs = xskq_nb_invalid_descs(xs->tx);
+		mutex_unlock(&xs->mutex);
+
+		if (copy_to_user(optval, &stats, stats_size))
+			return -EFAULT;
+		if (put_user(stats_size, optlen))
+			return -EFAULT;
+
+		return 0;
+	}
+	case XDP_MMAP_OFFSETS:
+	{
+		struct xdp_mmap_offsets off;
+		struct xdp_mmap_offsets_v1 off_v1;
+		bool flags_supported = true;
+		void *to_copy;
+
+		if (len < sizeof(off_v1))
+			return -EINVAL;
+		else if (len < sizeof(off))
+			flags_supported = false;
+
+		if (flags_supported) {
+			/* xdp_ring_offset is identical to xdp_ring_offset_v1
+			 * except for the flags field added to the end.
+			 */
+			xsk_enter_rxtx_offsets((struct xdp_ring_offset_v1 *)
+					       &off.rx);
+			xsk_enter_rxtx_offsets((struct xdp_ring_offset_v1 *)
+					       &off.tx);
+			xsk_enter_umem_offsets((struct xdp_ring_offset_v1 *)
+					       &off.fr);
+			xsk_enter_umem_offsets((struct xdp_ring_offset_v1 *)
+					       &off.cr);
+			off.rx.flags = offsetof(struct xdp_rxtx_ring,
+						ptrs.flags);
+			off.tx.flags = offsetof(struct xdp_rxtx_ring,
+						ptrs.flags);
+			off.fr.flags = offsetof(struct xdp_umem_ring,
+						ptrs.flags);
+			off.cr.flags = offsetof(struct xdp_umem_ring,
+						ptrs.flags);
+
+			len = sizeof(off);
+			to_copy = &off;
+		} else {
+			xsk_enter_rxtx_offsets(&off_v1.rx);
+			xsk_enter_rxtx_offsets(&off_v1.tx);
+			xsk_enter_umem_offsets(&off_v1.fr);
+			xsk_enter_umem_offsets(&off_v1.cr);
+
+			len = sizeof(off_v1);
+			to_copy = &off_v1;
+		}
+
+		if (copy_to_user(optval, to_copy, len))
+			return -EFAULT;
+		if (put_user(len, optlen))
+			return -EFAULT;
+
+		return 0;
+	}
+	case XDP_OPTIONS:
+	{
+		struct xdp_options opts = {};
+
+		if (len < sizeof(opts))
+			return -EINVAL;
+
+		mutex_lock(&xs->mutex);
+		if (xs->zc)
+			opts.flags |= XDP_OPTIONS_ZEROCOPY;
+		mutex_unlock(&xs->mutex);
+
+		len = sizeof(opts);
+		if (copy_to_user(optval, &opts, len))
+			return -EFAULT;
+		if (put_user(len, optlen))
+			return -EFAULT;
+
+		return 0;
+	}
+	default:
+		break;
+	}
+
+	return -EOPNOTSUPP;
+}
+```
+
+## Syzkaller Specification
+
+```json
+{
+    "getsockopt": {
+        "XDP_STATISTICS": {
+            "level": "SOL_XDP",
+            "val": "ptr[out, xdp_statistics]",
+            "len": "ptr[in, bytesize[val, int32]]",
+            "val_inference": null
+        },
+        "XDP_MMAP_OFFSETS": {
+            "level": "SOL_XDP",
+            "val": "ptr[out, xdp_mmap_offsets]",
+            "len": "ptr[in, bytesize[val, int32]]",
+            "val_inference": null
+        },
+        "XDP_OPTIONS": {
+            "level": "SOL_XDP",
+            "val": "ptr[out, xdp_options]",
+            "len": "ptr[in, bytesize[val, int32]]",
+            "val_inference": null
+        },
+        "unknown": []
+    },
+    "types": {
+        "xdp_statistics": "UNKNOWN",
+        "xdp_mmap_offsets": "UNKNOWN",
+        "xdp_options": "UNKNOWN"
+    }
+}
+``` 
+
+## Unknown Getsockopt in `linux/net/rds/af_rds.c`
+
+```json
+{
+    "function": ["rds_getsockopt"],
+    "type": [],
+    "opt_usage": [""]
+}
+```
+
+## Source Code in `linux/net/rds/af_rds.c`
+
+```c
+static int rds_getsockopt(struct socket *sock, int level, int optname,
+			  char __user *optval, int __user *optlen)
+{
+	struct rds_sock *rs = rds_sk_to_rs(sock->sk);
+	int ret = -ENOPROTOOPT, len;
+	int trans;
+
+	if (level != SOL_RDS)
+		goto out;
+
+	if (get_user(len, optlen)) {
+		ret = -EFAULT;
+		goto out;
+	}
+
+	switch (optname) {
+	case RDS_INFO_FIRST ... RDS_INFO_LAST:
+		ret = rds_info_getsockopt(sock, optname, optval,
+					  optlen);
+		break;
+
+	case RDS_RECVERR:
+		if (len < sizeof(int))
+			ret = -EINVAL;
+		else
+		if (put_user(rs->rs_recverr, (int __user *) optval) ||
+		    put_user(sizeof(int), optlen))
+			ret = -EFAULT;
+		else
+			ret = 0;
+		break;
+	case SO_RDS_TRANSPORT:
+		if (len < sizeof(int)) {
+			ret = -EINVAL;
+			break;
+		}
+		trans = (rs->rs_transport ? rs->rs_transport->t_type :
+			 RDS_TRANS_NONE); /* unbound */
+		if (put_user(trans, (int __user *)optval) ||
+		    put_user(sizeof(int), optlen))
+			ret = -EFAULT;
+		else
+			ret = 0;
+		break;
+	default:
+		break;
+	}
+
+out:
+	return ret;
+
+}
+```
+
+## Syzkaller Specification
+
+```json
+{
+    "getsockopt": {
+        "RDS_RECVERR": {
+            "level": "SOL_RDS",
+            "val": "ptr[out, int32]",
+            "len": "ptr[inout, bytesize[val, int32]]",
+            "val_inference": null
+        },
+        "SO_RDS_TRANSPORT": {
+            "level": "SOL_RDS",
+            "val": "ptr[out, int32]",
+            "len": "ptr[inout, bytesize[val, int32]]",
+            "val_inference": null
+        },
+        "unknown": [
+            {
+                "function": ["rds_info_getsockopt"],
+                "type": [],
+                "opt_usage": ["case RDS_INFO_FIRST ... RDS_INFO_LAST:\n\tret = rds_info_getsockopt(sock, optname, optval, optlen);"]
+            }
+        ]
+    },
+    "types": {}
+}
+```
+
+## Unknown Getsockopt in `linux/net/ipv4/udp.c`
+
+```json
+{
+    "function": ["udp_getsockopt"],
+    "type": [],
+    "opt_usage": []
+}
+```
+
+## Source Code in `linux/net/ipv4/udp.c`
+
+```c
+int udp_getsockopt(struct sock *sk, int level, int optname,
+		   char __user *optval, int __user *optlen)
+{
+	if (level == SOL_UDP  ||  level == SOL_UDPLITE)
+		return udp_lib_getsockopt(sk, level, optname, optval, optlen);
+	return ip_getsockopt(sk, level, optname, optval, optlen);
+}
+```
+
+## Syzkaller Specification
+
+```json
+{
+    "getsockopt": {
+        "unknown": [
+            {
+                "function": ["udp_lib_getsockopt"],
+                "type": [],
+                "opt_usage": ["if (level == SOL_UDP  ||  level == SOL_UDPLITE)\n\treturn udp_lib_getsockopt(sk, level, optname, optval, optlen);"]
+            },
+            {
+                "function": ["ip_getsockopt"],
+                "type": [],
+                "opt_usage": ["if (level == SOL_UDP  ||  level == SOL_UDPLITE)\n\treturn udp_lib_getsockopt(sk, level, optname, optval, optlen);\nreturn ip_getsockopt(sk, level, optname, optval, optlen);"]
+            }
+        ]
+    },
+    "types": {}
+}
+```
+
+# Target to Generate
+
+## Unknown Getsockopt in `PATH_PLACEHOLDER`
+
+```json
+PARTIAL_SPEC_PLACEHOLDER
+```
+
+## Source Code in `PATH_PLACEHOLDER`
+
+```c
+SOURCE_CODE_PLACEHOLDER
+```
+
+## Syzkaller Specification

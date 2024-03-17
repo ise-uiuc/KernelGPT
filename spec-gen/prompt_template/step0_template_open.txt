@@ -1,0 +1,320 @@
+# Please infer the filename related to the driver based on its operation handler and usage information. Please generate the Syzkaller specification for the initialization of the driver.
+
+If the open filename ends with `#`, please use `syz_open_dev`. Otherwise, when the filename is a constant string, please use `openat`.
+
+# Examples
+
+## Operation Handler in `linux/drivers/block/nbd.c`
+
+```c
+static const struct block_device_operations nbd_fops =
+{
+	.owner =	THIS_MODULE,
+	.open =		nbd_open,
+	.release =	nbd_release,
+	.ioctl =	nbd_ioctl,
+	.compat_ioctl =	nbd_ioctl,
+};
+```
+
+## Usage of Operation Handler in `linux/drivers/block/nbd.c`.
+
+```c
+static struct nbd_device *nbd_dev_add(int index, unsigned int refs)
+{
+	struct nbd_device *nbd;
+	struct gendisk *disk;
+	int err = -ENOMEM;
+
+	nbd = kzalloc(sizeof(struct nbd_device), GFP_KERNEL);
+	if (!nbd)
+		goto out;
+
+	err = blk_mq_alloc_tag_set(&nbd->tag_set);
+	if (err)
+		goto out_free_nbd;
+
+	mutex_lock(&nbd_index_mutex);
+	if (index >= 0) {
+		err = idr_alloc(&nbd_index_idr, nbd, index, index + 1,
+				GFP_KERNEL);
+		if (err == -ENOSPC)
+			err = -EEXIST;
+	} else {
+		err = idr_alloc(&nbd_index_idr, nbd, 0,
+				(MINORMASK >> part_shift) + 1, GFP_KERNEL);
+		if (err >= 0)
+			index = err;
+	}
+	nbd->index = index;
+	mutex_unlock(&nbd_index_mutex);
+	if (err < 0)
+		goto out_free_tags;
+
+	disk = blk_mq_alloc_disk(&nbd->tag_set, NULL);
+	if (IS_ERR(disk)) {
+		err = PTR_ERR(disk);
+		goto out_free_idr;
+	}
+	nbd->disk = disk;
+
+	nbd->recv_workq = alloc_workqueue("nbd%d-recv",
+					  WQ_MEM_RECLAIM | WQ_HIGHPRI |
+					  WQ_UNBOUND, 0, nbd->index);
+	if (!nbd->recv_workq) {
+		dev_err(disk_to_dev(nbd->disk), "Could not allocate knbd recv work queue.\n");
+		err = -ENOMEM;
+		goto out_err_disk;
+	}
+
+	/*
+	 * Tell the block layer that we are not a rotational device
+	 */
+	blk_queue_flag_set(QUEUE_FLAG_NONROT, disk->queue);
+	disk->queue->limits.discard_granularity = 0;
+	blk_queue_max_discard_sectors(disk->queue, 0);
+	blk_queue_max_segment_size(disk->queue, UINT_MAX);
+	blk_queue_max_segments(disk->queue, USHRT_MAX);
+	blk_queue_max_hw_sectors(disk->queue, 65536);
+	disk->queue->limits.max_sectors = 256;
+
+	mutex_init(&nbd->config_lock);
+	refcount_set(&nbd->config_refs, 0);
+	/*
+	 * Start out with a zero references to keep other threads from using
+	 * this device until it is fully initialized.
+	 */
+	refcount_set(&nbd->refs, 0);
+	INIT_LIST_HEAD(&nbd->list);
+	disk->major = NBD_MAJOR;
+	disk->first_minor = index << part_shift;
+	disk->minors = 1 << part_shift;
+	disk->fops = &nbd_fops;
+	disk->private_data = nbd;
+	sprintf(disk->disk_name, "nbd%d", index);
+	err = add_disk(disk);
+}
+```
+
+## Syzkaller Specification
+
+```json
+{
+	"open": {
+		"filename": "/dev/nbd#",
+		"fd_name": "fd_nbd",
+		"spec": "syz_open_dev$ndb(dev ptr[in, string[\"/dev/nbd#\"]], id proc[0, 1], flags flags[open_flags]) fd_nbd"
+	},
+	"resources": {
+		"fd_nbd": {
+			"type": "fd",
+			"spec": "resource fd_nbd[fd]"
+		}
+	}
+}
+```
+
+## Operation Handler in `linux/drivers/scsi/sd.c`
+
+```c
+static const struct block_device_operations sd_fops = {
+	.owner			= THIS_MODULE,
+	.open			= sd_open,
+	.release		= sd_release,
+	.ioctl			= sd_ioctl,
+	.getgeo			= sd_getgeo,
+	.compat_ioctl		= blkdev_compat_ptr_ioctl,
+	.check_events		= sd_check_events,
+	.unlock_native_capacity	= sd_unlock_native_capacity,
+	.report_zones		= sd_zbc_report_zones,
+	.get_unique_id		= sd_get_unique_id,
+	.free_disk		= scsi_disk_free_disk,
+	.pr_ops			= &sd_pr_ops,
+};
+```
+
+## Usage of Operation Handler in `linux/drivers/scsi/sd.c`:
+
+```c
+static int sd_probe(struct device *dev)
+{
+	struct scsi_device *sdp = to_scsi_device(dev);
+	struct scsi_disk *sdkp;
+	struct gendisk *gd;
+	int index;
+	int error;
+
+	scsi_autopm_get_device(sdp);
+	error = -ENODEV;
+	if (sdp->type != TYPE_DISK &&
+	    sdp->type != TYPE_ZBC &&
+	    sdp->type != TYPE_MOD &&
+	    sdp->type != TYPE_RBC)
+		goto out;
+
+	if (!IS_ENABLED(CONFIG_BLK_DEV_ZONED) && sdp->type == TYPE_ZBC) {
+		sdev_printk(KERN_WARNING, sdp,
+			    "Unsupported ZBC host-managed device.\n");
+		goto out;
+	}
+
+	SCSI_LOG_HLQUEUE(3, sdev_printk(KERN_INFO, sdp,
+					"sd_probe\n"));
+
+	error = -ENOMEM;
+	sdkp = kzalloc(sizeof(*sdkp), GFP_KERNEL);
+	if (!sdkp)
+		goto out;
+
+	gd = blk_mq_alloc_disk_for_queue(sdp->request_queue,
+					 &sd_bio_compl_lkclass);
+	if (!gd)
+		goto out_free;
+
+	index = ida_alloc(&sd_index_ida, GFP_KERNEL);
+	if (index < 0) {
+		sdev_printk(KERN_WARNING, sdp, "sd_probe: memory exhausted.\n");
+		goto out_put;
+	}
+
+	error = sd_format_disk_name("sd", index, gd->disk_name, DISK_NAME_LEN);
+	if (error) {
+		sdev_printk(KERN_WARNING, sdp, "SCSI disk (sd) name length exceeded.\n");
+		goto out_free_index;
+	}
+
+	sdkp->device = sdp;
+	sdkp->disk = gd;
+	sdkp->index = index;
+	sdkp->max_retries = SD_MAX_RETRIES;
+	atomic_set(&sdkp->openers, 0);
+	atomic_set(&sdkp->device->ioerr_cnt, 0);
+
+	if (!sdp->request_queue->rq_timeout) {
+		if (sdp->type != TYPE_MOD)
+			blk_queue_rq_timeout(sdp->request_queue, SD_TIMEOUT);
+		else
+			blk_queue_rq_timeout(sdp->request_queue,
+					     SD_MOD_TIMEOUT);
+	}
+
+	device_initialize(&sdkp->disk_dev);
+	sdkp->disk_dev.parent = get_device(dev);
+	sdkp->disk_dev.class = &sd_disk_class;
+	dev_set_name(&sdkp->disk_dev, "%s", dev_name(dev));
+
+	error = device_add(&sdkp->disk_dev);
+	if (error) {
+		put_device(&sdkp->disk_dev);
+		goto out;
+	}
+
+	dev_set_drvdata(dev, sdkp);
+
+	gd->major = sd_major((index & 0xf0) >> 4);
+	gd->first_minor = ((index & 0xf) << 4) | (index & 0xfff00);
+	gd->minors = SD_MINORS;
+
+	gd->fops = &sd_fops;
+	gd->private_data = sdkp;
+
+	sd_revalidate_disk(gd);
+
+	if (sdp->removable) {
+		gd->flags |= GENHD_FL_REMOVABLE;
+		gd->events |= DISK_EVENT_MEDIA_CHANGE;
+		gd->event_flags = DISK_EVENT_FLAG_POLL | DISK_EVENT_FLAG_UEVENT;
+	}
+
+	blk_pm_runtime_init(sdp->request_queue, dev);
+	if (sdp->rpm_autosuspend) {
+		pm_runtime_set_autosuspend_delay(dev,
+			sdp->host->hostt->rpm_autosuspend_delay);
+	}
+
+	error = device_add_disk(dev, gd, NULL);
+
+	sd_printk(KERN_NOTICE, sdkp, "Attached SCSI %sdisk\n",
+		  sdp->removable ? "removable " : "");
+	scsi_autopm_put_device(sdp);
+
+	return 0;
+}
+```
+
+## Syzkaller Specification
+
+```json
+{
+	"open": {
+		"filename": "/dev/sd#",
+		"fd_name": "fd_sd",
+		"spec": "syz_open_dev$sd(dev ptr[in, string[\"/dev/sd#\"]], id proc[0, 1], flags flags[open_flags]) fd_sd"
+	},
+	"resources": {
+		"fd_sd": {
+			"type": "fd",
+			"spec": "resource fd_sd[fd]"
+		}
+	}
+}
+```
+
+## Operation Handler in `linux/drivers/md/dm-ioctl.c`
+
+```c
+static const struct file_operations _ctl_fops = {
+	.open    = dm_open,
+	.release = dm_release,
+	.poll    = dm_poll,
+	.unlocked_ioctl	 = dm_ctl_ioctl,
+	.compat_ioctl = dm_compat_ctl_ioctl,
+	.owner	 = THIS_MODULE,
+	.llseek  = noop_llseek,
+};
+```
+
+## Usage of Operation Handler in `linux/drivers/md/dm-ioctl.c`
+
+```c
+static struct miscdevice _dm_misc = {
+	.minor		= MAPPER_CTRL_MINOR,
+	.name		= DM_NAME,
+	.nodename	= DM_DIR "/" DM_CONTROL_NODE,
+	.fops		= &_ctl_fops
+};
+```
+
+## Syzkaller Specification
+
+```json
+{
+	"open": {
+		"filename": "/dev/mapper/control",
+		"fd_name": "fd_dm_ctl",
+		"spec": "openat$dm(fd const[AT_FDCWD], file ptr[in, string[\"/dev/mapper/control\"]], flags const[O_RDWR], mode const[0]) fd_dm_ctl"
+	},
+	"resources": {
+		"fd_dm_ctl": {
+			"type": "fd",
+			"spec": "resource fd_dm[fd]"
+		}
+	}
+}
+```
+
+# Target to Generate
+
+## Operation Handler in `PATH_PLACEHOLDER`
+
+```c
+SOURCE_CODE_PLACEHOLDER
+```
+
+## Usage of Operation Handler in `PATH_PLACEHOLDER`
+
+```c
+USED_SOURCE_CODE_PLACEHOLDER
+```
+
+## Syzkaller Specification

@@ -1,0 +1,6 @@
+[submodule "syzkaller"]
+	path = syzkaller
+	url = https://github.com/google/syzkaller.git
+[submodule "linux"]
+	path = linux
+	url = https://github.com/torvalds/linux.git

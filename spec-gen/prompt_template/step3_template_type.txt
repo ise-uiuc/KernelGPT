@@ -1,0 +1,295 @@
+# Please infer the type for the Syzkaller specification of the `ioctl` system call based on the source code information.
+# If new types are introduced, please add them to the `types` field in the output format with "TYPE_DESCRIPTION" or "UNKNOWN".
+
+## Output Format
+```
+"types": {
+  "NAME": "TYPE_DESCRIPTION" or "UNKNOWN",
+  ...
+}
+```
+`TYPE_DESCRIPTION` is the string of Syzkaller description. If there is not a definition, it should be a special string `UNKNOWN`.
+
+# Examples
+
+## Type to Infer for `linux/drivers/tty/vt/vt.c`
+
+```json
+{
+  "vt_event": "UNKNOWN"
+}
+```
+
+## Source Code for `linux/drivers/tty/vt/vt.c`
+
+```c
+struct vt_event {
+	unsigned int event;
+#define VT_EVENT_SWITCH		0x0001	/* Console switch */
+#define VT_EVENT_BLANK		0x0002	/* Screen blank */
+#define VT_EVENT_UNBLANK	0x0004	/* Screen unblank */
+#define VT_EVENT_RESIZE		0x0008	/* Resize display */
+#define VT_MAX_EVENT		0x000F
+	unsigned int oldev;		/* Old console */
+	unsigned int newev;		/* New console (if changing) */
+	unsigned int pad[4];		/* Padding for expansion */
+};
+```
+
+## Syzkaller Specification for `linux/drivers/tty/vt/vt.c`
+
+```json
+{
+	"types": {
+		"vt_event": "vt_event {\n\tevent\tflags[vt_event_flags, int32]\n\toldev\tint32\n\tnewev\tint32\n\tpad\tarray[int32, 4]\n}",
+		"vt_event_flags": "vt_event_flags = VT_EVENT_SWITCH, VT_EVENT_BLANK, VT_EVENT_UNBLANK, VT_EVENT_RESIZE, VT_MAX_EVENT"
+	}
+}
+```
+
+## Type to Infer for `linux/drivers/thermal/intel/int340x_thermal/acpi_thermal_rel.h`
+
+```json
+{
+	"arg_object": "UNKNOWN"
+}
+```
+
+## Source Code for `linux/drivers/thermal/intel/int340x_thermal/acpi_thermal_rel.h`
+
+```c
+union art_object {
+	struct {
+		char source_device[8]; /* ACPI single name */
+		char target_device[8]; /* ACPI single name */
+		struct_group(data,
+			u64 weight;
+			u64 ac0_max_level;
+			u64 ac1_max_level;
+			u64 ac2_max_level;
+			u64 ac3_max_level;
+			u64 ac4_max_level;
+			u64 ac5_max_level;
+			u64 ac6_max_level;
+			u64 ac7_max_level;
+			u64 ac8_max_level;
+			u64 ac9_max_level;
+		);
+	};
+	u64 __data[ACPI_NR_ART_ELEMENTS];
+};
+```
+
+## Syzkaller Specification for `linux/drivers/thermal/intel/int340x_thermal/acpi_thermal_rel.h`
+
+```json
+{
+	"types": {
+		"art_struct": "art_struct {\n\tsource_device\tarray[int8, 8]\n\ttarget_device\tarray[int8, 8]\n\tweight\tint64\n\tac0_max_level\tint64\n\tac1_max_level\tint64\n\tac2_max_level\tint64\n\tac3_max_level\tint64\n\tac4_max_level\tint64\n\tac6_max_level\tint64\n\tac7_max_level\tint64\n\tac8_max_level\tint64\n\tac9_max_level\tint64\n}",
+		"art_object": "art_object [\n\theader\tart_struct\n\tdata\tarray[int64, ACPI_NR_ART_ELEMENTS]\n]",
+	}
+}
+```
+
+## Type to Infer for `linux/drivers/block/loop.c`
+
+```json
+{
+	"loop_config": "UNKNOWN"
+}
+```
+
+## Source Code for `linux/drivers/block/loop.c`
+
+```c
+struct loop_config {
+	__u32			fd;
+	__u32                   block_size;
+	struct loop_info64	info;
+	__u64			__reserved[8];
+};
+```
+
+## Syzkaller Specification for `linux/drivers/block/loop.c`
+
+```json
+{
+	"types": {
+		"loop_config": "loop_config {\n\tfd\tint32\n\tblock_size\tint32\n\tinfo\tloop_info64\n\t__reserved\tarray[int64, 8]\n}",
+		"loop_info64": "UNKNOWN"
+	}
+}
+```
+
+## Type to Infer for `linux/drivers/net/net_dropmon.c`
+
+```json
+{
+	"net_dm_alert_mode": "UNKNOWN"
+}
+```
+
+## Source Code for `linux/drivers/net/net_dropmon.c`
+
+```c
+enum net_dm_alert_mode {
+	NET_DM_ALERT_MODE_SUMMARY,
+	NET_DM_ALERT_MODE_PACKET,
+};
+```
+
+## Syzkaller Specification for `linux/drivers/net/net_dropmon.c`
+
+```json
+{
+	"types": {
+		"net_dm_alert_mode": "net_dm_alert_mode = NET_DM_ALERT_MODE_SUMMARY, NET_DM_ALERT_MODE_PACKET"
+	}
+}
+```
+
+## Type to Infer for `linux/drivers/media/dvb-core/dvb_frontend.c`
+
+```json
+{
+	"dvb_frontend_parameters": "UNKNOWN"
+}
+```
+
+## Source Code for `linux/drivers/media/dvb-core/dvb_frontend.c`
+
+```c
+struct dvb_frontend_parameters {
+	__u32 frequency;  /* (absolute) frequency in Hz for DVB-C/DVB-T/ATSC */
+			  /* intermediate frequency in kHz for DVB-S */
+	fe_spectral_inversion_t inversion;
+	union {
+		struct dvb_qpsk_parameters qpsk;	/* DVB-S */
+		struct dvb_qam_parameters  qam;		/* DVB-C */
+		struct dvb_ofdm_parameters ofdm;	/* DVB-T */
+		struct dvb_vsb_parameters vsb;		/* ATSC */
+	} u;
+}
+```
+
+## Syzkaller Specification for `linux/drivers/media/dvb-core/dvb_frontend.c`
+
+```json
+{
+	"types": {
+		"dvb_frontend_parameters": "dvb_frontend_parameters {\n\tfrequency\tint32\n\tinversion\tfe_spectral_inversion_t\n\tu\tdvb_frontend_parameters_union_object\n}",
+		"dvb_frontend_parameters_union_object": "dvb_frontend_parameters_union_object [\n\tqpsk\tdvb_qpsk_parameters\n\tqam\tdvb_qam_parameters\n\tofdm\tdvb_ofdm_parameters\n\tvsb\tdvb_vsb_parameters\n]",
+		"dvb_qpsk_parameters": "UNKNOWN",
+		"dvb_qam_parameters": "UNKNOWN",
+		"dvb_ofdm_parameters": "UNKNOWN",
+		"dvb_vsb_parameters": "UNKNOWN"
+	}
+}
+```
+
+## Type to Infer for `linux/drivers/media/dvb-core/dvb_frontend.c`
+
+```json
+{
+  "fe_bandwidth_t": null
+}
+```
+
+## Source Code for `linux/drivers/media/dvb-core/dvb_frontend.c`
+
+```c
+typedef enum fe_bandwidth fe_bandwidth_t;
+enum fe_bandwidth {
+	BANDWIDTH_8_MHZ,
+	BANDWIDTH_7_MHZ,
+	BANDWIDTH_6_MHZ,
+	BANDWIDTH_AUTO,
+	BANDWIDTH_5_MHZ,
+	BANDWIDTH_10_MHZ,
+	BANDWIDTH_1_712_MHZ,
+};
+```
+
+## Syzkaller Specification for `linux/drivers/media/dvb-core/dvb_frontend.c`
+
+```json
+{
+	"types": {
+		"fe_bandwidth_t": "fe_bandwidth_t = BANDWIDTH_8_MHZ, BANDWIDTH_7_MHZ, BANDWIDTH_6_MHZ, BANDWIDTH_AUTO, BANDWIDTH_5_MHZ, BANDWIDTH_10_MHZ, BANDWIDTH_1_712_MHZ"
+	}
+}
+```
+
+## Type to Infer for `linux/drivers/scsi/hpsa.c`
+
+```json
+{
+	"PhysDevAddr_struct": "UNKNOWN"
+}
+```
+
+## Source Code for `linux/drivers/scsi/hpsa.c`
+
+```c
+typedef struct _PhysDevAddr_struct {
+  DWORD             TargetId:24;
+  DWORD             Bus:6;
+  DWORD             Mode:2;
+  SCSI3Addr_struct  Target[2]; /* 2 level target device addr */
+} PhysDevAddr_struct
+```
+
+## Syzkaller Specification for `linux/drivers/scsi/hpsa.c`
+
+```json
+{
+	"types": {
+		"PhysDevAddr_struct": "PhysDevAddr_struct {\n\tTargetId\tint32:24\n\tBus\tint32:6\n\tMode\tint32:2\n\tTarget\tarray[SCSI3Addr_struct, 2]\n}",
+		"SCSI3Addr_struct": "UNKNOWN"
+	}
+}
+```
+
+## Type to Infer for `linux/net/x25/af_x25.c`
+
+```json
+{
+	"sockaddr_x25": "UNKNOWN"
+}
+```
+
+## Source Code for `linux/net/x25/af_x25.c`
+
+```c
+struct sockaddr_x25 {
+	__kernel_sa_family_t sx25_family;	/* Must be AF_X25 */
+	struct x25_address sx25_addr;		/* X.121 Address */
+};
+```
+
+## Syzkaller Specification for `linux/net/x25/af_x25.c`
+
+```json
+{
+	"types": {
+		"sockaddr_x25": "sockaddr_x25 {\n\tsx25_family\tconst[AF_X25, int16]\n\tsx25_addr\tx25_address\n}",
+		"x25_address": "UNKNOWN"
+	}
+}
+```
+
+# Target to Generate
+
+## Type to Infer for `PATH_PLACEHOLDER`
+
+```json
+INPUT_SYZKALLER_PLACEHOLDER
+```
+
+## Source Code for `PATH_PLACEHOLDER`
+
+```c
+MISSING_SOURCE_CODE_PLACEHOLDER
+```
+
+## Syzkaller Specification for `PATH_PLACEHOLDER`

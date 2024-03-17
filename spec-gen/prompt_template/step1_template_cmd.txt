@@ -1,0 +1,330 @@
+# Please generate the Syzkaller specification for the `ioctl` syscalls related to the driver based on the source code.
+# If the command is unclear and dependent on other function/type, please list it in the `unknown` field with the usage information and missing function/type.
+
+## Output Format
+Please list all `ioctl` in the field `ioctls`, with the format of
+```
+{
+	"ioctls": {
+		"CMD_1": {
+			"arg": "UNKNOWN_ARG" | "UNUSED_ARG",
+			"arg_name_in_usage": ["NAME_OF_ARG_IN_USAGE"],
+			"arg_inference": {
+				"function": ["FUNCTION_NAME_RELATIVE_TO_ARG"],
+				"type": ["TYPE_NAME_RELATIVE_TO_ARG"],
+				"usage": ["USAGE_CODE_RELATIVE_TO_ARG"]
+			} | null # if it is "UNUSED_ARG"
+			"ret_inference": {
+				"function": ["FUNCTION_NAME_RELATIVE_TO_RET"],
+				"type": ["TYPE_NAME_RELATIVE_TO_RET"],
+				"usage": ["USAGE_CODE_RELATIVE_TO_RET"]
+			} | null # if it doesn't return fd
+		},
+		...
+	  "unknown": [
+			{
+				"function": ["FUNCTION_NAME_RELATIVE_TO_CMD"],
+				"type": ["TYPE_NAME_RELATIVE_TO_CMD"],
+				"cmd_usage": ["USAGE_CODE_RELATIVE_TO_CMD"]
+				"arg_usage": ["USAGE_CODE_RELATIVE_TO_ARG"]
+			},
+			...
+		]
+	}
+}
+```
+For `unknown` field, the function/type/usage information is relative to the inference of remaining unknown command `cmd` and its argument `arg`.
+For `ret_inference`, the function/type/usage information is relative to the inference of the return value of the command `cmd`. Note, please track the return value only if it could be a file descriptor.
+
+# Examples
+
+## Unknown IOCTL for `linux/drivers/dma-buf/udmabuf.c`
+
+```json
+{
+  "function": [
+    "udmabuf_ioctl"
+  ],
+  "type": [],
+  "cmd_usage": [
+    "return udmabuf_ioctl(struct file *filp, unsigned int ioctl, unsigned long arg)"
+  ],
+  "arg_usage": [
+    "return udmabuf_ioctl(struct file *filp, unsigned int ioctl, unsigned long arg)"
+  ]
+}
+```
+
+## Relevant Source Code for `linux/drivers/dma-buf/udmabuf.c`
+```c
+static long udmabuf_ioctl(struct file *filp, unsigned int ioctl,
+			  unsigned long arg)
+{
+	long ret;
+
+	switch (ioctl) {
+	case UDMABUF_CREATE:
+		ret = udmabuf_ioctl_create(filp, arg);
+		break;
+	case UDMABUF_CREATE_LIST:
+		ret = udmabuf_ioctl_create_list(filp, arg);
+		break;
+	default:
+		ret = -ENOTTY;
+		break;
+	}
+	return ret;
+}
+```
+
+## Syzkaller Specification for `linux/drivers/dma-buf/udmabuf.c`
+
+```json
+{
+	"ioctls": {
+		"UDMABUF_CREATE": {
+			"arg": "UNKNOWN_ARG",
+			"arg_name_in_usage": ["arg"],
+			"arg_inference": {
+				"function": ["udmabuf_ioctl_create"],
+				"type": [],
+				"usage": ["ret = udmabuf_ioctl_create(filp, arg);"]
+			},
+			"ret_inference": {
+				"function": ["udmabuf_ioctl_create"],
+				"type": [],
+				"usage": ["ret = udmabuf_ioctl_create(filp, arg);"]
+			}
+		},
+		"UDMABUF_CREATE_LIST": {
+			"arg": "UNKNOWN_ARG",
+			"arg_name_in_usage": ["arg"],
+			"arg_inference": {
+				"function": ["udmabuf_ioctl_create_list"],
+				"type": [],
+				"usage": ["ret = udmabuf_ioctl_create_list(filp, arg);"]
+			},
+			"ret_inference": {
+				"function": ["udmabuf_ioctl_create_list"],
+				"type": [],
+				"usage": ["ret = udmabuf_ioctl_create_list(filp, arg);"]
+			}
+		},
+		"unknown": []
+	}
+}
+```
+
+## Unknown IOCTL for `net/ipv6/af_inet6.c`
+
+```json
+{
+	"function": ["inet6_ioctl"],
+	"type": [],
+	"cmd_usage": ["return inet6_ioctl(file, cmd, arg);"],
+	"arg_usage": ["return inet6_ioctl(file, cmd, arg);"]
+}
+```
+
+## Relevant Source Code for `net/ipv6/af_inet6.c`
+```c
+int inet6_ioctl(struct socket *sock, unsigned int cmd, unsigned long arg)
+{
+	void __user *argp = (void __user *)arg;
+	struct sock *sk = sock->sk;
+	struct net *net = sock_net(sk);
+	const struct proto *prot;
+
+	switch (cmd) {
+	case SIOCADDRT:
+	case SIOCDELRT: {
+		struct in6_rtmsg rtmsg;
+
+		if (copy_from_user(&rtmsg, argp, sizeof(rtmsg)))
+			return -EFAULT;
+		return ipv6_route_ioctl(net, cmd, &rtmsg);
+	}
+	case SIOCSIFADDR:
+		return addrconf_add_ifaddr(net, argp);
+	case SIOCDIFADDR:
+		return addrconf_del_ifaddr(net, argp);
+	case SIOCSIFDSTADDR:
+		return addrconf_set_dstaddr(net, argp);
+	default:
+		/* IPV6_ADDRFORM can change sk->sk_prot under us. */
+		prot = READ_ONCE(sk->sk_prot);
+		if (!prot->ioctl)
+			return -ENOIOCTLCMD;
+		return sk_ioctl(sk, cmd, (void __user *)arg);
+	}
+}
+```
+
+## Syzkaller Specification for `net/ipv6/af_inet6.c`
+
+```json
+{
+	"ioctls": {
+		"SIOCADDRT": {
+			"arg": "UNKNOWN_ARG",
+			"arg_name_in_usage": ["argp"],
+			"arg_inference": {
+				"function": [],
+				"type": ["in6_rtmsg"],
+				"usage": ["struct in6_rtmsg rtmsg;\nif (copy_from_user(&rtmsg, argp, sizeof(rtmsg)))"]
+			},
+			"ret_inference": null
+		},
+		"SIOCDELRT": {
+			"arg": "UNKNOWN_ARG",
+			"arg_name_in_usage": ["argp"],
+			"arg_inference": {
+				"function": [],
+				"type": [],
+				"usage": ["struct in6_rtmsg rtmsg;\nif (copy_from_user(&rtmsg, argp, sizeof(rtmsg)))"]
+			},
+			"ret_inference": null
+		},
+		"SIOCSIFADDR": {
+			"arg": "UNKNOWN_ARG",
+			"arg_name_in_usage": ["argp"],
+			"arg_inference": {
+				"function": ["addrconf_add_ifaddr"],
+				"type": [],
+				"usage": ["return addrconf_add_ifaddr(net, argp);"]
+			},
+			"ret_inference": null
+		},
+		"SIOCDIFADDR": {
+			"arg": "UNKNOWN_ARG",
+			"arg_name_in_usage": ["argp"],
+			"arg_inference": {
+				"function": ["addrconf_del_ifaddr"],
+				"type": [],
+				"usage": ["return addrconf_del_ifaddr(net, argp);"]
+			},
+			"ret_inference": null
+		},
+		"SIOCSIFDSTADDR": {
+			"arg": "UNKNOWN_ARG",
+			"arg_name_in_usage": ["argp"],
+			"arg_inference": {
+				"function": ["addrconf_set_dstaddr"],
+				"type": [],
+				"usage": ["return addrconf_set_dstaddr(net, argp);"]
+			},
+			"ret_inference": null
+		},
+		"unknown": [
+			{
+				"function": ["sk_ioctl"],
+				"type": [],
+				"cmd_usage": ["return sk_ioctl(sk, cmd, (void __user *)arg);"],
+				"arg_usage": [
+					"inet6_ioctl(struct socket *sock, unsigned int cmd, unsigned long arg)",
+					"return sk_ioctl(sk, cmd, (void __user *)arg);"
+				]
+			}
+		]
+	}
+}
+```
+
+## Unknown IOCTL for `linux/drivers/scsi/sd.c`
+
+```json
+{
+	"function": ["lookup_ioctl"],
+	"type": [],
+	"cmd_usage": [
+		"cmd = _IOC_NR(command);",
+		"fn = lookup_ioctl(cmd, &ioctl_flags);"
+	],
+	"arg_usage": [
+		"return (long)ctl_ioctl(file, command, (struct dm_ioctl __user *)u);",
+		"r = copy_params(user, &param_kernel, ioctl_flags, &param, &param_flags);\nr = fn(file, param, input_param_size);"
+	]
+}
+```
+
+## Relevant Source Code for `linux/drivers/scsi/sd.c`
+```c
+static ioctl_fn lookup_ioctl(unsigned int cmd, int *ioctl_flags)
+{
+	static const struct {
+		int cmd;
+		int flags;
+		ioctl_fn fn;
+	} _ioctls[] = {
+		{DM_VERSION_CMD, 0, NULL}, /* version is dealt with elsewhere */
+		{DM_REMOVE_ALL_CMD, IOCTL_FLAGS_NO_PARAMS | IOCTL_FLAGS_ISSUE_GLOBAL_EVENT, remove_all},
+		{DM_LIST_DEVICES_CMD, 0, list_devices},
+	};
+
+	if (unlikely(cmd >= ARRAY_SIZE(_ioctls)))
+		return NULL;
+
+	cmd = array_index_nospec(cmd, ARRAY_SIZE(_ioctls));
+	*ioctl_flags = _ioctls[cmd].flags;
+	return _ioctls[cmd].fn;
+}
+```
+
+## Syzkaller Specification for `linux/drivers/scsi/sd.c`
+
+```json
+{
+	"ioctls": {
+		"DM_VERSION": {
+			"arg": "UNUSED_ARG",
+			"arg_name_in_usage": [],
+			"arg_inference": null,
+			"ret_inference": null
+		},
+		"DM_REMOVE_ALL": {
+			"arg": "UNKNOWN_ARG",
+			"arg_name_in_usage": ["user", "param"],
+			"arg_inference": {
+				"function": ["remove_all"],
+				"type": ["dm_ioctl"],
+				"usage": [
+					"return (long)ctl_ioctl(file, command, (struct dm_ioctl __user *)u);",
+					"r = copy_params(user, &param_kernel, ioctl_flags, &param, &param_flags);",
+					"r = remove_all(file, param, input_param_size);"
+				]
+			},
+			"ret_inference": null
+		},
+		"DM_LIST_DEVICES": {
+			"arg": "UNKNOWN_ARG",
+			"arg_name_in_usage": ["user", "param"],
+			"arg_inference": {
+				"function": ["list_devices"],
+				"type": ["dm_ioctl"],
+				"usage": [
+					"return (long)ctl_ioctl(file, command, (struct dm_ioctl __user *)u);",
+					"r = copy_params(user, &param_kernel, ioctl_flags, &param, &param_flags);",
+					"r = list_devices(file, param, input_param_size);"
+				]
+			},
+			"ret_inference": null
+		},
+		"unknown": []
+	}
+}
+```
+
+# Target to Generate
+
+## Unknown IOCTL for `PATH_PLACEHOLDER`
+
+```json
+PARTIAL_SPEC_PLACEHOLDER
+```
+
+## Relevant Source Code for `PATH_PLACEHOLDER`
+```c
+SOURCE_CODE_PLACEHOLDER
+```
+
+## Syzkaller Specification for `PATH_PLACEHOLDER`

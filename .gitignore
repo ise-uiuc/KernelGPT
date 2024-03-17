@@ -1,0 +1,17 @@
+logs/
+output*/
+workdir*/
+archive/
+*.log
+vm.pid
+data*/
+.vscode/
+*/__pycache__/
+*.db
+*trace/
+*data/
+prompts-*/
+starcoder-*/
+*.tmp
+tmp
+.cache
