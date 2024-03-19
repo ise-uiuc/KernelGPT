@@ -1,7 +1,7 @@
 # KernelGPT: Enhanced Kernel Fuzzing via Large Language Models
 
 <p align="left">
-    <a href="https://arxiv.org/abs/2401.00563"><img src="https://img.shields.io/badge/arXiv-2312.02120-b31b1b.svg?style=for-the-badge">
+    <a href="https://arxiv.org/abs/2401.00563"><img src="https://img.shields.io/badge/arXiv-2401.00563-b31b1b.svg?style=for-the-badge">
 </p>
 
 > [!IMPORTANT]
