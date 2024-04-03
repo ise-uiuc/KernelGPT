@@ -16,3 +16,10 @@ CLANG_LIBS := -lclangTooling -lclangFrontend -lclangDriver -lclangSerialization 
 ```
 
 For more information, please refer to the [Makefile](Makefile).
+
+
+### Prerequisites
+
+```bash
+sudo apt-get install clang-14 libclang-dev-14
+```
