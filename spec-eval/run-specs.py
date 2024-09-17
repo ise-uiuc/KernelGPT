@@ -57,7 +57,8 @@ def shallow_clone(src: Path, dst: Path):
 
 
 def prepare_linux(wkd: Path, name="linux", config_path=None):
-    shallow_clone(PROJ_ROOT / "linux", wkd / name)
+    linux_path = wkd / name
+    shallow_clone(PROJ_ROOT / "linux", linux_path)
 
     if config_path is None:
         if name == "linux":
@@ -66,8 +67,9 @@ def prepare_linux(wkd: Path, name="linux", config_path=None):
             config_path = ALLYES_CONFIG
         else:
             raise ValueError(f"Unknown name: {name} for prepare_linux")
-    shutil.copy(config_path, wkd / f"{name}/.config")
-    shutil.copy(config_path, wkd / f"{name}/unmodified.config")
+    shutil.copy(config_path, linux_path / ".config")
+    shutil.copy(config_path, linux_path / "unmodified.config")
+    return linux_path
 
 
 def build_linux(linux: Path, jobs, auto_check):
@@ -172,7 +174,11 @@ def prepare_run(wkd: Path, run, jobs):
     )
     check_return(r.returncode, f"extract constatns for {run_syz}")
 
-    r = subprocess.run(["tools/syz-env", "make", "generate"], cwd=run_syz)
+    # There is some issue for mockery
+    # https://github.com/google/syzkaller/issues/4746
+    # Thus, we will not use `tools/syz-env`, which will fail
+    # r = subprocess.run(["tools/syz-env", "make", "generate"], cwd=run_syz)
+    r = subprocess.run(["make", "generate"], cwd=run_syz)
     check_return(r.returncode, f"generate Go files for {run_syz}")
 
     r = subprocess.run(["make", "-j", str(jobs)], cwd=run_syz)
@@ -339,11 +345,11 @@ def main():
             raise ValueError(f"Cannot find {config_path}")
         use_shared_linux_with_config(wkd, config_path, args.jobs)
     else:
-        prepare_linux(wkd)
+        linux_path = prepare_linux(wkd)
         if args.skip_build_linux:
             logger.warning("Skip building Linux...")
         else:
-            build_linux(wkd, args.jobs, args.auto_build_linux)
+            build_linux(linux_path, args.jobs, args.auto_build_linux)
 
     if args.skip_run:
         logger.warning("Skip running Syzkaller...")
