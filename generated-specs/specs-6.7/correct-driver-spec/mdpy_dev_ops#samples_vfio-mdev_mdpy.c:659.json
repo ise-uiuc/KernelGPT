@@ -1,0 +1,114 @@
+{
+  "open": {
+    "filename": "/dev/vfio/#",
+    "fd_name": "fd_mdpy",
+    "spec": "syz_open_dev$KGPT_mdpy(dev ptr[in, string[\"/dev/vfio/#\"]], id proc[0, 1], flags flags[open_flags]) fd_mdpy"
+  },
+  "resources": {
+    "fd_mdpy": {
+      "type": "fd",
+      "spec": "resource fd_mdpy[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/samples/vfio-mdev/mdpy.c:659",
+  "ioctls": {
+    "VFIO_DEVICE_SET_IRQS": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "VFIO_DEVICE_RESET": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": {
+        "function": [
+          "mdpy_reset"
+        ],
+        "type": [],
+        "usage": [
+          "return mdpy_reset(mdev_state);"
+        ]
+      }
+    },
+    "VFIO_DEVICE_GET_INFO": {
+      "arg": "ptr[inout, vfio_device_info]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "VFIO_DEVICE_GET_REGION_INFO": {
+      "arg": "ptr[inout, vfio_region_info]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": {
+        "function": [
+          "mdpy_get_region_info"
+        ],
+        "type": [
+          "vfio_region_info"
+        ],
+        "usage": [
+          "struct vfio_region_info info;",
+          "if (copy_from_user(&info, (void __user *)arg, minsz))",
+          "ret = mdpy_get_region_info(mdev_state, &info, &cap_type_id, &cap_type);",
+          "if (copy_to_user((void __user *)arg, &info, minsz))"
+        ]
+      }
+    },
+    "VFIO_DEVICE_GET_IRQ_INFO": {
+      "arg": "ptr[inout, vfio_irq_info]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "VFIO_DEVICE_QUERY_GFX_PLANE": {
+      "arg": "ptr[inout, vfio_device_gfx_plane_info]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "vfio_device_gfx_plane_info": "vfio_device_gfx_plane_info {\n\targsz\tint32\n\tflags\tflags[vfio_device_gfx_plane_info_flags, int32]\n\tdrm_plane_type\tint32\n\tdrm_format\tint32\n\tdrm_format_mod\tint64\n\twidth\tint32\n\theight\tint32\n\tstride\tint32\n\tsize\tint32\n\tx_pos\tint32\n\ty_pos\tint32\n\tx_hot\tint32\n\ty_hot\tint32\n\tunion\tvfio_device_gfx_plane_info_union\n\treserved\tint32\n}",
+    "vfio_device_info": "vfio_device_info {\n\targsz\tint32\n\tflags\tflags[vfio_device_flags, int32]\n\tnum_regions\tint32\n\tnum_irqs\tint32\n\tcap_offset\tint32\n\tpad\tint32\n}",
+    "vfio_region_info": "vfio_region_info {\n\targsz\tint32\n\tflags\tflags[vfio_region_info_flags, int32]\n\tindex\tint32\n\tcap_offset\tint32\n\tsize\tint64\n\toffset\tint64\n}",
+    "vfio_irq_info": "vfio_irq_info {\n\targsz\tint32\n\tflags\tflags[vfio_irq_info_flags, int32]\n\tindex\tint32\n\tcount\tint32\n}",
+    "vfio_device_flags": "vfio_device_flags = VFIO_DEVICE_FLAGS_RESET, VFIO_DEVICE_FLAGS_PCI, VFIO_DEVICE_FLAGS_PLATFORM, VFIO_DEVICE_FLAGS_AMBA, VFIO_DEVICE_FLAGS_CCW, VFIO_DEVICE_FLAGS_AP, VFIO_DEVICE_FLAGS_FSL_MC, VFIO_DEVICE_FLAGS_CAPS, VFIO_DEVICE_FLAGS_CDX",
+    "vfio_region_info_flags": "vfio_region_info_flags = VFIO_REGION_INFO_FLAG_READ, VFIO_REGION_INFO_FLAG_WRITE, VFIO_REGION_INFO_FLAG_MMAP, VFIO_REGION_INFO_FLAG_CAPS",
+    "vfio_irq_info_flags": "vfio_irq_info_flags = VFIO_IRQ_INFO_EVENTFD, VFIO_IRQ_INFO_MASKABLE, VFIO_IRQ_INFO_AUTOMASKED, VFIO_IRQ_INFO_NORESIZE",
+    "vfio_device_gfx_plane_info_flags": "vfio_device_gfx_plane_info_flags = VFIO_GFX_PLANE_TYPE_PROBE, VFIO_GFX_PLANE_TYPE_DMABUF, VFIO_GFX_PLANE_TYPE_REGION",
+    "vfio_device_gfx_plane_info_union": "vfio_device_gfx_plane_info_union [\n\tregion_index\tint32\n\tdmabuf_id\tint32\n]",
+    "VFIO_DEVICE_FLAGS_RESET": "define VFIO_DEVICE_FLAGS_RESET 0x1",
+    "VFIO_DEVICE_FLAGS_PCI": "define VFIO_DEVICE_FLAGS_PCI 0x2",
+    "VFIO_DEVICE_FLAGS_PLATFORM": "define VFIO_DEVICE_FLAGS_PLATFORM 0x4",
+    "VFIO_DEVICE_FLAGS_AMBA": "define VFIO_DEVICE_FLAGS_AMBA 0x8",
+    "VFIO_DEVICE_FLAGS_CCW": "define VFIO_DEVICE_FLAGS_CCW 0x10",
+    "VFIO_DEVICE_FLAGS_AP": "define VFIO_DEVICE_FLAGS_AP 0x20",
+    "VFIO_DEVICE_FLAGS_FSL_MC": "define VFIO_DEVICE_FLAGS_FSL_MC 0x40",
+    "VFIO_DEVICE_FLAGS_CAPS": "define VFIO_DEVICE_FLAGS_CAPS 0x80",
+    "VFIO_DEVICE_FLAGS_CDX": "define VFIO_DEVICE_FLAGS_CDX 0x100",
+    "VFIO_REGION_INFO_FLAG_READ": "define VFIO_REGION_INFO_FLAG_READ 0x1",
+    "VFIO_REGION_INFO_FLAG_WRITE": "define VFIO_REGION_INFO_FLAG_WRITE 0x2",
+    "VFIO_REGION_INFO_FLAG_MMAP": "define VFIO_REGION_INFO_FLAG_MMAP 0x4",
+    "VFIO_REGION_INFO_FLAG_CAPS": "define VFIO_REGION_INFO_FLAG_CAPS 0x8",
+    "VFIO_IRQ_INFO_EVENTFD": "define VFIO_IRQ_INFO_EVENTFD 1",
+    "VFIO_IRQ_INFO_MASKABLE": "define VFIO_IRQ_INFO_MASKABLE 2",
+    "VFIO_IRQ_INFO_AUTOMASKED": "define VFIO_IRQ_INFO_AUTOMASKED 4",
+    "VFIO_IRQ_INFO_NORESIZE": "define VFIO_IRQ_INFO_NORESIZE 8"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_mdpy": "syz_open_dev$KGPT_mdpy(dev ptr[in, string[\"/dev/vfio/#\"]], id proc[0, 1], flags flags[open_flags]) fd_mdpy",
+    "ioctl$KGPT_VFIO_DEVICE_SET_IRQS": "ioctl$KGPT_VFIO_DEVICE_SET_IRQS(fd fd_mdpy, cmd const[VFIO_DEVICE_SET_IRQS], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_VFIO_DEVICE_RESET": "ioctl$KGPT_VFIO_DEVICE_RESET(fd fd_mdpy, cmd const[VFIO_DEVICE_RESET], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_VFIO_DEVICE_GET_INFO": "ioctl$KGPT_VFIO_DEVICE_GET_INFO(fd fd_mdpy, cmd const[VFIO_DEVICE_GET_INFO], arg ptr[inout, vfio_device_info])",
+    "ioctl$KGPT_VFIO_DEVICE_GET_REGION_INFO": "ioctl$KGPT_VFIO_DEVICE_GET_REGION_INFO(fd fd_mdpy, cmd const[VFIO_DEVICE_GET_REGION_INFO], arg ptr[inout, vfio_region_info])",
+    "ioctl$KGPT_VFIO_DEVICE_GET_IRQ_INFO": "ioctl$KGPT_VFIO_DEVICE_GET_IRQ_INFO(fd fd_mdpy, cmd const[VFIO_DEVICE_GET_IRQ_INFO], arg ptr[inout, vfio_irq_info])",
+    "ioctl$KGPT_VFIO_DEVICE_QUERY_GFX_PLANE": "ioctl$KGPT_VFIO_DEVICE_QUERY_GFX_PLANE(fd fd_mdpy, cmd const[VFIO_DEVICE_QUERY_GFX_PLANE], arg ptr[inout, vfio_device_gfx_plane_info])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_mdpy"
+  ],
+  "includes": [
+    "uapi/linux/vfio.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

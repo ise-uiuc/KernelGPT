@@ -1,0 +1,139 @@
+{
+  "open": {
+    "filename": "/dev/raw-gadget",
+    "fd_name": "fd_raw_gadget",
+    "spec": "openat$KGPT_raw_gadget(fd const[AT_FDCWD], file ptr[in, string[\"/dev/raw-gadget\"]], flags const[O_RDWR], mode const[0]) fd_raw_gadget"
+  },
+  "resources": {
+    "fd_raw_gadget": {
+      "type": "fd",
+      "spec": "resource fd_raw_gadget[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/usb/gadget/legacy/raw_gadget.c:1362",
+  "ioctls": {
+    "USB_RAW_IOCTL_INIT": {
+      "arg": "ptr[in, usb_raw_init]",
+      "arg_name_in_usage": "value",
+      "arg_inference": null
+    },
+    "USB_RAW_IOCTL_RUN": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": "value",
+      "arg_inference": null
+    },
+    "USB_RAW_IOCTL_EVENT_FETCH": {
+      "arg": "ptr[inout, usb_raw_event]",
+      "arg_name_in_usage": "value",
+      "arg_inference": null
+    },
+    "USB_RAW_IOCTL_EP0_WRITE": {
+      "arg": "ptr[in, usb_raw_ep_io]",
+      "arg_name_in_usage": "value",
+      "arg_inference": null
+    },
+    "USB_RAW_IOCTL_EP0_READ": {
+      "arg": "ptr[inout, usb_raw_ep_io]",
+      "arg_name_in_usage": "value",
+      "arg_inference": null
+    },
+    "USB_RAW_IOCTL_EP_ENABLE": {
+      "arg": "ptr[in, usb_endpoint_descriptor]",
+      "arg_name_in_usage": "value",
+      "arg_inference": null
+    },
+    "USB_RAW_IOCTL_EP_DISABLE": {
+      "arg": "intptr",
+      "arg_name_in_usage": "value",
+      "arg_inference": null
+    },
+    "USB_RAW_IOCTL_EP_WRITE": {
+      "arg": "ptr[in, usb_raw_ep_io]",
+      "arg_name_in_usage": "value",
+      "arg_inference": null
+    },
+    "USB_RAW_IOCTL_EP_READ": {
+      "arg": "ptr[inout, usb_raw_ep_io]",
+      "arg_name_in_usage": "value",
+      "arg_inference": null
+    },
+    "USB_RAW_IOCTL_CONFIGURE": {
+      "arg": "intptr",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    },
+    "USB_RAW_IOCTL_VBUS_DRAW": {
+      "arg": "intptr",
+      "arg_name_in_usage": "value",
+      "arg_inference": null
+    },
+    "USB_RAW_IOCTL_EPS_INFO": {
+      "arg": "ptr[out, usb_raw_eps_info]",
+      "arg_name_in_usage": "value",
+      "arg_inference": null
+    },
+    "USB_RAW_IOCTL_EP0_STALL": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": "value",
+      "arg_inference": null
+    },
+    "USB_RAW_IOCTL_EP_SET_HALT": {
+      "arg": "intptr",
+      "arg_name_in_usage": "value",
+      "arg_inference": null
+    },
+    "USB_RAW_IOCTL_EP_CLEAR_HALT": {
+      "arg": "intptr",
+      "arg_name_in_usage": "value",
+      "arg_inference": null
+    },
+    "USB_RAW_IOCTL_EP_SET_WEDGE": {
+      "arg": "intptr",
+      "arg_name_in_usage": "value",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "usb_raw_init": "usb_raw_init {\n\tdriver_name\tarray[int8, UDC_NAME_LENGTH_MAX]\n\tdevice_name\tarray[int8, UDC_NAME_LENGTH_MAX]\n\tspeed\tint8\n}",
+    "usb_raw_event": "usb_raw_event {\n\ttype\tint32\n\tlength\tint32\n\tdata\tarray[int8]\n}",
+    "usb_raw_ep_io": "usb_raw_ep_io {\n\tep\tint16\n\tflags\tint16\n\tlength\tint32\n\tdata\tarray[int8]\n}",
+    "usb_raw_eps_info": "usb_raw_eps_info {\n\teps\tarray[usb_raw_ep_info, USB_RAW_EPS_NUM_MAX]\n}",
+    "usb_raw_ep_info": "usb_raw_ep_info {\n\tname\tarray[int8, USB_RAW_EP_NAME_MAX]\n\taddr\tint32\n\tcaps\tusb_raw_ep_caps\n\tlimits\tusb_raw_ep_limits\n}",
+    "usb_raw_ep_caps": "usb_raw_ep_caps {\n\ttype_control\tint32:1\n\ttype_iso\tint32:1\n\ttype_bulk\tint32:1\n\ttype_int\tint32:1\n\tdir_in\tint32:1\n\tdir_out\tint32:1\n}",
+    "usb_raw_ep_limits": "usb_raw_ep_limits {\n\tmaxpacket_limit\tint16\n\tmax_streams\tint16\n\treserved\tint32\n}"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "openat$KGPT_raw_gadget": "openat$KGPT_raw_gadget(fd const[AT_FDCWD], file ptr[in, string[\"/dev/raw-gadget\"]], flags const[O_RDWR], mode const[0]) fd_raw_gadget",
+    "ioctl$KGPT_USB_RAW_IOCTL_INIT": "ioctl$KGPT_USB_RAW_IOCTL_INIT(fd fd_raw_gadget, cmd const[USB_RAW_IOCTL_INIT], arg ptr[in, usb_raw_init])",
+    "ioctl$KGPT_USB_RAW_IOCTL_RUN": "ioctl$KGPT_USB_RAW_IOCTL_RUN(fd fd_raw_gadget, cmd const[USB_RAW_IOCTL_RUN], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_USB_RAW_IOCTL_EVENT_FETCH": "ioctl$KGPT_USB_RAW_IOCTL_EVENT_FETCH(fd fd_raw_gadget, cmd const[USB_RAW_IOCTL_EVENT_FETCH], arg ptr[inout, usb_raw_event])",
+    "ioctl$KGPT_USB_RAW_IOCTL_EP0_WRITE": "ioctl$KGPT_USB_RAW_IOCTL_EP0_WRITE(fd fd_raw_gadget, cmd const[USB_RAW_IOCTL_EP0_WRITE], arg ptr[in, usb_raw_ep_io])",
+    "ioctl$KGPT_USB_RAW_IOCTL_EP0_READ": "ioctl$KGPT_USB_RAW_IOCTL_EP0_READ(fd fd_raw_gadget, cmd const[USB_RAW_IOCTL_EP0_READ], arg ptr[inout, usb_raw_ep_io])",
+    "ioctl$KGPT_USB_RAW_IOCTL_EP_ENABLE": "ioctl$KGPT_USB_RAW_IOCTL_EP_ENABLE(fd fd_raw_gadget, cmd const[USB_RAW_IOCTL_EP_ENABLE], arg ptr[in, usb_endpoint_descriptor])",
+    "ioctl$KGPT_USB_RAW_IOCTL_EP_DISABLE": "ioctl$KGPT_USB_RAW_IOCTL_EP_DISABLE(fd fd_raw_gadget, cmd const[USB_RAW_IOCTL_EP_DISABLE], arg intptr)",
+    "ioctl$KGPT_USB_RAW_IOCTL_EP_WRITE": "ioctl$KGPT_USB_RAW_IOCTL_EP_WRITE(fd fd_raw_gadget, cmd const[USB_RAW_IOCTL_EP_WRITE], arg ptr[in, usb_raw_ep_io])",
+    "ioctl$KGPT_USB_RAW_IOCTL_EP_READ": "ioctl$KGPT_USB_RAW_IOCTL_EP_READ(fd fd_raw_gadget, cmd const[USB_RAW_IOCTL_EP_READ], arg ptr[inout, usb_raw_ep_io])",
+    "ioctl$KGPT_USB_RAW_IOCTL_CONFIGURE": "ioctl$KGPT_USB_RAW_IOCTL_CONFIGURE(fd fd_raw_gadget, cmd const[USB_RAW_IOCTL_CONFIGURE], arg intptr)",
+    "ioctl$KGPT_USB_RAW_IOCTL_VBUS_DRAW": "ioctl$KGPT_USB_RAW_IOCTL_VBUS_DRAW(fd fd_raw_gadget, cmd const[USB_RAW_IOCTL_VBUS_DRAW], arg intptr)",
+    "ioctl$KGPT_USB_RAW_IOCTL_EPS_INFO": "ioctl$KGPT_USB_RAW_IOCTL_EPS_INFO(fd fd_raw_gadget, cmd const[USB_RAW_IOCTL_EPS_INFO], arg ptr[out, usb_raw_eps_info])",
+    "ioctl$KGPT_USB_RAW_IOCTL_EP0_STALL": "ioctl$KGPT_USB_RAW_IOCTL_EP0_STALL(fd fd_raw_gadget, cmd const[USB_RAW_IOCTL_EP0_STALL], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_USB_RAW_IOCTL_EP_SET_HALT": "ioctl$KGPT_USB_RAW_IOCTL_EP_SET_HALT(fd fd_raw_gadget, cmd const[USB_RAW_IOCTL_EP_SET_HALT], arg intptr)",
+    "ioctl$KGPT_USB_RAW_IOCTL_EP_CLEAR_HALT": "ioctl$KGPT_USB_RAW_IOCTL_EP_CLEAR_HALT(fd fd_raw_gadget, cmd const[USB_RAW_IOCTL_EP_CLEAR_HALT], arg intptr)",
+    "ioctl$KGPT_USB_RAW_IOCTL_EP_SET_WEDGE": "ioctl$KGPT_USB_RAW_IOCTL_EP_SET_WEDGE(fd fd_raw_gadget, cmd const[USB_RAW_IOCTL_EP_SET_WEDGE], arg intptr)"
+  },
+  "init_syscalls": [
+    "openat$KGPT_raw_gadget"
+  ],
+  "includes": [
+    "uapi/linux/fcntl.h",
+    "uapi/linux/usb/raw_gadget.h",
+    "uapi/asm-generic/fcntl.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "usb_endpoint_descriptor": "EXISTING",
+    "UDC_NAME_LENGTH_MAX": "UNFOUND_MACRO"
+  }
+}

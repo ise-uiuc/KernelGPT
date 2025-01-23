@@ -1,0 +1,228 @@
+{
+  "open": {
+    "filename": "/dev/mixer#",
+    "fd_name": "fd_mixer_oss",
+    "spec": "syz_open_dev$KGPT_mixer_oss(dev ptr[in, string[\"/dev/mixer#\"]], id proc[0, 1], flags flags[open_flags]) fd_mixer_oss"
+  },
+  "resources": {
+    "fd_mixer_oss": {
+      "type": "fd",
+      "spec": "resource fd_mixer_oss[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/sound/core/oss/mixer_oss.c:424",
+  "ioctls": {
+    "SIOC_IN": {
+      "arg": "ptr[inout, int32]",
+      "arg_name_in_usage": "p",
+      "arg_inference": {
+        "function": [
+          "snd_mixer_oss_set_volume",
+          "put_user"
+        ],
+        "type": [
+          "int"
+        ],
+        "usage": [
+          "if (get_user(tmp, p))\n\t\t\t\treturn -EFAULT;",
+          "tmp = snd_mixer_oss_set_volume(fmixer, cmd & 0xff, tmp);",
+          "if (tmp < 0)\n\t\t\t\treturn tmp;",
+          "return put_user(tmp, p);"
+        ]
+      }
+    },
+    "SIOC_OUT": {
+      "arg": "ptr[out, int32]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    }
+  },
+  "types": {},
+  "existing_ioctls": {
+    "SOUND_MIXER_INFO": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_mixer_oss_info"
+        ],
+        "type": [],
+        "usage": [
+          "return snd_mixer_oss_info(fmixer, argp);"
+        ]
+      }
+    },
+    "SOUND_OLD_MIXER_INFO": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_mixer_oss_info_obsolete"
+        ],
+        "type": [],
+        "usage": [
+          "return snd_mixer_oss_info_obsolete(fmixer, argp);"
+        ]
+      }
+    },
+    "SOUND_MIXER_WRITE_RECSRC": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_mixer_oss_set_recsrc",
+          "put_user"
+        ],
+        "type": [],
+        "usage": [
+          "if (get_user(tmp, p))\n\t\t\t\treturn -EFAULT;",
+          "tmp = snd_mixer_oss_set_recsrc(fmixer, tmp);",
+          "if (tmp < 0)\n\t\t\t\treturn tmp;",
+          "return put_user(tmp, p);"
+        ]
+      }
+    },
+    "OSS_GETVERSION": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "put_user"
+        ],
+        "type": [],
+        "usage": [
+          "return put_user(SNDRV_OSS_VERSION, p);"
+        ]
+      }
+    },
+    "OSS_ALSAEMULVER": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "put_user"
+        ],
+        "type": [],
+        "usage": [
+          "return put_user(1, p);"
+        ]
+      }
+    },
+    "SOUND_MIXER_READ_DEVMASK": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_mixer_oss_devmask",
+          "put_user"
+        ],
+        "type": [],
+        "usage": [
+          "tmp = snd_mixer_oss_devmask(fmixer);",
+          "if (tmp < 0)\n\t\t\t\treturn tmp;",
+          "return put_user(tmp, p);"
+        ]
+      }
+    },
+    "SOUND_MIXER_READ_STEREODEVS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_mixer_oss_stereodevs",
+          "put_user"
+        ],
+        "type": [],
+        "usage": [
+          "tmp = snd_mixer_oss_stereodevs(fmixer);",
+          "if (tmp < 0)\n\t\t\t\treturn tmp;",
+          "return put_user(tmp, p);"
+        ]
+      }
+    },
+    "SOUND_MIXER_READ_RECMASK": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_mixer_oss_recmask",
+          "put_user"
+        ],
+        "type": [],
+        "usage": [
+          "tmp = snd_mixer_oss_recmask(fmixer);",
+          "if (tmp < 0)\n\t\t\t\treturn tmp;",
+          "return put_user(tmp, p);"
+        ]
+      }
+    },
+    "SOUND_MIXER_READ_CAPS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_mixer_oss_caps",
+          "put_user"
+        ],
+        "type": [],
+        "usage": [
+          "tmp = snd_mixer_oss_caps(fmixer);",
+          "if (tmp < 0)\n\t\t\t\treturn tmp;",
+          "return put_user(tmp, p);"
+        ]
+      }
+    },
+    "SOUND_MIXER_READ_RECSRC": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_mixer_oss_get_recsrc",
+          "put_user"
+        ],
+        "type": [],
+        "usage": [
+          "tmp = snd_mixer_oss_get_recsrc(fmixer);",
+          "if (tmp < 0)\n\t\t\t\treturn tmp;",
+          "return put_user(tmp, p);"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_mixer_oss": "syz_open_dev$KGPT_mixer_oss(dev ptr[in, string[\"/dev/mixer#\"]], id proc[0, 1], flags flags[open_flags]) fd_mixer_oss",
+    "ioctl$KGPT_SIOC_IN": "ioctl$KGPT_SIOC_IN(fd fd_mixer_oss, cmd const[SIOC_IN], arg ptr[inout, int32])",
+    "ioctl$KGPT_SIOC_OUT": "ioctl$KGPT_SIOC_OUT(fd fd_mixer_oss, cmd const[SIOC_OUT], arg ptr[out, int32])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_mixer_oss"
+  ],
+  "includes": [
+    "uapi/linux/soundcard.h"
+  ],
+  "unused_types": {
+    "int": "PRIMITIVE"
+  },
+  "ignored_types": {}
+}

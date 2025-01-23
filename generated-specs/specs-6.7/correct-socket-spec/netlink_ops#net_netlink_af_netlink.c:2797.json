@@ -1,0 +1,160 @@
+{
+  "socket": {
+    "domain": "AF_NETLINK",
+    "type": "SOCK_RAW",
+    "spec": "socket$KGPT_netlink(domain const[AF_NETLINK], type const[SOCK_RAW], proto const[NETLINK_ROUTE]) sock_netlink"
+  },
+  "resources": {
+    "sock_netlink": {
+      "type": "sock",
+      "spec": "resource sock_netlink[sock]"
+    }
+  },
+  "types": {
+    "NETLINK_ROUTE": "define NETLINK_ROUTE 0"
+  },
+  "socket_addr": "sockaddr_nl",
+  "setsockopt": {
+    "NETLINK_PKTINFO": {
+      "level": "SOL_NETLINK",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "NETLINK_ADD_MEMBERSHIP": {
+      "level": "SOL_NETLINK",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "NETLINK_DROP_MEMBERSHIP": {
+      "level": "SOL_NETLINK",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "NETLINK_BROADCAST_ERROR": {
+      "level": "SOL_NETLINK",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "NETLINK_NO_ENOBUFS": {
+      "level": "SOL_NETLINK",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "NETLINK_LISTEN_ALL_NSID": {
+      "level": "SOL_NETLINK",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "NETLINK_CAP_ACK": {
+      "level": "SOL_NETLINK",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "NETLINK_EXT_ACK": {
+      "level": "SOL_NETLINK",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "NETLINK_GET_STRICT_CHK": {
+      "level": "SOL_NETLINK",
+      "val": "int32",
+      "len": "bytesize[val]"
+    }
+  },
+  "unknown": [],
+  "setsockopt_unknown": [],
+  "getsockopt": {
+    "NETLINK_PKTINFO": {
+      "level": "SOL_NETLINK",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "NETLINK_BROADCAST_ERROR": {
+      "level": "SOL_NETLINK",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "NETLINK_NO_ENOBUFS": {
+      "level": "SOL_NETLINK",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "NETLINK_LIST_MEMBERSHIPS": {
+      "level": "SOL_NETLINK",
+      "val": "ptr[out, array[int32]]",
+      "len": "ptr[inout, int32]",
+      "val_inference": null
+    },
+    "NETLINK_CAP_ACK": {
+      "level": "SOL_NETLINK",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "NETLINK_EXT_ACK": {
+      "level": "SOL_NETLINK",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "NETLINK_GET_STRICT_CHK": {
+      "level": "SOL_NETLINK",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    }
+  },
+  "getsockopt_unknown": [],
+  "proto_ops": {
+    "bind": "netlink_bind",
+    "connect": "netlink_connect",
+    "accept": "sock_no_accept",
+    "poll": "datagram_poll",
+    "ioctl": "netlink_ioctl",
+    "sendmsg": "netlink_sendmsg",
+    "recvmsg": "netlink_recvmsg",
+    "setsockopt": "netlink_setsockopt",
+    "getsockopt": "netlink_getsockopt"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/netlink/af_netlink.c:2797",
+  "ops_name": "netlink_ops",
+  "syscall_specs": {
+    "socket$KGPT_netlink": "socket$KGPT_netlink(domain const[AF_NETLINK], type const[SOCK_RAW], proto const[NETLINK_ROUTE]) sock_netlink",
+    "bind$KGPT_netlink_ops": "bind$KGPT_netlink_ops(fd sock_netlink, addr ptr[in, sockaddr_nl], addrlen len[addr])",
+    "connect$KGPT_netlink_ops": "connect$KGPT_netlink_ops(fd sock_netlink, addr ptr[in, sockaddr_nl], addrlen len[addr])",
+    "accept4$KGPT_netlink_ops": "accept4$KGPT_netlink_ops(fd sock_netlink, peer ptr[out, sockaddr_nl, opt], peerlen ptr[inout, len[peer, int32]], flags flags[accept_flags]) sock_netlink",
+    "sendto$KGPT_netlink_ops": "sendto$KGPT_netlink_ops(fd sock_netlink, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, sockaddr_nl, opt], addrlen len[addr])",
+    "recvfrom$KGPT_netlink_ops": "recvfrom$KGPT_netlink_ops(fd sock_netlink, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, sockaddr_nl, opt], addrlen len[addr])",
+    "getsockopt$KGPT_NETLINK_PKTINFO": "getsockopt$KGPT_NETLINK_PKTINFO(fd sock_netlink, level const[SOL_NETLINK], opt const[NETLINK_PKTINFO], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_NETLINK_BROADCAST_ERROR": "getsockopt$KGPT_NETLINK_BROADCAST_ERROR(fd sock_netlink, level const[SOL_NETLINK], opt const[NETLINK_BROADCAST_ERROR], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_NETLINK_NO_ENOBUFS": "getsockopt$KGPT_NETLINK_NO_ENOBUFS(fd sock_netlink, level const[SOL_NETLINK], opt const[NETLINK_NO_ENOBUFS], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_NETLINK_LIST_MEMBERSHIPS": "getsockopt$KGPT_NETLINK_LIST_MEMBERSHIPS(fd sock_netlink, level const[SOL_NETLINK], opt const[NETLINK_LIST_MEMBERSHIPS], val ptr[out, array[int32]], len ptr[inout, int32])",
+    "getsockopt$KGPT_NETLINK_CAP_ACK": "getsockopt$KGPT_NETLINK_CAP_ACK(fd sock_netlink, level const[SOL_NETLINK], opt const[NETLINK_CAP_ACK], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_NETLINK_EXT_ACK": "getsockopt$KGPT_NETLINK_EXT_ACK(fd sock_netlink, level const[SOL_NETLINK], opt const[NETLINK_EXT_ACK], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_NETLINK_GET_STRICT_CHK": "getsockopt$KGPT_NETLINK_GET_STRICT_CHK(fd sock_netlink, level const[SOL_NETLINK], opt const[NETLINK_GET_STRICT_CHK], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "setsockopt$KGPT_NETLINK_PKTINFO": "setsockopt$KGPT_NETLINK_PKTINFO(fd sock_netlink, level const[SOL_NETLINK], opt const[NETLINK_PKTINFO], val int32, len bytesize[val])",
+    "setsockopt$KGPT_NETLINK_ADD_MEMBERSHIP": "setsockopt$KGPT_NETLINK_ADD_MEMBERSHIP(fd sock_netlink, level const[SOL_NETLINK], opt const[NETLINK_ADD_MEMBERSHIP], val int32, len bytesize[val])",
+    "setsockopt$KGPT_NETLINK_DROP_MEMBERSHIP": "setsockopt$KGPT_NETLINK_DROP_MEMBERSHIP(fd sock_netlink, level const[SOL_NETLINK], opt const[NETLINK_DROP_MEMBERSHIP], val int32, len bytesize[val])",
+    "setsockopt$KGPT_NETLINK_BROADCAST_ERROR": "setsockopt$KGPT_NETLINK_BROADCAST_ERROR(fd sock_netlink, level const[SOL_NETLINK], opt const[NETLINK_BROADCAST_ERROR], val int32, len bytesize[val])",
+    "setsockopt$KGPT_NETLINK_NO_ENOBUFS": "setsockopt$KGPT_NETLINK_NO_ENOBUFS(fd sock_netlink, level const[SOL_NETLINK], opt const[NETLINK_NO_ENOBUFS], val int32, len bytesize[val])",
+    "setsockopt$KGPT_NETLINK_LISTEN_ALL_NSID": "setsockopt$KGPT_NETLINK_LISTEN_ALL_NSID(fd sock_netlink, level const[SOL_NETLINK], opt const[NETLINK_LISTEN_ALL_NSID], val int32, len bytesize[val])",
+    "setsockopt$KGPT_NETLINK_CAP_ACK": "setsockopt$KGPT_NETLINK_CAP_ACK(fd sock_netlink, level const[SOL_NETLINK], opt const[NETLINK_CAP_ACK], val int32, len bytesize[val])",
+    "setsockopt$KGPT_NETLINK_EXT_ACK": "setsockopt$KGPT_NETLINK_EXT_ACK(fd sock_netlink, level const[SOL_NETLINK], opt const[NETLINK_EXT_ACK], val int32, len bytesize[val])",
+    "setsockopt$KGPT_NETLINK_GET_STRICT_CHK": "setsockopt$KGPT_NETLINK_GET_STRICT_CHK(fd sock_netlink, level const[SOL_NETLINK], opt const[NETLINK_GET_STRICT_CHK], val int32, len bytesize[val])"
+  },
+  "init_syscalls": [
+    "socket$KGPT_netlink"
+  ],
+  "includes": [
+    "linux/net.h",
+    "uapi/linux/netlink.h",
+    "linux/socket.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "sockaddr_nl": "EXISTING"
+  }
+}

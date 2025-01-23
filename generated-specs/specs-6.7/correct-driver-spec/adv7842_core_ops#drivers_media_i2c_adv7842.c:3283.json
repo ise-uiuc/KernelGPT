@@ -1,0 +1,36 @@
+{
+  "open": {
+    "filename": "/dev/v4l-subdev#",
+    "fd_name": "fd_adv7842",
+    "spec": "syz_open_dev$KGPT_v4l_subdev(dev ptr[in, string[\"/dev/v4l-subdev#\"]], id proc[0, 1], flags flags[open_flags]) fd_adv7842"
+  },
+  "resources": {
+    "fd_adv7842": {
+      "type": "fd",
+      "spec": "resource fd_adv7842[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/media/i2c/adv7842.c:3283",
+  "ioctls": {
+    "ADV7842_CMD_RAM_TEST": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    }
+  },
+  "types": {},
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_v4l_subdev": "syz_open_dev$KGPT_v4l_subdev(dev ptr[in, string[\"/dev/v4l-subdev#\"]], id proc[0, 1], flags flags[open_flags]) fd_adv7842",
+    "ioctl$KGPT_ADV7842_CMD_RAM_TEST": "ioctl$KGPT_ADV7842_CMD_RAM_TEST(fd fd_adv7842, cmd const[ADV7842_CMD_RAM_TEST], arg ptr[in, array[int8]])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_v4l_subdev"
+  ],
+  "includes": [
+    "media/i2c/adv7842.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

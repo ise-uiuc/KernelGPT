@@ -1,0 +1,308 @@
+{
+  "open": {
+    "filename": "/dev/vhost-net",
+    "fd_name": "fd_vhost_net",
+    "spec": "openat$KGPT_net(fd const[AT_FDCWD], file ptr[in, string[\"/dev/vhost-net\"]], flags const[O_RDWR], mode const[0]) fd_vhost_net"
+  },
+  "resources": {
+    "fd_vhost_net": {
+      "type": "fd",
+      "spec": "resource fd_vhost_net[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/vhost/net.c:1778",
+  "ioctls": {
+    "VHOST_GET_BACKEND_FEATURES": {
+      "arg": "ptr[out, int64]",
+      "arg_name_in_usage": "featurep",
+      "arg_inference": null
+    },
+    "VHOST_SET_BACKEND_FEATURES": {
+      "arg": "ptr[in, int64]",
+      "arg_name_in_usage": "featurep",
+      "arg_inference": null
+    },
+    "VHOST_GET_VRING_BUSYLOOP_TIMEOUT": {
+      "arg": "ptr[out, vhost_vring_state]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    }
+  },
+  "types": {},
+  "existing_ioctls": {
+    "VHOST_NET_SET_BACKEND": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "backend"
+      ],
+      "arg_inference": {
+        "function": [
+          "vhost_net_set_backend"
+        ],
+        "type": [
+          "vhost_vring_file"
+        ],
+        "usage": [
+          "struct vhost_vring_file backend;",
+          "if (copy_from_user(&backend, argp, sizeof backend))",
+          "return vhost_net_set_backend(n, backend.index, backend.fd);"
+        ]
+      }
+    },
+    "VHOST_GET_FEATURES": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "featurep"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [],
+        "usage": [
+          "u64 __user *featurep = argp;",
+          "u64 features;",
+          "features = VHOST_NET_FEATURES;",
+          "if (copy_to_user(featurep, &features, sizeof features))"
+        ]
+      }
+    },
+    "VHOST_SET_FEATURES": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "featurep"
+      ],
+      "arg_inference": {
+        "function": [
+          "vhost_net_set_features"
+        ],
+        "type": [],
+        "usage": [
+          "u64 __user *featurep = argp;",
+          "u64 features;",
+          "if (copy_from_user(&features, featurep, sizeof features))",
+          "return vhost_net_set_features(n, features);"
+        ]
+      }
+    },
+    "VHOST_RESET_OWNER": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "VHOST_SET_OWNER": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "VHOST_SET_MEM_TABLE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "vhost_set_memory"
+        ],
+        "type": [],
+        "usage": [
+          "r = vhost_set_memory(d, argp);"
+        ]
+      }
+    },
+    "VHOST_SET_LOG_BASE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [],
+        "usage": [
+          "if (copy_from_user(&p, argp, sizeof p)) {",
+          "void __user *base = (void __user *)(unsigned long)p;"
+        ]
+      }
+    },
+    "VHOST_SET_LOG_FD": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [],
+        "usage": [
+          "r = get_user(fd, (int __user *)argp);"
+        ]
+      }
+    },
+    "VHOST_SET_VRING_NUM": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "vhost_vring_set_num_addr"
+        ],
+        "type": [],
+        "usage": [
+          "return vhost_vring_set_num_addr(d, vq, ioctl, argp);"
+        ]
+      }
+    },
+    "VHOST_SET_VRING_ADDR": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "vhost_vring_set_num_addr"
+        ],
+        "type": [],
+        "usage": [
+          "return vhost_vring_set_num_addr(d, vq, ioctl, argp);"
+        ]
+      }
+    },
+    "VHOST_SET_VRING_BASE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [
+          "vhost_vring_state"
+        ],
+        "usage": [
+          "if (copy_from_user(&s, argp, sizeof s)) {"
+        ]
+      }
+    },
+    "VHOST_GET_VRING_BASE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [
+          "vhost_vring_state"
+        ],
+        "usage": [
+          "if (copy_to_user(argp, &s, sizeof s))"
+        ]
+      }
+    },
+    "VHOST_SET_VRING_KICK": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [
+          "vhost_vring_file"
+        ],
+        "usage": [
+          "if (copy_from_user(&f, argp, sizeof f)) {"
+        ]
+      }
+    },
+    "VHOST_SET_VRING_CALL": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [
+          "vhost_vring_file"
+        ],
+        "usage": [
+          "if (copy_from_user(&f, argp, sizeof f)) {"
+        ]
+      }
+    },
+    "VHOST_SET_VRING_ERR": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [
+          "vhost_vring_file"
+        ],
+        "usage": [
+          "if (copy_from_user(&f, argp, sizeof f)) {"
+        ]
+      }
+    },
+    "VHOST_SET_VRING_ENDIAN": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "vhost_set_vring_endian"
+        ],
+        "type": [],
+        "usage": [
+          "r = vhost_set_vring_endian(vq, argp);"
+        ]
+      }
+    },
+    "VHOST_GET_VRING_ENDIAN": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "vhost_get_vring_endian"
+        ],
+        "type": [],
+        "usage": [
+          "r = vhost_get_vring_endian(vq, idx, argp);"
+        ]
+      }
+    },
+    "VHOST_SET_VRING_BUSYLOOP_TIMEOUT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [
+          "vhost_vring_state"
+        ],
+        "usage": [
+          "if (copy_from_user(&s, argp, sizeof(s))) {"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "openat$KGPT_net": "openat$KGPT_net(fd const[AT_FDCWD], file ptr[in, string[\"/dev/vhost-net\"]], flags const[O_RDWR], mode const[0]) fd_vhost_net",
+    "ioctl$KGPT_VHOST_GET_BACKEND_FEATURES": "ioctl$KGPT_VHOST_GET_BACKEND_FEATURES(fd fd_vhost_net, cmd const[VHOST_GET_BACKEND_FEATURES], arg ptr[out, int64])",
+    "ioctl$KGPT_VHOST_SET_BACKEND_FEATURES": "ioctl$KGPT_VHOST_SET_BACKEND_FEATURES(fd fd_vhost_net, cmd const[VHOST_SET_BACKEND_FEATURES], arg ptr[in, int64])",
+    "ioctl$KGPT_VHOST_GET_VRING_BUSYLOOP_TIMEOUT": "ioctl$KGPT_VHOST_GET_VRING_BUSYLOOP_TIMEOUT(fd fd_vhost_net, cmd const[VHOST_GET_VRING_BUSYLOOP_TIMEOUT], arg ptr[out, vhost_vring_state])"
+  },
+  "init_syscalls": [
+    "openat$KGPT_net"
+  ],
+  "includes": [
+    "uapi/linux/vhost.h",
+    "uapi/linux/fcntl.h",
+    "uapi/asm-generic/fcntl.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "vhost_vring_state": "EXISTING"
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "socket": {
+    "domain": "AF_CAN",
+    "type": "SOCK_RAW",
+    "spec": "socket$KGPT_can_raw(domain const[AF_CAN], type const[SOCK_RAW], proto const[CAN_RAW]) sock_can_raw"
+  },
+  "resources": {
+    "sock_can_raw": {
+      "type": "sock",
+      "spec": "resource sock_can_raw[sock]"
+    }
+  },
+  "types": {
+    "can_err_mask_t": "type can_err_mask_t ptr[in, array[int8]]"
+  },
+  "socket_addr": "sockaddr_can",
+  "setsockopt": {
+    "CAN_RAW_FILTER": {
+      "level": "SOL_CAN_RAW",
+      "val": "ptr[in, array[can_filter]]",
+      "len": "bytesize[val]"
+    },
+    "CAN_RAW_ERR_FILTER": {
+      "level": "SOL_CAN_RAW",
+      "val": "ptr[in, can_err_mask_t]",
+      "len": "bytesize[val]"
+    },
+    "CAN_RAW_LOOPBACK": {
+      "level": "SOL_CAN_RAW",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]"
+    },
+    "CAN_RAW_RECV_OWN_MSGS": {
+      "level": "SOL_CAN_RAW",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]"
+    },
+    "CAN_RAW_FD_FRAMES": {
+      "level": "SOL_CAN_RAW",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]"
+    },
+    "CAN_RAW_XL_FRAMES": {
+      "level": "SOL_CAN_RAW",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]"
+    },
+    "CAN_RAW_JOIN_FILTERS": {
+      "level": "SOL_CAN_RAW",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]"
+    }
+  },
+  "unknown": [],
+  "setsockopt_unknown": [],
+  "getsockopt": {
+    "CAN_RAW_FILTER": {
+      "level": "SOL_CAN_RAW",
+      "val": "ptr[out, array[can_filter]]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "CAN_RAW_ERR_FILTER": {
+      "level": "SOL_CAN_RAW",
+      "val": "ptr[out, can_err_mask_t]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "CAN_RAW_LOOPBACK": {
+      "level": "SOL_CAN_RAW",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "CAN_RAW_RECV_OWN_MSGS": {
+      "level": "SOL_CAN_RAW",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "CAN_RAW_FD_FRAMES": {
+      "level": "SOL_CAN_RAW",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "CAN_RAW_XL_FRAMES": {
+      "level": "SOL_CAN_RAW",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "CAN_RAW_JOIN_FILTERS": {
+      "level": "SOL_CAN_RAW",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    }
+  },
+  "getsockopt_unknown": [],
+  "proto_ops": {
+    "bind": "raw_bind",
+    "connect": "sock_no_connect",
+    "accept": "sock_no_accept",
+    "poll": "datagram_poll",
+    "ioctl": "raw_sock_no_ioctlcmd",
+    "sendmsg": "raw_sendmsg",
+    "recvmsg": "raw_recvmsg",
+    "setsockopt": "raw_setsockopt",
+    "getsockopt": "raw_getsockopt"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/can/raw.c:955",
+  "ops_name": "raw_ops",
+  "syscall_specs": {
+    "socket$KGPT_can_raw": "socket$KGPT_can_raw(domain const[AF_CAN], type const[SOCK_RAW], proto const[CAN_RAW]) sock_can_raw",
+    "bind$KGPT_raw_ops": "bind$KGPT_raw_ops(fd sock_can_raw, addr ptr[in, sockaddr_can], addrlen len[addr])",
+    "connect$KGPT_raw_ops": "connect$KGPT_raw_ops(fd sock_can_raw, addr ptr[in, sockaddr_can], addrlen len[addr])",
+    "accept4$KGPT_raw_ops": "accept4$KGPT_raw_ops(fd sock_can_raw, peer ptr[out, sockaddr_can, opt], peerlen ptr[inout, len[peer, int32]], flags flags[accept_flags]) sock_can_raw",
+    "sendto$KGPT_raw_ops": "sendto$KGPT_raw_ops(fd sock_can_raw, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, sockaddr_can, opt], addrlen len[addr])",
+    "recvfrom$KGPT_raw_ops": "recvfrom$KGPT_raw_ops(fd sock_can_raw, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, sockaddr_can, opt], addrlen len[addr])",
+    "getsockopt$KGPT_CAN_RAW_FILTER": "getsockopt$KGPT_CAN_RAW_FILTER(fd sock_can_raw, level const[SOL_CAN_RAW], opt const[CAN_RAW_FILTER], val ptr[out, array[can_filter]], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_CAN_RAW_ERR_FILTER": "getsockopt$KGPT_CAN_RAW_ERR_FILTER(fd sock_can_raw, level const[SOL_CAN_RAW], opt const[CAN_RAW_ERR_FILTER], val ptr[out, can_err_mask_t], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_CAN_RAW_LOOPBACK": "getsockopt$KGPT_CAN_RAW_LOOPBACK(fd sock_can_raw, level const[SOL_CAN_RAW], opt const[CAN_RAW_LOOPBACK], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_CAN_RAW_RECV_OWN_MSGS": "getsockopt$KGPT_CAN_RAW_RECV_OWN_MSGS(fd sock_can_raw, level const[SOL_CAN_RAW], opt const[CAN_RAW_RECV_OWN_MSGS], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_CAN_RAW_FD_FRAMES": "getsockopt$KGPT_CAN_RAW_FD_FRAMES(fd sock_can_raw, level const[SOL_CAN_RAW], opt const[CAN_RAW_FD_FRAMES], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_CAN_RAW_XL_FRAMES": "getsockopt$KGPT_CAN_RAW_XL_FRAMES(fd sock_can_raw, level const[SOL_CAN_RAW], opt const[CAN_RAW_XL_FRAMES], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_CAN_RAW_JOIN_FILTERS": "getsockopt$KGPT_CAN_RAW_JOIN_FILTERS(fd sock_can_raw, level const[SOL_CAN_RAW], opt const[CAN_RAW_JOIN_FILTERS], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "setsockopt$KGPT_CAN_RAW_FILTER": "setsockopt$KGPT_CAN_RAW_FILTER(fd sock_can_raw, level const[SOL_CAN_RAW], opt const[CAN_RAW_FILTER], val ptr[in, array[can_filter]], len bytesize[val])",
+    "setsockopt$KGPT_CAN_RAW_ERR_FILTER": "setsockopt$KGPT_CAN_RAW_ERR_FILTER(fd sock_can_raw, level const[SOL_CAN_RAW], opt const[CAN_RAW_ERR_FILTER], val ptr[in, can_err_mask_t], len bytesize[val])",
+    "setsockopt$KGPT_CAN_RAW_LOOPBACK": "setsockopt$KGPT_CAN_RAW_LOOPBACK(fd sock_can_raw, level const[SOL_CAN_RAW], opt const[CAN_RAW_LOOPBACK], val ptr[in, int32], len bytesize[val])",
+    "setsockopt$KGPT_CAN_RAW_RECV_OWN_MSGS": "setsockopt$KGPT_CAN_RAW_RECV_OWN_MSGS(fd sock_can_raw, level const[SOL_CAN_RAW], opt const[CAN_RAW_RECV_OWN_MSGS], val ptr[in, int32], len bytesize[val])",
+    "setsockopt$KGPT_CAN_RAW_FD_FRAMES": "setsockopt$KGPT_CAN_RAW_FD_FRAMES(fd sock_can_raw, level const[SOL_CAN_RAW], opt const[CAN_RAW_FD_FRAMES], val ptr[in, int32], len bytesize[val])",
+    "setsockopt$KGPT_CAN_RAW_XL_FRAMES": "setsockopt$KGPT_CAN_RAW_XL_FRAMES(fd sock_can_raw, level const[SOL_CAN_RAW], opt const[CAN_RAW_XL_FRAMES], val ptr[in, int32], len bytesize[val])",
+    "setsockopt$KGPT_CAN_RAW_JOIN_FILTERS": "setsockopt$KGPT_CAN_RAW_JOIN_FILTERS(fd sock_can_raw, level const[SOL_CAN_RAW], opt const[CAN_RAW_JOIN_FILTERS], val ptr[in, int32], len bytesize[val])"
+  },
+  "init_syscalls": [
+    "socket$KGPT_can_raw"
+  ],
+  "includes": [
+    "linux/net.h",
+    "uapi/linux/can.h",
+    "uapi/linux/can/raw.h",
+    "linux/socket.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "sockaddr_can": "EXISTING",
+    "can_filter": "EXISTING"
+  }
+}

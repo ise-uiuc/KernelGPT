@@ -1,0 +1,46 @@
+{
+  "open": {
+    "filename": "/dev/ubi_ctrl",
+    "fd_name": "fd_ubi_ctrl",
+    "spec": "openat$KGPT_ubi_ctrl(fd const[AT_FDCWD], file ptr[in, string[\"/dev/ubi_ctrl\"]], flags const[O_RDWR], mode const[0]) fd_ubi_ctrl"
+  },
+  "resources": {
+    "fd_ubi_ctrl": {
+      "type": "fd",
+      "spec": "resource fd_ubi_ctrl[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/mtd/ubi/cdev.c:1104",
+  "ioctls": {
+    "UBI_IOCATT": {
+      "arg": "ptr[in, ubi_attach_req]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "UBI_IOCDET": {
+      "arg": "intptr",
+      "arg_name_in_usage": "ubi_num",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "ubi_attach_req": "ubi_attach_req {\n\tubi_num\tint32\n\tmtd_num\tint32\n\tvid_hdr_offset\tint32\n\tmax_beb_per1024\tint16\n\tdisable_fm\tint8\n\tneed_resv_pool\tint8\n\tpadding\tarray[int8, 8]\n}"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "openat$KGPT_ubi_ctrl": "openat$KGPT_ubi_ctrl(fd const[AT_FDCWD], file ptr[in, string[\"/dev/ubi_ctrl\"]], flags const[O_RDWR], mode const[0]) fd_ubi_ctrl",
+    "ioctl$KGPT_UBI_IOCATT": "ioctl$KGPT_UBI_IOCATT(fd fd_ubi_ctrl, cmd const[UBI_IOCATT], arg ptr[in, ubi_attach_req])",
+    "ioctl$KGPT_UBI_IOCDET": "ioctl$KGPT_UBI_IOCDET(fd fd_ubi_ctrl, cmd const[UBI_IOCDET], arg intptr)"
+  },
+  "init_syscalls": [
+    "openat$KGPT_ubi_ctrl"
+  ],
+  "includes": [
+    "uapi/linux/fcntl.h",
+    "uapi/mtd/ubi-user.h",
+    "uapi/asm-generic/fcntl.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

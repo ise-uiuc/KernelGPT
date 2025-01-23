@@ -1,0 +1,242 @@
+{
+  "open": {
+    "filename": "/dev/tty#",
+    "fd_name": "fd_tty",
+    "spec": "syz_open_dev$KGPT_tty(dev ptr[in, string[\"/dev/tty#\"]], id proc[0, 1], flags flags[open_flags]) fd_tty"
+  },
+  "resources": {
+    "fd_tty": {
+      "type": "fd",
+      "spec": "resource fd_tty[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/tty/vt/vt.c:3499",
+  "ioctls": {
+    "VT_LOCKSWITCH": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "VT_UNLOCKSWITCH": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "VT_SETACTIVATE": {
+      "arg": "ptr[in, vt_setactivate]",
+      "arg_name_in_usage": "sa",
+      "arg_inference": null
+    },
+    "VT_GETHIFONTMASK": {
+      "arg": "ptr[out, int16]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "VT_WAITEVENT": {
+      "arg": "ptr[in, vt_event]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": {
+        "function": [
+          "vt_event_wait_ioctl"
+        ],
+        "type": [
+          "vt_event"
+        ],
+        "usage": [
+          "return vt_event_wait_ioctl((struct vt_event __user *)arg);"
+        ]
+      }
+    }
+  },
+  "types": {
+    "vt_setactivate": "vt_setactivate {\n\tconsole\tint32\n\tmode\tvt_mode\n}",
+    "vt_event": "vt_event {\n\tevent\tflags[vt_event_flags, int32]\n\toldev\tint32\n\tnewev\tint32\n\tpad\tarray[int32, 4]\n}",
+    "vt_event_flags": "vt_event_flags = VT_EVENT_SWITCH, VT_EVENT_BLANK, VT_EVENT_UNBLANK, VT_EVENT_RESIZE, VT_MAX_EVENT"
+  },
+  "existing_ioctls": {
+    "TIOCLINUX": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "tioclinux"
+        ],
+        "type": [],
+        "usage": [
+          "return tioclinux(tty, arg);"
+        ]
+      }
+    },
+    "VT_SETMODE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "up"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [
+          "vt_mode"
+        ],
+        "usage": [
+          "struct vt_mode tmp;",
+          "if (copy_from_user(&tmp, up, sizeof(struct vt_mode)))"
+        ]
+      }
+    },
+    "VT_GETMODE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "up"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [
+          "vt_mode"
+        ],
+        "usage": [
+          "struct vt_mode tmp;",
+          "int rc;",
+          "rc = copy_to_user(up, &tmp, sizeof(struct vt_mode));"
+        ]
+      }
+    },
+    "VT_GETSTATE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "vtstat"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [
+          "vt_stat"
+        ],
+        "usage": [
+          "struct vt_stat __user *vtstat = up;",
+          "if (put_user(fg_console + 1, &vtstat->v_active))"
+        ]
+      }
+    },
+    "VT_OPENQRY": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "VT_ACTIVATE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "set_console"
+        ],
+        "type": [],
+        "usage": [
+          "set_console(arg);"
+        ]
+      }
+    },
+    "VT_WAITACTIVE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "vt_waitactive"
+        ],
+        "type": [],
+        "usage": [
+          "return vt_waitactive(arg);"
+        ]
+      }
+    },
+    "VT_RELDISP": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "vt_reldisp"
+        ],
+        "type": [],
+        "usage": [
+          "ret = vt_reldisp(vc, arg);"
+        ]
+      }
+    },
+    "VT_DISALLOCATE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "vt_disallocate",
+          "vt_disallocate_all"
+        ],
+        "type": [],
+        "usage": [
+          "arg = array_index_nospec(arg - 1, MAX_NR_CONSOLES);",
+          "return vt_disallocate(arg);",
+          "vt_disallocate_all();"
+        ]
+      }
+    },
+    "VT_RESIZE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "vtsizes"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [
+          "vt_sizes"
+        ],
+        "usage": [
+          "struct vt_sizes __user *vtsizes = up;",
+          "ushort ll,cc;",
+          "if (get_user(ll, &vtsizes->v_rows) ||",
+          "get_user(cc, &vtsizes->v_cols))"
+        ]
+      }
+    },
+    "VT_RESIZEX": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "up"
+      ],
+      "arg_inference": {
+        "function": [
+          "vt_resizex"
+        ],
+        "type": [],
+        "usage": [
+          "return vt_resizex(vc, up);"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_tty": "syz_open_dev$KGPT_tty(dev ptr[in, string[\"/dev/tty#\"]], id proc[0, 1], flags flags[open_flags]) fd_tty",
+    "ioctl$KGPT_VT_LOCKSWITCH": "ioctl$KGPT_VT_LOCKSWITCH(fd fd_tty, cmd const[VT_LOCKSWITCH], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_VT_UNLOCKSWITCH": "ioctl$KGPT_VT_UNLOCKSWITCH(fd fd_tty, cmd const[VT_UNLOCKSWITCH], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_VT_SETACTIVATE": "ioctl$KGPT_VT_SETACTIVATE(fd fd_tty, cmd const[VT_SETACTIVATE], arg ptr[in, vt_setactivate])",
+    "ioctl$KGPT_VT_GETHIFONTMASK": "ioctl$KGPT_VT_GETHIFONTMASK(fd fd_tty, cmd const[VT_GETHIFONTMASK], arg ptr[out, int16])",
+    "ioctl$KGPT_VT_WAITEVENT": "ioctl$KGPT_VT_WAITEVENT(fd fd_tty, cmd const[VT_WAITEVENT], arg ptr[in, vt_event])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_tty"
+  ],
+  "includes": [
+    "uapi/linux/vt.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "vt_mode": "EXISTING"
+  }
+}

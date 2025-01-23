@@ -1,0 +1,166 @@
+{
+  "open": {
+    "filename": "/dev/snd/midiC#D#",
+    "fd_name": "fd_snd_rawmidi",
+    "spec": "syz_open_dev$KGPT_snd_rawmidi(dev ptr[in, string[\"/dev/snd/midiC#D#\"]], id proc[0, 1], flags flags[open_flags]) fd_snd_rawmidi"
+  },
+  "resources": {
+    "fd_snd_rawmidi": {
+      "type": "fd",
+      "spec": "resource fd_snd_rawmidi[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/sound/core/rawmidi.c:1845",
+  "ioctls": {
+    "SNDRV_RAWMIDI_IOCTL_USER_PVERSION": {
+      "arg": "ptr[out, int32]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    }
+  },
+  "types": {},
+  "existing_ioctls": {
+    "SNDRV_RAWMIDI_IOCTL_PVERSION": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "put_user"
+        ],
+        "type": [
+          "int"
+        ],
+        "usage": [
+          "return put_user(SNDRV_RAWMIDI_VERSION, (int __user *)argp) ? -EFAULT : 0;"
+        ]
+      }
+    },
+    "SNDRV_RAWMIDI_IOCTL_INFO": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "info"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_rawmidi_info_user"
+        ],
+        "type": [
+          "snd_rawmidi_info"
+        ],
+        "usage": [
+          "int stream;",
+          "struct snd_rawmidi_info __user *info = argp;",
+          "if (get_user(stream, &info->stream))",
+          "return snd_rawmidi_info_user(rfile->input, info);",
+          "return snd_rawmidi_info_user(rfile->output, info);"
+        ]
+      }
+    },
+    "SNDRV_RAWMIDI_IOCTL_PARAMS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "params"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_rawmidi_output_params",
+          "snd_rawmidi_input_params"
+        ],
+        "type": [
+          "snd_rawmidi_params"
+        ],
+        "usage": [
+          "struct snd_rawmidi_params params;",
+          "if (copy_from_user(&params, argp, sizeof(struct snd_rawmidi_params)))",
+          "return snd_rawmidi_output_params(rfile->output, &params);",
+          "return snd_rawmidi_input_params(rfile->input, &params);"
+        ]
+      }
+    },
+    "SNDRV_RAWMIDI_IOCTL_STATUS32": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_rawmidi_ioctl_status32"
+        ],
+        "type": [],
+        "usage": [
+          "return snd_rawmidi_ioctl_status32(rfile, argp);"
+        ]
+      }
+    },
+    "SNDRV_RAWMIDI_IOCTL_STATUS64": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_rawmidi_ioctl_status64"
+        ],
+        "type": [],
+        "usage": [
+          "return snd_rawmidi_ioctl_status64(rfile, argp);"
+        ]
+      }
+    },
+    "SNDRV_RAWMIDI_IOCTL_DROP": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "val"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_rawmidi_drop_output"
+        ],
+        "type": [
+          "int"
+        ],
+        "usage": [
+          "int val;",
+          "if (get_user(val, (int __user *) argp))",
+          "return snd_rawmidi_drop_output(rfile->output);"
+        ]
+      }
+    },
+    "SNDRV_RAWMIDI_IOCTL_DRAIN": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "val"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_rawmidi_drain_output",
+          "snd_rawmidi_drain_input"
+        ],
+        "type": [
+          "int"
+        ],
+        "usage": [
+          "int val;",
+          "if (get_user(val, (int __user *) argp))",
+          "return snd_rawmidi_drain_output(rfile->output);",
+          "return snd_rawmidi_drain_input(rfile->input);"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_snd_rawmidi": "syz_open_dev$KGPT_snd_rawmidi(dev ptr[in, string[\"/dev/snd/midiC#D#\"]], id proc[0, 1], flags flags[open_flags]) fd_snd_rawmidi",
+    "ioctl$KGPT_SNDRV_RAWMIDI_IOCTL_USER_PVERSION": "ioctl$KGPT_SNDRV_RAWMIDI_IOCTL_USER_PVERSION(fd fd_snd_rawmidi, cmd const[SNDRV_RAWMIDI_IOCTL_USER_PVERSION], arg ptr[out, int32])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_snd_rawmidi"
+  ],
+  "includes": [
+    "uapi/sound/asound.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

@@ -1,0 +1,219 @@
+{
+  "open": {
+    "filename": "/dev/rtc#",
+    "fd_name": "fd_rtc",
+    "spec": "syz_open_dev$KGPT_rtc(dev ptr[in, string[\"/dev/rtc#\"]], id proc[0, 1], flags flags[open_flags]) fd_rtc"
+  },
+  "resources": {
+    "fd_rtc": {
+      "type": "fd",
+      "spec": "resource fd_rtc[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/rtc/dev.c:524",
+  "ioctls": {
+    "RTC_PARAM_GET": {
+      "arg": "ptr[inout, rtc_param]",
+      "arg_name_in_usage": "uarg",
+      "arg_inference": null
+    },
+    "RTC_PARAM_SET": {
+      "arg": "ptr[in, rtc_param]",
+      "arg_name_in_usage": "uarg",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "rtc_param": "rtc_param {\n\tparam\tint64\n\tuvalue\tint64\n\tsvalue\tint64\n\tptr\tint64\n\tindex\tint32\n\t__pad\tint32\n}"
+  },
+  "existing_ioctls": {
+    "RTC_ALM_READ": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "uarg"
+      ],
+      "arg_inference": {
+        "function": [
+          "rtc_read_alarm",
+          "copy_to_user"
+        ],
+        "type": [
+          "rtc_time"
+        ],
+        "usage": [
+          "err = rtc_read_alarm(rtc, &alarm);",
+          "if (copy_to_user(uarg, &alarm.time, sizeof(tm)))"
+        ]
+      }
+    },
+    "RTC_ALM_SET": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "uarg"
+      ],
+      "arg_inference": {
+        "function": [
+          "copy_from_user",
+          "rtc_set_alarm"
+        ],
+        "type": [
+          "rtc_time"
+        ],
+        "usage": [
+          "if (copy_from_user(&alarm.time, uarg, sizeof(tm)))",
+          "return rtc_set_alarm(rtc, &alarm);"
+        ]
+      }
+    },
+    "RTC_RD_TIME": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "uarg"
+      ],
+      "arg_inference": {
+        "function": [
+          "rtc_read_time",
+          "copy_to_user"
+        ],
+        "type": [
+          "rtc_time"
+        ],
+        "usage": [
+          "err = rtc_read_time(rtc, &tm);",
+          "if (copy_to_user(uarg, &tm, sizeof(tm)))"
+        ]
+      }
+    },
+    "RTC_SET_TIME": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "uarg"
+      ],
+      "arg_inference": {
+        "function": [
+          "copy_from_user",
+          "rtc_set_time"
+        ],
+        "type": [
+          "rtc_time"
+        ],
+        "usage": [
+          "if (copy_from_user(&tm, uarg, sizeof(tm)))",
+          "return rtc_set_time(rtc, &tm);"
+        ]
+      }
+    },
+    "RTC_PIE_ON": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "RTC_PIE_OFF": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "RTC_AIE_ON": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "RTC_AIE_OFF": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "RTC_UIE_ON": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "RTC_UIE_OFF": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "RTC_IRQP_SET": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "rtc_irq_set_freq"
+        ],
+        "type": [],
+        "usage": [
+          "err = rtc_irq_set_freq(rtc, arg);"
+        ]
+      }
+    },
+    "RTC_IRQP_READ": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "uarg"
+      ],
+      "arg_inference": {
+        "function": [
+          "put_user"
+        ],
+        "type": [],
+        "usage": [
+          "err = put_user(rtc->irq_freq, (unsigned long __user *)uarg);"
+        ]
+      }
+    },
+    "RTC_WKALM_SET": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "uarg"
+      ],
+      "arg_inference": {
+        "function": [
+          "copy_from_user",
+          "rtc_set_alarm"
+        ],
+        "type": [
+          "rtc_wkalrm"
+        ],
+        "usage": [
+          "if (copy_from_user(&alarm, uarg, sizeof(alarm)))",
+          "return rtc_set_alarm(rtc, &alarm);"
+        ]
+      }
+    },
+    "RTC_WKALM_RD": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "uarg"
+      ],
+      "arg_inference": {
+        "function": [
+          "rtc_read_alarm",
+          "copy_to_user"
+        ],
+        "type": [
+          "rtc_wkalrm"
+        ],
+        "usage": [
+          "err = rtc_read_alarm(rtc, &alarm);",
+          "if (copy_to_user(uarg, &alarm, sizeof(alarm)))"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_rtc": "syz_open_dev$KGPT_rtc(dev ptr[in, string[\"/dev/rtc#\"]], id proc[0, 1], flags flags[open_flags]) fd_rtc",
+    "ioctl$KGPT_RTC_PARAM_GET": "ioctl$KGPT_RTC_PARAM_GET(fd fd_rtc, cmd const[RTC_PARAM_GET], arg ptr[inout, rtc_param])",
+    "ioctl$KGPT_RTC_PARAM_SET": "ioctl$KGPT_RTC_PARAM_SET(fd fd_rtc, cmd const[RTC_PARAM_SET], arg ptr[in, rtc_param])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_rtc"
+  ],
+  "includes": [
+    "uapi/linux/rtc.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

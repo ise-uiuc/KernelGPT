@@ -1,0 +1,144 @@
+{
+  "socket": {
+    "domain": "AF_QIPCRTR",
+    "type": "SOCK_DGRAM",
+    "spec": "socket$KGPT_qrtr(domain const[AF_QIPCRTR], type const[SOCK_DGRAM], proto const[0]) sock_qrtr"
+  },
+  "resources": {
+    "sock_qrtr": {
+      "type": "sock",
+      "spec": "resource sock_qrtr[sock]"
+    }
+  },
+  "types": {},
+  "socket_addr": "sockaddr_qrtr",
+  "ioctls": {},
+  "existing_ioctls": {
+    "TIOCOUTQ": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "put_user"
+        ],
+        "type": [],
+        "usage": [
+          "rc = put_user(len, (int __user *)argp);"
+        ]
+      }
+    },
+    "TIOCINQ": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "put_user"
+        ],
+        "type": [],
+        "usage": [
+          "rc = put_user(len, (int __user *)argp);"
+        ]
+      }
+    },
+    "SIOCGIFADDR": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "get_user_ifreq",
+          "put_user_ifreq"
+        ],
+        "type": [
+          "ifreq",
+          "sockaddr_qrtr"
+        ],
+        "usage": [
+          "if (get_user_ifreq(&ifr, NULL, argp)) {\n\t\t\trc = -EFAULT;\n\t\t\tbreak;\n\t\t}",
+          "sq = (struct sockaddr_qrtr *)&ifr.ifr_addr;\n\t\t*sq = ipc->us;\n\t\tif (put_user_ifreq(&ifr, argp)) {\n\t\t\trc = -EFAULT;\n\t\t\tbreak;\n\t\t}"
+        ]
+      }
+    },
+    "SIOCADDRT": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SIOCDELRT": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SIOCSIFADDR": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SIOCGIFDSTADDR": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SIOCSIFDSTADDR": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SIOCGIFBRDADDR": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SIOCSIFBRDADDR": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SIOCGIFNETMASK": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SIOCSIFNETMASK": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "proto_ops": {
+    "bind": "qrtr_bind",
+    "connect": "qrtr_connect",
+    "accept": "sock_no_accept",
+    "poll": "datagram_poll",
+    "ioctl": "qrtr_ioctl",
+    "sendmsg": "qrtr_sendmsg",
+    "recvmsg": "qrtr_recvmsg"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/qrtr/af_qrtr.c:1235",
+  "ops_name": "qrtr_proto_ops",
+  "syscall_specs": {
+    "socket$KGPT_qrtr": "socket$KGPT_qrtr(domain const[AF_QIPCRTR], type const[SOCK_DGRAM], proto const[0]) sock_qrtr",
+    "bind$KGPT_qrtr_proto_ops": "bind$KGPT_qrtr_proto_ops(fd sock_qrtr, addr ptr[in, sockaddr_qrtr], addrlen len[addr])",
+    "connect$KGPT_qrtr_proto_ops": "connect$KGPT_qrtr_proto_ops(fd sock_qrtr, addr ptr[in, sockaddr_qrtr], addrlen len[addr])",
+    "accept4$KGPT_qrtr_proto_ops": "accept4$KGPT_qrtr_proto_ops(fd sock_qrtr, peer ptr[out, sockaddr_qrtr, opt], peerlen ptr[inout, len[peer, int32]], flags flags[accept_flags]) sock_qrtr",
+    "sendto$KGPT_qrtr_proto_ops": "sendto$KGPT_qrtr_proto_ops(fd sock_qrtr, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, sockaddr_qrtr, opt], addrlen len[addr])",
+    "recvfrom$KGPT_qrtr_proto_ops": "recvfrom$KGPT_qrtr_proto_ops(fd sock_qrtr, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, sockaddr_qrtr, opt], addrlen len[addr])"
+  },
+  "init_syscalls": [
+    "socket$KGPT_qrtr"
+  ],
+  "includes": [
+    "linux/net.h",
+    "linux/socket.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "sockaddr_qrtr": "EXISTING"
+  }
+}

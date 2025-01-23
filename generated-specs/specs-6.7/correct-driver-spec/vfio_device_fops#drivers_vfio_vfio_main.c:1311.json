@@ -1,0 +1,64 @@
+{
+  "open": {
+    "filename": "/dev/vfio/#",
+    "fd_name": "fd_vfio",
+    "spec": "syz_open_dev$KGPT_vfio(dev ptr[in, string[\"/dev/vfio/#\"]], id proc[0, 1], flags flags[open_flags]) fd_vfio"
+  },
+  "resources": {
+    "fd_vfio": {
+      "type": "fd",
+      "spec": "resource fd_vfio[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/vfio/vfio_main.c:1311",
+  "ioctls": {
+    "VFIO_DEVICE_BIND_IOMMUFD": {
+      "arg": "ptr[in, vfio_device_bind_iommufd]",
+      "arg_name_in_usage": "uptr",
+      "arg_inference": null
+    },
+    "VFIO_DEVICE_ATTACH_IOMMUFD_PT": {
+      "arg": "ptr[in, vfio_device_attach_iommufd_pt]",
+      "arg_name_in_usage": "uptr",
+      "arg_inference": null
+    },
+    "VFIO_DEVICE_DETACH_IOMMUFD_PT": {
+      "arg": "ptr[in, vfio_device_detach_iommufd_pt]",
+      "arg_name_in_usage": "uptr",
+      "arg_inference": null
+    },
+    "VFIO_DEVICE_FEATURE": {
+      "arg": "ptr[in, vfio_device_feature]",
+      "arg_name_in_usage": "uptr",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "vfio_device_bind_iommufd": "vfio_device_bind_iommufd {\n\targsz\tint32\n\tflags\tint32\n\tiommufd\tint32\n\tout_devid\tint32\n}",
+    "vfio_device_attach_iommufd_pt": "vfio_device_attach_iommufd_pt {\n\targsz\tint32\n\tflags\tint32\n\tpt_id\tint32\n}",
+    "vfio_device_detach_iommufd_pt": "vfio_device_detach_iommufd_pt {\n\targsz\tint32\n\tflags\tint32\n}",
+    "vfio_device_feature": "vfio_device_feature {\n\targsz\tint32\n\tflags\tflags[vfio_device_feature_flags, int32]\n\tdata\tarray[int8]\n}",
+    "vfio_device_feature_flags": "vfio_device_feature_flags = VFIO_DEVICE_FEATURE_MASK, VFIO_DEVICE_FEATURE_GET, VFIO_DEVICE_FEATURE_SET, VFIO_DEVICE_FEATURE_PROBE",
+    "VFIO_DEVICE_FEATURE_MASK": "define VFIO_DEVICE_FEATURE_MASK 0xffff",
+    "VFIO_DEVICE_FEATURE_GET": "define VFIO_DEVICE_FEATURE_GET (1 << 16)",
+    "VFIO_DEVICE_FEATURE_SET": "define VFIO_DEVICE_FEATURE_SET (1 << 17)",
+    "VFIO_DEVICE_FEATURE_PROBE": "define VFIO_DEVICE_FEATURE_PROBE (1 << 18)"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_vfio": "syz_open_dev$KGPT_vfio(dev ptr[in, string[\"/dev/vfio/#\"]], id proc[0, 1], flags flags[open_flags]) fd_vfio",
+    "ioctl$KGPT_VFIO_DEVICE_BIND_IOMMUFD": "ioctl$KGPT_VFIO_DEVICE_BIND_IOMMUFD(fd fd_vfio, cmd const[VFIO_DEVICE_BIND_IOMMUFD], arg ptr[in, vfio_device_bind_iommufd])",
+    "ioctl$KGPT_VFIO_DEVICE_ATTACH_IOMMUFD_PT": "ioctl$KGPT_VFIO_DEVICE_ATTACH_IOMMUFD_PT(fd fd_vfio, cmd const[VFIO_DEVICE_ATTACH_IOMMUFD_PT], arg ptr[in, vfio_device_attach_iommufd_pt])",
+    "ioctl$KGPT_VFIO_DEVICE_DETACH_IOMMUFD_PT": "ioctl$KGPT_VFIO_DEVICE_DETACH_IOMMUFD_PT(fd fd_vfio, cmd const[VFIO_DEVICE_DETACH_IOMMUFD_PT], arg ptr[in, vfio_device_detach_iommufd_pt])",
+    "ioctl$KGPT_VFIO_DEVICE_FEATURE": "ioctl$KGPT_VFIO_DEVICE_FEATURE(fd fd_vfio, cmd const[VFIO_DEVICE_FEATURE], arg ptr[in, vfio_device_feature])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_vfio"
+  ],
+  "includes": [
+    "uapi/linux/vfio.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

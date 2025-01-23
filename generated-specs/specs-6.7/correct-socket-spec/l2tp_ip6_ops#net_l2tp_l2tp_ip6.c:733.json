@@ -1,0 +1,230 @@
+{
+  "socket": {
+    "domain": "AF_INET6",
+    "type": "SOCK_DGRAM",
+    "spec": "socket$KGPT_l2tp(domain const[AF_INET6], type const[SOCK_DGRAM], proto const[IPPROTO_L2TP]) sock_l2tp6"
+  },
+  "resources": {
+    "sock_l2tp6": {
+      "type": "sock",
+      "spec": "resource sock_l2tp6[sock]"
+    }
+  },
+  "types": {
+    "IPPROTO_L2TP": "define IPPROTO_L2TP 115"
+  },
+  "socket_addr": "sockaddr_in6",
+  "ioctls": {
+    "SIOCPNADDRESOURCE": {
+      "arg": "intptr",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    }
+  },
+  "existing_ioctls": {
+    "SIOCADDRT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "ipv6_route_ioctl"
+        ],
+        "type": [
+          "in6_rtmsg"
+        ],
+        "usage": [
+          "if (copy_from_user(&rtmsg, argp, sizeof(rtmsg)))\n\t\treturn -EFAULT;\n\treturn ipv6_route_ioctl(net, cmd, &rtmsg);"
+        ]
+      }
+    },
+    "SIOCDELRT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "ipv6_route_ioctl"
+        ],
+        "type": [
+          "in6_rtmsg"
+        ],
+        "usage": [
+          "if (copy_from_user(&rtmsg, argp, sizeof(rtmsg)))\n\t\treturn -EFAULT;\n\treturn ipv6_route_ioctl(net, cmd, &rtmsg);"
+        ]
+      }
+    },
+    "SIOCSIFADDR": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "addrconf_add_ifaddr"
+        ],
+        "type": [],
+        "usage": [
+          "return addrconf_add_ifaddr(net, argp);"
+        ]
+      }
+    },
+    "SIOCDIFADDR": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "addrconf_del_ifaddr"
+        ],
+        "type": [],
+        "usage": [
+          "return addrconf_del_ifaddr(net, argp);"
+        ]
+      }
+    },
+    "SIOCSIFDSTADDR": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "addrconf_set_dstaddr"
+        ],
+        "type": [],
+        "usage": [
+          "return addrconf_set_dstaddr(net, argp);"
+        ]
+      }
+    },
+    "SIOCGETVIFCNT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sock_ioctl_inout"
+        ],
+        "type": [
+          "sioc_vif_req"
+        ],
+        "usage": [
+          "struct sioc_vif_req buffer;",
+          "return sock_ioctl_inout(sk, cmd, arg, &buffer, sizeof(buffer));"
+        ]
+      }
+    },
+    "SIOCGETSGCNT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sock_ioctl_inout"
+        ],
+        "type": [
+          "sioc_sg_req"
+        ],
+        "usage": [
+          "struct sioc_sg_req buffer;",
+          "return sock_ioctl_inout(sk, cmd, arg, &buffer, sizeof(buffer));"
+        ]
+      }
+    },
+    "SIOCGETMIFCNT_IN6": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sock_ioctl_inout"
+        ],
+        "type": [
+          "sioc_mif_req6"
+        ],
+        "usage": [
+          "struct sioc_mif_req6 buffer;",
+          "return sock_ioctl_inout(sk, cmd, arg, &buffer, sizeof(buffer));"
+        ]
+      }
+    },
+    "SIOCGETSGCNT_IN6": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sock_ioctl_inout"
+        ],
+        "type": [
+          "sioc_sg_req6"
+        ],
+        "usage": [
+          "struct sioc_sg_req6 buffer;",
+          "return sock_ioctl_inout(sk, cmd, arg, &buffer, sizeof(buffer));"
+        ]
+      }
+    },
+    "SIOCPNDELRESOURCE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sk->sk_prot->ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "int karg;",
+          "if (get_user(karg, (int __user *)arg))",
+          "return sk->sk_prot->ioctl(sk, cmd, &karg);"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "proto_ops": {
+    "bind": "inet6_bind",
+    "connect": "inet_dgram_connect",
+    "accept": "sock_no_accept",
+    "poll": "datagram_poll",
+    "ioctl": "inet6_ioctl",
+    "sendmsg": "inet_sendmsg",
+    "recvmsg": "sock_common_recvmsg",
+    "setsockopt": "sock_common_setsockopt",
+    "getsockopt": "sock_common_getsockopt"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/l2tp/l2tp_ip6.c:733",
+  "ops_name": "l2tp_ip6_ops",
+  "syscall_specs": {
+    "socket$KGPT_l2tp": "socket$KGPT_l2tp(domain const[AF_INET6], type const[SOCK_DGRAM], proto const[IPPROTO_L2TP]) sock_l2tp6",
+    "bind$KGPT_l2tp_ip6_ops": "bind$KGPT_l2tp_ip6_ops(fd sock_l2tp6, addr ptr[in, sockaddr_in6], addrlen len[addr])",
+    "connect$KGPT_l2tp_ip6_ops": "connect$KGPT_l2tp_ip6_ops(fd sock_l2tp6, addr ptr[in, sockaddr_in6], addrlen len[addr])",
+    "accept4$KGPT_l2tp_ip6_ops": "accept4$KGPT_l2tp_ip6_ops(fd sock_l2tp6, peer ptr[out, sockaddr_in6, opt], peerlen ptr[inout, len[peer, int32]], flags flags[accept_flags]) sock_l2tp6",
+    "sendto$KGPT_l2tp_ip6_ops": "sendto$KGPT_l2tp_ip6_ops(fd sock_l2tp6, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, sockaddr_in6, opt], addrlen len[addr])",
+    "recvfrom$KGPT_l2tp_ip6_ops": "recvfrom$KGPT_l2tp_ip6_ops(fd sock_l2tp6, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, sockaddr_in6, opt], addrlen len[addr])",
+    "ioctl$KGPT_SIOCPNADDRESOURCE": "ioctl$KGPT_SIOCPNADDRESOURCE(fd sock_l2tp6, cmd const[SIOCPNADDRESOURCE], arg intptr)"
+  },
+  "init_syscalls": [
+    "socket$KGPT_l2tp"
+  ],
+  "includes": [
+    "linux/net.h",
+    "uapi/linux/in.h",
+    "samples/bpf/net_shared.h",
+    "uapi/linux/phonet.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "sockaddr_in6": "EXISTING"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "open": {
+    "filename": "/dev/radio#",
+    "fd_name": "fd_si4713",
+    "spec": "syz_open_dev$KGPT_si4713(dev ptr[in, string[\"/dev/radio#\"]], id proc[0, 1], flags flags[open_flags]) fd_si4713"
+  },
+  "resources": {
+    "fd_si4713": {
+      "type": "fd",
+      "spec": "resource fd_si4713[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/media/radio/si4713/si4713.c:1399",
+  "ioctls": {
+    "SI4713_IOC_MEASURE_RNL": {
+      "arg": "ptr[in,out, si4713_rnl]",
+      "arg_name_in_usage": "rnl",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "si4713_rnl": "si4713_rnl {\n\tindex\tint32\n\tfrequency\tint32\n\trnl\tint32\n\treserved\tarray[int32, 4]\n}"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_si4713": "syz_open_dev$KGPT_si4713(dev ptr[in, string[\"/dev/radio#\"]], id proc[0, 1], flags flags[open_flags]) fd_si4713",
+    "ioctl$KGPT_SI4713_IOC_MEASURE_RNL": "ioctl$KGPT_SI4713_IOC_MEASURE_RNL(fd fd_si4713, cmd const[SI4713_IOC_MEASURE_RNL], arg ptr[inout, si4713_rnl])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_si4713"
+  ],
+  "includes": [
+    "linux/platform_data/media/si4713.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

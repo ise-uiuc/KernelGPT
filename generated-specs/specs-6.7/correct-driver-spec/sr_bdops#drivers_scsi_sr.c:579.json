@@ -1,0 +1,739 @@
+{
+  "open": {
+    "filename": "/dev/sr#",
+    "fd_name": "fd_sr",
+    "spec": "syz_open_dev$KGPT_sr(dev ptr[in, string[\"/dev/sr#\"]], id proc[0, 1], flags flags[open_flags]) fd_sr"
+  },
+  "resources": {
+    "fd_sr": {
+      "type": "fd",
+      "spec": "resource fd_sr[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/scsi/sr.c:579",
+  "ioctls": {
+    "CDROM_SELECT_DISC": {
+      "arg": "intptr",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "CDROM_DRIVE_STATUS": {
+      "arg": "intptr",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "DVD_AUTH": {
+      "arg": "ptr[inout, dvd_authinfo]",
+      "arg_name_in_usage": "userptr",
+      "arg_inference": null
+    }
+  },
+  "types": {},
+  "existing_ioctls": {
+    "CDROMCLOSETRAY": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "CDROMEJECT": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "CDROMMULTISESSION": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "cdrom_ioctl_multisession"
+        ],
+        "type": [],
+        "usage": [
+          "return cdrom_ioctl_multisession(cdi, argp);"
+        ]
+      }
+    },
+    "CDROMEJECT_SW": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "cdrom_ioctl_eject_sw"
+        ],
+        "type": [],
+        "usage": [
+          "return cdrom_ioctl_eject_sw(cdi, arg);"
+        ]
+      }
+    },
+    "CDROM_MEDIA_CHANGED": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "cdrom_ioctl_media_changed"
+        ],
+        "type": [],
+        "usage": [
+          "return cdrom_ioctl_media_changed(cdi, arg);"
+        ]
+      }
+    },
+    "CDROM_TIMED_MEDIA_CHANGE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "cdrom_ioctl_timed_media_change"
+        ],
+        "type": [],
+        "usage": [
+          "return cdrom_ioctl_timed_media_change(cdi, arg);"
+        ]
+      }
+    },
+    "CDROM_SET_OPTIONS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "cdrom_ioctl_set_options"
+        ],
+        "type": [],
+        "usage": [
+          "return cdrom_ioctl_set_options(cdi, arg);"
+        ]
+      }
+    },
+    "CDROM_CLEAR_OPTIONS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "cdrom_ioctl_clear_options"
+        ],
+        "type": [],
+        "usage": [
+          "return cdrom_ioctl_clear_options(cdi, arg);"
+        ]
+      }
+    },
+    "CDROM_SELECT_SPEED": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "cdrom_ioctl_select_speed"
+        ],
+        "type": [],
+        "usage": [
+          "return cdrom_ioctl_select_speed(cdi, arg);"
+        ]
+      }
+    },
+    "CDROMRESET": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "bdev"
+      ],
+      "arg_inference": {
+        "function": [
+          "cdrom_ioctl_reset"
+        ],
+        "type": [],
+        "usage": [
+          "return cdrom_ioctl_reset(cdi, bdev);"
+        ]
+      }
+    },
+    "CDROM_LOCKDOOR": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "cdrom_ioctl_lock_door"
+        ],
+        "type": [],
+        "usage": [
+          "return cdrom_ioctl_lock_door(cdi, arg);"
+        ]
+      }
+    },
+    "CDROM_DEBUG": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "cdrom_ioctl_debug"
+        ],
+        "type": [],
+        "usage": [
+          "return cdrom_ioctl_debug(cdi, arg);"
+        ]
+      }
+    },
+    "CDROM_GET_CAPABILITY": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "CDROM_GET_MCN": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "cdrom_ioctl_get_mcn"
+        ],
+        "type": [],
+        "usage": [
+          "return cdrom_ioctl_get_mcn(cdi, argp);"
+        ]
+      }
+    },
+    "CDROM_DISC_STATUS": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "CDROM_CHANGER_NSLOTS": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "CDROMSUBCHNL": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "cdrom_ioctl_get_subchnl"
+        ],
+        "type": [],
+        "usage": [
+          "return cdrom_ioctl_get_subchnl(cdi, argp);"
+        ]
+      }
+    },
+    "CDROMREADTOCHDR": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "cdrom_ioctl_read_tochdr"
+        ],
+        "type": [],
+        "usage": [
+          "return cdrom_ioctl_read_tochdr(cdi, argp);"
+        ]
+      }
+    },
+    "CDROMREADTOCENTRY": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "cdrom_ioctl_read_tocentry"
+        ],
+        "type": [],
+        "usage": [
+          "return cdrom_ioctl_read_tocentry(cdi, argp);"
+        ]
+      }
+    },
+    "CDROMPLAYMSF": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "cdrom_ioctl_play_msf"
+        ],
+        "type": [],
+        "usage": [
+          "return cdrom_ioctl_play_msf(cdi, argp);"
+        ]
+      }
+    },
+    "CDROMPLAYTRKIND": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "cdrom_ioctl_play_trkind"
+        ],
+        "type": [],
+        "usage": [
+          "return cdrom_ioctl_play_trkind(cdi, argp);"
+        ]
+      }
+    },
+    "CDROMVOLCTRL": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "cdrom_ioctl_volctrl"
+        ],
+        "type": [],
+        "usage": [
+          "return cdrom_ioctl_volctrl(cdi, argp);"
+        ]
+      }
+    },
+    "CDROMVOLREAD": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "cdrom_ioctl_volread"
+        ],
+        "type": [],
+        "usage": [
+          "return cdrom_ioctl_volread(cdi, argp);"
+        ]
+      }
+    },
+    "CDROMSTART": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "CDROMSTOP": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "CDROMPAUSE": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "CDROMRESUME": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SG_GET_VERSION_NUM": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sg_get_version"
+        ],
+        "type": [],
+        "usage": [
+          "return sg_get_version(arg);"
+        ]
+      }
+    },
+    "SG_SET_TIMEOUT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sg_set_timeout"
+        ],
+        "type": [],
+        "usage": [
+          "return sg_set_timeout(sdev, arg);"
+        ]
+      }
+    },
+    "SG_GET_TIMEOUT": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SG_GET_RESERVED_SIZE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sg_get_reserved_size"
+        ],
+        "type": [],
+        "usage": [
+          "return sg_get_reserved_size(sdev, arg);"
+        ]
+      }
+    },
+    "SG_SET_RESERVED_SIZE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sg_set_reserved_size"
+        ],
+        "type": [],
+        "usage": [
+          "return sg_set_reserved_size(sdev, arg);"
+        ]
+      }
+    },
+    "SG_EMULATED_HOST": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sg_emulated_host"
+        ],
+        "type": [],
+        "usage": [
+          "return sg_emulated_host(q, arg);"
+        ]
+      }
+    },
+    "SG_IO": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "scsi_ioctl_sg_io"
+        ],
+        "type": [],
+        "usage": [
+          "return scsi_ioctl_sg_io(sdev, open_for_write, arg);"
+        ]
+      }
+    },
+    "SCSI_IOCTL_SEND_COMMAND": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sg_scsi_ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "return sg_scsi_ioctl(q, open_for_write, arg);"
+        ]
+      }
+    },
+    "CDROM_SEND_PACKET": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "scsi_cdrom_send_packet"
+        ],
+        "type": [],
+        "usage": [
+          "return scsi_cdrom_send_packet(sdev, open_for_write, arg);"
+        ]
+      }
+    },
+    "SCSI_IOCTL_GET_IDLUN": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "scsi_get_idlun"
+        ],
+        "type": [],
+        "usage": [
+          "return scsi_get_idlun(sdev, arg);"
+        ]
+      }
+    },
+    "SCSI_IOCTL_GET_BUS_NUMBER": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [],
+        "usage": [
+          "return put_user(sdev->host->host_no, (int __user *)arg);"
+        ]
+      }
+    },
+    "SCSI_IOCTL_PROBE_HOST": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "ioctl_probe"
+        ],
+        "type": [],
+        "usage": [
+          "return ioctl_probe(sdev->host, arg);"
+        ]
+      }
+    },
+    "SCSI_IOCTL_DOORLOCK": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SCSI_IOCTL_DOORUNLOCK": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SCSI_IOCTL_TEST_UNIT_READY": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SCSI_IOCTL_START_UNIT": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SCSI_IOCTL_STOP_UNIT": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SCSI_IOCTL_GET_PCI": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "scsi_ioctl_get_pci"
+        ],
+        "type": [],
+        "usage": [
+          "return scsi_ioctl_get_pci(sdev, arg);"
+        ]
+      }
+    },
+    "SG_SCSI_RESET": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "scsi_ioctl_reset"
+        ],
+        "type": [],
+        "usage": [
+          "return scsi_ioctl_reset(sdev, arg);"
+        ]
+      }
+    },
+    "CDROMREADRAW": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "userptr"
+      ],
+      "arg_inference": {
+        "function": [
+          "mmc_ioctl_cdrom_read_data"
+        ],
+        "type": [],
+        "usage": [
+          "return mmc_ioctl_cdrom_read_data(cdi, userptr, &cgc, cmd);"
+        ]
+      }
+    },
+    "CDROMREADMODE1": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "userptr"
+      ],
+      "arg_inference": {
+        "function": [
+          "mmc_ioctl_cdrom_read_data"
+        ],
+        "type": [],
+        "usage": [
+          "return mmc_ioctl_cdrom_read_data(cdi, userptr, &cgc, cmd);"
+        ]
+      }
+    },
+    "CDROMREADMODE2": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "userptr"
+      ],
+      "arg_inference": {
+        "function": [
+          "mmc_ioctl_cdrom_read_data"
+        ],
+        "type": [],
+        "usage": [
+          "return mmc_ioctl_cdrom_read_data(cdi, userptr, &cgc, cmd);"
+        ]
+      }
+    },
+    "CDROMREADAUDIO": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "userptr"
+      ],
+      "arg_inference": {
+        "function": [
+          "mmc_ioctl_cdrom_read_audio"
+        ],
+        "type": [],
+        "usage": [
+          "return mmc_ioctl_cdrom_read_audio(cdi, userptr);"
+        ]
+      }
+    },
+    "CDROMPLAYBLK": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "userptr"
+      ],
+      "arg_inference": {
+        "function": [
+          "mmc_ioctl_cdrom_play_blk"
+        ],
+        "type": [],
+        "usage": [
+          "return mmc_ioctl_cdrom_play_blk(cdi, userptr, &cgc);"
+        ]
+      }
+    },
+    "DVD_READ_STRUCT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "userptr"
+      ],
+      "arg_inference": {
+        "function": [
+          "mmc_ioctl_dvd_read_struct"
+        ],
+        "type": [],
+        "usage": [
+          "return mmc_ioctl_dvd_read_struct(cdi, userptr, &cgc);"
+        ]
+      }
+    },
+    "CDROM_NEXT_WRITABLE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "userptr"
+      ],
+      "arg_inference": {
+        "function": [
+          "mmc_ioctl_cdrom_next_writable"
+        ],
+        "type": [],
+        "usage": [
+          "return mmc_ioctl_cdrom_next_writable(cdi, userptr);"
+        ]
+      }
+    },
+    "CDROM_LAST_WRITTEN": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "userptr"
+      ],
+      "arg_inference": {
+        "function": [
+          "mmc_ioctl_cdrom_last_written"
+        ],
+        "type": [],
+        "usage": [
+          "return mmc_ioctl_cdrom_last_written(cdi, userptr);"
+        ]
+      }
+    },
+    "CDROMGETSPINDOWN": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "NULL"
+      ],
+      "arg_inference": {
+        "function": [
+          "cdi->ops->audio_ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "return cdi->ops->audio_ioctl(cdi, cmd, NULL);"
+        ]
+      }
+    },
+    "CDROMSETSPINDOWN": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "NULL"
+      ],
+      "arg_inference": {
+        "function": [
+          "cdi->ops->audio_ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "return cdi->ops->audio_ioctl(cdi, cmd, NULL);"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_sr": "syz_open_dev$KGPT_sr(dev ptr[in, string[\"/dev/sr#\"]], id proc[0, 1], flags flags[open_flags]) fd_sr",
+    "ioctl$KGPT_CDROM_SELECT_DISC": "ioctl$KGPT_CDROM_SELECT_DISC(fd fd_sr, cmd const[CDROM_SELECT_DISC], arg intptr)",
+    "ioctl$KGPT_CDROM_DRIVE_STATUS": "ioctl$KGPT_CDROM_DRIVE_STATUS(fd fd_sr, cmd const[CDROM_DRIVE_STATUS], arg intptr)",
+    "ioctl$KGPT_DVD_AUTH": "ioctl$KGPT_DVD_AUTH(fd fd_sr, cmd const[DVD_AUTH], arg ptr[inout, dvd_authinfo])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_sr"
+  ],
+  "includes": [
+    "uapi/linux/cdrom.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "dvd_authinfo": "EXISTING"
+  }
+}

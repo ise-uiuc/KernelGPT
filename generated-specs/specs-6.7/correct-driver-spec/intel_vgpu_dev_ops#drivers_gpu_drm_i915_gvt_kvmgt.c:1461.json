@@ -1,0 +1,111 @@
+{
+  "open": {
+    "filename": "/dev/vfio/vfio",
+    "fd_name": "fd_vgpu",
+    "spec": "openat$KGPT_vgpu(fd const[AT_FDCWD], file ptr[in, string[\"/dev/vfio/vfio\"]], flags const[O_RDWR], mode const[0]) fd_vgpu"
+  },
+  "resources": {
+    "fd_vgpu": {
+      "type": "fd",
+      "spec": "resource fd_vgpu[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/gpu/drm/i915/gvt/kvmgt.c:1461",
+  "ioctls": {
+    "VFIO_DEVICE_RESET": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "VFIO_DEVICE_GET_INFO": {
+      "arg": "ptr[in, vfio_device_info]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "VFIO_DEVICE_GET_REGION_INFO": {
+      "arg": "ptr[in, vfio_region_info]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "VFIO_DEVICE_GET_IRQ_INFO": {
+      "arg": "ptr[in, vfio_irq_info]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "VFIO_DEVICE_SET_IRQS": {
+      "arg": "ptr[in, vfio_irq_set]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "VFIO_DEVICE_QUERY_GFX_PLANE": {
+      "arg": "ptr[inout, vfio_device_gfx_plane_info]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "VFIO_DEVICE_GET_GFX_DMABUF": {
+      "arg": "ptr[in, int32]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": {
+        "function": [
+          "intel_vgpu_get_dmabuf"
+        ],
+        "type": [
+          "__u32"
+        ],
+        "usage": [
+          "__u32 dmabuf_id;",
+          "if (get_user(dmabuf_id, (__u32 __user *)arg))"
+        ]
+      }
+    }
+  },
+  "types": {
+    "vfio_device_info": "vfio_device_info {\n\targsz\tint32\n\tflags\tflags[vfio_device_flags, int32]\n\tnum_regions\tint32\n\tnum_irqs\tint32\n\tcap_offset\tint32\n\tpad\tint32\n}",
+    "vfio_device_gfx_plane_info": "vfio_device_gfx_plane_info {\n\targsz\tint32\n\tflags\tflags[vfio_device_gfx_plane_info_flags, int32]\n\tdrm_plane_type\tint32\n\tdrm_format\tint32\n\tdrm_format_mod\tint64\n\twidth\tint32\n\theight\tint32\n\tstride\tint32\n\tsize\tint32\n\tx_pos\tint32\n\ty_pos\tint32\n\tx_hot\tint32\n\ty_hot\tint32\n\tunion\tvfio_device_gfx_plane_info_union\n\treserved\tint32\n}",
+    "vfio_region_info": "vfio_region_info {\n\targsz\tint32\n\tflags\tflags[vfio_region_info_flags, int32]\n\tindex\tint32\n\tcap_offset\tint32\n\tsize\tint64\n\toffset\tint64\n}",
+    "vfio_irq_info": "vfio_irq_info {\n\targsz\tint32\n\tflags\tflags[vfio_irq_info_flags, int32]\n\tindex\tint32\n\tcount\tint32\n}",
+    "vfio_irq_set": "vfio_irq_set {\n\targsz\tint32\n\tflags\tflags[vfio_irq_set_flags, int32]\n\tindex\tint32\n\tstart\tint32\n\tcount\tint32\n\tdata\tarray[int8]\n}",
+    "vfio_device_flags": "vfio_device_flags = VFIO_DEVICE_FLAGS_RESET, VFIO_DEVICE_FLAGS_PCI, VFIO_DEVICE_FLAGS_PLATFORM, VFIO_DEVICE_FLAGS_AMBA, VFIO_DEVICE_FLAGS_CCW, VFIO_DEVICE_FLAGS_AP, VFIO_DEVICE_FLAGS_FSL_MC, VFIO_DEVICE_FLAGS_CAPS, VFIO_DEVICE_FLAGS_CDX",
+    "vfio_region_info_flags": "vfio_region_info_flags = VFIO_REGION_INFO_FLAG_READ, VFIO_REGION_INFO_FLAG_WRITE, VFIO_REGION_INFO_FLAG_MMAP, VFIO_REGION_INFO_FLAG_CAPS",
+    "vfio_irq_info_flags": "vfio_irq_info_flags = VFIO_IRQ_INFO_EVENTFD, VFIO_IRQ_INFO_MASKABLE, VFIO_IRQ_INFO_AUTOMASKED, VFIO_IRQ_INFO_NORESIZE",
+    "vfio_irq_set_flags": "vfio_irq_set_flags = VFIO_IRQ_SET_DATA_NONE, VFIO_IRQ_SET_DATA_BOOL, VFIO_IRQ_SET_DATA_EVENTFD, VFIO_IRQ_SET_ACTION_MASK, VFIO_IRQ_SET_ACTION_UNMASK, VFIO_IRQ_SET_ACTION_TRIGGER",
+    "vfio_device_gfx_plane_info_flags": "vfio_device_gfx_plane_info_flags = VFIO_GFX_PLANE_TYPE_PROBE, VFIO_GFX_PLANE_TYPE_DMABUF, VFIO_GFX_PLANE_TYPE_REGION",
+    "vfio_device_gfx_plane_info_union": "vfio_device_gfx_plane_info_union [\n\tregion_index\tint32\n\tdmabuf_id\tint32\n]",
+    "VFIO_REGION_INFO_FLAG_READ": "define VFIO_REGION_INFO_FLAG_READ 0x1",
+    "VFIO_REGION_INFO_FLAG_WRITE": "define VFIO_REGION_INFO_FLAG_WRITE 0x2",
+    "VFIO_REGION_INFO_FLAG_MMAP": "define VFIO_REGION_INFO_FLAG_MMAP 0x4",
+    "VFIO_REGION_INFO_FLAG_CAPS": "define VFIO_REGION_INFO_FLAG_CAPS 0x8",
+    "VFIO_IRQ_INFO_EVENTFD": "define VFIO_IRQ_INFO_EVENTFD 1",
+    "VFIO_IRQ_INFO_MASKABLE": "define VFIO_IRQ_INFO_MASKABLE 2",
+    "VFIO_IRQ_INFO_AUTOMASKED": "define VFIO_IRQ_INFO_AUTOMASKED 4",
+    "VFIO_IRQ_INFO_NORESIZE": "define VFIO_IRQ_INFO_NORESIZE 8",
+    "VFIO_IRQ_SET_DATA_NONE": "define VFIO_IRQ_SET_DATA_NONE 0x1",
+    "VFIO_IRQ_SET_DATA_BOOL": "define VFIO_IRQ_SET_DATA_BOOL 0x2",
+    "VFIO_IRQ_SET_DATA_EVENTFD": "define VFIO_IRQ_SET_DATA_EVENTFD 0x4",
+    "VFIO_IRQ_SET_ACTION_MASK": "define VFIO_IRQ_SET_ACTION_MASK 0x8",
+    "VFIO_IRQ_SET_ACTION_UNMASK": "define VFIO_IRQ_SET_ACTION_UNMASK 0x10",
+    "VFIO_IRQ_SET_ACTION_TRIGGER": "define VFIO_IRQ_SET_ACTION_TRIGGER 0x20"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "openat$KGPT_vgpu": "openat$KGPT_vgpu(fd const[AT_FDCWD], file ptr[in, string[\"/dev/vfio/vfio\"]], flags const[O_RDWR], mode const[0]) fd_vgpu",
+    "ioctl$KGPT_VFIO_DEVICE_RESET": "ioctl$KGPT_VFIO_DEVICE_RESET(fd fd_vgpu, cmd const[VFIO_DEVICE_RESET], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_VFIO_DEVICE_GET_INFO": "ioctl$KGPT_VFIO_DEVICE_GET_INFO(fd fd_vgpu, cmd const[VFIO_DEVICE_GET_INFO], arg ptr[in, vfio_device_info])",
+    "ioctl$KGPT_VFIO_DEVICE_GET_REGION_INFO": "ioctl$KGPT_VFIO_DEVICE_GET_REGION_INFO(fd fd_vgpu, cmd const[VFIO_DEVICE_GET_REGION_INFO], arg ptr[in, vfio_region_info])",
+    "ioctl$KGPT_VFIO_DEVICE_GET_IRQ_INFO": "ioctl$KGPT_VFIO_DEVICE_GET_IRQ_INFO(fd fd_vgpu, cmd const[VFIO_DEVICE_GET_IRQ_INFO], arg ptr[in, vfio_irq_info])",
+    "ioctl$KGPT_VFIO_DEVICE_SET_IRQS": "ioctl$KGPT_VFIO_DEVICE_SET_IRQS(fd fd_vgpu, cmd const[VFIO_DEVICE_SET_IRQS], arg ptr[in, vfio_irq_set])",
+    "ioctl$KGPT_VFIO_DEVICE_QUERY_GFX_PLANE": "ioctl$KGPT_VFIO_DEVICE_QUERY_GFX_PLANE(fd fd_vgpu, cmd const[VFIO_DEVICE_QUERY_GFX_PLANE], arg ptr[inout, vfio_device_gfx_plane_info])",
+    "ioctl$KGPT_VFIO_DEVICE_GET_GFX_DMABUF": "ioctl$KGPT_VFIO_DEVICE_GET_GFX_DMABUF(fd fd_vgpu, cmd const[VFIO_DEVICE_GET_GFX_DMABUF], arg ptr[in, int32])"
+  },
+  "init_syscalls": [
+    "openat$KGPT_vgpu"
+  ],
+  "includes": [
+    "uapi/linux/vfio.h",
+    "uapi/linux/fcntl.h",
+    "uapi/asm-generic/fcntl.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

@@ -1,0 +1,130 @@
+{
+  "socket": {
+    "domain": "AF_VSOCK",
+    "type": "SOCK_SEQPACKET",
+    "spec": "socket$KGPT_vsock_seqpacket_ops(domain const[AF_VSOCK], type const[SOCK_SEQPACKET], proto const[0]) sock_vsock"
+  },
+  "resources": {
+    "sock_vsock": {
+      "type": "sock",
+      "spec": "resource sock_vsock[sock]"
+    }
+  },
+  "types": {
+    "__kernel_sock_timeval": "__kernel_sock_timeval {\n\ttv_sec\tint64\n\ttv_usec\tint64\n}",
+    "__kernel_old_timeval": "__kernel_old_timeval {\n\ttv_sec\tint64\n\ttv_usec\tint64\n}"
+  },
+  "socket_addr": "sockaddr_vm",
+  "setsockopt": {
+    "SO_VM_SOCKETS_BUFFER_SIZE": {
+      "level": "AF_VSOCK",
+      "val": "ptr[in, int64]",
+      "len": "bytesize[val]"
+    },
+    "SO_VM_SOCKETS_BUFFER_MAX_SIZE": {
+      "level": "AF_VSOCK",
+      "val": "ptr[in, int64]",
+      "len": "bytesize[val]"
+    },
+    "SO_VM_SOCKETS_BUFFER_MIN_SIZE": {
+      "level": "AF_VSOCK",
+      "val": "ptr[in, int64]",
+      "len": "bytesize[val]"
+    },
+    "SO_VM_SOCKETS_CONNECT_TIMEOUT_NEW": {
+      "level": "AF_VSOCK",
+      "val": "ptr[in, __kernel_sock_timeval]",
+      "len": "bytesize[val]"
+    },
+    "SO_VM_SOCKETS_CONNECT_TIMEOUT_OLD": {
+      "level": "AF_VSOCK",
+      "val": "ptr[in, __kernel_sock_timeval]",
+      "len": "bytesize[val]"
+    },
+    "SO_ZEROCOPY": {
+      "level": "SOL_SOCKET",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]"
+    }
+  },
+  "unknown": [],
+  "setsockopt_unknown": [],
+  "getsockopt": {
+    "SO_VM_SOCKETS_BUFFER_SIZE": {
+      "level": "AF_VSOCK",
+      "val": "ptr[out, int64]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "SO_VM_SOCKETS_BUFFER_MAX_SIZE": {
+      "level": "AF_VSOCK",
+      "val": "ptr[out, int64]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "SO_VM_SOCKETS_BUFFER_MIN_SIZE": {
+      "level": "AF_VSOCK",
+      "val": "ptr[out, int64]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "SO_VM_SOCKETS_CONNECT_TIMEOUT_NEW": {
+      "level": "AF_VSOCK",
+      "val": "ptr[out, __kernel_sock_timeval]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "SO_VM_SOCKETS_CONNECT_TIMEOUT_OLD": {
+      "level": "AF_VSOCK",
+      "val": "ptr[out, __kernel_old_timeval]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    }
+  },
+  "getsockopt_unknown": [],
+  "proto_ops": {
+    "bind": "vsock_bind",
+    "connect": "vsock_connect",
+    "accept": "vsock_accept",
+    "poll": "vsock_poll",
+    "ioctl": "sock_no_ioctl",
+    "sendmsg": "vsock_connectible_sendmsg",
+    "recvmsg": "vsock_connectible_recvmsg",
+    "setsockopt": "vsock_connectible_setsockopt",
+    "getsockopt": "vsock_connectible_getsockopt"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/vmw_vsock/af_vsock.c:2296",
+  "ops_name": "vsock_seqpacket_ops",
+  "syscall_specs": {
+    "socket$KGPT_vsock_seqpacket_ops": "socket$KGPT_vsock_seqpacket_ops(domain const[AF_VSOCK], type const[SOCK_SEQPACKET], proto const[0]) sock_vsock",
+    "bind$KGPT_vsock_seqpacket_ops": "bind$KGPT_vsock_seqpacket_ops(fd sock_vsock, addr ptr[in, sockaddr_vm], addrlen len[addr])",
+    "connect$KGPT_vsock_seqpacket_ops": "connect$KGPT_vsock_seqpacket_ops(fd sock_vsock, addr ptr[in, sockaddr_vm], addrlen len[addr])",
+    "accept4$KGPT_vsock_seqpacket_ops": "accept4$KGPT_vsock_seqpacket_ops(fd sock_vsock, peer ptr[out, sockaddr_vm, opt], peerlen ptr[inout, len[peer, int32]], flags flags[accept_flags]) sock_vsock",
+    "sendto$KGPT_vsock_seqpacket_ops": "sendto$KGPT_vsock_seqpacket_ops(fd sock_vsock, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, sockaddr_vm, opt], addrlen len[addr])",
+    "recvfrom$KGPT_vsock_seqpacket_ops": "recvfrom$KGPT_vsock_seqpacket_ops(fd sock_vsock, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, sockaddr_vm, opt], addrlen len[addr])",
+    "getsockopt$KGPT_SO_VM_SOCKETS_BUFFER_SIZE": "getsockopt$KGPT_SO_VM_SOCKETS_BUFFER_SIZE(fd sock_vsock, level const[AF_VSOCK], opt const[SO_VM_SOCKETS_BUFFER_SIZE], val ptr[out, int64], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_SO_VM_SOCKETS_BUFFER_MAX_SIZE": "getsockopt$KGPT_SO_VM_SOCKETS_BUFFER_MAX_SIZE(fd sock_vsock, level const[AF_VSOCK], opt const[SO_VM_SOCKETS_BUFFER_MAX_SIZE], val ptr[out, int64], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_SO_VM_SOCKETS_BUFFER_MIN_SIZE": "getsockopt$KGPT_SO_VM_SOCKETS_BUFFER_MIN_SIZE(fd sock_vsock, level const[AF_VSOCK], opt const[SO_VM_SOCKETS_BUFFER_MIN_SIZE], val ptr[out, int64], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_SO_VM_SOCKETS_CONNECT_TIMEOUT_NEW": "getsockopt$KGPT_SO_VM_SOCKETS_CONNECT_TIMEOUT_NEW(fd sock_vsock, level const[AF_VSOCK], opt const[SO_VM_SOCKETS_CONNECT_TIMEOUT_NEW], val ptr[out, __kernel_sock_timeval], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_SO_VM_SOCKETS_CONNECT_TIMEOUT_OLD": "getsockopt$KGPT_SO_VM_SOCKETS_CONNECT_TIMEOUT_OLD(fd sock_vsock, level const[AF_VSOCK], opt const[SO_VM_SOCKETS_CONNECT_TIMEOUT_OLD], val ptr[out, __kernel_old_timeval], len ptr[inout, bytesize[val, int32]])",
+    "setsockopt$KGPT_SO_VM_SOCKETS_BUFFER_SIZE": "setsockopt$KGPT_SO_VM_SOCKETS_BUFFER_SIZE(fd sock_vsock, level const[AF_VSOCK], opt const[SO_VM_SOCKETS_BUFFER_SIZE], val ptr[in, int64], len bytesize[val])",
+    "setsockopt$KGPT_SO_VM_SOCKETS_BUFFER_MAX_SIZE": "setsockopt$KGPT_SO_VM_SOCKETS_BUFFER_MAX_SIZE(fd sock_vsock, level const[AF_VSOCK], opt const[SO_VM_SOCKETS_BUFFER_MAX_SIZE], val ptr[in, int64], len bytesize[val])",
+    "setsockopt$KGPT_SO_VM_SOCKETS_BUFFER_MIN_SIZE": "setsockopt$KGPT_SO_VM_SOCKETS_BUFFER_MIN_SIZE(fd sock_vsock, level const[AF_VSOCK], opt const[SO_VM_SOCKETS_BUFFER_MIN_SIZE], val ptr[in, int64], len bytesize[val])",
+    "setsockopt$KGPT_SO_VM_SOCKETS_CONNECT_TIMEOUT_NEW": "setsockopt$KGPT_SO_VM_SOCKETS_CONNECT_TIMEOUT_NEW(fd sock_vsock, level const[AF_VSOCK], opt const[SO_VM_SOCKETS_CONNECT_TIMEOUT_NEW], val ptr[in, __kernel_sock_timeval], len bytesize[val])",
+    "setsockopt$KGPT_SO_VM_SOCKETS_CONNECT_TIMEOUT_OLD": "setsockopt$KGPT_SO_VM_SOCKETS_CONNECT_TIMEOUT_OLD(fd sock_vsock, level const[AF_VSOCK], opt const[SO_VM_SOCKETS_CONNECT_TIMEOUT_OLD], val ptr[in, __kernel_sock_timeval], len bytesize[val])",
+    "setsockopt$KGPT_SO_ZEROCOPY": "setsockopt$KGPT_SO_ZEROCOPY(fd sock_vsock, level const[SOL_SOCKET], opt const[SO_ZEROCOPY], val ptr[in, int32], len bytesize[val])"
+  },
+  "init_syscalls": [
+    "socket$KGPT_vsock_seqpacket_ops"
+  ],
+  "includes": [
+    "linux/net.h",
+    "uapi/linux/vm_sockets.h",
+    "linux/socket.h",
+    "uapi/asm-generic/socket.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "sockaddr_vm": "EXISTING"
+  }
+}

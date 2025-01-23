@@ -1,0 +1,439 @@
+{
+  "socket": {
+    "domain": "AF_INET",
+    "type": "SOCK_DGRAM",
+    "spec": "socket$KGPT_inet_udplite(domain const[AF_INET], type const[SOCK_DGRAM], proto const[IPPROTO_UDPLITE]) sock_inet_udplite"
+  },
+  "resources": {
+    "sock_inet_udplite": {
+      "type": "sock",
+      "spec": "resource sock_inet_udplite[sock]"
+    }
+  },
+  "types": {
+    "IPPROTO_UDPLITE": "define IPPROTO_UDPLITE 136"
+  },
+  "socket_addr": "sockaddr_in",
+  "ioctls": {
+    "SIOCPNADDRESOURCE": {
+      "arg": "intptr",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    }
+  },
+  "existing_ioctls": {
+    "SIOCADDRT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "ip_rt_ioctl"
+        ],
+        "type": [
+          "rtentry"
+        ],
+        "usage": [
+          "if (copy_from_user(&rt, p, sizeof(struct rtentry)))"
+        ]
+      }
+    },
+    "SIOCDELRT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "ip_rt_ioctl"
+        ],
+        "type": [
+          "rtentry"
+        ],
+        "usage": [
+          "if (copy_from_user(&rt, p, sizeof(struct rtentry)))"
+        ]
+      }
+    },
+    "SIOCRTMSG": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SIOCDARP": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "arp_ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "err = arp_ioctl(net, cmd, (void __user *)arg);"
+        ]
+      }
+    },
+    "SIOCGARP": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "arp_ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "err = arp_ioctl(net, cmd, (void __user *)arg);"
+        ]
+      }
+    },
+    "SIOCSARP": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "arp_ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "err = arp_ioctl(net, cmd, (void __user *)arg);"
+        ]
+      }
+    },
+    "SIOCGIFADDR": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "devinet_ioctl"
+        ],
+        "type": [
+          "ifreq"
+        ],
+        "usage": [
+          "if (get_user_ifreq(&ifr, NULL, p))",
+          "err = devinet_ioctl(net, cmd, &ifr);",
+          "if (!err && put_user_ifreq(&ifr, p))"
+        ]
+      }
+    },
+    "SIOCGIFBRDADDR": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "devinet_ioctl"
+        ],
+        "type": [
+          "ifreq"
+        ],
+        "usage": [
+          "if (get_user_ifreq(&ifr, NULL, p))",
+          "err = devinet_ioctl(net, cmd, &ifr);",
+          "if (!err && put_user_ifreq(&ifr, p))"
+        ]
+      }
+    },
+    "SIOCGIFNETMASK": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "devinet_ioctl"
+        ],
+        "type": [
+          "ifreq"
+        ],
+        "usage": [
+          "if (get_user_ifreq(&ifr, NULL, p))",
+          "err = devinet_ioctl(net, cmd, &ifr);",
+          "if (!err && put_user_ifreq(&ifr, p))"
+        ]
+      }
+    },
+    "SIOCGIFDSTADDR": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "devinet_ioctl"
+        ],
+        "type": [
+          "ifreq"
+        ],
+        "usage": [
+          "if (get_user_ifreq(&ifr, NULL, p))",
+          "err = devinet_ioctl(net, cmd, &ifr);",
+          "if (!err && put_user_ifreq(&ifr, p))"
+        ]
+      }
+    },
+    "SIOCGIFPFLAGS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "devinet_ioctl"
+        ],
+        "type": [
+          "ifreq"
+        ],
+        "usage": [
+          "if (get_user_ifreq(&ifr, NULL, p))",
+          "err = devinet_ioctl(net, cmd, &ifr);",
+          "if (!err && put_user_ifreq(&ifr, p))"
+        ]
+      }
+    },
+    "SIOCSIFADDR": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "devinet_ioctl"
+        ],
+        "type": [
+          "ifreq"
+        ],
+        "usage": [
+          "if (get_user_ifreq(&ifr, NULL, p))",
+          "err = devinet_ioctl(net, cmd, &ifr);"
+        ]
+      }
+    },
+    "SIOCSIFBRDADDR": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "devinet_ioctl"
+        ],
+        "type": [
+          "ifreq"
+        ],
+        "usage": [
+          "if (get_user_ifreq(&ifr, NULL, p))",
+          "err = devinet_ioctl(net, cmd, &ifr);"
+        ]
+      }
+    },
+    "SIOCSIFNETMASK": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "devinet_ioctl"
+        ],
+        "type": [
+          "ifreq"
+        ],
+        "usage": [
+          "if (get_user_ifreq(&ifr, NULL, p))",
+          "err = devinet_ioctl(net, cmd, &ifr);"
+        ]
+      }
+    },
+    "SIOCSIFDSTADDR": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "devinet_ioctl"
+        ],
+        "type": [
+          "ifreq"
+        ],
+        "usage": [
+          "if (get_user_ifreq(&ifr, NULL, p))",
+          "err = devinet_ioctl(net, cmd, &ifr);"
+        ]
+      }
+    },
+    "SIOCSIFPFLAGS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "devinet_ioctl"
+        ],
+        "type": [
+          "ifreq"
+        ],
+        "usage": [
+          "if (get_user_ifreq(&ifr, NULL, p))",
+          "err = devinet_ioctl(net, cmd, &ifr);"
+        ]
+      }
+    },
+    "SIOCSIFFLAGS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "devinet_ioctl"
+        ],
+        "type": [
+          "ifreq"
+        ],
+        "usage": [
+          "if (get_user_ifreq(&ifr, NULL, p))",
+          "err = devinet_ioctl(net, cmd, &ifr);"
+        ]
+      }
+    },
+    "SIOCGETVIFCNT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sock_ioctl_inout"
+        ],
+        "type": [
+          "sioc_vif_req"
+        ],
+        "usage": [
+          "struct sioc_vif_req buffer;",
+          "return sock_ioctl_inout(sk, cmd, arg, &buffer, sizeof(buffer));"
+        ]
+      }
+    },
+    "SIOCGETSGCNT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sock_ioctl_inout"
+        ],
+        "type": [
+          "sioc_sg_req"
+        ],
+        "usage": [
+          "struct sioc_sg_req buffer;",
+          "return sock_ioctl_inout(sk, cmd, arg, &buffer, sizeof(buffer));"
+        ]
+      }
+    },
+    "SIOCGETMIFCNT_IN6": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sock_ioctl_inout"
+        ],
+        "type": [
+          "sioc_mif_req6"
+        ],
+        "usage": [
+          "struct sioc_mif_req6 buffer;",
+          "return sock_ioctl_inout(sk, cmd, arg, &buffer, sizeof(buffer));"
+        ]
+      }
+    },
+    "SIOCGETSGCNT_IN6": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sock_ioctl_inout"
+        ],
+        "type": [
+          "sioc_sg_req6"
+        ],
+        "usage": [
+          "struct sioc_sg_req6 buffer;",
+          "return sock_ioctl_inout(sk, cmd, arg, &buffer, sizeof(buffer));"
+        ]
+      }
+    },
+    "SIOCPNDELRESOURCE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "karg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sk->sk_prot->ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "int karg;",
+          "if (get_user(karg, (int __user *)arg))",
+          "return sk->sk_prot->ioctl(sk, cmd, &karg);"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "proto_ops": {
+    "bind": "inet_bind",
+    "connect": "inet_dgram_connect",
+    "accept": "sock_no_accept",
+    "poll": "udp_poll",
+    "ioctl": "inet_ioctl",
+    "sendmsg": "inet_sendmsg",
+    "recvmsg": "inet_recvmsg",
+    "setsockopt": "sock_common_setsockopt",
+    "getsockopt": "sock_common_getsockopt"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/ipv4/af_inet.c:1082",
+  "ops_name": "inet_dgram_ops",
+  "syscall_specs": {
+    "socket$KGPT_inet_udplite": "socket$KGPT_inet_udplite(domain const[AF_INET], type const[SOCK_DGRAM], proto const[IPPROTO_UDPLITE]) sock_inet_udplite",
+    "bind$KGPT_inet_dgram_ops": "bind$KGPT_inet_dgram_ops(fd sock_inet_udplite, addr ptr[in, sockaddr_in], addrlen len[addr])",
+    "connect$KGPT_inet_dgram_ops": "connect$KGPT_inet_dgram_ops(fd sock_inet_udplite, addr ptr[in, sockaddr_in], addrlen len[addr])",
+    "accept4$KGPT_inet_dgram_ops": "accept4$KGPT_inet_dgram_ops(fd sock_inet_udplite, peer ptr[out, sockaddr_in, opt], peerlen ptr[inout, len[peer, int32]], flags flags[accept_flags]) sock_inet_udplite",
+    "sendto$KGPT_inet_dgram_ops": "sendto$KGPT_inet_dgram_ops(fd sock_inet_udplite, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, sockaddr_in, opt], addrlen len[addr])",
+    "recvfrom$KGPT_inet_dgram_ops": "recvfrom$KGPT_inet_dgram_ops(fd sock_inet_udplite, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, sockaddr_in, opt], addrlen len[addr])",
+    "ioctl$KGPT_SIOCPNADDRESOURCE": "ioctl$KGPT_SIOCPNADDRESOURCE(fd sock_inet_udplite, cmd const[SIOCPNADDRESOURCE], arg intptr)"
+  },
+  "init_syscalls": [
+    "socket$KGPT_inet_udplite"
+  ],
+  "includes": [
+    "linux/net.h",
+    "samples/bpf/net_shared.h",
+    "uapi/linux/in.h",
+    "linux/socket.h",
+    "uapi/linux/phonet.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "sockaddr_in": "EXISTING"
+  }
+}

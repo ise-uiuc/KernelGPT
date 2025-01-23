@@ -1,0 +1,233 @@
+{
+  "socket": {
+    "domain": "AF_INET6",
+    "type": "SOCK_STREAM",
+    "spec": "socket$KGPT_mptcp_v6(domain const[AF_INET6], type const[SOCK_STREAM], proto const[IPPROTO_MPTCP]) sock_mptcp_v6"
+  },
+  "resources": {
+    "sock_mptcp_v6": {
+      "type": "sock",
+      "spec": "resource sock_mptcp_v6[sock]"
+    }
+  },
+  "types": {
+    "IPPROTO_MPTCP": "define IPPROTO_MPTCP 262",
+    "sockaddr_in_any": "sockaddr_in_any [\n\tipv4\tsockaddr_in\n\tipv6\tsockaddr_in6\n] [varlen]"
+  },
+  "socket_addr": "sockaddr_in_any",
+  "ioctls": {
+    "SIOCPNADDRESOURCE": {
+      "arg": "intptr",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    }
+  },
+  "existing_ioctls": {
+    "SIOCADDRT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "ipv6_route_ioctl"
+        ],
+        "type": [
+          "in6_rtmsg"
+        ],
+        "usage": [
+          "if (copy_from_user(&rtmsg, argp, sizeof(rtmsg)))\n\t\treturn -EFAULT;\n\treturn ipv6_route_ioctl(net, cmd, &rtmsg);"
+        ]
+      }
+    },
+    "SIOCDELRT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "ipv6_route_ioctl"
+        ],
+        "type": [
+          "in6_rtmsg"
+        ],
+        "usage": [
+          "if (copy_from_user(&rtmsg, argp, sizeof(rtmsg)))\n\t\treturn -EFAULT;\n\treturn ipv6_route_ioctl(net, cmd, &rtmsg);"
+        ]
+      }
+    },
+    "SIOCSIFADDR": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "addrconf_add_ifaddr"
+        ],
+        "type": [],
+        "usage": [
+          "return addrconf_add_ifaddr(net, argp);"
+        ]
+      }
+    },
+    "SIOCDIFADDR": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "addrconf_del_ifaddr"
+        ],
+        "type": [],
+        "usage": [
+          "return addrconf_del_ifaddr(net, argp);"
+        ]
+      }
+    },
+    "SIOCSIFDSTADDR": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "addrconf_set_dstaddr"
+        ],
+        "type": [],
+        "usage": [
+          "return addrconf_set_dstaddr(net, argp);"
+        ]
+      }
+    },
+    "SIOCGETVIFCNT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sock_ioctl_inout"
+        ],
+        "type": [
+          "sioc_vif_req"
+        ],
+        "usage": [
+          "struct sioc_vif_req buffer;",
+          "return sock_ioctl_inout(sk, cmd, arg, &buffer, sizeof(buffer));"
+        ]
+      }
+    },
+    "SIOCGETSGCNT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sock_ioctl_inout"
+        ],
+        "type": [
+          "sioc_sg_req"
+        ],
+        "usage": [
+          "struct sioc_sg_req buffer;",
+          "return sock_ioctl_inout(sk, cmd, arg, &buffer, sizeof(buffer));"
+        ]
+      }
+    },
+    "SIOCGETMIFCNT_IN6": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sock_ioctl_inout"
+        ],
+        "type": [
+          "sioc_mif_req6"
+        ],
+        "usage": [
+          "struct sioc_mif_req6 buffer;",
+          "return sock_ioctl_inout(sk, cmd, arg, &buffer, sizeof(buffer));"
+        ]
+      }
+    },
+    "SIOCGETSGCNT_IN6": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sock_ioctl_inout"
+        ],
+        "type": [
+          "sioc_sg_req6"
+        ],
+        "usage": [
+          "struct sioc_sg_req6 buffer;",
+          "return sock_ioctl_inout(sk, cmd, arg, &buffer, sizeof(buffer));"
+        ]
+      }
+    },
+    "SIOCPNDELRESOURCE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sk->sk_prot->ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "int karg;",
+          "if (get_user(karg, (int __user *)arg))",
+          "return sk->sk_prot->ioctl(sk, cmd, &karg);"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "proto_ops": {
+    "bind": "mptcp_bind",
+    "connect": "inet_stream_connect",
+    "accept": "mptcp_stream_accept",
+    "poll": "mptcp_poll",
+    "ioctl": "inet6_ioctl",
+    "sendmsg": "inet6_sendmsg",
+    "recvmsg": "inet6_recvmsg",
+    "setsockopt": "sock_common_setsockopt",
+    "getsockopt": "sock_common_getsockopt"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/mptcp/protocol.c:4049",
+  "ops_name": "mptcp_v6_stream_ops",
+  "syscall_specs": {
+    "socket$KGPT_mptcp_v6": "socket$KGPT_mptcp_v6(domain const[AF_INET6], type const[SOCK_STREAM], proto const[IPPROTO_MPTCP]) sock_mptcp_v6",
+    "bind$KGPT_mptcp_v6_stream_ops": "bind$KGPT_mptcp_v6_stream_ops(fd sock_mptcp_v6, addr ptr[in, sockaddr_in_any], addrlen len[addr])",
+    "connect$KGPT_mptcp_v6_stream_ops": "connect$KGPT_mptcp_v6_stream_ops(fd sock_mptcp_v6, addr ptr[in, sockaddr_in_any], addrlen len[addr])",
+    "accept4$KGPT_mptcp_v6_stream_ops": "accept4$KGPT_mptcp_v6_stream_ops(fd sock_mptcp_v6, peer ptr[out, sockaddr_in_any, opt], peerlen ptr[inout, len[peer, int32]], flags flags[accept_flags]) sock_mptcp_v6",
+    "sendto$KGPT_mptcp_v6_stream_ops": "sendto$KGPT_mptcp_v6_stream_ops(fd sock_mptcp_v6, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, sockaddr_in_any, opt], addrlen len[addr])",
+    "recvfrom$KGPT_mptcp_v6_stream_ops": "recvfrom$KGPT_mptcp_v6_stream_ops(fd sock_mptcp_v6, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, sockaddr_in_any, opt], addrlen len[addr])",
+    "ioctl$KGPT_SIOCPNADDRESOURCE": "ioctl$KGPT_SIOCPNADDRESOURCE(fd sock_mptcp_v6, cmd const[SIOCPNADDRESOURCE], arg intptr)"
+  },
+  "init_syscalls": [
+    "socket$KGPT_mptcp_v6"
+  ],
+  "includes": [
+    "linux/net.h",
+    "samples/bpf/net_shared.h",
+    "uapi/linux/in.h",
+    "linux/socket.h",
+    "uapi/linux/phonet.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "sockaddr_in": "EXISTING",
+    "sockaddr_in6": "EXISTING"
+  }
+}

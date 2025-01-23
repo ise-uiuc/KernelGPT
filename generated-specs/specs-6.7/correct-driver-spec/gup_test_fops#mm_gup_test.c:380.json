@@ -1,0 +1,91 @@
+{
+  "open": {
+    "filename": "/sys/kernel/debug/gup_test",
+    "fd_name": "fd_gup_test",
+    "spec": "openat$KGPT_gup_test(fd const[AT_FDCWD], file ptr[in, string[\"/sys/kernel/debug/gup_test\"]], flags const[O_RDWR], mode const[0]) fd_gup_test"
+  },
+  "resources": {
+    "fd_gup_test": {
+      "type": "fd",
+      "spec": "resource fd_gup_test[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/mm/gup_test.c:380",
+  "ioctls": {
+    "GUP_FAST_BENCHMARK": {
+      "arg": "ptr[inout, gup_test]",
+      "arg_name_in_usage": "gup",
+      "arg_inference": null
+    },
+    "PIN_FAST_BENCHMARK": {
+      "arg": "ptr[inout, gup_test]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "PIN_LONGTERM_BENCHMARK": {
+      "arg": "ptr[inout, gup_test]",
+      "arg_name_in_usage": "gup",
+      "arg_inference": null
+    },
+    "GUP_BASIC_TEST": {
+      "arg": "ptr[inout, gup_test]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "PIN_BASIC_TEST": {
+      "arg": "ptr[inout, gup_test]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    },
+    "DUMP_USER_PAGES_TEST": {
+      "arg": "ptr[inout, gup_test]",
+      "arg_name_in_usage": "gup",
+      "arg_inference": null
+    },
+    "PIN_LONGTERM_TEST_START": {
+      "arg": "int64",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "PIN_LONGTERM_TEST_STOP": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "PIN_LONGTERM_TEST_READ": {
+      "arg": "ptr[in, pin_longterm_test_args]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "gup_test": "gup_test {\n\tget_delta_usec\tint64\n\tput_delta_usec\tint64\n\taddr\tint64\n\tsize\tint64\n\tnr_pages_per_call\tint32\n\tgup_flags\tint32\n\ttest_flags\tint32\n\twhich_pages\tarray[int32, GUP_TEST_MAX_PAGES_TO_DUMP]\n}",
+    "pin_longterm_test_args": "type pin_longterm_test_args ptr[in, array[int8]]"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "openat$KGPT_gup_test": "openat$KGPT_gup_test(fd const[AT_FDCWD], file ptr[in, string[\"/sys/kernel/debug/gup_test\"]], flags const[O_RDWR], mode const[0]) fd_gup_test",
+    "ioctl$KGPT_GUP_FAST_BENCHMARK": "ioctl$KGPT_GUP_FAST_BENCHMARK(fd fd_gup_test, cmd const[GUP_FAST_BENCHMARK], arg ptr[inout, gup_test])",
+    "ioctl$KGPT_PIN_FAST_BENCHMARK": "ioctl$KGPT_PIN_FAST_BENCHMARK(fd fd_gup_test, cmd const[PIN_FAST_BENCHMARK], arg ptr[inout, gup_test])",
+    "ioctl$KGPT_PIN_LONGTERM_BENCHMARK": "ioctl$KGPT_PIN_LONGTERM_BENCHMARK(fd fd_gup_test, cmd const[PIN_LONGTERM_BENCHMARK], arg ptr[inout, gup_test])",
+    "ioctl$KGPT_GUP_BASIC_TEST": "ioctl$KGPT_GUP_BASIC_TEST(fd fd_gup_test, cmd const[GUP_BASIC_TEST], arg ptr[inout, gup_test])",
+    "ioctl$KGPT_PIN_BASIC_TEST": "ioctl$KGPT_PIN_BASIC_TEST(fd fd_gup_test, cmd const[PIN_BASIC_TEST], arg ptr[inout, gup_test])",
+    "ioctl$KGPT_DUMP_USER_PAGES_TEST": "ioctl$KGPT_DUMP_USER_PAGES_TEST(fd fd_gup_test, cmd const[DUMP_USER_PAGES_TEST], arg ptr[inout, gup_test])",
+    "ioctl$KGPT_PIN_LONGTERM_TEST_START": "ioctl$KGPT_PIN_LONGTERM_TEST_START(fd fd_gup_test, cmd const[PIN_LONGTERM_TEST_START], arg int64)",
+    "ioctl$KGPT_PIN_LONGTERM_TEST_STOP": "ioctl$KGPT_PIN_LONGTERM_TEST_STOP(fd fd_gup_test, cmd const[PIN_LONGTERM_TEST_STOP], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_PIN_LONGTERM_TEST_READ": "ioctl$KGPT_PIN_LONGTERM_TEST_READ(fd fd_gup_test, cmd const[PIN_LONGTERM_TEST_READ], arg ptr[in, pin_longterm_test_args])"
+  },
+  "init_syscalls": [
+    "openat$KGPT_gup_test"
+  ],
+  "includes": [
+    "mm/gup_test.h",
+    "uapi/linux/fcntl.h",
+    "uapi/asm-generic/fcntl.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "GUP_TEST_MAX_PAGES_TO_DUMP": "UNFOUND_MACRO"
+  }
+}

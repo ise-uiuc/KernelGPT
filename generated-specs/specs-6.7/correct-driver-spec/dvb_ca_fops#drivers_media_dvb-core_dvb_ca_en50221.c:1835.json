@@ -1,0 +1,60 @@
+{
+  "open": {
+    "filename": "/dev/dvb/adapter#/ca#",
+    "fd_name": "fd_dvb_ca",
+    "spec": "syz_open_dev$KGPT_dvb_ca(dev ptr[in, string[\"/dev/dvb/adapter#/ca#\"]], id proc[0, 1], flags flags[open_flags]) fd_dvb_ca"
+  },
+  "resources": {
+    "fd_dvb_ca": {
+      "type": "fd",
+      "spec": "resource fd_dvb_ca[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/media/dvb-core/dvb_ca_en50221.c:1835",
+  "ioctls": {
+    "CA_RESET": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "CA_GET_CAP": {
+      "arg": "ptr[out, ca_caps]",
+      "arg_name_in_usage": "caps",
+      "arg_inference": null
+    },
+    "CA_GET_SLOT_INFO": {
+      "arg": "ptr[inout, ca_slot_info]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "ca_caps": "ca_caps {\n\tslot_num\tint32\n\tslot_type\tint32\n\tdescr_num\tint32\n\tdescr_type\tint32\n}",
+    "ca_slot_info": "ca_slot_info {\n\tnum\tint32\n\ttype\tflags[ca_slot_info_type, int32]\n\tflags\tflags[ca_slot_info_flags, int32]\n}",
+    "ca_slot_info_type": "ca_slot_info_type = CA_CI, CA_CI_LINK, CA_CI_PHYS, CA_DESCR, CA_SC",
+    "ca_slot_info_flags": "ca_slot_info_flags = CA_CI_MODULE_PRESENT, CA_CI_MODULE_READY",
+    "CA_CI": "define CA_CI 1",
+    "CA_CI_LINK": "define CA_CI_LINK 2",
+    "CA_CI_PHYS": "define CA_CI_PHYS 4",
+    "CA_DESCR": "define CA_DESCR 8",
+    "CA_SC": "define CA_SC 128",
+    "CA_CI_MODULE_PRESENT": "define CA_CI_MODULE_PRESENT 1",
+    "CA_CI_MODULE_READY": "define CA_CI_MODULE_READY 2"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_dvb_ca": "syz_open_dev$KGPT_dvb_ca(dev ptr[in, string[\"/dev/dvb/adapter#/ca#\"]], id proc[0, 1], flags flags[open_flags]) fd_dvb_ca",
+    "ioctl$KGPT_CA_RESET": "ioctl$KGPT_CA_RESET(fd fd_dvb_ca, cmd const[CA_RESET], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_CA_GET_CAP": "ioctl$KGPT_CA_GET_CAP(fd fd_dvb_ca, cmd const[CA_GET_CAP], arg ptr[out, ca_caps])",
+    "ioctl$KGPT_CA_GET_SLOT_INFO": "ioctl$KGPT_CA_GET_SLOT_INFO(fd fd_dvb_ca, cmd const[CA_GET_SLOT_INFO], arg ptr[inout, ca_slot_info])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_dvb_ca"
+  ],
+  "includes": [
+    "uapi/linux/dvb/ca.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

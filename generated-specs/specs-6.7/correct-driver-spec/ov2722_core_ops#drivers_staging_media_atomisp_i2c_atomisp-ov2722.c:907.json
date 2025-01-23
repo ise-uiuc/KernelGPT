@@ -1,0 +1,38 @@
+{
+  "open": {
+    "filename": "/dev/v4l-subdev#",
+    "fd_name": "fd_ov2722",
+    "spec": "syz_open_dev$KGPT_v4l_subdev(dev ptr[in, string[\"/dev/v4l-subdev#\"]], id proc[0, 1], flags flags[open_flags]) fd_ov2722"
+  },
+  "resources": {
+    "fd_ov2722": {
+      "type": "fd",
+      "spec": "resource fd_ov2722[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/staging/media/atomisp/i2c/atomisp-ov2722.c:907",
+  "ioctls": {
+    "ATOMISP_IOC_S_EXPOSURE": {
+      "arg": "ptr[in, atomisp_exposure]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "atomisp_exposure": "atomisp_exposure {\n\tintegration_time\tarray[int32, 8]\n\tshutter_speed\tarray[int32, 8]\n\tgain\tarray[int32, 4]\n\taperture\tint32\n}"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_v4l_subdev": "syz_open_dev$KGPT_v4l_subdev(dev ptr[in, string[\"/dev/v4l-subdev#\"]], id proc[0, 1], flags flags[open_flags]) fd_ov2722",
+    "ioctl$KGPT_ATOMISP_IOC_S_EXPOSURE": "ioctl$KGPT_ATOMISP_IOC_S_EXPOSURE(fd fd_ov2722, cmd const[ATOMISP_IOC_S_EXPOSURE], arg ptr[in, atomisp_exposure])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_v4l_subdev"
+  ],
+  "includes": [
+    "drivers/staging/media/atomisp/include/linux/atomisp.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

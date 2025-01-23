@@ -1,0 +1,151 @@
+{
+  "open": {
+    "filename": "/dev/snd/comprC#D#",
+    "fd_name": "fd_snd_compr",
+    "spec": "syz_open_dev$KGPT_snd_compr(dev ptr[in, string[\"/dev/snd/comprC#D#\"]], id proc[0, 1], flags flags[open_flags]) fd_snd_compr"
+  },
+  "resources": {
+    "fd_snd_compr": {
+      "type": "fd",
+      "spec": "resource fd_snd_compr[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/sound/core/compress_offload.c:1045",
+  "ioctls": {
+    "SNDRV_COMPRESS_IOCTL_VERSION": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SNDRV_COMPRESS_PAUSE": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SNDRV_COMPRESS_RESUME": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SNDRV_COMPRESS_START": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SNDRV_COMPRESS_STOP": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SNDRV_COMPRESS_DRAIN": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SNDRV_COMPRESS_PARTIAL_DRAIN": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SNDRV_COMPRESS_NEXT_TRACK": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SNDRV_COMPRESS_GET_CAPS": {
+      "arg": "ptr[out, snd_compr_caps]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "SNDRV_COMPRESS_GET_CODEC_CAPS": {
+      "arg": "ptr[out, snd_compr_codec_caps]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "SNDRV_COMPRESS_SET_PARAMS": {
+      "arg": "ptr[in, snd_compr_params]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "SNDRV_COMPRESS_GET_PARAMS": {
+      "arg": "ptr[out, snd_codec]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "SNDRV_COMPRESS_SET_METADATA": {
+      "arg": "ptr[in, snd_compr_metadata]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "SNDRV_COMPRESS_GET_METADATA": {
+      "arg": "ptr[inout, snd_compr_metadata]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "SNDRV_COMPRESS_TSTAMP": {
+      "arg": "ptr[out, snd_compr_tstamp]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "SNDRV_COMPRESS_AVAIL": {
+      "arg": "ptr[out, snd_compr_avail]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "snd_compr_caps": "snd_compr_caps {\n\tnum_codecs\tint32\n\tdirection\tint32\n\tmin_fragment_size\tint32\n\tmax_fragment_size\tint32\n\tmin_fragments\tint32\n\tmax_fragments\tint32\n\tcodecs\tarray[int32, MAX_NUM_CODECS]\n\treserved\tarray[int32, 11]\n}",
+    "snd_compr_codec_caps": "snd_compr_codec_caps {\n\tcodec\tint32\n\tnum_descriptors\tint32\n\tdescriptor\tarray[snd_codec_desc, MAX_NUM_CODEC_DESCRIPTORS]\n}",
+    "snd_compr_params": "snd_compr_params {\n\tbuffer\tsnd_compressed_buffer\n\tcodec\tsnd_codec\n\tno_wake_mode\tint8\n}",
+    "snd_codec": "snd_codec {\n\tid\tint32\n\tch_in\tint32\n\tch_out\tint32\n\tsample_rate\tint32\n\tbit_rate\tint32\n\trate_control\tint32\n\tprofile\tint32\n\tlevel\tint32\n\tch_mode\tint32\n\tformat\tint32\n\talign\tint32\n\toptions\tsnd_codec_options\n\treserved\tarray[int32, 3]\n}",
+    "snd_compr_metadata": "snd_compr_metadata {\n\tkey\tint32\n\tvalue\tarray[int32, 8]\n}",
+    "snd_compr_tstamp": "snd_compr_tstamp {\n\tbyte_offset\tint32\n\tcopied_total\tint32\n\tpcm_frames\tint32\n\tpcm_io_frames\tint32\n\tsampling_rate\tint32\n}",
+    "snd_compr_avail": "snd_compr_avail {\n\tavail\tint64\n\ttstamp\tsnd_compr_tstamp\n}",
+    "snd_codec_desc": "snd_codec_desc {\n\tmax_ch\tint32\n\tsample_rates\tarray[int32, MAX_NUM_SAMPLE_RATES]\n\tnum_sample_rates\tint32\n\tbit_rate\tarray[int32, MAX_NUM_BITRATES]\n\tnum_bitrates\tint32\n\trate_control\tint32\n\tprofiles\tint32\n\tmodes\tint32\n\tformats\tint32\n\tmin_buffer\tint32\n\treserved\tarray[int32, 15]\n}",
+    "snd_compressed_buffer": "snd_compressed_buffer {\n\tfragment_size\tint32\n\tfragments\tint32\n}",
+    "snd_codec_options": "snd_codec_options [\n\twma\tsnd_enc_wma\n\tvorbis\tsnd_enc_vorbis\n\treal\tsnd_enc_real\n\tflac\tsnd_enc_flac\n\tgeneric\tsnd_enc_generic\n\tflac_d\tsnd_dec_flac\n\twma_d\tsnd_dec_wma\n\talac_d\tsnd_dec_alac\n\tape_d\tsnd_dec_ape\n]",
+    "snd_enc_wma": "snd_enc_wma {\n\tsuper_block_align\tint32\n}",
+    "snd_enc_vorbis": "snd_enc_vorbis {\n\tquality\tint32\n\tmanaged\tint32\n\tmax_bit_rate\tint32\n\tmin_bit_rate\tint32\n\tdownmix\tint32\n}",
+    "snd_enc_real": "snd_enc_real {\n\tquant_bits\tint32\n\tstart_region\tint32\n\tnum_regions\tint32\n}",
+    "snd_enc_flac": "snd_enc_flac {\n\tnum\tint32\n\tgain\tint32\n}",
+    "snd_enc_generic": "snd_enc_generic {\n\tbw\tint32\n\treserved\tarray[int32, 15]\n}",
+    "snd_dec_flac": "snd_dec_flac {\n\tsample_size\tint16\n\tmin_blk_size\tint16\n\tmax_blk_size\tint16\n\tmin_frame_size\tint16\n\tmax_frame_size\tint16\n\treserved\tint16\n}",
+    "snd_dec_wma": "snd_dec_wma {\n\tencoder_option\tint32\n\tadv_encoder_option\tint32\n\tadv_encoder_option2\tint32\n\treserved\tint32\n}",
+    "snd_dec_alac": "snd_dec_alac {\n\tframe_length\tint32\n\tcompatible_version\tint8\n\tpb\tint8\n\tmb\tint8\n\tkb\tint8\n\tmax_run\tint32\n\tmax_frame_bytes\tint32\n}",
+    "snd_dec_ape": "snd_dec_ape {\n\tcompatible_version\tint16\n\tcompression_level\tint16\n\tformat_flags\tint32\n\tblocks_per_frame\tint32\n\tfinal_frame_blocks\tint32\n\ttotal_frames\tint32\n\tseek_table_present\tint32\n}"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_snd_compr": "syz_open_dev$KGPT_snd_compr(dev ptr[in, string[\"/dev/snd/comprC#D#\"]], id proc[0, 1], flags flags[open_flags]) fd_snd_compr",
+    "ioctl$KGPT_SNDRV_COMPRESS_IOCTL_VERSION": "ioctl$KGPT_SNDRV_COMPRESS_IOCTL_VERSION(fd fd_snd_compr, cmd const[SNDRV_COMPRESS_IOCTL_VERSION], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_SNDRV_COMPRESS_PAUSE": "ioctl$KGPT_SNDRV_COMPRESS_PAUSE(fd fd_snd_compr, cmd const[SNDRV_COMPRESS_PAUSE], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_SNDRV_COMPRESS_RESUME": "ioctl$KGPT_SNDRV_COMPRESS_RESUME(fd fd_snd_compr, cmd const[SNDRV_COMPRESS_RESUME], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_SNDRV_COMPRESS_START": "ioctl$KGPT_SNDRV_COMPRESS_START(fd fd_snd_compr, cmd const[SNDRV_COMPRESS_START], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_SNDRV_COMPRESS_STOP": "ioctl$KGPT_SNDRV_COMPRESS_STOP(fd fd_snd_compr, cmd const[SNDRV_COMPRESS_STOP], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_SNDRV_COMPRESS_DRAIN": "ioctl$KGPT_SNDRV_COMPRESS_DRAIN(fd fd_snd_compr, cmd const[SNDRV_COMPRESS_DRAIN], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_SNDRV_COMPRESS_PARTIAL_DRAIN": "ioctl$KGPT_SNDRV_COMPRESS_PARTIAL_DRAIN(fd fd_snd_compr, cmd const[SNDRV_COMPRESS_PARTIAL_DRAIN], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_SNDRV_COMPRESS_NEXT_TRACK": "ioctl$KGPT_SNDRV_COMPRESS_NEXT_TRACK(fd fd_snd_compr, cmd const[SNDRV_COMPRESS_NEXT_TRACK], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_SNDRV_COMPRESS_GET_CAPS": "ioctl$KGPT_SNDRV_COMPRESS_GET_CAPS(fd fd_snd_compr, cmd const[SNDRV_COMPRESS_GET_CAPS], arg ptr[out, snd_compr_caps])",
+    "ioctl$KGPT_SNDRV_COMPRESS_GET_CODEC_CAPS": "ioctl$KGPT_SNDRV_COMPRESS_GET_CODEC_CAPS(fd fd_snd_compr, cmd const[SNDRV_COMPRESS_GET_CODEC_CAPS], arg ptr[out, snd_compr_codec_caps])",
+    "ioctl$KGPT_SNDRV_COMPRESS_SET_PARAMS": "ioctl$KGPT_SNDRV_COMPRESS_SET_PARAMS(fd fd_snd_compr, cmd const[SNDRV_COMPRESS_SET_PARAMS], arg ptr[in, snd_compr_params])",
+    "ioctl$KGPT_SNDRV_COMPRESS_GET_PARAMS": "ioctl$KGPT_SNDRV_COMPRESS_GET_PARAMS(fd fd_snd_compr, cmd const[SNDRV_COMPRESS_GET_PARAMS], arg ptr[out, snd_codec])",
+    "ioctl$KGPT_SNDRV_COMPRESS_SET_METADATA": "ioctl$KGPT_SNDRV_COMPRESS_SET_METADATA(fd fd_snd_compr, cmd const[SNDRV_COMPRESS_SET_METADATA], arg ptr[in, snd_compr_metadata])",
+    "ioctl$KGPT_SNDRV_COMPRESS_GET_METADATA": "ioctl$KGPT_SNDRV_COMPRESS_GET_METADATA(fd fd_snd_compr, cmd const[SNDRV_COMPRESS_GET_METADATA], arg ptr[inout, snd_compr_metadata])",
+    "ioctl$KGPT_SNDRV_COMPRESS_TSTAMP": "ioctl$KGPT_SNDRV_COMPRESS_TSTAMP(fd fd_snd_compr, cmd const[SNDRV_COMPRESS_TSTAMP], arg ptr[out, snd_compr_tstamp])",
+    "ioctl$KGPT_SNDRV_COMPRESS_AVAIL": "ioctl$KGPT_SNDRV_COMPRESS_AVAIL(fd fd_snd_compr, cmd const[SNDRV_COMPRESS_AVAIL], arg ptr[out, snd_compr_avail])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_snd_compr"
+  ],
+  "includes": [
+    "uapi/sound/compress_params.h",
+    "uapi/sound/compress_offload.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "MAX_NUM_CODECS": "UNFOUND_MACRO",
+    "MAX_NUM_SAMPLE_RATES": "UNFOUND_MACRO",
+    "MAX_NUM_BITRATES": "UNFOUND_MACRO"
+  }
+}

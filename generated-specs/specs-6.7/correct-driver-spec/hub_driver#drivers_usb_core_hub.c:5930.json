@@ -1,0 +1,38 @@
+{
+  "open": {
+    "filename": "/dev/bus/usb/###/###",
+    "fd_name": "fd_usb_hub",
+    "spec": "syz_open_dev$KGPT_usb_hub(dev ptr[in, string[\"/dev/bus/usb/###/###\"]], id proc[0, 1], flags flags[open_flags]) fd_usb_hub"
+  },
+  "resources": {
+    "fd_usb_hub": {
+      "type": "fd",
+      "spec": "resource fd_usb_hub[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/usb/core/hub.c:5930",
+  "ioctls": {
+    "USBDEVFS_HUB_PORTINFO": {
+      "arg": "ptr[out, usbdevfs_hub_portinfo]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "usbdevfs_hub_portinfo": "usbdevfs_hub_portinfo {\n\tnports\tint8\n\tport\tarray[int8, 127]\n}"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_usb_hub": "syz_open_dev$KGPT_usb_hub(dev ptr[in, string[\"/dev/bus/usb/###/###\"]], id proc[0, 1], flags flags[open_flags]) fd_usb_hub",
+    "ioctl$KGPT_USBDEVFS_HUB_PORTINFO": "ioctl$KGPT_USBDEVFS_HUB_PORTINFO(fd fd_usb_hub, cmd const[USBDEVFS_HUB_PORTINFO], arg ptr[out, usbdevfs_hub_portinfo])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_usb_hub"
+  ],
+  "includes": [
+    "uapi/linux/usbdevice_fs.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

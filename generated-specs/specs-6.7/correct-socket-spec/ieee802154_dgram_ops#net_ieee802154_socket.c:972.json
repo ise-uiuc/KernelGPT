@@ -1,0 +1,182 @@
+{
+  "socket": {
+    "domain": "AF_IEEE802154",
+    "type": "SOCK_DGRAM",
+    "spec": "socket$KGPT_ieee802154(domain const[AF_IEEE802154], type const[SOCK_DGRAM], proto const[0]) sock_ieee802154"
+  },
+  "resources": {
+    "sock_ieee802154": {
+      "type": "sock",
+      "spec": "resource sock_ieee802154[sock]"
+    }
+  },
+  "types": {},
+  "socket_addr": "sockaddr_ieee802154",
+  "ioctls": {
+    "SIOCPNADDRESOURCE": {
+      "arg": "intptr",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    }
+  },
+  "existing_ioctls": {
+    "SIOCGIFADDR": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "ieee802154_dev_ioctl"
+        ],
+        "type": [
+          "ifreq"
+        ],
+        "usage": [
+          "return ieee802154_dev_ioctl(sk, (struct ifreq __user *)arg, cmd);"
+        ]
+      }
+    },
+    "SIOCSIFADDR": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "ieee802154_dev_ioctl"
+        ],
+        "type": [
+          "ifreq"
+        ],
+        "usage": [
+          "return ieee802154_dev_ioctl(sk, (struct ifreq __user *)arg, cmd);"
+        ]
+      }
+    },
+    "SIOCGETVIFCNT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sock_ioctl_inout"
+        ],
+        "type": [
+          "sioc_vif_req"
+        ],
+        "usage": [
+          "struct sioc_vif_req buffer;",
+          "return sock_ioctl_inout(sk, cmd, arg, &buffer, sizeof(buffer));"
+        ]
+      }
+    },
+    "SIOCGETSGCNT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sock_ioctl_inout"
+        ],
+        "type": [
+          "sioc_sg_req"
+        ],
+        "usage": [
+          "struct sioc_sg_req buffer;",
+          "return sock_ioctl_inout(sk, cmd, arg, &buffer, sizeof(buffer));"
+        ]
+      }
+    },
+    "SIOCGETMIFCNT_IN6": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sock_ioctl_inout"
+        ],
+        "type": [
+          "sioc_mif_req6"
+        ],
+        "usage": [
+          "struct sioc_mif_req6 buffer;",
+          "return sock_ioctl_inout(sk, cmd, arg, &buffer, sizeof(buffer));"
+        ]
+      }
+    },
+    "SIOCGETSGCNT_IN6": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sock_ioctl_inout"
+        ],
+        "type": [
+          "sioc_sg_req6"
+        ],
+        "usage": [
+          "struct sioc_sg_req6 buffer;",
+          "return sock_ioctl_inout(sk, cmd, arg, &buffer, sizeof(buffer));"
+        ]
+      }
+    },
+    "SIOCPNDELRESOURCE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg",
+        "karg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sk->sk_prot->ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "if (get_user(karg, (int __user *)arg))\n\t\treturn -EFAULT;",
+          "return sk->sk_prot->ioctl(sk, cmd, &karg);"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "proto_ops": {
+    "bind": "ieee802154_sock_bind",
+    "connect": "ieee802154_sock_connect",
+    "accept": "sock_no_accept",
+    "poll": "datagram_poll",
+    "ioctl": "ieee802154_sock_ioctl",
+    "sendmsg": "ieee802154_sock_sendmsg",
+    "recvmsg": "sock_common_recvmsg",
+    "setsockopt": "sock_common_setsockopt",
+    "getsockopt": "sock_common_getsockopt"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/ieee802154/socket.c:972",
+  "ops_name": "ieee802154_dgram_ops",
+  "syscall_specs": {
+    "socket$KGPT_ieee802154": "socket$KGPT_ieee802154(domain const[AF_IEEE802154], type const[SOCK_DGRAM], proto const[0]) sock_ieee802154",
+    "bind$KGPT_ieee802154_dgram_ops": "bind$KGPT_ieee802154_dgram_ops(fd sock_ieee802154, addr ptr[in, sockaddr_ieee802154], addrlen len[addr])",
+    "connect$KGPT_ieee802154_dgram_ops": "connect$KGPT_ieee802154_dgram_ops(fd sock_ieee802154, addr ptr[in, sockaddr_ieee802154], addrlen len[addr])",
+    "accept4$KGPT_ieee802154_dgram_ops": "accept4$KGPT_ieee802154_dgram_ops(fd sock_ieee802154, peer ptr[out, sockaddr_ieee802154, opt], peerlen ptr[inout, len[peer, int32]], flags flags[accept_flags]) sock_ieee802154",
+    "sendto$KGPT_ieee802154_dgram_ops": "sendto$KGPT_ieee802154_dgram_ops(fd sock_ieee802154, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, sockaddr_ieee802154, opt], addrlen len[addr])",
+    "recvfrom$KGPT_ieee802154_dgram_ops": "recvfrom$KGPT_ieee802154_dgram_ops(fd sock_ieee802154, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, sockaddr_ieee802154, opt], addrlen len[addr])",
+    "ioctl$KGPT_SIOCPNADDRESOURCE": "ioctl$KGPT_SIOCPNADDRESOURCE(fd sock_ieee802154, cmd const[SIOCPNADDRESOURCE], arg intptr)"
+  },
+  "init_syscalls": [
+    "socket$KGPT_ieee802154"
+  ],
+  "includes": [
+    "linux/net.h",
+    "linux/socket.h",
+    "uapi/linux/phonet.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "sockaddr_ieee802154": "EXISTING"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "open": {
+    "filename": "/dev/v4l-subdev#",
+    "fd_name": "fd_h3a_aewb",
+    "spec": "syz_open_dev$KGPT_v4l_subdev(dev ptr[in, string[\"/dev/v4l-subdev#\"]], id proc[0, 1], flags flags[open_flags]) fd_h3a_aewb"
+  },
+  "resources": {
+    "fd_h3a_aewb": {
+      "type": "fd",
+      "spec": "resource fd_h3a_aewb[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/media/platform/ti/omap3isp/isph3a_aewb.c:269",
+  "ioctls": {
+    "VIDIOC_OMAP3ISP_AEWB_CFG": {
+      "arg": "ptr[in, ispstat_generic_config]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "VIDIOC_OMAP3ISP_STAT_REQ": {
+      "arg": "ptr[in,out, omap3isp_stat_data]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "VIDIOC_OMAP3ISP_STAT_REQ_TIME32": {
+      "arg": "ptr[in, omap3isp_stat_data_time32]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "VIDIOC_OMAP3ISP_STAT_EN": {
+      "arg": "ptr[in, int32]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "omap3isp_stat_data": "omap3isp_stat_data {\n\tts\ttimespec\n\tbuf\tptr[out, array[int8]]\n\tframe\tomap3isp_stat_data_frame\n}",
+    "ispstat_generic_config": "ispstat_generic_config {\n\tbuf_size\tint32\n\tconfig_counter\tint16\n}",
+    "omap3isp_stat_data_time32": "omap3isp_stat_data_time32 {\n\tts\ttimespec32\n\tbuf\tint32\n\tbuf_size\tint32\n\tframe_number\tint16\n\tcur_frame\tint16\n\tconfig_counter\tint16\n}",
+    "omap3isp_stat_data_frame": "omap3isp_stat_data_frame {\n\tbuf_size\tint32\n\tframe_number\tint16\n\tcur_frame\tint16\n\tconfig_counter\tint16\n}",
+    "timespec32": "timespec32 {\n\ttv_sec\tint32\n\ttv_usec\tint32\n}"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_v4l_subdev": "syz_open_dev$KGPT_v4l_subdev(dev ptr[in, string[\"/dev/v4l-subdev#\"]], id proc[0, 1], flags flags[open_flags]) fd_h3a_aewb",
+    "ioctl$KGPT_VIDIOC_OMAP3ISP_AEWB_CFG": "ioctl$KGPT_VIDIOC_OMAP3ISP_AEWB_CFG(fd fd_h3a_aewb, cmd const[VIDIOC_OMAP3ISP_AEWB_CFG], arg ptr[in, ispstat_generic_config])",
+    "ioctl$KGPT_VIDIOC_OMAP3ISP_STAT_REQ": "ioctl$KGPT_VIDIOC_OMAP3ISP_STAT_REQ(fd fd_h3a_aewb, cmd const[VIDIOC_OMAP3ISP_STAT_REQ], arg ptr[inout, omap3isp_stat_data])",
+    "ioctl$KGPT_VIDIOC_OMAP3ISP_STAT_REQ_TIME32": "ioctl$KGPT_VIDIOC_OMAP3ISP_STAT_REQ_TIME32(fd fd_h3a_aewb, cmd const[VIDIOC_OMAP3ISP_STAT_REQ_TIME32], arg ptr[in, omap3isp_stat_data_time32])",
+    "ioctl$KGPT_VIDIOC_OMAP3ISP_STAT_EN": "ioctl$KGPT_VIDIOC_OMAP3ISP_STAT_EN(fd fd_h3a_aewb, cmd const[VIDIOC_OMAP3ISP_STAT_EN], arg ptr[in, int32])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_v4l_subdev"
+  ],
+  "includes": [
+    "uapi/linux/omap3isp.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

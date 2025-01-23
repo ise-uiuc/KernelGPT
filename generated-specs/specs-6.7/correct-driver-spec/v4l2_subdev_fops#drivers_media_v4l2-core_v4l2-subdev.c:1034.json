@@ -1,0 +1,560 @@
+{
+  "open": {
+    "filename": "/dev/v4l-subdev#",
+    "fd_name": "fd_v4l_subdev",
+    "spec": "syz_open_dev$KGPT_v4l_subdev(dev ptr[in, string[\"/dev/v4l-subdev#\"]], id proc[0, 1], flags flags[open_flags]) fd_v4l_subdev"
+  },
+  "resources": {
+    "fd_v4l_subdev": {
+      "type": "fd",
+      "spec": "resource fd_v4l_subdev[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/media/v4l2-core/v4l2-subdev.c:1034",
+  "ioctls": {
+    "VIDIOC_SUBDEV_QUERYCAP": {
+      "arg": "ptr[in, v4l2_subdev_capability]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    },
+    "VIDIOC_SUBDEV_G_STD": {
+      "arg": "ptr[out, v4l2_std_id]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    },
+    "VIDIOC_SUBDEV_S_STD": {
+      "arg": "ptr[in, v4l2_std_id]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    },
+    "VIDIOC_SUBDEV_ENUMSTD": {
+      "arg": "ptr[inout, v4l2_standard]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    },
+    "VIDIOC_SUBDEV_QUERYSTD": {
+      "arg": "ptr[out, v4l2_std_id]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "VIDIOC_SUBDEV_G_ROUTING": {
+      "arg": "ptr[in, v4l2_subdev_routing]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "VIDIOC_SUBDEV_S_ROUTING": {
+      "arg": "ptr[in, v4l2_subdev_routing]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "VIDIOC_SUBDEV_G_CLIENT_CAP": {
+      "arg": "ptr[in, v4l2_subdev_client_capability]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "VIDIOC_SUBDEV_S_CLIENT_CAP": {
+      "arg": "ptr[in, v4l2_subdev_client_capability]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "v4l2_subdev_capability": "v4l2_subdev_capability {\n\tversion\tint32\n\tcapabilities\tint32\n\treserved\tarray[int32, 14]\n}",
+    "v4l2_subdev_routing": "v4l2_subdev_routing {\n\twhich\tint32\n\tnum_routes\tint32\n\troutes\tintptr\n\treserved\tarray[int32, 6]\n}",
+    "v4l2_subdev_client_capability": "v4l2_subdev_client_capability {\n\tcapabilities\tint64\n}"
+  },
+  "existing_ioctls": {
+    "VIDIOC_QUERYCTRL": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "v4l2_queryctrl"
+        ],
+        "type": [],
+        "usage": [
+          "return v4l2_queryctrl(vfh->ctrl_handler, arg);"
+        ]
+      }
+    },
+    "VIDIOC_QUERY_EXT_CTRL": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "v4l2_query_ext_ctrl"
+        ],
+        "type": [],
+        "usage": [
+          "return v4l2_query_ext_ctrl(vfh->ctrl_handler, arg);"
+        ]
+      }
+    },
+    "VIDIOC_QUERYMENU": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "v4l2_querymenu"
+        ],
+        "type": [],
+        "usage": [
+          "return v4l2_querymenu(vfh->ctrl_handler, arg);"
+        ]
+      }
+    },
+    "VIDIOC_G_CTRL": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "v4l2_g_ctrl"
+        ],
+        "type": [],
+        "usage": [
+          "return v4l2_g_ctrl(vfh->ctrl_handler, arg);"
+        ]
+      }
+    },
+    "VIDIOC_S_CTRL": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "v4l2_s_ctrl"
+        ],
+        "type": [],
+        "usage": [
+          "return v4l2_s_ctrl(vfh, vfh->ctrl_handler, arg);"
+        ]
+      }
+    },
+    "VIDIOC_G_EXT_CTRLS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "v4l2_g_ext_ctrls"
+        ],
+        "type": [],
+        "usage": [
+          "return v4l2_g_ext_ctrls(vfh->ctrl_handler, vdev, sd->v4l2_dev->mdev, arg);"
+        ]
+      }
+    },
+    "VIDIOC_S_EXT_CTRLS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "v4l2_s_ext_ctrls"
+        ],
+        "type": [],
+        "usage": [
+          "return v4l2_s_ext_ctrls(vfh, vfh->ctrl_handler, vdev, sd->v4l2_dev->mdev, arg);"
+        ]
+      }
+    },
+    "VIDIOC_TRY_EXT_CTRLS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "v4l2_try_ext_ctrls"
+        ],
+        "type": [],
+        "usage": [
+          "return v4l2_try_ext_ctrls(vfh->ctrl_handler, vdev, sd->v4l2_dev->mdev, arg);"
+        ]
+      }
+    },
+    "VIDIOC_DQEVENT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "v4l2_event_dequeue"
+        ],
+        "type": [],
+        "usage": [
+          "return v4l2_event_dequeue(vfh, arg, file->f_flags & O_NONBLOCK);"
+        ]
+      }
+    },
+    "VIDIOC_SUBSCRIBE_EVENT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "v4l2_subdev_call"
+        ],
+        "type": [],
+        "usage": [
+          "return v4l2_subdev_call(sd, core, subscribe_event, vfh, arg);"
+        ]
+      }
+    },
+    "VIDIOC_UNSUBSCRIBE_EVENT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "v4l2_subdev_call"
+        ],
+        "type": [],
+        "usage": [
+          "return v4l2_subdev_call(sd, core, unsubscribe_event, vfh, arg);"
+        ]
+      }
+    },
+    "VIDIOC_SUBDEV_G_FMT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "v4l2_subdev_call"
+        ],
+        "type": [
+          "v4l2_subdev_format"
+        ],
+        "usage": [
+          "return v4l2_subdev_call(sd, pad, get_fmt, state, format);"
+        ]
+      }
+    },
+    "VIDIOC_SUBDEV_S_FMT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "v4l2_subdev_call"
+        ],
+        "type": [
+          "v4l2_subdev_format"
+        ],
+        "usage": [
+          "return v4l2_subdev_call(sd, pad, set_fmt, state, format);"
+        ]
+      }
+    },
+    "VIDIOC_SUBDEV_G_CROP": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "v4l2_subdev_call"
+        ],
+        "type": [
+          "v4l2_subdev_crop"
+        ],
+        "usage": [
+          "return v4l2_subdev_call(sd, pad, get_selection, state, &sel);"
+        ]
+      }
+    },
+    "VIDIOC_SUBDEV_S_CROP": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "v4l2_subdev_call"
+        ],
+        "type": [
+          "v4l2_subdev_crop"
+        ],
+        "usage": [
+          "return v4l2_subdev_call(sd, pad, set_selection, state, &sel);"
+        ]
+      }
+    },
+    "VIDIOC_SUBDEV_ENUM_MBUS_CODE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "v4l2_subdev_call"
+        ],
+        "type": [
+          "v4l2_subdev_mbus_code_enum"
+        ],
+        "usage": [
+          "return v4l2_subdev_call(sd, pad, enum_mbus_code, state, code);"
+        ]
+      }
+    },
+    "VIDIOC_SUBDEV_ENUM_FRAME_SIZE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "v4l2_subdev_call"
+        ],
+        "type": [
+          "v4l2_subdev_frame_size_enum"
+        ],
+        "usage": [
+          "return v4l2_subdev_call(sd, pad, enum_frame_size, state, fse);"
+        ]
+      }
+    },
+    "VIDIOC_SUBDEV_G_FRAME_INTERVAL": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "v4l2_subdev_call"
+        ],
+        "type": [
+          "v4l2_subdev_frame_interval"
+        ],
+        "usage": [
+          "return v4l2_subdev_call(sd, video, g_frame_interval, arg);"
+        ]
+      }
+    },
+    "VIDIOC_SUBDEV_S_FRAME_INTERVAL": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "v4l2_subdev_call"
+        ],
+        "type": [
+          "v4l2_subdev_frame_interval"
+        ],
+        "usage": [
+          "return v4l2_subdev_call(sd, video, s_frame_interval, arg);"
+        ]
+      }
+    },
+    "VIDIOC_SUBDEV_ENUM_FRAME_INTERVAL": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "v4l2_subdev_call"
+        ],
+        "type": [
+          "v4l2_subdev_frame_interval_enum"
+        ],
+        "usage": [
+          "return v4l2_subdev_call(sd, pad, enum_frame_interval, state, fie);"
+        ]
+      }
+    },
+    "VIDIOC_SUBDEV_G_SELECTION": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "v4l2_subdev_call"
+        ],
+        "type": [
+          "v4l2_subdev_selection"
+        ],
+        "usage": [
+          "return v4l2_subdev_call(sd, pad, get_selection, state, sel);"
+        ]
+      }
+    },
+    "VIDIOC_SUBDEV_S_SELECTION": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "v4l2_subdev_call"
+        ],
+        "type": [
+          "v4l2_subdev_selection"
+        ],
+        "usage": [
+          "return v4l2_subdev_call(sd, pad, set_selection, state, sel);"
+        ]
+      }
+    },
+    "VIDIOC_G_EDID": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "v4l2_subdev_call"
+        ],
+        "type": [
+          "v4l2_subdev_edid"
+        ],
+        "usage": [
+          "return v4l2_subdev_call(sd, pad, get_edid, edid);"
+        ]
+      }
+    },
+    "VIDIOC_S_EDID": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "v4l2_subdev_call"
+        ],
+        "type": [
+          "v4l2_subdev_edid"
+        ],
+        "usage": [
+          "return v4l2_subdev_call(sd, pad, set_edid, edid);"
+        ]
+      }
+    },
+    "VIDIOC_SUBDEV_DV_TIMINGS_CAP": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "v4l2_subdev_call"
+        ],
+        "type": [
+          "v4l2_dv_timings_cap"
+        ],
+        "usage": [
+          "return v4l2_subdev_call(sd, pad, dv_timings_cap, cap);"
+        ]
+      }
+    },
+    "VIDIOC_SUBDEV_ENUM_DV_TIMINGS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "v4l2_subdev_call"
+        ],
+        "type": [
+          "v4l2_enum_dv_timings"
+        ],
+        "usage": [
+          "return v4l2_subdev_call(sd, pad, enum_dv_timings, dvt);"
+        ]
+      }
+    },
+    "VIDIOC_SUBDEV_QUERY_DV_TIMINGS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "v4l2_subdev_call"
+        ],
+        "type": [],
+        "usage": [
+          "return v4l2_subdev_call(sd, video, query_dv_timings, arg);"
+        ]
+      }
+    },
+    "VIDIOC_SUBDEV_G_DV_TIMINGS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "v4l2_subdev_call"
+        ],
+        "type": [],
+        "usage": [
+          "return v4l2_subdev_call(sd, video, g_dv_timings, arg);"
+        ]
+      }
+    },
+    "VIDIOC_SUBDEV_S_DV_TIMINGS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "v4l2_subdev_call"
+        ],
+        "type": [],
+        "usage": [
+          "return v4l2_subdev_call(sd, video, s_dv_timings, arg);"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_v4l_subdev": "syz_open_dev$KGPT_v4l_subdev(dev ptr[in, string[\"/dev/v4l-subdev#\"]], id proc[0, 1], flags flags[open_flags]) fd_v4l_subdev",
+    "ioctl$KGPT_VIDIOC_SUBDEV_QUERYCAP": "ioctl$KGPT_VIDIOC_SUBDEV_QUERYCAP(fd fd_v4l_subdev, cmd const[VIDIOC_SUBDEV_QUERYCAP], arg ptr[in, v4l2_subdev_capability])",
+    "ioctl$KGPT_VIDIOC_SUBDEV_G_STD": "ioctl$KGPT_VIDIOC_SUBDEV_G_STD(fd fd_v4l_subdev, cmd const[VIDIOC_SUBDEV_G_STD], arg ptr[out, v4l2_std_id])",
+    "ioctl$KGPT_VIDIOC_SUBDEV_S_STD": "ioctl$KGPT_VIDIOC_SUBDEV_S_STD(fd fd_v4l_subdev, cmd const[VIDIOC_SUBDEV_S_STD], arg ptr[in, v4l2_std_id])",
+    "ioctl$KGPT_VIDIOC_SUBDEV_ENUMSTD": "ioctl$KGPT_VIDIOC_SUBDEV_ENUMSTD(fd fd_v4l_subdev, cmd const[VIDIOC_SUBDEV_ENUMSTD], arg ptr[inout, v4l2_standard])",
+    "ioctl$KGPT_VIDIOC_SUBDEV_QUERYSTD": "ioctl$KGPT_VIDIOC_SUBDEV_QUERYSTD(fd fd_v4l_subdev, cmd const[VIDIOC_SUBDEV_QUERYSTD], arg ptr[out, v4l2_std_id])",
+    "ioctl$KGPT_VIDIOC_SUBDEV_G_ROUTING": "ioctl$KGPT_VIDIOC_SUBDEV_G_ROUTING(fd fd_v4l_subdev, cmd const[VIDIOC_SUBDEV_G_ROUTING], arg ptr[in, v4l2_subdev_routing])",
+    "ioctl$KGPT_VIDIOC_SUBDEV_S_ROUTING": "ioctl$KGPT_VIDIOC_SUBDEV_S_ROUTING(fd fd_v4l_subdev, cmd const[VIDIOC_SUBDEV_S_ROUTING], arg ptr[in, v4l2_subdev_routing])",
+    "ioctl$KGPT_VIDIOC_SUBDEV_G_CLIENT_CAP": "ioctl$KGPT_VIDIOC_SUBDEV_G_CLIENT_CAP(fd fd_v4l_subdev, cmd const[VIDIOC_SUBDEV_G_CLIENT_CAP], arg ptr[in, v4l2_subdev_client_capability])",
+    "ioctl$KGPT_VIDIOC_SUBDEV_S_CLIENT_CAP": "ioctl$KGPT_VIDIOC_SUBDEV_S_CLIENT_CAP(fd fd_v4l_subdev, cmd const[VIDIOC_SUBDEV_S_CLIENT_CAP], arg ptr[in, v4l2_subdev_client_capability])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_v4l_subdev"
+  ],
+  "includes": [
+    "uapi/linux/v4l2-subdev.h"
+  ],
+  "unused_types": {
+    "v4l2_fract": "EXISTING",
+    "v4l2_subdev_route": "v4l2_subdev_route {\n\tsink_pad\tint32\n\tsink_stream\tint32\n\tsource_pad\tint32\n\tsource_stream\tint32\n\tflags\tint32\n\treserved\tarray[int32, 5]\n}"
+  },
+  "ignored_types": {
+    "v4l2_std_id": "EXISTING",
+    "v4l2_standard": "EXISTING"
+  }
+}

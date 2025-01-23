@@ -1,0 +1,104 @@
+{
+  "socket": {
+    "domain": "AF_NFC",
+    "type": "SOCK_STREAM",
+    "spec": "socket$KGPT_llcp(domain const[AF_NFC], type flags[llcp_socket_type], proto const[0]) sock_llcp"
+  },
+  "resources": {
+    "sock_llcp": {
+      "type": "sock",
+      "spec": "resource sock_llcp[sock]"
+    }
+  },
+  "types": {
+    "llcp_socket_type": "llcp_socket_type = SOCK_STREAM, SOCK_DGRAM, SOCK_RAW"
+  },
+  "socket_addr": "sockaddr_nfc_llcp",
+  "setsockopt": {
+    "NFC_LLCP_RW": {
+      "level": "SOL_NFC",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]"
+    },
+    "NFC_LLCP_MIUX": {
+      "level": "SOL_NFC",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]"
+    }
+  },
+  "unknown": [],
+  "setsockopt_unknown": [],
+  "getsockopt": {
+    "NFC_LLCP_RW": {
+      "level": "SOL_NFC",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "NFC_LLCP_MIUX": {
+      "level": "SOL_NFC",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "NFC_LLCP_REMOTE_MIU": {
+      "level": "SOL_NFC",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "NFC_LLCP_REMOTE_LTO": {
+      "level": "SOL_NFC",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "NFC_LLCP_REMOTE_RW": {
+      "level": "SOL_NFC",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    }
+  },
+  "getsockopt_unknown": [],
+  "proto_ops": {
+    "bind": "llcp_sock_bind",
+    "connect": "llcp_sock_connect",
+    "accept": "llcp_sock_accept",
+    "poll": "llcp_sock_poll",
+    "ioctl": "sock_no_ioctl",
+    "sendmsg": "llcp_sock_sendmsg",
+    "recvmsg": "llcp_sock_recvmsg",
+    "setsockopt": "nfc_llcp_setsockopt",
+    "getsockopt": "nfc_llcp_getsockopt"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/nfc/llcp_sock.c:912",
+  "ops_name": "llcp_sock_ops",
+  "syscall_specs": {
+    "socket$KGPT_llcp": "socket$KGPT_llcp(domain const[AF_NFC], type flags[llcp_socket_type], proto const[0]) sock_llcp",
+    "bind$KGPT_llcp_sock_ops": "bind$KGPT_llcp_sock_ops(fd sock_llcp, addr ptr[in, sockaddr_nfc_llcp], addrlen len[addr])",
+    "connect$KGPT_llcp_sock_ops": "connect$KGPT_llcp_sock_ops(fd sock_llcp, addr ptr[in, sockaddr_nfc_llcp], addrlen len[addr])",
+    "accept4$KGPT_llcp_sock_ops": "accept4$KGPT_llcp_sock_ops(fd sock_llcp, peer ptr[out, sockaddr_nfc_llcp, opt], peerlen ptr[inout, len[peer, int32]], flags flags[accept_flags]) sock_llcp",
+    "sendto$KGPT_llcp_sock_ops": "sendto$KGPT_llcp_sock_ops(fd sock_llcp, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, sockaddr_nfc_llcp, opt], addrlen len[addr])",
+    "recvfrom$KGPT_llcp_sock_ops": "recvfrom$KGPT_llcp_sock_ops(fd sock_llcp, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, sockaddr_nfc_llcp, opt], addrlen len[addr])",
+    "getsockopt$KGPT_NFC_LLCP_RW": "getsockopt$KGPT_NFC_LLCP_RW(fd sock_llcp, level const[SOL_NFC], opt const[NFC_LLCP_RW], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_NFC_LLCP_MIUX": "getsockopt$KGPT_NFC_LLCP_MIUX(fd sock_llcp, level const[SOL_NFC], opt const[NFC_LLCP_MIUX], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_NFC_LLCP_REMOTE_MIU": "getsockopt$KGPT_NFC_LLCP_REMOTE_MIU(fd sock_llcp, level const[SOL_NFC], opt const[NFC_LLCP_REMOTE_MIU], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_NFC_LLCP_REMOTE_LTO": "getsockopt$KGPT_NFC_LLCP_REMOTE_LTO(fd sock_llcp, level const[SOL_NFC], opt const[NFC_LLCP_REMOTE_LTO], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_NFC_LLCP_REMOTE_RW": "getsockopt$KGPT_NFC_LLCP_REMOTE_RW(fd sock_llcp, level const[SOL_NFC], opt const[NFC_LLCP_REMOTE_RW], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "setsockopt$KGPT_NFC_LLCP_RW": "setsockopt$KGPT_NFC_LLCP_RW(fd sock_llcp, level const[SOL_NFC], opt const[NFC_LLCP_RW], val ptr[in, int32], len bytesize[val])",
+    "setsockopt$KGPT_NFC_LLCP_MIUX": "setsockopt$KGPT_NFC_LLCP_MIUX(fd sock_llcp, level const[SOL_NFC], opt const[NFC_LLCP_MIUX], val ptr[in, int32], len bytesize[val])"
+  },
+  "init_syscalls": [
+    "socket$KGPT_llcp"
+  ],
+  "includes": [
+    "linux/net.h",
+    "linux/socket.h",
+    "uapi/linux/nfc.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "sockaddr_nfc_llcp": "EXISTING"
+  }
+}

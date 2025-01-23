@@ -1,0 +1,101 @@
+{
+  "socket": {
+    "domain": "PF_CAN",
+    "type": "SOCK_DGRAM",
+    "spec": "socket$KGPT_can_j1939(domain const[PF_CAN], type const[SOCK_DGRAM], proto const[CAN_J1939]) sock_j1939"
+  },
+  "resources": {
+    "sock_j1939": {
+      "type": "sock",
+      "spec": "resource sock_j1939[sock]"
+    }
+  },
+  "types": {
+    "CAN_J1939": "define CAN_J1939\t0x0E"
+  },
+  "socket_addr": "sockaddr_can",
+  "setsockopt": {
+    "SO_J1939_FILTER": {
+      "level": "SOL_CAN_J1939",
+      "val": "ptr[in, array[j1939_filter]]",
+      "len": "bytesize[val]"
+    },
+    "SO_J1939_PROMISC": {
+      "level": "SOL_CAN_J1939",
+      "val": "int32",
+      "len": "sizeof[int32]"
+    },
+    "SO_J1939_ERRQUEUE": {
+      "level": "SOL_CAN_J1939",
+      "val": "int32",
+      "len": "sizeof[int32]"
+    },
+    "SO_J1939_SEND_PRIO": {
+      "level": "SOL_CAN_J1939",
+      "val": "int32",
+      "len": "sizeof[int32]"
+    }
+  },
+  "unknown": [],
+  "setsockopt_unknown": [],
+  "getsockopt": {
+    "SO_J1939_PROMISC": {
+      "level": "SOL_CAN_J1939",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "SO_J1939_ERRQUEUE": {
+      "level": "SOL_CAN_J1939",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "SO_J1939_SEND_PRIO": {
+      "level": "SOL_CAN_J1939",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    }
+  },
+  "getsockopt_unknown": [],
+  "proto_ops": {
+    "bind": "j1939_sk_bind",
+    "connect": "j1939_sk_connect",
+    "accept": "sock_no_accept",
+    "poll": "datagram_poll",
+    "ioctl": "j1939_sk_no_ioctlcmd",
+    "sendmsg": "j1939_sk_sendmsg",
+    "recvmsg": "j1939_sk_recvmsg",
+    "setsockopt": "j1939_sk_setsockopt",
+    "getsockopt": "j1939_sk_getsockopt"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/can/j1939/socket.c:1294",
+  "ops_name": "j1939_ops",
+  "syscall_specs": {
+    "socket$KGPT_can_j1939": "socket$KGPT_can_j1939(domain const[PF_CAN], type const[SOCK_DGRAM], proto const[CAN_J1939]) sock_j1939",
+    "bind$KGPT_j1939_ops": "bind$KGPT_j1939_ops(fd sock_j1939, addr ptr[in, sockaddr_can], addrlen len[addr])",
+    "connect$KGPT_j1939_ops": "connect$KGPT_j1939_ops(fd sock_j1939, addr ptr[in, sockaddr_can], addrlen len[addr])",
+    "accept4$KGPT_j1939_ops": "accept4$KGPT_j1939_ops(fd sock_j1939, peer ptr[out, sockaddr_can, opt], peerlen ptr[inout, len[peer, int32]], flags flags[accept_flags]) sock_j1939",
+    "sendto$KGPT_j1939_ops": "sendto$KGPT_j1939_ops(fd sock_j1939, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, sockaddr_can, opt], addrlen len[addr])",
+    "recvfrom$KGPT_j1939_ops": "recvfrom$KGPT_j1939_ops(fd sock_j1939, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, sockaddr_can, opt], addrlen len[addr])",
+    "getsockopt$KGPT_SO_J1939_PROMISC": "getsockopt$KGPT_SO_J1939_PROMISC(fd sock_j1939, level const[SOL_CAN_J1939], opt const[SO_J1939_PROMISC], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_SO_J1939_ERRQUEUE": "getsockopt$KGPT_SO_J1939_ERRQUEUE(fd sock_j1939, level const[SOL_CAN_J1939], opt const[SO_J1939_ERRQUEUE], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_SO_J1939_SEND_PRIO": "getsockopt$KGPT_SO_J1939_SEND_PRIO(fd sock_j1939, level const[SOL_CAN_J1939], opt const[SO_J1939_SEND_PRIO], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "setsockopt$KGPT_SO_J1939_FILTER": "setsockopt$KGPT_SO_J1939_FILTER(fd sock_j1939, level const[SOL_CAN_J1939], opt const[SO_J1939_FILTER], val ptr[in, array[j1939_filter]], len bytesize[val])",
+    "setsockopt$KGPT_SO_J1939_PROMISC": "setsockopt$KGPT_SO_J1939_PROMISC(fd sock_j1939, level const[SOL_CAN_J1939], opt const[SO_J1939_PROMISC], val ptr[in, int32], len const[4])",
+    "setsockopt$KGPT_SO_J1939_ERRQUEUE": "setsockopt$KGPT_SO_J1939_ERRQUEUE(fd sock_j1939, level const[SOL_CAN_J1939], opt const[SO_J1939_ERRQUEUE], val ptr[in, int32], len len[val])",
+    "setsockopt$KGPT_SO_J1939_SEND_PRIO": "setsockopt$KGPT_SO_J1939_SEND_PRIO(fd sock_j1939, level const[SOL_CAN_J1939], opt const[SO_J1939_SEND_PRIO], val ptr[in, int32], len const[4])"
+  },
+  "init_syscalls": [
+    "socket$KGPT_can_j1939"
+  ],
+  "includes": [
+    "uapi/linux/can/j1939.h",
+    "linux/net.h",
+    "uapi/linux/can.h",
+    "linux/socket.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

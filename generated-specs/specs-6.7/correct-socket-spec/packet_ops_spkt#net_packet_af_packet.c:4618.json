@@ -1,0 +1,293 @@
+{
+  "socket": {
+    "domain": "AF_PACKET",
+    "type": "SOCK_PACKET",
+    "spec": "socket$KGPT_packet_spkt(domain const[AF_PACKET], type const[SOCK_PACKET], proto const[0]) sock_packet_spkt"
+  },
+  "resources": {
+    "sock_packet_spkt": {
+      "type": "sock",
+      "spec": "resource sock_packet_spkt[sock]"
+    }
+  },
+  "types": {},
+  "socket_addr": "sockaddr",
+  "ioctls": {},
+  "existing_ioctls": {
+    "SIOCOUTQ": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "put_user"
+        ],
+        "type": [
+          "int"
+        ],
+        "usage": [
+          "int amount = sk_wmem_alloc_get(sk);\nreturn put_user(amount, (int __user *)arg);"
+        ]
+      }
+    },
+    "SIOCINQ": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "put_user"
+        ],
+        "type": [
+          "int"
+        ],
+        "usage": [
+          "struct sk_buff *skb;\nint amount = 0;\n...\nif (skb)\n\tamount = skb->len;\n...\nreturn put_user(amount, (int __user *)arg);"
+        ]
+      }
+    },
+    "SIOCADDRT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "inet_dgram_ops.ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "return inet_dgram_ops.ioctl(sock, cmd, arg);"
+        ]
+      }
+    },
+    "SIOCDELRT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "inet_dgram_ops.ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "return inet_dgram_ops.ioctl(sock, cmd, arg);"
+        ]
+      }
+    },
+    "SIOCDARP": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "inet_dgram_ops.ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "return inet_dgram_ops.ioctl(sock, cmd, arg);"
+        ]
+      }
+    },
+    "SIOCGARP": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "inet_dgram_ops.ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "return inet_dgram_ops.ioctl(sock, cmd, arg);"
+        ]
+      }
+    },
+    "SIOCSARP": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "inet_dgram_ops.ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "return inet_dgram_ops.ioctl(sock, cmd, arg);"
+        ]
+      }
+    },
+    "SIOCGIFADDR": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "inet_dgram_ops.ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "return inet_dgram_ops.ioctl(sock, cmd, arg);"
+        ]
+      }
+    },
+    "SIOCSIFADDR": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "inet_dgram_ops.ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "return inet_dgram_ops.ioctl(sock, cmd, arg);"
+        ]
+      }
+    },
+    "SIOCGIFBRDADDR": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "inet_dgram_ops.ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "return inet_dgram_ops.ioctl(sock, cmd, arg);"
+        ]
+      }
+    },
+    "SIOCSIFBRDADDR": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "inet_dgram_ops.ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "return inet_dgram_ops.ioctl(sock, cmd, arg);"
+        ]
+      }
+    },
+    "SIOCGIFNETMASK": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "inet_dgram_ops.ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "return inet_dgram_ops.ioctl(sock, cmd, arg);"
+        ]
+      }
+    },
+    "SIOCSIFNETMASK": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "inet_dgram_ops.ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "return inet_dgram_ops.ioctl(sock, cmd, arg);"
+        ]
+      }
+    },
+    "SIOCGIFDSTADDR": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "inet_dgram_ops.ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "return inet_dgram_ops.ioctl(sock, cmd, arg);"
+        ]
+      }
+    },
+    "SIOCSIFDSTADDR": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "inet_dgram_ops.ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "return inet_dgram_ops.ioctl(sock, cmd, arg);"
+        ]
+      }
+    },
+    "SIOCSIFFLAGS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "inet_dgram_ops.ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "return inet_dgram_ops.ioctl(sock, cmd, arg);"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "proto_ops": {
+    "bind": "packet_bind_spkt",
+    "connect": "sock_no_connect",
+    "accept": "sock_no_accept",
+    "poll": "datagram_poll",
+    "ioctl": "packet_ioctl",
+    "sendmsg": "packet_sendmsg_spkt",
+    "recvmsg": "packet_recvmsg"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/packet/af_packet.c:4618",
+  "ops_name": "packet_ops_spkt",
+  "syscall_specs": {
+    "socket$KGPT_packet_spkt": "socket$KGPT_packet_spkt(domain const[AF_PACKET], type const[SOCK_PACKET], proto const[0]) sock_packet_spkt",
+    "bind$KGPT_packet_ops_spkt": "bind$KGPT_packet_ops_spkt(fd sock_packet_spkt, addr ptr[in, sockaddr], addrlen len[addr])",
+    "connect$KGPT_packet_ops_spkt": "connect$KGPT_packet_ops_spkt(fd sock_packet_spkt, addr ptr[in, sockaddr], addrlen len[addr])",
+    "accept4$KGPT_packet_ops_spkt": "accept4$KGPT_packet_ops_spkt(fd sock_packet_spkt, peer ptr[out, sockaddr, opt], peerlen ptr[inout, len[peer, int32]], flags flags[accept_flags]) sock_packet_spkt",
+    "sendto$KGPT_packet_ops_spkt": "sendto$KGPT_packet_ops_spkt(fd sock_packet_spkt, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, sockaddr, opt], addrlen len[addr])",
+    "recvfrom$KGPT_packet_ops_spkt": "recvfrom$KGPT_packet_ops_spkt(fd sock_packet_spkt, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, sockaddr, opt], addrlen len[addr])"
+  },
+  "init_syscalls": [
+    "socket$KGPT_packet_spkt"
+  ],
+  "includes": [
+    "linux/net.h",
+    "linux/socket.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "sockaddr": "EXISTING"
+  }
+}

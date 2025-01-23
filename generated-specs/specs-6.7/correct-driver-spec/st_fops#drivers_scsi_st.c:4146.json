@@ -1,0 +1,131 @@
+{
+  "open": {
+    "filename": "/dev/st#",
+    "fd_name": "fd_st",
+    "spec": "syz_open_dev$KGPT_st(dev ptr[in, string[\"/dev/st#\"]], id proc[0, 1], flags flags[open_flags]) fd_st"
+  },
+  "resources": {
+    "fd_st": {
+      "type": "fd",
+      "spec": "resource fd_st[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/scsi/st.c:4146",
+  "ioctls": {
+    "MTIOCTOP": {
+      "arg": "ptr[in, mtop]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    },
+    "MTIOCGET": {
+      "arg": "ptr[out, mtget]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    },
+    "MTIOCPOS": {
+      "arg": "ptr[out, mtpos]",
+      "arg_name_in_usage": "p",
+      "arg_inference": {
+        "function": [
+          "get_location",
+          "put_user_mtpos"
+        ],
+        "type": [
+          "mtpos"
+        ],
+        "usage": [
+          "struct mtpos mt_pos;",
+          "if (_IOC_SIZE(cmd_in) != sizeof(struct mtpos)) { ... }",
+          "if ((i = get_location(STp, &blk, &bt, 0)) < 0) { ... }",
+          "retval = put_user_mtpos(p, &mt_pos);"
+        ]
+      }
+    }
+  },
+  "types": {
+    "mtop": "mtop {\n\tmt_op\tint16\n\tmt_count\tint32\n}",
+    "mtget": "mtget {\n\tmt_type\tint64\n\tmt_resid\tint64\n\tmt_dsreg\tint64\n\tmt_gstat\tint64\n\tmt_erreg\tint64\n\tmt_fileno\tint64\n\tmt_blkno\tint64\n}",
+    "mtpos": "mtpos {\n\tmt_blkno\tint64\n}"
+  },
+  "existing_ioctls": {
+    "SG_IO": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "scsi_ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "retval = scsi_ioctl(STp->device, file->f_mode & FMODE_WRITE, cmd_in, p);"
+        ]
+      }
+    },
+    "SCSI_IOCTL_SEND_COMMAND": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "scsi_ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "retval = scsi_ioctl(STp->device, file->f_mode & FMODE_WRITE, cmd_in, p);"
+        ]
+      }
+    },
+    "CDROM_SEND_PACKET": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "scsi_ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "retval = scsi_ioctl(STp->device, file->f_mode & FMODE_WRITE, cmd_in, p);"
+        ]
+      }
+    },
+    "SCSI_IOCTL_STOP_UNIT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "scsi_ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "retval = scsi_ioctl(STp->device, file->f_mode & FMODE_WRITE, cmd_in, p);",
+          "if (!retval && cmd_in == SCSI_IOCTL_STOP_UNIT) { ... }"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_st": "syz_open_dev$KGPT_st(dev ptr[in, string[\"/dev/st#\"]], id proc[0, 1], flags flags[open_flags]) fd_st",
+    "ioctl$KGPT_MTIOCTOP": "ioctl$KGPT_MTIOCTOP(fd fd_st, cmd const[MTIOCTOP], arg ptr[in, mtop])",
+    "ioctl$KGPT_MTIOCGET": "ioctl$KGPT_MTIOCGET(fd fd_st, cmd const[MTIOCGET], arg ptr[out, mtget])",
+    "ioctl$KGPT_MTIOCPOS": "ioctl$KGPT_MTIOCPOS(fd fd_st, cmd const[MTIOCPOS], arg ptr[out, mtpos])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_st"
+  ],
+  "includes": [
+    "drivers/scsi/st_options.h",
+    "uapi/linux/mtio.h"
+  ],
+  "unused_types": {
+    "__kernel_daddr_t": "UNFOUND"
+  },
+  "ignored_types": {}
+}

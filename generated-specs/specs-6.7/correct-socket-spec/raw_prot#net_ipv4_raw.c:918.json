@@ -1,0 +1,349 @@
+{
+  "socket": {
+    "domain": "AF_INET",
+    "type": "SOCK_RAW",
+    "spec": "socket$KGPT_inet_raw(domain const[AF_INET], type const[SOCK_RAW], proto const[IPPROTO_RAW]) sock_inet_raw"
+  },
+  "resources": {
+    "sock_inet_raw": {
+      "type": "sock",
+      "spec": "resource sock_inet_raw[sock]"
+    }
+  },
+  "types": {
+    "IPPROTO_RAW": "define IPPROTO_RAW 255"
+  },
+  "socket_addr": "sockaddr_in",
+  "ioctls": {},
+  "existing_ioctls": {
+    "SIOCOUTQ": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "karg"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [
+          "int"
+        ],
+        "usage": [
+          "*karg = sk_wmem_alloc_get(sk);"
+        ]
+      }
+    },
+    "SIOCINQ": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "karg"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [
+          "int"
+        ],
+        "usage": [
+          "struct sk_buff *skb;",
+          "skb = skb_peek(&sk->sk_receive_queue);",
+          "if (skb)",
+          "\t*karg = skb->len;",
+          "else",
+          "\t*karg = 0;"
+        ]
+      }
+    },
+    "SIOCGETVIFCNT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [
+          "sioc_vif_req"
+        ],
+        "usage": [
+          "vr = (struct sioc_vif_req *)arg;",
+          "if (vr->vifi >= mrt->maxvif)\n\t\t\treturn -EINVAL;",
+          "vr->vifi = array_index_nospec(vr->vifi, mrt->maxvif);",
+          "rcu_read_lock();",
+          "vif = &mrt->vif_table[vr->vifi];",
+          "if (VIF_EXISTS(mrt, vr->vifi)) {",
+          "\tvr->icount = READ_ONCE(vif->pkt_in);",
+          "\tvr->ocount = READ_ONCE(vif->pkt_out);",
+          "\tvr->ibytes = READ_ONCE(vif->bytes_in);",
+          "\tvr->obytes = READ_ONCE(vif->bytes_out);",
+          "\trcu_read_unlock();",
+          "\treturn 0;",
+          "}",
+          "rcu_read_unlock();",
+          "return -EADDRNOTAVAIL;"
+        ]
+      }
+    },
+    "SIOCGETSGCNT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "ipmr_cache_find"
+        ],
+        "type": [
+          "sioc_sg_req"
+        ],
+        "usage": [
+          "sr = (struct sioc_sg_req *)arg;",
+          "rcu_read_lock();",
+          "c = ipmr_cache_find(mrt, sr->src.s_addr, sr->grp.s_addr);",
+          "if (c) {",
+          "\tsr->pktcnt = c->_c.mfc_un.res.pkt;",
+          "\tsr->bytecnt = c->_c.mfc_un.res.bytes;",
+          "\tsr->wrong_if = c->_c.mfc_un.res.wrong_if;",
+          "\trcu_read_unlock();",
+          "\treturn 0;",
+          "}",
+          "rcu_read_unlock();",
+          "return -EADDRNOTAVAIL;"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "setsockopt": {
+    "IP_HDRINCL": {
+      "level": "SOL_IP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IP_PKTINFO": {
+      "level": "SOL_IP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IP_RECVTTL": {
+      "level": "SOL_IP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IP_RECVOPTS": {
+      "level": "SOL_IP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IP_RECVTOS": {
+      "level": "SOL_IP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IP_RETOPTS": {
+      "level": "SOL_IP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IP_TOS": {
+      "level": "SOL_IP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IP_TTL": {
+      "level": "SOL_IP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IP_MTU_DISCOVER": {
+      "level": "SOL_IP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IP_RECVERR": {
+      "level": "SOL_IP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IP_ROUTER_ALERT": {
+      "level": "SOL_IP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IP_FREEBIND": {
+      "level": "SOL_IP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IP_PASSSEC": {
+      "level": "SOL_IP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IP_TRANSPARENT": {
+      "level": "SOL_IP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IP_MINTTL": {
+      "level": "SOL_IP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IP_NODEFRAG": {
+      "level": "SOL_IP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IP_BIND_ADDRESS_NO_PORT": {
+      "level": "SOL_IP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IP_UNICAST_IF": {
+      "level": "SOL_IP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IP_MULTICAST_TTL": {
+      "level": "SOL_IP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IP_MULTICAST_ALL": {
+      "level": "SOL_IP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IP_MULTICAST_LOOP": {
+      "level": "SOL_IP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IP_RECVORIGDSTADDR": {
+      "level": "SOL_IP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IP_CHECKSUM": {
+      "level": "SOL_IP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IP_RECVFRAGSIZE": {
+      "level": "SOL_IP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IP_RECVERR_RFC4884": {
+      "level": "SOL_IP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IP_LOCAL_PORT_RANGE": {
+      "level": "SOL_IP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "ICMP_FILTER": {
+      "level": "SOL_RAW",
+      "val": "ptr[in, icmp_filter]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "MRT_BASE": {
+      "level": "IPPROTO_IP",
+      "val": "int",
+      "len": "",
+      "val_inference": null
+    },
+    "MRT_MAX": {
+      "level": "IPPROTO_IP",
+      "val": "int",
+      "len": "",
+      "val_inference": null
+    },
+    "IP_IPSEC_POLICY": {
+      "level": "SOL_IP",
+      "val": "ptr[in, array[int8]]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "IP_XFRM_POLICY": {
+      "level": "SOL_IP",
+      "val": "ptr[in, array[int8]]",
+      "len": "len[val]",
+      "val_inference": null
+    }
+  },
+  "unknown": [],
+  "setsockopt_unknown": [],
+  "getsockopt": {
+    "ICMP_FILTER": {
+      "level": "SOL_RAW",
+      "val": "ptr[in, icmp_filter]",
+      "len": "len[val]",
+      "val_inference": null
+    }
+  },
+  "getsockopt_unknown": [],
+  "proto_ops": {
+    "bind": "raw_bind",
+    "connect": "ip4_datagram_connect",
+    "ioctl": "raw_ioctl",
+    "sendmsg": "raw_sendmsg",
+    "recvmsg": "raw_recvmsg",
+    "setsockopt": "raw_setsockopt",
+    "getsockopt": "raw_getsockopt"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/ipv4/raw.c:918",
+  "ops_name": "raw_prot",
+  "syscall_specs": {
+    "socket$KGPT_inet_raw": "socket$KGPT_inet_raw(domain const[AF_INET], type const[SOCK_RAW], proto const[IPPROTO_RAW]) sock_inet_raw",
+    "bind$KGPT_raw_prot": "bind$KGPT_raw_prot(fd sock_inet_raw, addr ptr[in, sockaddr_in], addrlen len[addr])",
+    "connect$KGPT_raw_prot": "connect$KGPT_raw_prot(fd sock_inet_raw, addr ptr[in, sockaddr_in], addrlen len[addr])",
+    "sendto$KGPT_raw_prot": "sendto$KGPT_raw_prot(fd sock_inet_raw, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, sockaddr_in, opt], addrlen len[addr])",
+    "recvfrom$KGPT_raw_prot": "recvfrom$KGPT_raw_prot(fd sock_inet_raw, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, sockaddr_in, opt], addrlen len[addr])",
+    "getsockopt$KGPT_ICMP_FILTER": "getsockopt$KGPT_ICMP_FILTER(fd sock_inet_raw, level const[SOL_RAW], opt const[ICMP_FILTER], val ptr[in, icmp_filter], len len[val])",
+    "setsockopt$KGPT_IP_HDRINCL": "setsockopt$KGPT_IP_HDRINCL(fd sock_inet_raw, level const[SOL_IP], opt const[IP_HDRINCL], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IP_PKTINFO": "setsockopt$KGPT_IP_PKTINFO(fd sock_inet_raw, level const[SOL_IP], opt const[IP_PKTINFO], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IP_RECVTTL": "setsockopt$KGPT_IP_RECVTTL(fd sock_inet_raw, level const[SOL_IP], opt const[IP_RECVTTL], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IP_RECVOPTS": "setsockopt$KGPT_IP_RECVOPTS(fd sock_inet_raw, level const[SOL_IP], opt const[IP_RECVOPTS], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IP_RECVTOS": "setsockopt$KGPT_IP_RECVTOS(fd sock_inet_raw, level const[SOL_IP], opt const[IP_RECVTOS], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IP_RETOPTS": "setsockopt$KGPT_IP_RETOPTS(fd sock_inet_raw, level const[SOL_IP], opt const[IP_RETOPTS], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IP_TOS": "setsockopt$KGPT_IP_TOS(fd sock_inet_raw, level const[SOL_IP], opt const[IP_TOS], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IP_TTL": "setsockopt$KGPT_IP_TTL(fd sock_inet_raw, level const[SOL_IP], opt const[IP_TTL], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IP_MTU_DISCOVER": "setsockopt$KGPT_IP_MTU_DISCOVER(fd sock_inet_raw, level const[SOL_IP], opt const[IP_MTU_DISCOVER], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IP_RECVERR": "setsockopt$KGPT_IP_RECVERR(fd sock_inet_raw, level const[SOL_IP], opt const[IP_RECVERR], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IP_ROUTER_ALERT": "setsockopt$KGPT_IP_ROUTER_ALERT(fd sock_inet_raw, level const[SOL_IP], opt const[IP_ROUTER_ALERT], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IP_FREEBIND": "setsockopt$KGPT_IP_FREEBIND(fd sock_inet_raw, level const[SOL_IP], opt const[IP_FREEBIND], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IP_PASSSEC": "setsockopt$KGPT_IP_PASSSEC(fd sock_inet_raw, level const[SOL_IP], opt const[IP_PASSSEC], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IP_TRANSPARENT": "setsockopt$KGPT_IP_TRANSPARENT(fd sock_inet_raw, level const[SOL_IP], opt const[IP_TRANSPARENT], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IP_MINTTL": "setsockopt$KGPT_IP_MINTTL(fd sock_inet_raw, level const[SOL_IP], opt const[IP_MINTTL], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IP_NODEFRAG": "setsockopt$KGPT_IP_NODEFRAG(fd sock_inet_raw, level const[SOL_IP], opt const[IP_NODEFRAG], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IP_BIND_ADDRESS_NO_PORT": "setsockopt$KGPT_IP_BIND_ADDRESS_NO_PORT(fd sock_inet_raw, level const[SOL_IP], opt const[IP_BIND_ADDRESS_NO_PORT], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IP_UNICAST_IF": "setsockopt$KGPT_IP_UNICAST_IF(fd sock_inet_raw, level const[SOL_IP], opt const[IP_UNICAST_IF], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IP_MULTICAST_TTL": "setsockopt$KGPT_IP_MULTICAST_TTL(fd sock_inet_raw, level const[SOL_IP], opt const[IP_MULTICAST_TTL], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IP_MULTICAST_ALL": "setsockopt$KGPT_IP_MULTICAST_ALL(fd sock_inet_raw, level const[SOL_IP], opt const[IP_MULTICAST_ALL], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IP_MULTICAST_LOOP": "setsockopt$KGPT_IP_MULTICAST_LOOP(fd sock_inet_raw, level const[SOL_IP], opt const[IP_MULTICAST_LOOP], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IP_RECVORIGDSTADDR": "setsockopt$KGPT_IP_RECVORIGDSTADDR(fd sock_inet_raw, level const[SOL_IP], opt const[IP_RECVORIGDSTADDR], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IP_CHECKSUM": "setsockopt$KGPT_IP_CHECKSUM(fd sock_inet_raw, level const[SOL_IP], opt const[IP_CHECKSUM], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IP_RECVFRAGSIZE": "setsockopt$KGPT_IP_RECVFRAGSIZE(fd sock_inet_raw, level const[SOL_IP], opt const[IP_RECVFRAGSIZE], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IP_RECVERR_RFC4884": "setsockopt$KGPT_IP_RECVERR_RFC4884(fd sock_inet_raw, level const[SOL_IP], opt const[IP_RECVERR_RFC4884], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IP_LOCAL_PORT_RANGE": "setsockopt$KGPT_IP_LOCAL_PORT_RANGE(fd sock_inet_raw, level const[SOL_IP], opt const[IP_LOCAL_PORT_RANGE], val int32, len bytesize[val])",
+    "setsockopt$KGPT_ICMP_FILTER": "setsockopt$KGPT_ICMP_FILTER(fd sock_inet_raw, level const[SOL_RAW], opt const[ICMP_FILTER], val ptr[in, icmp_filter], len len[val])",
+    "setsockopt$KGPT_MRT_BASE": "setsockopt$KGPT_MRT_BASE(fd sock_inet_raw, level const[IPPROTO_IP], opt const[MRT_BASE], val ptr[in, int32], len len[val])",
+    "setsockopt$KGPT_MRT_MAX": "setsockopt$KGPT_MRT_MAX(fd sock_inet_raw, level const[IPPROTO_IP], opt const[MRT_MAX], val ptr[in, int32], len len[val])",
+    "setsockopt$KGPT_IP_IPSEC_POLICY": "setsockopt$KGPT_IP_IPSEC_POLICY(fd sock_inet_raw, level const[SOL_IP], opt const[IP_IPSEC_POLICY], val ptr[in, array[int8]], len len[val])",
+    "setsockopt$KGPT_IP_XFRM_POLICY": "setsockopt$KGPT_IP_XFRM_POLICY(fd sock_inet_raw, level const[SOL_IP], opt const[IP_XFRM_POLICY], val ptr[in, array[int8]], len len[val])"
+  },
+  "init_syscalls": [
+    "socket$KGPT_inet_raw"
+  ],
+  "includes": [
+    "linux/net.h",
+    "uapi/linux/mroute.h",
+    "samples/bpf/net_shared.h",
+    "uapi/linux/icmp.h",
+    "uapi/linux/in.h",
+    "linux/socket.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

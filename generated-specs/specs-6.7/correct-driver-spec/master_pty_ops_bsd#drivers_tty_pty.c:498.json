@@ -1,0 +1,112 @@
+{
+  "open": {
+    "filename": "/dev/pty#",
+    "fd_name": "fd_pty_master",
+    "spec": "syz_open_dev$KGPT_pty_master(dev ptr[in, string[\"/dev/pty#\"]], id proc[0, 1], flags flags[open_flags]) fd_pty_master"
+  },
+  "resources": {
+    "fd_pty_master": {
+      "type": "fd",
+      "spec": "resource fd_pty_master[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/tty/pty.c:498",
+  "ioctls": {
+    "TIOCGPTN": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    }
+  },
+  "types": {},
+  "existing_ioctls": {
+    "TIOCSPTLCK": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "pty_set_lock"
+        ],
+        "type": [],
+        "usage": [
+          "return pty_set_lock(tty, (int __user *) arg);"
+        ]
+      }
+    },
+    "TIOCGPTLCK": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "pty_get_lock"
+        ],
+        "type": [],
+        "usage": [
+          "return pty_get_lock(tty, (int __user *)arg);"
+        ]
+      }
+    },
+    "TIOCPKT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "pty_set_pktmode"
+        ],
+        "type": [],
+        "usage": [
+          "return pty_set_pktmode(tty, (int __user *)arg);"
+        ]
+      }
+    },
+    "TIOCGPKT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "pty_get_pktmode"
+        ],
+        "type": [],
+        "usage": [
+          "return pty_get_pktmode(tty, (int __user *)arg);"
+        ]
+      }
+    },
+    "TIOCSIG": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "pty_signal"
+        ],
+        "type": [],
+        "usage": [
+          "return pty_signal(tty, (int) arg);"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_pty_master": "syz_open_dev$KGPT_pty_master(dev ptr[in, string[\"/dev/pty#\"]], id proc[0, 1], flags flags[open_flags]) fd_pty_master",
+    "ioctl$KGPT_TIOCGPTN": "ioctl$KGPT_TIOCGPTN(fd fd_pty_master, cmd const[TIOCGPTN], arg ptr[in, array[int8]])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_pty_master"
+  ],
+  "includes": [
+    "uapi/asm-generic/ioctls.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

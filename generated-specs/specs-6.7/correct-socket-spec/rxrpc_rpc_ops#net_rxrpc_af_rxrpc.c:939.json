@@ -1,0 +1,92 @@
+{
+  "socket": {
+    "domain": "AF_RXRPC",
+    "type": "SOCK_DGRAM",
+    "spec": "socket$KGPT_rxrpc(domain const[AF_RXRPC], type const[SOCK_DGRAM], proto const[0]) sock_rxrpc"
+  },
+  "resources": {
+    "sock_rxrpc": {
+      "type": "sock",
+      "spec": "resource sock_rxrpc[sock]"
+    }
+  },
+  "types": {},
+  "socket_addr": "sockaddr_rxrpc",
+  "setsockopt": {
+    "RXRPC_EXCLUSIVE_CONNECTION": {
+      "level": "SOL_RXRPC",
+      "val": "int32",
+      "len": "0"
+    },
+    "RXRPC_MIN_SECURITY_LEVEL": {
+      "level": "SOL_RXRPC",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]"
+    },
+    "RXRPC_UPGRADEABLE_SERVICE": {
+      "level": "SOL_RXRPC",
+      "val": "ptr[in, array[int16, 2]]",
+      "len": "bytesize[val]"
+    },
+    "RXRPC_SECURITY_KEY": {
+      "level": "SOL_RXRPC",
+      "val": "ptr[in, string]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "RXRPC_SECURITY_KEYRING": {
+      "level": "SOL_RXRPC",
+      "val": "ptr[in, string]",
+      "len": "len[val]",
+      "val_inference": null
+    }
+  },
+  "unknown": [],
+  "setsockopt_unknown": [],
+  "getsockopt": {
+    "RXRPC_SUPPORTED_CMSG": {
+      "level": "SOL_RXRPC",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    }
+  },
+  "getsockopt_unknown": [],
+  "proto_ops": {
+    "bind": "rxrpc_bind",
+    "connect": "rxrpc_connect",
+    "accept": "sock_no_accept",
+    "poll": "rxrpc_poll",
+    "ioctl": "sock_no_ioctl",
+    "sendmsg": "rxrpc_sendmsg",
+    "recvmsg": "rxrpc_recvmsg",
+    "setsockopt": "rxrpc_setsockopt",
+    "getsockopt": "rxrpc_getsockopt"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/rxrpc/af_rxrpc.c:939",
+  "ops_name": "rxrpc_rpc_ops",
+  "syscall_specs": {
+    "socket$KGPT_rxrpc": "socket$KGPT_rxrpc(domain const[AF_RXRPC], type const[SOCK_DGRAM], proto const[0]) sock_rxrpc",
+    "bind$KGPT_rxrpc_rpc_ops": "bind$KGPT_rxrpc_rpc_ops(fd sock_rxrpc, addr ptr[in, sockaddr_rxrpc], addrlen len[addr])",
+    "connect$KGPT_rxrpc_rpc_ops": "connect$KGPT_rxrpc_rpc_ops(fd sock_rxrpc, addr ptr[in, sockaddr_rxrpc], addrlen len[addr])",
+    "accept4$KGPT_rxrpc_rpc_ops": "accept4$KGPT_rxrpc_rpc_ops(fd sock_rxrpc, peer ptr[out, sockaddr_rxrpc, opt], peerlen ptr[inout, len[peer, int32]], flags flags[accept_flags]) sock_rxrpc",
+    "sendto$KGPT_rxrpc_rpc_ops": "sendto$KGPT_rxrpc_rpc_ops(fd sock_rxrpc, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, sockaddr_rxrpc, opt], addrlen len[addr])",
+    "recvfrom$KGPT_rxrpc_rpc_ops": "recvfrom$KGPT_rxrpc_rpc_ops(fd sock_rxrpc, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, sockaddr_rxrpc, opt], addrlen len[addr])",
+    "getsockopt$KGPT_RXRPC_SUPPORTED_CMSG": "getsockopt$KGPT_RXRPC_SUPPORTED_CMSG(fd sock_rxrpc, level const[SOL_RXRPC], opt const[RXRPC_SUPPORTED_CMSG], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "setsockopt$KGPT_RXRPC_EXCLUSIVE_CONNECTION": "setsockopt$KGPT_RXRPC_EXCLUSIVE_CONNECTION(fd sock_rxrpc, level const[SOL_RXRPC], opt const[RXRPC_EXCLUSIVE_CONNECTION], val ptr[in, int32], len len[val])",
+    "setsockopt$KGPT_RXRPC_MIN_SECURITY_LEVEL": "setsockopt$KGPT_RXRPC_MIN_SECURITY_LEVEL(fd sock_rxrpc, level const[SOL_RXRPC], opt const[RXRPC_MIN_SECURITY_LEVEL], val ptr[in, int32], len bytesize[val])",
+    "setsockopt$KGPT_RXRPC_UPGRADEABLE_SERVICE": "setsockopt$KGPT_RXRPC_UPGRADEABLE_SERVICE(fd sock_rxrpc, level const[SOL_RXRPC], opt const[RXRPC_UPGRADEABLE_SERVICE], val ptr[in, array[int16, 2]], len bytesize[val])",
+    "setsockopt$KGPT_RXRPC_SECURITY_KEY": "setsockopt$KGPT_RXRPC_SECURITY_KEY(fd sock_rxrpc, level const[SOL_RXRPC], opt const[RXRPC_SECURITY_KEY], val ptr[in, string], len len[val])",
+    "setsockopt$KGPT_RXRPC_SECURITY_KEYRING": "setsockopt$KGPT_RXRPC_SECURITY_KEYRING(fd sock_rxrpc, level const[SOL_RXRPC], opt const[RXRPC_SECURITY_KEYRING], val ptr[in, string], len len[val])"
+  },
+  "init_syscalls": [
+    "socket$KGPT_rxrpc"
+  ],
+  "includes": [
+    "linux/net.h",
+    "uapi/linux/rxrpc.h",
+    "linux/socket.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

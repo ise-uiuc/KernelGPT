@@ -1,0 +1,217 @@
+{
+  "open": {
+    "filename": "/dev/mtd#",
+    "fd_name": "fd_mtd",
+    "spec": "syz_open_dev$KGPT_mtd(dev ptr[in, string[\"/dev/mtd#\"]], id proc[0, 1], flags flags[open_flags]) fd_mtd"
+  },
+  "resources": {
+    "fd_mtd": {
+      "type": "fd",
+      "spec": "resource fd_mtd[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/mtd/mtdchar.c:1401",
+  "ioctls": {
+    "MEMGETREGIONCOUNT": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "MEMGETINFO": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "MEMGETOOBSEL": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "OTPGETREGIONCOUNT": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "ECCGETLAYOUT": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "ECCGETSTATS": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "MEMGETREGIONINFO": {
+      "arg": "ptr[inout, region_info_user]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "MEMREADOOB": {
+      "arg": "ptr[in, mtd_oob_buf]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "MEMREADOOB64": {
+      "arg": "ptr[in, mtd_oob_buf64]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "MEMREAD": {
+      "arg": "ptr[in, mtd_read_req]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "MEMERASE": {
+      "arg": "ptr[in, erase_info_user]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "MEMERASE64": {
+      "arg": "ptr[in, erase_info_user64]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "MEMWRITEOOB": {
+      "arg": "ptr[in, mtd_oob_buf]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "MEMWRITEOOB64": {
+      "arg": "ptr[in, mtd_oob_buf64]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "MEMWRITE": {
+      "arg": "ptr[in, mtd_write_req]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "MEMLOCK": {
+      "arg": "ptr[in, erase_info_user]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "MEMUNLOCK": {
+      "arg": "ptr[in, erase_info_user]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "MEMISLOCKED": {
+      "arg": "ptr[in, erase_info_user]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "MEMGETBADBLOCK": {
+      "arg": "ptr[in, int64]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "MEMSETBADBLOCK": {
+      "arg": "ptr[in, int64]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "OTPSELECT": {
+      "arg": "intptr",
+      "arg_name_in_usage": "mode",
+      "arg_inference": null
+    },
+    "OTPGETREGIONINFO": {
+      "arg": "ptr[out, array[otp_info]]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "OTPLOCK": {
+      "arg": "ptr[in, otp_info]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "OTPERASE": {
+      "arg": "ptr[in, otp_info]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "MTDFILEMODE": {
+      "arg": "flags[mtd_file_modes]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "region_info_user": "region_info_user {\n\toffset\tint32\n\terasesize\tint32\n\tnumblocks\tint32\n\tregionindex\tint32\n}",
+    "mtd_oob_buf": "mtd_oob_buf {\n\tstart\tint32\n\tlength\tint32\n\tptr\tptr[in, array[int8]]\n}",
+    "mtd_oob_buf64": "mtd_oob_buf64 {\n\tstart\tint64\n\tpad\tint32\n\tlength\tint32\n\tusr_ptr\tint64\n}",
+    "mtd_read_req": "mtd_read_req {\n\tstart\tint64\n\tlen\tint64\n\tooblen\tint64\n\tusr_data\tint64\n\tusr_oob\tint64\n\tmode\tint8\n\tpadding\tarray[int8, 7]\n\tecc_stats\tmtd_read_req_ecc_stats\n}",
+    "erase_info_user": "erase_info_user {\n\tstart\tint32\n\tlength\tint32\n}",
+    "erase_info_user64": "erase_info_user64 {\n\tstart\tint64\n\tlength\tint64\n}",
+    "mtd_write_req": "mtd_write_req {\n\tstart\tint64\n\tlen\tint64\n\tooblen\tint64\n\tusr_data\tint64\n\tusr_oob\tint64\n\tmode\tint8\n\tpadding\tarray[int8, 7]\n}",
+    "otp_info": "otp_info {\n\tstart\tint32\n\tlength\tint32\n\tlocked\tint32\n}",
+    "mtd_file_modes": "mtd_file_modes = MTD_FILE_MODE_NORMAL, MTD_FILE_MODE_OTP_FACTORY, MTD_FILE_MODE_OTP_USER, MTD_FILE_MODE_RAW",
+    "mtd_read_req_ecc_stats": "mtd_read_req_ecc_stats {\n\tuncorrectable_errors\tint32\n\tcorrected_bitflips\tint32\n\tmax_bitflips\tint32\n}"
+  },
+  "existing_ioctls": {
+    "BLKPG": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "mtdchar_blkpg_ioctl"
+        ],
+        "type": [
+          "blkpg_ioctl_arg"
+        ],
+        "usage": [
+          "struct blkpg_ioctl_arg __user *blk_arg = argp;",
+          "struct blkpg_ioctl_arg a;",
+          "if (copy_from_user(&a, blk_arg, sizeof(a)))",
+          "ret = mtdchar_blkpg_ioctl(mtd, &a);"
+        ]
+      }
+    },
+    "BLKRRPART": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_mtd": "syz_open_dev$KGPT_mtd(dev ptr[in, string[\"/dev/mtd#\"]], id proc[0, 1], flags flags[open_flags]) fd_mtd",
+    "ioctl$KGPT_MEMGETREGIONCOUNT": "ioctl$KGPT_MEMGETREGIONCOUNT(fd fd_mtd, cmd const[MEMGETREGIONCOUNT], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_MEMGETINFO": "ioctl$KGPT_MEMGETINFO(fd fd_mtd, cmd const[MEMGETINFO], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_MEMGETOOBSEL": "ioctl$KGPT_MEMGETOOBSEL(fd fd_mtd, cmd const[MEMGETOOBSEL], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_OTPGETREGIONCOUNT": "ioctl$KGPT_OTPGETREGIONCOUNT(fd fd_mtd, cmd const[OTPGETREGIONCOUNT], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_ECCGETLAYOUT": "ioctl$KGPT_ECCGETLAYOUT(fd fd_mtd, cmd const[ECCGETLAYOUT], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_ECCGETSTATS": "ioctl$KGPT_ECCGETSTATS(fd fd_mtd, cmd const[ECCGETSTATS], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_MEMGETREGIONINFO": "ioctl$KGPT_MEMGETREGIONINFO(fd fd_mtd, cmd const[MEMGETREGIONINFO], arg ptr[inout, region_info_user])",
+    "ioctl$KGPT_MEMREADOOB": "ioctl$KGPT_MEMREADOOB(fd fd_mtd, cmd const[MEMREADOOB], arg ptr[in, mtd_oob_buf])",
+    "ioctl$KGPT_MEMREADOOB64": "ioctl$KGPT_MEMREADOOB64(fd fd_mtd, cmd const[MEMREADOOB64], arg ptr[in, mtd_oob_buf64])",
+    "ioctl$KGPT_MEMREAD": "ioctl$KGPT_MEMREAD(fd fd_mtd, cmd const[MEMREAD], arg ptr[in, mtd_read_req])",
+    "ioctl$KGPT_MEMERASE": "ioctl$KGPT_MEMERASE(fd fd_mtd, cmd const[MEMERASE], arg ptr[in, erase_info_user])",
+    "ioctl$KGPT_MEMERASE64": "ioctl$KGPT_MEMERASE64(fd fd_mtd, cmd const[MEMERASE64], arg ptr[in, erase_info_user64])",
+    "ioctl$KGPT_MEMWRITEOOB": "ioctl$KGPT_MEMWRITEOOB(fd fd_mtd, cmd const[MEMWRITEOOB], arg ptr[in, mtd_oob_buf])",
+    "ioctl$KGPT_MEMWRITEOOB64": "ioctl$KGPT_MEMWRITEOOB64(fd fd_mtd, cmd const[MEMWRITEOOB64], arg ptr[in, mtd_oob_buf64])",
+    "ioctl$KGPT_MEMWRITE": "ioctl$KGPT_MEMWRITE(fd fd_mtd, cmd const[MEMWRITE], arg ptr[in, mtd_write_req])",
+    "ioctl$KGPT_MEMLOCK": "ioctl$KGPT_MEMLOCK(fd fd_mtd, cmd const[MEMLOCK], arg ptr[in, erase_info_user])",
+    "ioctl$KGPT_MEMUNLOCK": "ioctl$KGPT_MEMUNLOCK(fd fd_mtd, cmd const[MEMUNLOCK], arg ptr[in, erase_info_user])",
+    "ioctl$KGPT_MEMISLOCKED": "ioctl$KGPT_MEMISLOCKED(fd fd_mtd, cmd const[MEMISLOCKED], arg ptr[in, erase_info_user])",
+    "ioctl$KGPT_MEMGETBADBLOCK": "ioctl$KGPT_MEMGETBADBLOCK(fd fd_mtd, cmd const[MEMGETBADBLOCK], arg ptr[in, int64])",
+    "ioctl$KGPT_MEMSETBADBLOCK": "ioctl$KGPT_MEMSETBADBLOCK(fd fd_mtd, cmd const[MEMSETBADBLOCK], arg ptr[in, int64])",
+    "ioctl$KGPT_OTPSELECT": "ioctl$KGPT_OTPSELECT(fd fd_mtd, cmd const[OTPSELECT], arg intptr)",
+    "ioctl$KGPT_OTPGETREGIONINFO": "ioctl$KGPT_OTPGETREGIONINFO(fd fd_mtd, cmd const[OTPGETREGIONINFO], arg ptr[out, array[otp_info]])",
+    "ioctl$KGPT_OTPLOCK": "ioctl$KGPT_OTPLOCK(fd fd_mtd, cmd const[OTPLOCK], arg ptr[in, otp_info])",
+    "ioctl$KGPT_OTPERASE": "ioctl$KGPT_OTPERASE(fd fd_mtd, cmd const[OTPERASE], arg ptr[in, otp_info])",
+    "ioctl$KGPT_MTDFILEMODE": "ioctl$KGPT_MTDFILEMODE(fd fd_mtd, cmd const[MTDFILEMODE], arg flags[mtd_file_modes])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_mtd"
+  ],
+  "includes": [
+    "uapi/mtd/mtd-abi.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

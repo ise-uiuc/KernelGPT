@@ -1,0 +1,127 @@
+{
+  "socket": {
+    "domain": "AF_BLUETOOTH",
+    "type": "SOCK_RAW",
+    "spec": "socket$KGPT_hidp(domain const[AF_BLUETOOTH], type const[SOCK_RAW], proto const[0]) sock_hidp"
+  },
+  "resources": {
+    "sock_hidp": {
+      "type": "sock",
+      "spec": "resource sock_hidp[sock]"
+    }
+  },
+  "types": {},
+  "socket_addr": "sockaddr",
+  "ioctls": {},
+  "existing_ioctls": {
+    "HIDPCONNADD": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp",
+        "ca"
+      ],
+      "arg_inference": {
+        "function": [
+          "hidp_connection_add"
+        ],
+        "type": [
+          "hidp_connadd_req"
+        ],
+        "usage": [
+          "if (copy_from_user(&ca, argp, sizeof(ca)))",
+          "err = hidp_connection_add(&ca, csock, isock);",
+          "if (!err && copy_to_user(argp, &ca, sizeof(ca)))"
+        ]
+      }
+    },
+    "HIDPCONNDEL": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp",
+        "cd"
+      ],
+      "arg_inference": {
+        "function": [
+          "hidp_connection_del"
+        ],
+        "type": [
+          "hidp_conndel_req"
+        ],
+        "usage": [
+          "if (copy_from_user(&cd, argp, sizeof(cd)))",
+          "return hidp_connection_del(&cd);"
+        ]
+      }
+    },
+    "HIDPGETCONNLIST": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp",
+        "cl"
+      ],
+      "arg_inference": {
+        "function": [
+          "hidp_get_connlist"
+        ],
+        "type": [
+          "hidp_connlist_req"
+        ],
+        "usage": [
+          "if (copy_from_user(&cl, argp, sizeof(cl)))",
+          "err = hidp_get_connlist(&cl);",
+          "if (!err && copy_to_user(argp, &cl, sizeof(cl)))"
+        ]
+      }
+    },
+    "HIDPGETCONNINFO": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp",
+        "ci"
+      ],
+      "arg_inference": {
+        "function": [
+          "hidp_get_conninfo"
+        ],
+        "type": [
+          "hidp_conninfo"
+        ],
+        "usage": [
+          "if (copy_from_user(&ci, argp, sizeof(ci)))",
+          "err = hidp_get_conninfo(&ci);",
+          "if (!err && copy_to_user(argp, &ci, sizeof(ci)))"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "proto_ops": {
+    "bind": "sock_no_bind",
+    "connect": "sock_no_connect",
+    "accept": "sock_no_accept",
+    "ioctl": "hidp_sock_ioctl",
+    "sendmsg": "sock_no_sendmsg",
+    "recvmsg": "sock_no_recvmsg"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/bluetooth/hidp/sock.c:223",
+  "ops_name": "hidp_sock_ops",
+  "syscall_specs": {
+    "socket$KGPT_hidp": "socket$KGPT_hidp(domain const[AF_BLUETOOTH], type const[SOCK_RAW], proto const[0]) sock_hidp",
+    "bind$KGPT_hidp_sock_ops": "bind$KGPT_hidp_sock_ops(fd sock_hidp, addr ptr[in, sockaddr], addrlen len[addr])",
+    "connect$KGPT_hidp_sock_ops": "connect$KGPT_hidp_sock_ops(fd sock_hidp, addr ptr[in, sockaddr], addrlen len[addr])",
+    "accept4$KGPT_hidp_sock_ops": "accept4$KGPT_hidp_sock_ops(fd sock_hidp, peer ptr[out, sockaddr, opt], peerlen ptr[inout, len[peer, int32]], flags flags[accept_flags]) sock_hidp",
+    "sendto$KGPT_hidp_sock_ops": "sendto$KGPT_hidp_sock_ops(fd sock_hidp, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, sockaddr, opt], addrlen len[addr])",
+    "recvfrom$KGPT_hidp_sock_ops": "recvfrom$KGPT_hidp_sock_ops(fd sock_hidp, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, sockaddr, opt], addrlen len[addr])"
+  },
+  "init_syscalls": [
+    "socket$KGPT_hidp"
+  ],
+  "includes": [
+    "linux/net.h",
+    "linux/socket.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "sockaddr": "EXISTING"
+  }
+}

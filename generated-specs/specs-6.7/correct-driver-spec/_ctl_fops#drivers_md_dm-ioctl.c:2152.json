@@ -1,0 +1,130 @@
+{
+  "open": {
+    "filename": "/dev/mapper/control",
+    "fd_name": "fd_dm_ctl",
+    "spec": "openat$KGPT_dm_ctl(fd const[AT_FDCWD], file ptr[in, string[\"/dev/mapper/control\"]], flags const[O_RDWR], mode const[0]) fd_dm_ctl"
+  },
+  "resources": {
+    "fd_dm_ctl": {
+      "type": "fd",
+      "spec": "resource fd_dm_ctl[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/md/dm-ioctl.c:2152",
+  "ioctls": {
+    "DM_VERSION_CMD": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "DM_DEV_CREATE": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "DM_DEV_REMOVE": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "DM_DEV_SUSPEND": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "DM_DEV_STATUS": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "DM_TABLE_CLEAR": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "DM_DEV_ARM_POLL": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "DM_DEV_RENAME": {
+      "arg": "ptr[in, dm_ioctl]",
+      "arg_name_in_usage": "param",
+      "arg_inference": null
+    },
+    "DM_DEV_WAIT": {
+      "arg": "ptr[in, dm_ioctl]",
+      "arg_name_in_usage": "param",
+      "arg_inference": null
+    },
+    "DM_TABLE_LOAD": {
+      "arg": "ptr[in, dm_ioctl]",
+      "arg_name_in_usage": "param",
+      "arg_inference": null
+    },
+    "DM_TABLE_DEPS": {
+      "arg": "ptr[in, dm_ioctl]",
+      "arg_name_in_usage": "param",
+      "arg_inference": null
+    },
+    "DM_TABLE_STATUS": {
+      "arg": "ptr[in, dm_ioctl]",
+      "arg_name_in_usage": "param",
+      "arg_inference": null
+    },
+    "DM_LIST_VERSIONS": {
+      "arg": "ptr[in,out, dm_ioctl]",
+      "arg_name_in_usage": "param",
+      "arg_inference": null
+    },
+    "DM_TARGET_MSG": {
+      "arg": "ptr[in, dm_ioctl]",
+      "arg_name_in_usage": "param",
+      "arg_inference": null
+    },
+    "DM_DEV_SET_GEOMETRY": {
+      "arg": "ptr[in, dm_ioctl]",
+      "arg_name_in_usage": "param",
+      "arg_inference": null
+    },
+    "DM_GET_TARGET_VERSION": {
+      "arg": "ptr[inout, dm_ioctl]",
+      "arg_name_in_usage": "param",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "dm_ioctl": "dm_ioctl {\n\tversion\tarray[int32, 3]\n\tdata_size\tint32\n\tdata_start\tint32\n\ttarget_count\tint32\n\topen_count\tint32\n\tflags\tint32\n\tevent_nr\tint32\n\tpadding\tint32\n\tdev\tint64\n\tname\tarray[int8, DM_NAME_LEN]\n\tuuid\tarray[int8, DM_UUID_LEN]\n\tdata\tarray[int8, 7]\n}"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "openat$KGPT_dm_ctl": "openat$KGPT_dm_ctl(fd const[AT_FDCWD], file ptr[in, string[\"/dev/mapper/control\"]], flags const[O_RDWR], mode const[0]) fd_dm_ctl",
+    "ioctl$KGPT_DM_VERSION_CMD": "ioctl$KGPT_DM_VERSION_CMD(fd fd_dm_ctl, cmd const[DM_VERSION_CMD], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_DM_DEV_CREATE": "ioctl$KGPT_DM_DEV_CREATE(fd fd_dm_ctl, cmd const[DM_DEV_CREATE], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_DM_DEV_REMOVE": "ioctl$KGPT_DM_DEV_REMOVE(fd fd_dm_ctl, cmd const[DM_DEV_REMOVE], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_DM_DEV_SUSPEND": "ioctl$KGPT_DM_DEV_SUSPEND(fd fd_dm_ctl, cmd const[DM_DEV_SUSPEND], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_DM_DEV_STATUS": "ioctl$KGPT_DM_DEV_STATUS(fd fd_dm_ctl, cmd const[DM_DEV_STATUS], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_DM_TABLE_CLEAR": "ioctl$KGPT_DM_TABLE_CLEAR(fd fd_dm_ctl, cmd const[DM_TABLE_CLEAR], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_DM_DEV_ARM_POLL": "ioctl$KGPT_DM_DEV_ARM_POLL(fd fd_dm_ctl, cmd const[DM_DEV_ARM_POLL], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_DM_DEV_RENAME": "ioctl$KGPT_DM_DEV_RENAME(fd fd_dm_ctl, cmd const[DM_DEV_RENAME], arg ptr[in, dm_ioctl])",
+    "ioctl$KGPT_DM_DEV_WAIT": "ioctl$KGPT_DM_DEV_WAIT(fd fd_dm_ctl, cmd const[DM_DEV_WAIT], arg ptr[in, dm_ioctl])",
+    "ioctl$KGPT_DM_TABLE_LOAD": "ioctl$KGPT_DM_TABLE_LOAD(fd fd_dm_ctl, cmd const[DM_TABLE_LOAD], arg ptr[in, dm_ioctl])",
+    "ioctl$KGPT_DM_TABLE_DEPS": "ioctl$KGPT_DM_TABLE_DEPS(fd fd_dm_ctl, cmd const[DM_TABLE_DEPS], arg ptr[in, dm_ioctl])",
+    "ioctl$KGPT_DM_TABLE_STATUS": "ioctl$KGPT_DM_TABLE_STATUS(fd fd_dm_ctl, cmd const[DM_TABLE_STATUS], arg ptr[in, dm_ioctl])",
+    "ioctl$KGPT_DM_LIST_VERSIONS": "ioctl$KGPT_DM_LIST_VERSIONS(fd fd_dm_ctl, cmd const[DM_LIST_VERSIONS], arg ptr[inout, dm_ioctl])",
+    "ioctl$KGPT_DM_TARGET_MSG": "ioctl$KGPT_DM_TARGET_MSG(fd fd_dm_ctl, cmd const[DM_TARGET_MSG], arg ptr[in, dm_ioctl])",
+    "ioctl$KGPT_DM_DEV_SET_GEOMETRY": "ioctl$KGPT_DM_DEV_SET_GEOMETRY(fd fd_dm_ctl, cmd const[DM_DEV_SET_GEOMETRY], arg ptr[in, dm_ioctl])",
+    "ioctl$KGPT_DM_GET_TARGET_VERSION": "ioctl$KGPT_DM_GET_TARGET_VERSION(fd fd_dm_ctl, cmd const[DM_GET_TARGET_VERSION], arg ptr[inout, dm_ioctl])"
+  },
+  "init_syscalls": [
+    "openat$KGPT_dm_ctl"
+  ],
+  "includes": [
+    "uapi/linux/dm-ioctl.h",
+    "uapi/linux/fcntl.h",
+    "uapi/asm-generic/fcntl.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

@@ -1,0 +1,390 @@
+{
+  "open": {
+    "filename": "/dev/console",
+    "fd_name": "fd_console",
+    "spec": "openat$KGPT_console(fd const[AT_FDCWD], file ptr[in, string[\"/dev/console\"]], flags flags[open_flags], mode const[0]) fd_console"
+  },
+  "resources": {
+    "fd_console": {
+      "type": "fd",
+      "spec": "resource fd_console[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/tty/tty_io.c:479",
+  "ioctls": {
+    "TIOCGEXCL": {
+      "arg": "ptr[out, int32]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    }
+  },
+  "types": {},
+  "existing_ioctls": {
+    "TIOCSTI": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "tiocsti"
+        ],
+        "type": [],
+        "usage": [
+          "return tiocsti(tty, p);"
+        ]
+      }
+    },
+    "TIOCGWINSZ": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "tiocgwinsz"
+        ],
+        "type": [],
+        "usage": [
+          "return tiocgwinsz(real_tty, p);"
+        ]
+      }
+    },
+    "TIOCSWINSZ": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "tiocswinsz"
+        ],
+        "type": [],
+        "usage": [
+          "return tiocswinsz(real_tty, p);"
+        ]
+      }
+    },
+    "TIOCCONS": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "TIOCEXCL": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "TIOCNXCL": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "TIOCGETD": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "tiocgetd"
+        ],
+        "type": [],
+        "usage": [
+          "return tiocgetd(tty, p);"
+        ]
+      }
+    },
+    "TIOCSETD": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "tiocsetd"
+        ],
+        "type": [],
+        "usage": [
+          "return tiocsetd(tty, p);"
+        ]
+      }
+    },
+    "TIOCVHANGUP": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "TIOCGDEV": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "put_user"
+        ],
+        "type": [
+          "unsigned int"
+        ],
+        "usage": [
+          "unsigned int ret = new_encode_dev(tty_devnum(real_tty));\nreturn put_user(ret, (unsigned int __user *)p);"
+        ]
+      }
+    },
+    "TIOCSBRK": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "TIOCCBRK": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "TCSBRK": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "send_break"
+        ],
+        "type": [],
+        "usage": [
+          "if (!arg)\nreturn send_break(tty, 250);"
+        ]
+      }
+    },
+    "TCSBRKP": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "send_break"
+        ],
+        "type": [],
+        "usage": [
+          "return send_break(tty, arg ? arg*100 : 250);"
+        ]
+      }
+    },
+    "TIOCMGET": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "tty_tiocmget"
+        ],
+        "type": [],
+        "usage": [
+          "return tty_tiocmget(tty, p);"
+        ]
+      }
+    },
+    "TIOCMSET": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "tty_tiocmset"
+        ],
+        "type": [],
+        "usage": [
+          "return tty_tiocmset(tty, cmd, p);"
+        ]
+      }
+    },
+    "TIOCMBIC": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "tty_tiocmset"
+        ],
+        "type": [],
+        "usage": [
+          "return tty_tiocmset(tty, cmd, p);"
+        ]
+      }
+    },
+    "TIOCMBIS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "tty_tiocmset"
+        ],
+        "type": [],
+        "usage": [
+          "return tty_tiocmset(tty, cmd, p);"
+        ]
+      }
+    },
+    "TIOCGICOUNT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "tty_tiocgicount"
+        ],
+        "type": [],
+        "usage": [
+          "return tty_tiocgicount(tty, p);"
+        ]
+      }
+    },
+    "TCFLSH": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "tty_buffer_flush"
+        ],
+        "type": [],
+        "usage": [
+          "switch (arg) {\ncase TCIFLUSH:\ncase TCIOFLUSH:\ntty_buffer_flush(tty, NULL);\nbreak;\n}"
+        ]
+      }
+    },
+    "TIOCSSERIAL": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "tty_tiocsserial"
+        ],
+        "type": [],
+        "usage": [
+          "return tty_tiocsserial(tty, p);"
+        ]
+      }
+    },
+    "TIOCGSERIAL": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "tty_tiocgserial"
+        ],
+        "type": [],
+        "usage": [
+          "return tty_tiocgserial(tty, p);"
+        ]
+      }
+    },
+    "TIOCGPTPEER": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "ptm_open_peer"
+        ],
+        "type": [],
+        "usage": [
+          "return ptm_open_peer(file, tty, (int)arg);"
+        ]
+      }
+    },
+    "TIOCNOTTY": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "TIOCSCTTY": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "tiocsctty"
+        ],
+        "type": [],
+        "usage": [
+          "return tiocsctty(real_tty, file, arg);"
+        ]
+      }
+    },
+    "TIOCGPGRP": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "tiocgpgrp"
+        ],
+        "type": [],
+        "usage": [
+          "return tiocgpgrp(tty, real_tty, p);"
+        ]
+      }
+    },
+    "TIOCSPGRP": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "tiocspgrp"
+        ],
+        "type": [],
+        "usage": [
+          "return tiocspgrp(tty, real_tty, p);"
+        ]
+      }
+    },
+    "TIOCGSID": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "tiocgsid"
+        ],
+        "type": [],
+        "usage": [
+          "return tiocgsid(tty, real_tty, p);"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "openat$KGPT_console": "openat$KGPT_console(fd const[AT_FDCWD], file ptr[in, string[\"/dev/console\"]], flags flags[open_flags], mode const[0]) fd_console",
+    "ioctl$KGPT_TIOCGEXCL": "ioctl$KGPT_TIOCGEXCL(fd fd_console, cmd const[TIOCGEXCL], arg ptr[out, int32])"
+  },
+  "init_syscalls": [
+    "openat$KGPT_console"
+  ],
+  "includes": [
+    "uapi/linux/fcntl.h",
+    "uapi/asm-generic/ioctls.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

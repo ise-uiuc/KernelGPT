@@ -1,0 +1,127 @@
+{
+  "open": {
+    "filename": "/dev/ttyS#",
+    "fd_name": "fd_uart",
+    "spec": "syz_open_dev$KGPT_ttyS(dev ptr[in, string[\"/dev/ttyS#\"]], id proc[0, 1], flags flags[open_flags]) fd_uart"
+  },
+  "resources": {
+    "fd_uart": {
+      "type": "fd",
+      "spec": "resource fd_uart[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/tty/serial/serial_core.c:2699",
+  "ioctls": {
+    "TIOCSERCONFIG": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    }
+  },
+  "types": {},
+  "existing_ioctls": {
+    "TIOCMIWAIT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "uart_wait_modem_status"
+        ],
+        "type": [],
+        "usage": [
+          "ret = uart_wait_modem_status(state, arg);"
+        ]
+      }
+    },
+    "TIOCSERGETLSR": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "uarg"
+      ],
+      "arg_inference": {
+        "function": [
+          "uart_get_lsr_info"
+        ],
+        "type": [],
+        "usage": [
+          "ret = uart_get_lsr_info(tty, state, uarg);"
+        ]
+      }
+    },
+    "TIOCGRS485": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "uarg"
+      ],
+      "arg_inference": {
+        "function": [
+          "uart_get_rs485_config"
+        ],
+        "type": [],
+        "usage": [
+          "ret = uart_get_rs485_config(uport, uarg);"
+        ]
+      }
+    },
+    "TIOCSRS485": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "uarg"
+      ],
+      "arg_inference": {
+        "function": [
+          "uart_set_rs485_config"
+        ],
+        "type": [],
+        "usage": [
+          "ret = uart_set_rs485_config(tty, uport, uarg);"
+        ]
+      }
+    },
+    "TIOCSISO7816": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "uarg"
+      ],
+      "arg_inference": {
+        "function": [
+          "uart_set_iso7816_config"
+        ],
+        "type": [],
+        "usage": [
+          "ret = uart_set_iso7816_config(state->uart_port, uarg);"
+        ]
+      }
+    },
+    "TIOCGISO7816": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "uarg"
+      ],
+      "arg_inference": {
+        "function": [
+          "uart_get_iso7816_config"
+        ],
+        "type": [],
+        "usage": [
+          "ret = uart_get_iso7816_config(state->uart_port, uarg);"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_ttyS": "syz_open_dev$KGPT_ttyS(dev ptr[in, string[\"/dev/ttyS#\"]], id proc[0, 1], flags flags[open_flags]) fd_uart",
+    "ioctl$KGPT_TIOCSERCONFIG": "ioctl$KGPT_TIOCSERCONFIG(fd fd_uart, cmd const[TIOCSERCONFIG], arg ptr[in, array[int8]])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_ttyS"
+  ],
+  "includes": [
+    "uapi/asm-generic/ioctls.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

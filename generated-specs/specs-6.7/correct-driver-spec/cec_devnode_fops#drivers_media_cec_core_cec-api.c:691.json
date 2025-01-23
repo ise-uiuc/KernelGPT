@@ -1,0 +1,108 @@
+{
+  "open": {
+    "filename": "/dev/cec#",
+    "fd_name": "fd_cec",
+    "spec": "syz_open_dev$KGPT_cec(dev ptr[in, string[\"/dev/cec#\"]], id proc[0, CEC_NUM_DEVICES], flags flags[open_flags]) fd_cec"
+  },
+  "resources": {
+    "fd_cec": {
+      "type": "fd",
+      "spec": "resource fd_cec[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/media/cec/core/cec-api.c:691",
+  "ioctls": {
+    "CEC_ADAP_G_CAPS": {
+      "arg": "ptr[out, cec_caps]",
+      "arg_name_in_usage": "parg",
+      "arg_inference": null
+    },
+    "CEC_ADAP_G_PHYS_ADDR": {
+      "arg": "ptr[out, int16]",
+      "arg_name_in_usage": "parg",
+      "arg_inference": null
+    },
+    "CEC_ADAP_S_PHYS_ADDR": {
+      "arg": "ptr[in, int16]",
+      "arg_name_in_usage": "parg",
+      "arg_inference": null
+    },
+    "CEC_ADAP_G_LOG_ADDRS": {
+      "arg": "ptr[out, cec_log_addrs]",
+      "arg_name_in_usage": "parg",
+      "arg_inference": null
+    },
+    "CEC_ADAP_S_LOG_ADDRS": {
+      "arg": "ptr[inout, cec_log_addrs]",
+      "arg_name_in_usage": "parg",
+      "arg_inference": null
+    },
+    "CEC_ADAP_G_CONNECTOR_INFO": {
+      "arg": "ptr[out, cec_connector_info]",
+      "arg_name_in_usage": "parg",
+      "arg_inference": null
+    },
+    "CEC_TRANSMIT": {
+      "arg": "ptr[inout, cec_msg]",
+      "arg_name_in_usage": "parg",
+      "arg_inference": null
+    },
+    "CEC_RECEIVE": {
+      "arg": "ptr[inout, cec_msg]",
+      "arg_name_in_usage": "parg",
+      "arg_inference": null
+    },
+    "CEC_DQEVENT": {
+      "arg": "ptr[out, cec_event]",
+      "arg_name_in_usage": "parg",
+      "arg_inference": null
+    },
+    "CEC_G_MODE": {
+      "arg": "ptr[out, int32]",
+      "arg_name_in_usage": "parg",
+      "arg_inference": null
+    },
+    "CEC_S_MODE": {
+      "arg": "ptr[in, int32]",
+      "arg_name_in_usage": "parg",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "cec_caps": "cec_caps {\n\tdriver\tarray[int8, 32]\n\tname\tarray[int8, 32]\n\tavailable_log_addrs\tint32\n\tcapabilities\tint32\n\tversion\tint32\n}",
+    "cec_log_addrs": "cec_log_addrs {\n\tlog_addr\tarray[int8, CEC_MAX_LOG_ADDRS]\n\tlog_addr_mask\tint16\n\tcec_version\tint8\n\tnum_log_addrs\tint8\n\tvendor_id\tint32\n\tflags\tint32\n\tosd_name\tarray[int8, 15]\n\tprimary_device_type\tarray[int8, CEC_MAX_LOG_ADDRS]\n\tlog_addr_type\tarray[int8, CEC_MAX_LOG_ADDRS]\n\tall_device_types\tarray[int8, CEC_MAX_LOG_ADDRS]\n\tfeatures\tarray[array[int8, 12], CEC_MAX_LOG_ADDRS]\n}",
+    "cec_connector_info": "cec_connector_info {\n\ttype\tint32\n\tu\tcec_connector_info_union\n}",
+    "cec_msg": "cec_msg {\n\ttx_ts\tint64\n\trx_ts\tint64\n\tlen\tint32\n\ttimeout\tint32\n\tsequence\tint32\n\tflags\tint32\n\tmsg\tarray[int8, CEC_MAX_MSG_SIZE]\n\treply\tint8\n\trx_status\tint8\n\ttx_status\tint8\n\ttx_arb_lost_cnt\tint8\n\ttx_nack_cnt\tint8\n\ttx_low_drive_cnt\tint8\n\ttx_error_cnt\tint8\n}",
+    "cec_event": "cec_event {\n\tts\tint64\n\tevent\tint32\n\tflags\tint32\n\tunion\tcec_event_union\n}",
+    "CEC_MAX_NUM_DEVICES": "define CEC_MAX_NUM_DEVICES 8",
+    "cec_connector_info_union": "cec_connector_info_union [\n\tdrm\tcec_drm_connector_info\n\traw\tarray[int32, 16]\n]",
+    "cec_event_union": "cec_event_union [\n\tstate_change\tcec_event_state_change\n\tlost_msgs\tcec_event_lost_msgs\n\traw\tarray[int32, 16]\n]",
+    "cec_drm_connector_info": "cec_drm_connector_info {\n\tcard_no\tint32\n\tconnector_id\tint32\n}",
+    "cec_event_state_change": "cec_event_state_change {\n\tphys_addr\tint16\n\tlog_addr_mask\tint16\n\thave_conn_info\tint16\n}",
+    "cec_event_lost_msgs": "cec_event_lost_msgs {\n\tlost_msgs\tint32\n}"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_cec": "syz_open_dev$KGPT_cec(dev ptr[in, string[\"/dev/cec#\"]], id proc[0, CEC_MAX_NUM_DEVICES], flags flags[open_flags]) fd_cec",
+    "ioctl$KGPT_CEC_ADAP_G_CAPS": "ioctl$KGPT_CEC_ADAP_G_CAPS(fd fd_cec, cmd const[CEC_ADAP_G_CAPS], arg ptr[out, cec_caps])",
+    "ioctl$KGPT_CEC_ADAP_G_PHYS_ADDR": "ioctl$KGPT_CEC_ADAP_G_PHYS_ADDR(fd fd_cec, cmd const[CEC_ADAP_G_PHYS_ADDR], arg ptr[out, int16])",
+    "ioctl$KGPT_CEC_ADAP_S_PHYS_ADDR": "ioctl$KGPT_CEC_ADAP_S_PHYS_ADDR(fd fd_cec, cmd const[CEC_ADAP_S_PHYS_ADDR], arg ptr[in, int16])",
+    "ioctl$KGPT_CEC_ADAP_G_LOG_ADDRS": "ioctl$KGPT_CEC_ADAP_G_LOG_ADDRS(fd fd_cec, cmd const[CEC_ADAP_G_LOG_ADDRS], arg ptr[out, cec_log_addrs])",
+    "ioctl$KGPT_CEC_ADAP_S_LOG_ADDRS": "ioctl$KGPT_CEC_ADAP_S_LOG_ADDRS(fd fd_cec, cmd const[CEC_ADAP_S_LOG_ADDRS], arg ptr[inout, cec_log_addrs])",
+    "ioctl$KGPT_CEC_ADAP_G_CONNECTOR_INFO": "ioctl$KGPT_CEC_ADAP_G_CONNECTOR_INFO(fd fd_cec, cmd const[CEC_ADAP_G_CONNECTOR_INFO], arg ptr[out, cec_connector_info])",
+    "ioctl$KGPT_CEC_TRANSMIT": "ioctl$KGPT_CEC_TRANSMIT(fd fd_cec, cmd const[CEC_TRANSMIT], arg ptr[inout, cec_msg])",
+    "ioctl$KGPT_CEC_RECEIVE": "ioctl$KGPT_CEC_RECEIVE(fd fd_cec, cmd const[CEC_RECEIVE], arg ptr[inout, cec_msg])",
+    "ioctl$KGPT_CEC_DQEVENT": "ioctl$KGPT_CEC_DQEVENT(fd fd_cec, cmd const[CEC_DQEVENT], arg ptr[out, cec_event])",
+    "ioctl$KGPT_CEC_G_MODE": "ioctl$KGPT_CEC_G_MODE(fd fd_cec, cmd const[CEC_G_MODE], arg ptr[out, int32])",
+    "ioctl$KGPT_CEC_S_MODE": "ioctl$KGPT_CEC_S_MODE(fd fd_cec, cmd const[CEC_S_MODE], arg ptr[in, int32])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_cec"
+  ],
+  "includes": [
+    "uapi/linux/cec.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

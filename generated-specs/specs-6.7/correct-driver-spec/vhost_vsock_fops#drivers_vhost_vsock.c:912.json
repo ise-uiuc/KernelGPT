@@ -1,0 +1,318 @@
+{
+  "open": {
+    "filename": "/dev/vhost-vsock",
+    "fd_name": "fd_vhost_vsock",
+    "spec": "openat$KGPT_vhost_vsock(fd const[AT_FDCWD], file ptr[in, string[\"/dev/vhost-vsock\"]], flags const[O_RDWR], mode const[0]) fd_vhost_vsock"
+  },
+  "resources": {
+    "fd_vhost_vsock": {
+      "type": "fd",
+      "spec": "resource fd_vhost_vsock[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/vhost/vsock.c:912",
+  "ioctls": {
+    "VHOST_GET_BACKEND_FEATURES": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "VHOST_SET_BACKEND_FEATURES": {
+      "arg": "int64",
+      "arg_name_in_usage": "features",
+      "arg_inference": null
+    },
+    "VHOST_GET_VRING_BUSYLOOP_TIMEOUT": {
+      "arg": "ptr[out, vhost_vring_state]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    }
+  },
+  "types": {},
+  "existing_ioctls": {
+    "VHOST_VSOCK_SET_GUEST_CID": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "guest_cid"
+      ],
+      "arg_inference": {
+        "function": [
+          "vhost_vsock_set_cid"
+        ],
+        "type": [],
+        "usage": [
+          "u64 guest_cid;",
+          "if (copy_from_user(&guest_cid, argp, sizeof(guest_cid)))",
+          "return vhost_vsock_set_cid(vsock, guest_cid);"
+        ]
+      }
+    },
+    "VHOST_VSOCK_SET_RUNNING": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "start"
+      ],
+      "arg_inference": {
+        "function": [
+          "vhost_vsock_start",
+          "vhost_vsock_stop"
+        ],
+        "type": [],
+        "usage": [
+          "int start;",
+          "if (copy_from_user(&start, argp, sizeof(start)))",
+          "if (start)",
+          "return vhost_vsock_start(vsock);",
+          "else",
+          "return vhost_vsock_stop(vsock, true);"
+        ]
+      }
+    },
+    "VHOST_GET_FEATURES": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "VHOST_SET_FEATURES": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "features"
+      ],
+      "arg_inference": {
+        "function": [
+          "vhost_vsock_set_features"
+        ],
+        "type": [],
+        "usage": [
+          "u64 features;",
+          "if (copy_from_user(&features, argp, sizeof(features)))",
+          "return vhost_vsock_set_features(vsock, features);"
+        ]
+      }
+    },
+    "VHOST_SET_OWNER": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "VHOST_SET_MEM_TABLE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "vhost_set_memory"
+        ],
+        "type": [],
+        "usage": [
+          "r = vhost_set_memory(d, argp);"
+        ]
+      }
+    },
+    "VHOST_SET_LOG_BASE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [],
+        "usage": [
+          "if (copy_from_user(&p, argp, sizeof p)) {",
+          "r = -EFAULT;",
+          "break;",
+          "}"
+        ]
+      }
+    },
+    "VHOST_SET_LOG_FD": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [],
+        "usage": [
+          "r = get_user(fd, (int __user *)argp);",
+          "if (r < 0)",
+          "break;"
+        ]
+      }
+    },
+    "VHOST_SET_VRING_NUM": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "vhost_vring_set_num_addr"
+        ],
+        "type": [],
+        "usage": [
+          "return vhost_vring_set_num_addr(d, vq, ioctl, argp);"
+        ]
+      }
+    },
+    "VHOST_SET_VRING_ADDR": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "vhost_vring_set_num_addr"
+        ],
+        "type": [],
+        "usage": [
+          "return vhost_vring_set_num_addr(d, vq, ioctl, argp);"
+        ]
+      }
+    },
+    "VHOST_SET_VRING_BASE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [],
+        "usage": [
+          "if (copy_from_user(&s, argp, sizeof s)) {",
+          "r = -EFAULT;",
+          "break;",
+          "}"
+        ]
+      }
+    },
+    "VHOST_GET_VRING_BASE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [],
+        "usage": [
+          "if (copy_to_user(argp, &s, sizeof s))",
+          "r = -EFAULT;"
+        ]
+      }
+    },
+    "VHOST_SET_VRING_KICK": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [],
+        "usage": [
+          "if (copy_from_user(&f, argp, sizeof f)) {",
+          "r = -EFAULT;",
+          "break;",
+          "}"
+        ]
+      }
+    },
+    "VHOST_SET_VRING_CALL": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [],
+        "usage": [
+          "if (copy_from_user(&f, argp, sizeof f)) {",
+          "r = -EFAULT;",
+          "break;",
+          "}"
+        ]
+      }
+    },
+    "VHOST_SET_VRING_ERR": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [],
+        "usage": [
+          "if (copy_from_user(&f, argp, sizeof f)) {",
+          "r = -EFAULT;",
+          "break;",
+          "}"
+        ]
+      }
+    },
+    "VHOST_SET_VRING_ENDIAN": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "vhost_set_vring_endian"
+        ],
+        "type": [],
+        "usage": [
+          "r = vhost_set_vring_endian(vq, argp);"
+        ]
+      }
+    },
+    "VHOST_GET_VRING_ENDIAN": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "vhost_get_vring_endian"
+        ],
+        "type": [],
+        "usage": [
+          "r = vhost_get_vring_endian(vq, idx, argp);"
+        ]
+      }
+    },
+    "VHOST_SET_VRING_BUSYLOOP_TIMEOUT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [],
+        "usage": [
+          "if (copy_from_user(&s, argp, sizeof(s))) {",
+          "r = -EFAULT;",
+          "break;",
+          "}"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "openat$KGPT_vhost_vsock": "openat$KGPT_vhost_vsock(fd const[AT_FDCWD], file ptr[in, string[\"/dev/vhost-vsock\"]], flags const[O_RDWR], mode const[0]) fd_vhost_vsock",
+    "ioctl$KGPT_VHOST_GET_BACKEND_FEATURES": "ioctl$KGPT_VHOST_GET_BACKEND_FEATURES(fd fd_vhost_vsock, cmd const[VHOST_GET_BACKEND_FEATURES], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_VHOST_SET_BACKEND_FEATURES": "ioctl$KGPT_VHOST_SET_BACKEND_FEATURES(fd fd_vhost_vsock, cmd const[VHOST_SET_BACKEND_FEATURES], arg int64)",
+    "ioctl$KGPT_VHOST_GET_VRING_BUSYLOOP_TIMEOUT": "ioctl$KGPT_VHOST_GET_VRING_BUSYLOOP_TIMEOUT(fd fd_vhost_vsock, cmd const[VHOST_GET_VRING_BUSYLOOP_TIMEOUT], arg ptr[out, vhost_vring_state])"
+  },
+  "init_syscalls": [
+    "openat$KGPT_vhost_vsock"
+  ],
+  "includes": [
+    "uapi/linux/vhost.h",
+    "uapi/linux/fcntl.h",
+    "uapi/asm-generic/fcntl.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "vhost_vring_state": "EXISTING"
+  }
+}

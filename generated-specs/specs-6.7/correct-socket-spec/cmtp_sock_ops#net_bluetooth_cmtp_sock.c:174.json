@@ -1,0 +1,127 @@
+{
+  "socket": {
+    "domain": "AF_BLUETOOTH",
+    "type": "SOCK_RAW",
+    "spec": "socket$KGPT_cmtp(domain const[AF_BLUETOOTH], type const[SOCK_RAW], proto const[0]) sock_cmtp"
+  },
+  "resources": {
+    "sock_cmtp": {
+      "type": "sock",
+      "spec": "resource sock_cmtp[sock]"
+    }
+  },
+  "types": {},
+  "socket_addr": "sockaddr",
+  "ioctls": {},
+  "existing_ioctls": {
+    "CMTPCONNADD": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "cmtp_add_connection"
+        ],
+        "type": [
+          "cmtp_connadd_req"
+        ],
+        "usage": [
+          "struct cmtp_connadd_req ca;",
+          "if (copy_from_user(&ca, argp, sizeof(ca)))",
+          "err = cmtp_add_connection(&ca, nsock);",
+          "if (copy_to_user(argp, &ca, sizeof(ca)))"
+        ]
+      }
+    },
+    "CMTPCONNDEL": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "cmtp_del_connection"
+        ],
+        "type": [
+          "cmtp_conndel_req"
+        ],
+        "usage": [
+          "struct cmtp_conndel_req cd;",
+          "if (copy_from_user(&cd, argp, sizeof(cd)))",
+          "return cmtp_del_connection(&cd);"
+        ]
+      }
+    },
+    "CMTPGETCONNLIST": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "cmtp_get_connlist"
+        ],
+        "type": [
+          "cmtp_connlist_req"
+        ],
+        "usage": [
+          "struct cmtp_connlist_req cl;",
+          "if (copy_from_user(&cl, argp, sizeof(cl)))",
+          "err = cmtp_get_connlist(&cl);",
+          "if (copy_to_user(argp, &cl, sizeof(cl)))"
+        ]
+      }
+    },
+    "CMTPGETCONNINFO": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "cmtp_get_conninfo"
+        ],
+        "type": [
+          "cmtp_conninfo"
+        ],
+        "usage": [
+          "struct cmtp_conninfo ci;",
+          "if (copy_from_user(&ci, argp, sizeof(ci)))",
+          "err = cmtp_get_conninfo(&ci);",
+          "if (copy_to_user(argp, &ci, sizeof(ci)))"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "proto_ops": {
+    "bind": "sock_no_bind",
+    "connect": "sock_no_connect",
+    "accept": "sock_no_accept",
+    "ioctl": "cmtp_sock_ioctl",
+    "sendmsg": "sock_no_sendmsg",
+    "recvmsg": "sock_no_recvmsg"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/bluetooth/cmtp/sock.c:174",
+  "ops_name": "cmtp_sock_ops",
+  "syscall_specs": {
+    "socket$KGPT_cmtp": "socket$KGPT_cmtp(domain const[AF_BLUETOOTH], type const[SOCK_RAW], proto const[0]) sock_cmtp",
+    "bind$KGPT_cmtp_sock_ops": "bind$KGPT_cmtp_sock_ops(fd sock_cmtp, addr ptr[in, sockaddr], addrlen len[addr])",
+    "connect$KGPT_cmtp_sock_ops": "connect$KGPT_cmtp_sock_ops(fd sock_cmtp, addr ptr[in, sockaddr], addrlen len[addr])",
+    "accept4$KGPT_cmtp_sock_ops": "accept4$KGPT_cmtp_sock_ops(fd sock_cmtp, peer ptr[out, sockaddr, opt], peerlen ptr[inout, len[peer, int32]], flags flags[accept_flags]) sock_cmtp",
+    "sendto$KGPT_cmtp_sock_ops": "sendto$KGPT_cmtp_sock_ops(fd sock_cmtp, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, sockaddr, opt], addrlen len[addr])",
+    "recvfrom$KGPT_cmtp_sock_ops": "recvfrom$KGPT_cmtp_sock_ops(fd sock_cmtp, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, sockaddr, opt], addrlen len[addr])"
+  },
+  "init_syscalls": [
+    "socket$KGPT_cmtp"
+  ],
+  "includes": [
+    "linux/net.h",
+    "linux/socket.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "sockaddr": "EXISTING"
+  }
+}

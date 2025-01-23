@@ -1,0 +1,40 @@
+{
+  "open": {
+    "filename": "/dev/gpiochip#",
+    "fd_name": "fd_gpioevent",
+    "spec": "syz_open_dev$KGPT_gpioevent(dev ptr[in, string[\"/dev/gpiochip#\"]], id proc[0, 1], flags flags[open_flags]) fd_gpioevent"
+  },
+  "resources": {
+    "fd_gpioevent": {
+      "type": "fd",
+      "spec": "resource fd_gpioevent[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/gpio/gpiolib-cdev.c:2009",
+  "ioctls": {
+    "GPIOHANDLE_GET_LINE_VALUES_IOCTL": {
+      "arg": "ptr[out, gpiohandle_data]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "gpiohandle_data": "gpiohandle_data {\n\tvalues\tarray[int8, GPIOHANDLES_MAX]\n}"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_gpioevent": "syz_open_dev$KGPT_gpioevent(dev ptr[in, string[\"/dev/gpiochip#\"]], id proc[0, 1], flags flags[open_flags]) fd_gpioevent",
+    "ioctl$KGPT_GPIOHANDLE_GET_LINE_VALUES_IOCTL": "ioctl$KGPT_GPIOHANDLE_GET_LINE_VALUES_IOCTL(fd fd_gpioevent, cmd const[GPIOHANDLE_GET_LINE_VALUES_IOCTL], arg ptr[out, gpiohandle_data])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_gpioevent"
+  ],
+  "includes": [
+    "uapi/linux/gpio.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "GPIOHANDLES_MAX": "UNFOUND_MACRO"
+  }
+}

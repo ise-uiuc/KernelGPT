@@ -1,0 +1,48 @@
+{
+  "open": {
+    "filename": "/dev/dri/card#",
+    "fd_name": "fd_i915_perf",
+    "spec": "syz_open_dev$KGPT_i915_perf(dev ptr[in, string[\"/dev/dri/card#\"]], id proc[0, 1], flags flags[open_flags]) fd_i915_perf"
+  },
+  "resources": {
+    "fd_i915_perf": {
+      "type": "fd",
+      "spec": "resource fd_i915_perf[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/gpu/drm/i915/i915_perf.c:3757",
+  "ioctls": {
+    "I915_PERF_IOCTL_ENABLE": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "I915_PERF_IOCTL_DISABLE": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "I915_PERF_IOCTL_CONFIG": {
+      "arg": "int64",
+      "arg_name_in_usage": "metrics_set",
+      "arg_inference": null
+    }
+  },
+  "types": {},
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_i915_perf": "syz_open_dev$KGPT_i915_perf(dev ptr[in, string[\"/dev/dri/card#\"]], id proc[0, 1], flags flags[open_flags]) fd_i915_perf",
+    "ioctl$KGPT_I915_PERF_IOCTL_ENABLE": "ioctl$KGPT_I915_PERF_IOCTL_ENABLE(fd fd_i915_perf, cmd const[I915_PERF_IOCTL_ENABLE], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_I915_PERF_IOCTL_DISABLE": "ioctl$KGPT_I915_PERF_IOCTL_DISABLE(fd fd_i915_perf, cmd const[I915_PERF_IOCTL_DISABLE], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_I915_PERF_IOCTL_CONFIG": "ioctl$KGPT_I915_PERF_IOCTL_CONFIG(fd fd_i915_perf, cmd const[I915_PERF_IOCTL_CONFIG], arg int64)"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_i915_perf"
+  ],
+  "includes": [
+    "uapi/drm/i915_drm.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

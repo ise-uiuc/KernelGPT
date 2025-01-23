@@ -1,0 +1,50 @@
+{
+  "open": {
+    "filename": "/dev/snd/pcmC#D0p",
+    "fd_name": "fd_snd_pcm",
+    "spec": "syz_open_dev$KGPT_sndpcm(dev ptr[in, string[\"/dev/snd/pcmC#D0p\"]], id proc[0, 1], flags flags[open_flags]) fd_snd_pcm"
+  },
+  "resources": {
+    "fd_snd_pcm": {
+      "type": "fd",
+      "spec": "resource fd_snd_pcm[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/sound/pci/rme9652/hdsp.c:4917",
+  "ioctls": {
+    "SNDRV_PCM_IOCTL1_RESET": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SNDRV_PCM_IOCTL1_CHANNEL_INFO": {
+      "arg": "ptr[in,out, snd_pcm_channel_info]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "SNDRV_PCM_IOCTL1_FIFO_SIZE": {
+      "arg": "ptr[inout, snd_pcm_hw_params]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "snd_pcm_channel_info": "snd_pcm_channel_info {\n\tchannel\tint32\n\toffset\tint64\n\tfirst\tint32\n\tstep\tint32\n}"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_sndpcm": "syz_open_dev$KGPT_sndpcm(dev ptr[in, string[\"/dev/snd/pcmC#D0p\"]], id proc[0, 1], flags flags[open_flags]) fd_snd_pcm",
+    "ioctl$KGPT_SNDRV_PCM_IOCTL1_RESET": "ioctl$KGPT_SNDRV_PCM_IOCTL1_RESET(fd fd_snd_pcm, cmd const[SNDRV_PCM_IOCTL1_RESET], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_SNDRV_PCM_IOCTL1_CHANNEL_INFO": "ioctl$KGPT_SNDRV_PCM_IOCTL1_CHANNEL_INFO(fd fd_snd_pcm, cmd const[SNDRV_PCM_IOCTL1_CHANNEL_INFO], arg ptr[inout, snd_pcm_channel_info])",
+    "ioctl$KGPT_SNDRV_PCM_IOCTL1_FIFO_SIZE": "ioctl$KGPT_SNDRV_PCM_IOCTL1_FIFO_SIZE(fd fd_snd_pcm, cmd const[SNDRV_PCM_IOCTL1_FIFO_SIZE], arg ptr[inout, snd_pcm_hw_params])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_sndpcm"
+  ],
+  "includes": [
+    "sound/pcm.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

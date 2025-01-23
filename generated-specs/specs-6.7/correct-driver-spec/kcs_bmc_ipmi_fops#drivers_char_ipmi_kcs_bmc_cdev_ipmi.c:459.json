@@ -1,0 +1,48 @@
+{
+  "open": {
+    "filename": "/dev/ipmi#",
+    "fd_name": "fd_ipmi",
+    "spec": "syz_open_dev$KGPT_ipmi(dev ptr[in, string[\"/dev/ipmi#\"]], id proc[0, 1], flags flags[open_flags]) fd_ipmi"
+  },
+  "resources": {
+    "fd_ipmi": {
+      "type": "fd",
+      "spec": "resource fd_ipmi[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/char/ipmi/kcs_bmc_cdev_ipmi.c:459",
+  "ioctls": {
+    "IPMI_BMC_IOCTL_SET_SMS_ATN": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "IPMI_BMC_IOCTL_CLEAR_SMS_ATN": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "IPMI_BMC_IOCTL_FORCE_ABORT": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    }
+  },
+  "types": {},
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_ipmi": "syz_open_dev$KGPT_ipmi(dev ptr[in, string[\"/dev/ipmi#\"]], id proc[0, 1], flags flags[open_flags]) fd_ipmi",
+    "ioctl$KGPT_IPMI_BMC_IOCTL_SET_SMS_ATN": "ioctl$KGPT_IPMI_BMC_IOCTL_SET_SMS_ATN(fd fd_ipmi, cmd const[IPMI_BMC_IOCTL_SET_SMS_ATN], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_IPMI_BMC_IOCTL_CLEAR_SMS_ATN": "ioctl$KGPT_IPMI_BMC_IOCTL_CLEAR_SMS_ATN(fd fd_ipmi, cmd const[IPMI_BMC_IOCTL_CLEAR_SMS_ATN], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_IPMI_BMC_IOCTL_FORCE_ABORT": "ioctl$KGPT_IPMI_BMC_IOCTL_FORCE_ABORT(fd fd_ipmi, cmd const[IPMI_BMC_IOCTL_FORCE_ABORT], arg ptr[in, array[int8]])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_ipmi"
+  ],
+  "includes": [
+    "uapi/linux/ipmi_bmc.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

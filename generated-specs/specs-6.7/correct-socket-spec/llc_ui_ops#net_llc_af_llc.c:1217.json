@@ -1,0 +1,173 @@
+{
+  "socket": {
+    "domain": "PF_LLC",
+    "type": "SOCK_DGRAM",
+    "spec": "socket$KGPT_llc(domain const[PF_LLC], type const[SOCK_DGRAM], proto const[0]) sock_llc",
+    "comment": "Assuming SOCK_DGRAM as the type since it's the most common for datagram-oriented protocols and there's no explicit type in the provided code."
+  },
+  "resources": {
+    "sock_llc": {
+      "type": "sock",
+      "spec": "resource sock_llc[sock]"
+    }
+  },
+  "types": {},
+  "socket_addr": "sockaddr_llc",
+  "setsockopt": {
+    "LLC_OPT_RETRY": {
+      "level": "SOL_LLC",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "LLC_OPT_SIZE": {
+      "level": "SOL_LLC",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "LLC_OPT_ACK_TMR_EXP": {
+      "level": "SOL_LLC",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "LLC_OPT_P_TMR_EXP": {
+      "level": "SOL_LLC",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "LLC_OPT_REJ_TMR_EXP": {
+      "level": "SOL_LLC",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "LLC_OPT_BUSY_TMR_EXP": {
+      "level": "SOL_LLC",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "LLC_OPT_TX_WIN": {
+      "level": "SOL_LLC",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "LLC_OPT_RX_WIN": {
+      "level": "SOL_LLC",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "LLC_OPT_PKTINFO": {
+      "level": "SOL_LLC",
+      "val": "int32",
+      "len": "bytesize[val]"
+    }
+  },
+  "unknown": [],
+  "setsockopt_unknown": [],
+  "getsockopt": {
+    "LLC_OPT_RETRY": {
+      "level": "SOL_LLC",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "LLC_OPT_SIZE": {
+      "level": "SOL_LLC",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "LLC_OPT_ACK_TMR_EXP": {
+      "level": "SOL_LLC",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "LLC_OPT_P_TMR_EXP": {
+      "level": "SOL_LLC",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "LLC_OPT_REJ_TMR_EXP": {
+      "level": "SOL_LLC",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "LLC_OPT_BUSY_TMR_EXP": {
+      "level": "SOL_LLC",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "LLC_OPT_TX_WIN": {
+      "level": "SOL_LLC",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "LLC_OPT_RX_WIN": {
+      "level": "SOL_LLC",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "LLC_OPT_PKTINFO": {
+      "level": "SOL_LLC",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    }
+  },
+  "getsockopt_unknown": [],
+  "proto_ops": {
+    "bind": "llc_ui_bind",
+    "connect": "llc_ui_connect",
+    "accept": "llc_ui_accept",
+    "poll": "datagram_poll",
+    "ioctl": "llc_ui_ioctl",
+    "sendmsg": "llc_ui_sendmsg",
+    "recvmsg": "llc_ui_recvmsg",
+    "setsockopt": "llc_ui_setsockopt",
+    "getsockopt": "llc_ui_getsockopt"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/llc/af_llc.c:1217",
+  "ops_name": "llc_ui_ops",
+  "syscall_specs": {
+    "socket$KGPT_llc": "socket$KGPT_llc(domain const[PF_LLC], type const[SOCK_DGRAM], proto const[0]) sock_llc",
+    "bind$KGPT_llc_ui_ops": "bind$KGPT_llc_ui_ops(fd sock_llc, addr ptr[in, sockaddr_llc], addrlen len[addr])",
+    "connect$KGPT_llc_ui_ops": "connect$KGPT_llc_ui_ops(fd sock_llc, addr ptr[in, sockaddr_llc], addrlen len[addr])",
+    "accept4$KGPT_llc_ui_ops": "accept4$KGPT_llc_ui_ops(fd sock_llc, peer ptr[out, sockaddr_llc, opt], peerlen ptr[inout, len[peer, int32]], flags flags[accept_flags]) sock_llc",
+    "sendto$KGPT_llc_ui_ops": "sendto$KGPT_llc_ui_ops(fd sock_llc, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, sockaddr_llc, opt], addrlen len[addr])",
+    "recvfrom$KGPT_llc_ui_ops": "recvfrom$KGPT_llc_ui_ops(fd sock_llc, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, sockaddr_llc, opt], addrlen len[addr])",
+    "getsockopt$KGPT_LLC_OPT_RETRY": "getsockopt$KGPT_LLC_OPT_RETRY(fd sock_llc, level const[SOL_LLC], opt const[LLC_OPT_RETRY], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_LLC_OPT_SIZE": "getsockopt$KGPT_LLC_OPT_SIZE(fd sock_llc, level const[SOL_LLC], opt const[LLC_OPT_SIZE], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_LLC_OPT_ACK_TMR_EXP": "getsockopt$KGPT_LLC_OPT_ACK_TMR_EXP(fd sock_llc, level const[SOL_LLC], opt const[LLC_OPT_ACK_TMR_EXP], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_LLC_OPT_P_TMR_EXP": "getsockopt$KGPT_LLC_OPT_P_TMR_EXP(fd sock_llc, level const[SOL_LLC], opt const[LLC_OPT_P_TMR_EXP], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_LLC_OPT_REJ_TMR_EXP": "getsockopt$KGPT_LLC_OPT_REJ_TMR_EXP(fd sock_llc, level const[SOL_LLC], opt const[LLC_OPT_REJ_TMR_EXP], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_LLC_OPT_BUSY_TMR_EXP": "getsockopt$KGPT_LLC_OPT_BUSY_TMR_EXP(fd sock_llc, level const[SOL_LLC], opt const[LLC_OPT_BUSY_TMR_EXP], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_LLC_OPT_TX_WIN": "getsockopt$KGPT_LLC_OPT_TX_WIN(fd sock_llc, level const[SOL_LLC], opt const[LLC_OPT_TX_WIN], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_LLC_OPT_RX_WIN": "getsockopt$KGPT_LLC_OPT_RX_WIN(fd sock_llc, level const[SOL_LLC], opt const[LLC_OPT_RX_WIN], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_LLC_OPT_PKTINFO": "getsockopt$KGPT_LLC_OPT_PKTINFO(fd sock_llc, level const[SOL_LLC], opt const[LLC_OPT_PKTINFO], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "setsockopt$KGPT_LLC_OPT_RETRY": "setsockopt$KGPT_LLC_OPT_RETRY(fd sock_llc, level const[SOL_LLC], opt const[LLC_OPT_RETRY], val int32, len bytesize[val])",
+    "setsockopt$KGPT_LLC_OPT_SIZE": "setsockopt$KGPT_LLC_OPT_SIZE(fd sock_llc, level const[SOL_LLC], opt const[LLC_OPT_SIZE], val int32, len bytesize[val])",
+    "setsockopt$KGPT_LLC_OPT_ACK_TMR_EXP": "setsockopt$KGPT_LLC_OPT_ACK_TMR_EXP(fd sock_llc, level const[SOL_LLC], opt const[LLC_OPT_ACK_TMR_EXP], val int32, len bytesize[val])",
+    "setsockopt$KGPT_LLC_OPT_P_TMR_EXP": "setsockopt$KGPT_LLC_OPT_P_TMR_EXP(fd sock_llc, level const[SOL_LLC], opt const[LLC_OPT_P_TMR_EXP], val int32, len bytesize[val])",
+    "setsockopt$KGPT_LLC_OPT_REJ_TMR_EXP": "setsockopt$KGPT_LLC_OPT_REJ_TMR_EXP(fd sock_llc, level const[SOL_LLC], opt const[LLC_OPT_REJ_TMR_EXP], val int32, len bytesize[val])",
+    "setsockopt$KGPT_LLC_OPT_BUSY_TMR_EXP": "setsockopt$KGPT_LLC_OPT_BUSY_TMR_EXP(fd sock_llc, level const[SOL_LLC], opt const[LLC_OPT_BUSY_TMR_EXP], val int32, len bytesize[val])",
+    "setsockopt$KGPT_LLC_OPT_TX_WIN": "setsockopt$KGPT_LLC_OPT_TX_WIN(fd sock_llc, level const[SOL_LLC], opt const[LLC_OPT_TX_WIN], val int32, len bytesize[val])",
+    "setsockopt$KGPT_LLC_OPT_RX_WIN": "setsockopt$KGPT_LLC_OPT_RX_WIN(fd sock_llc, level const[SOL_LLC], opt const[LLC_OPT_RX_WIN], val int32, len bytesize[val])",
+    "setsockopt$KGPT_LLC_OPT_PKTINFO": "setsockopt$KGPT_LLC_OPT_PKTINFO(fd sock_llc, level const[SOL_LLC], opt const[LLC_OPT_PKTINFO], val int32, len bytesize[val])"
+  },
+  "init_syscalls": [
+    "socket$KGPT_llc"
+  ],
+  "includes": [
+    "uapi/linux/llc.h",
+    "linux/net.h",
+    "linux/socket.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "sockaddr_llc": "EXISTING"
+  }
+}

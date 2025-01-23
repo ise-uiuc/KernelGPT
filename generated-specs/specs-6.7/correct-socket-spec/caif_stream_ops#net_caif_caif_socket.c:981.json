@@ -1,0 +1,64 @@
+{
+  "socket": {
+    "domain": "PF_CAIF",
+    "type": "SOCK_STREAM",
+    "spec": "socket$KGPT_caif_stream(domain const[PF_CAIF], type const[SOCK_STREAM], proto const[0]) sock_caif_stream"
+  },
+  "resources": {
+    "sock_caif_stream": {
+      "type": "sock",
+      "spec": "resource sock_caif_stream[sock]"
+    }
+  },
+  "types": {},
+  "socket_addr": "sockaddr",
+  "setsockopt": {
+    "CAIFSO_LINK_SELECT": {
+      "level": "SOL_CAIF",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]"
+    },
+    "CAIFSO_REQ_PARAM": {
+      "level": "SOL_CAIF",
+      "val": "ptr[in, array[int8]]",
+      "len": "len[val]",
+      "val_inference": null
+    }
+  },
+  "unknown": [],
+  "setsockopt_unknown": [],
+  "proto_ops": {
+    "bind": "sock_no_bind",
+    "connect": "caif_connect",
+    "accept": "sock_no_accept",
+    "poll": "caif_poll",
+    "ioctl": "sock_no_ioctl",
+    "sendmsg": "caif_stream_sendmsg",
+    "recvmsg": "caif_stream_recvmsg",
+    "setsockopt": "setsockopt"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/caif/caif_socket.c:981",
+  "ops_name": "caif_stream_ops",
+  "syscall_specs": {
+    "socket$KGPT_caif_stream": "socket$KGPT_caif_stream(domain const[PF_CAIF], type const[SOCK_STREAM], proto const[0]) sock_caif_stream",
+    "bind$KGPT_caif_stream_ops": "bind$KGPT_caif_stream_ops(fd sock_caif_stream, addr ptr[in, sockaddr], addrlen len[addr])",
+    "connect$KGPT_caif_stream_ops": "connect$KGPT_caif_stream_ops(fd sock_caif_stream, addr ptr[in, sockaddr], addrlen len[addr])",
+    "accept4$KGPT_caif_stream_ops": "accept4$KGPT_caif_stream_ops(fd sock_caif_stream, peer ptr[out, sockaddr, opt], peerlen ptr[inout, len[peer, int32]], flags flags[accept_flags]) sock_caif_stream",
+    "sendto$KGPT_caif_stream_ops": "sendto$KGPT_caif_stream_ops(fd sock_caif_stream, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, sockaddr, opt], addrlen len[addr])",
+    "recvfrom$KGPT_caif_stream_ops": "recvfrom$KGPT_caif_stream_ops(fd sock_caif_stream, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, sockaddr, opt], addrlen len[addr])",
+    "setsockopt$KGPT_CAIFSO_LINK_SELECT": "setsockopt$KGPT_CAIFSO_LINK_SELECT(fd sock_caif_stream, level const[SOL_CAIF], opt const[CAIFSO_LINK_SELECT], val ptr[in, int32], len bytesize[val])",
+    "setsockopt$KGPT_CAIFSO_REQ_PARAM": "setsockopt$KGPT_CAIFSO_REQ_PARAM(fd sock_caif_stream, level const[SOL_CAIF], opt const[CAIFSO_REQ_PARAM], val ptr[in, array[int8]], len len[val])"
+  },
+  "init_syscalls": [
+    "socket$KGPT_caif_stream"
+  ],
+  "includes": [
+    "uapi/linux/caif/caif_socket.h",
+    "linux/net.h",
+    "linux/socket.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "sockaddr": "EXISTING"
+  }
+}

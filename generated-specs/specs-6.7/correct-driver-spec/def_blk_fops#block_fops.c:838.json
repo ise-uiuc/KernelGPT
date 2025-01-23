@@ -1,0 +1,567 @@
+{
+  "open": {
+    "filename": "/dev/#",
+    "fd_name": "fd_blk",
+    "spec": "syz_open_dev$KGPT_blk(dev ptr[in, string[\"/dev/#\"]], id proc[0, 1], flags flags[open_flags]) fd_blk"
+  },
+  "resources": {
+    "fd_blk": {
+      "type": "fd",
+      "spec": "resource fd_blk[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/block/fops.c:838",
+  "ioctls": {
+    "BLKDISCARDZEROES": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "BLKFRAGET": {
+      "arg": "ptr[out, int64]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "BLKGETDISKSEQ": {
+      "arg": "ptr[out, int64]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "BLKOPENZONE": {
+      "arg": "ptr[in, blk_zone_range]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "BLKCLOSEZONE": {
+      "arg": "ptr[in, blk_zone_range]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "BLKFINISHZONE": {
+      "arg": "ptr[in, blk_zone_range]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "BLKGETZONESZ": {
+      "arg": "ptr[out, int32]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "BLKGETNRZONES": {
+      "arg": "ptr[out, int32]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "BLKSSZGET": {
+      "arg": "ptr[out, int32]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "BLKRASET": {
+      "arg": "int64",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    }
+  },
+  "types": {},
+  "existing_ioctls": {
+    "HDIO_GETGEO": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "blkdev_getgeo"
+        ],
+        "type": [],
+        "usage": [
+          "return blkdev_getgeo(bdev, argp);"
+        ]
+      }
+    },
+    "BLKPG": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "blkpg_ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "return blkpg_ioctl(bdev, argp);"
+        ]
+      }
+    },
+    "BLKRAGET": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "put_long"
+        ],
+        "type": [],
+        "usage": [
+          "return put_long(argp, (bdev->bd_disk->bdi->ra_pages * PAGE_SIZE) / 512);"
+        ]
+      }
+    },
+    "BLKGETSIZE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "put_ulong"
+        ],
+        "type": [],
+        "usage": [
+          "return put_ulong(argp, bdev_nr_sectors(bdev));"
+        ]
+      }
+    },
+    "BLKBSZGET": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "put_int"
+        ],
+        "type": [],
+        "usage": [
+          "return put_int(argp, block_size(bdev));"
+        ]
+      }
+    },
+    "BLKBSZSET": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "blkdev_bszset"
+        ],
+        "type": [],
+        "usage": [
+          "return blkdev_bszset(bdev, mode, argp);"
+        ]
+      }
+    },
+    "BLKGETSIZE64": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "put_u64"
+        ],
+        "type": [],
+        "usage": [
+          "return put_u64(argp, bdev_nr_bytes(bdev));"
+        ]
+      }
+    },
+    "BLKTRACESETUP": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "blk_trace_ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "return blk_trace_ioctl(bdev, cmd, argp);"
+        ]
+      }
+    },
+    "BLKFLSBUF": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "BLKROSET": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "blkdev_roset"
+        ],
+        "type": [],
+        "usage": [
+          "return blkdev_roset(bdev, cmd, arg);"
+        ]
+      }
+    },
+    "BLKDISCARD": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "blk_ioctl_discard"
+        ],
+        "type": [],
+        "usage": [
+          "return blk_ioctl_discard(bdev, mode, arg);"
+        ]
+      }
+    },
+    "BLKSECDISCARD": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "blk_ioctl_secure_erase"
+        ],
+        "type": [],
+        "usage": [
+          "return blk_ioctl_secure_erase(bdev, mode, argp);"
+        ]
+      }
+    },
+    "BLKZEROOUT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "blk_ioctl_zeroout"
+        ],
+        "type": [],
+        "usage": [
+          "return blk_ioctl_zeroout(bdev, mode, arg);"
+        ]
+      }
+    },
+    "BLKREPORTZONE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "blkdev_report_zones_ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "return blkdev_report_zones_ioctl(bdev, cmd, arg);"
+        ]
+      }
+    },
+    "BLKRESETZONE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "blkdev_zone_mgmt_ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "return blkdev_zone_mgmt_ioctl(bdev, mode, cmd, arg);"
+        ]
+      }
+    },
+    "BLKROGET": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "put_int"
+        ],
+        "type": [],
+        "usage": [
+          "return put_int(argp, bdev_read_only(bdev) != 0);"
+        ]
+      }
+    },
+    "BLKPBSZGET": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "put_uint"
+        ],
+        "type": [],
+        "usage": [
+          "return put_uint(argp, bdev_physical_block_size(bdev));"
+        ]
+      }
+    },
+    "BLKIOMIN": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "put_uint"
+        ],
+        "type": [],
+        "usage": [
+          "return put_uint(argp, bdev_io_min(bdev));"
+        ]
+      }
+    },
+    "BLKIOOPT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "put_uint"
+        ],
+        "type": [],
+        "usage": [
+          "return put_uint(argp, bdev_io_opt(bdev));"
+        ]
+      }
+    },
+    "BLKALIGNOFF": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "put_int"
+        ],
+        "type": [],
+        "usage": [
+          "return put_int(argp, bdev_alignment_offset(bdev));"
+        ]
+      }
+    },
+    "BLKSECTGET": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "put_ushort"
+        ],
+        "type": [],
+        "usage": [
+          "unsigned int max_sectors;\nmax_sectors = min_t(unsigned int, USHRT_MAX,\n\t\t\t\tqueue_max_sectors(bdev_get_queue(bdev)));\nreturn put_ushort(argp, max_sectors);"
+        ]
+      }
+    },
+    "BLKROTATIONAL": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "put_ushort"
+        ],
+        "type": [],
+        "usage": [
+          "return put_ushort(argp, !bdev_nonrot(bdev));"
+        ]
+      }
+    },
+    "BLKFRASET": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [],
+        "usage": [
+          "bdev->bd_disk->bdi->ra_pages = (arg * 512) / PAGE_SIZE;\nreturn 0;"
+        ]
+      }
+    },
+    "BLKRRPART": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "BLKTRACESTART": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "blk_trace_ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "return blk_trace_ioctl(bdev, cmd, argp);"
+        ]
+      }
+    },
+    "BLKTRACESTOP": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "blk_trace_ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "return blk_trace_ioctl(bdev, cmd, argp);"
+        ]
+      }
+    },
+    "BLKTRACETEARDOWN": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "blk_trace_ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "return blk_trace_ioctl(bdev, cmd, argp);"
+        ]
+      }
+    },
+    "IOC_PR_REGISTER": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "blkdev_pr_register"
+        ],
+        "type": [],
+        "usage": [
+          "return blkdev_pr_register(bdev, mode, argp);"
+        ]
+      }
+    },
+    "IOC_PR_RESERVE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "blkdev_pr_reserve"
+        ],
+        "type": [],
+        "usage": [
+          "return blkdev_pr_reserve(bdev, mode, argp);"
+        ]
+      }
+    },
+    "IOC_PR_RELEASE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "blkdev_pr_release"
+        ],
+        "type": [],
+        "usage": [
+          "return blkdev_pr_release(bdev, mode, argp);"
+        ]
+      }
+    },
+    "IOC_PR_PREEMPT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "blkdev_pr_preempt"
+        ],
+        "type": [],
+        "usage": [
+          "return blkdev_pr_preempt(bdev, mode, argp, false);"
+        ]
+      }
+    },
+    "IOC_PR_PREEMPT_ABORT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "blkdev_pr_preempt"
+        ],
+        "type": [],
+        "usage": [
+          "return blkdev_pr_preempt(bdev, mode, argp, true);"
+        ]
+      }
+    },
+    "IOC_PR_CLEAR": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "blkdev_pr_clear"
+        ],
+        "type": [],
+        "usage": [
+          "return blkdev_pr_clear(bdev, mode, argp);"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_blk": "syz_open_dev$KGPT_blk(dev ptr[in, string[\"/dev/#\"]], id proc[0, 1], flags flags[open_flags]) fd_blk",
+    "ioctl$KGPT_BLKDISCARDZEROES": "ioctl$KGPT_BLKDISCARDZEROES(fd fd_blk, cmd const[BLKDISCARDZEROES], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_BLKFRAGET": "ioctl$KGPT_BLKFRAGET(fd fd_blk, cmd const[BLKFRAGET], arg ptr[out, int64])",
+    "ioctl$KGPT_BLKGETDISKSEQ": "ioctl$KGPT_BLKGETDISKSEQ(fd fd_blk, cmd const[BLKGETDISKSEQ], arg ptr[out, int64])",
+    "ioctl$KGPT_BLKOPENZONE": "ioctl$KGPT_BLKOPENZONE(fd fd_blk, cmd const[BLKOPENZONE], arg ptr[in, blk_zone_range])",
+    "ioctl$KGPT_BLKCLOSEZONE": "ioctl$KGPT_BLKCLOSEZONE(fd fd_blk, cmd const[BLKCLOSEZONE], arg ptr[in, blk_zone_range])",
+    "ioctl$KGPT_BLKFINISHZONE": "ioctl$KGPT_BLKFINISHZONE(fd fd_blk, cmd const[BLKFINISHZONE], arg ptr[in, blk_zone_range])",
+    "ioctl$KGPT_BLKGETZONESZ": "ioctl$KGPT_BLKGETZONESZ(fd fd_blk, cmd const[BLKGETZONESZ], arg ptr[out, int32])",
+    "ioctl$KGPT_BLKGETNRZONES": "ioctl$KGPT_BLKGETNRZONES(fd fd_blk, cmd const[BLKGETNRZONES], arg ptr[out, int32])",
+    "ioctl$KGPT_BLKSSZGET": "ioctl$KGPT_BLKSSZGET(fd fd_blk, cmd const[BLKSSZGET], arg ptr[out, int32])",
+    "ioctl$KGPT_BLKRASET": "ioctl$KGPT_BLKRASET(fd fd_blk, cmd const[BLKRASET], arg int64)"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_blk"
+  ],
+  "includes": [
+    "uapi/linux/blkzoned.h",
+    "uapi/linux/fs.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "blk_zone_range": "EXISTING"
+  }
+}

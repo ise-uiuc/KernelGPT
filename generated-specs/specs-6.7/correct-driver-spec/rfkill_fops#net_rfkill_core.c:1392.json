@@ -1,0 +1,56 @@
+{
+  "open": {
+    "filename": "/dev/rfkill",
+    "fd_name": "fd_rfkill",
+    "spec": "openat$KGPT_rfkill(fd const[AT_FDCWD], file ptr[in, string[\"/dev/rfkill\"]], flags flags[open_flags], mode const[0]) fd_rfkill"
+  },
+  "resources": {
+    "fd_rfkill": {
+      "type": "fd",
+      "spec": "resource fd_rfkill[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/rfkill/core.c:1392",
+  "ioctls": {
+    "RFKILL_IOC_NOINPUT": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    }
+  },
+  "types": {},
+  "existing_ioctls": {
+    "RFKILL_IOC_MAX_SIZE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "get_user"
+        ],
+        "type": [
+          "__u32"
+        ],
+        "usage": [
+          "if (get_user(size, (__u32 __user *)arg))",
+          "data->max_size = size;"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "openat$KGPT_rfkill": "openat$KGPT_rfkill(fd const[AT_FDCWD], file ptr[in, string[\"/dev/rfkill\"]], flags flags[open_flags], mode const[0]) fd_rfkill",
+    "ioctl$KGPT_RFKILL_IOC_NOINPUT": "ioctl$KGPT_RFKILL_IOC_NOINPUT(fd fd_rfkill, cmd const[RFKILL_IOC_NOINPUT], arg ptr[in, array[int8]])"
+  },
+  "init_syscalls": [
+    "openat$KGPT_rfkill"
+  ],
+  "includes": [
+    "uapi/linux/rfkill.h",
+    "uapi/linux/fcntl.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

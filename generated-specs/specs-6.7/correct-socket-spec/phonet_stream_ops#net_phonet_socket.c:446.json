@@ -1,0 +1,166 @@
+{
+  "socket": {
+    "domain": "AF_PHONET",
+    "type": "SOCK_SEQPACKET",
+    "spec": "socket$KGPT_phonet(domain const[AF_PHONET], type const[SOCK_SEQPACKET], proto const[0]) sock_phonet"
+  },
+  "resources": {
+    "sock_phonet": {
+      "type": "sock",
+      "spec": "resource sock_phonet[sock]"
+    }
+  },
+  "types": {},
+  "socket_addr": "sockaddr_pn",
+  "ioctls": {
+    "SIOCPNADDRESOURCE": {
+      "arg": "ptr[in, int32]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    }
+  },
+  "existing_ioctls": {
+    "SIOCPNGETOBJECT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "get_user",
+          "put_user"
+        ],
+        "type": [
+          "__u16"
+        ],
+        "usage": [
+          "if (get_user(handle, (__u16 __user *)arg))",
+          "return put_user(handle, (__u16 __user *)arg);"
+        ]
+      }
+    },
+    "SIOCGETVIFCNT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sock_ioctl_inout"
+        ],
+        "type": [
+          "sioc_vif_req"
+        ],
+        "usage": [
+          "struct sioc_vif_req buffer;",
+          "return sock_ioctl_inout(sk, cmd, arg, &buffer, sizeof(buffer));"
+        ]
+      }
+    },
+    "SIOCGETSGCNT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sock_ioctl_inout"
+        ],
+        "type": [
+          "sioc_sg_req"
+        ],
+        "usage": [
+          "struct sioc_sg_req buffer;",
+          "return sock_ioctl_inout(sk, cmd, arg, &buffer, sizeof(buffer));"
+        ]
+      }
+    },
+    "SIOCGETMIFCNT_IN6": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sock_ioctl_inout"
+        ],
+        "type": [
+          "sioc_mif_req6"
+        ],
+        "usage": [
+          "struct sioc_mif_req6 buffer;",
+          "return sock_ioctl_inout(sk, cmd, arg, &buffer, sizeof(buffer));"
+        ]
+      }
+    },
+    "SIOCGETSGCNT_IN6": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sock_ioctl_inout"
+        ],
+        "type": [
+          "sioc_sg_req6"
+        ],
+        "usage": [
+          "struct sioc_sg_req6 buffer;",
+          "return sock_ioctl_inout(sk, cmd, arg, &buffer, sizeof(buffer));"
+        ]
+      }
+    },
+    "SIOCPNDELRESOURCE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sk->sk_prot->ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "if (get_user(karg, (int __user *)arg))\n\t\treturn -EFAULT;",
+          "return sk->sk_prot->ioctl(sk, cmd, &karg);"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "proto_ops": {
+    "bind": "pn_socket_bind",
+    "connect": "pn_socket_connect",
+    "accept": "pn_socket_accept",
+    "poll": "pn_socket_poll",
+    "ioctl": "pn_socket_ioctl",
+    "sendmsg": "pn_socket_sendmsg",
+    "recvmsg": "sock_common_recvmsg",
+    "setsockopt": "sock_common_setsockopt",
+    "getsockopt": "sock_common_getsockopt"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/phonet/socket.c:446",
+  "ops_name": "phonet_stream_ops",
+  "syscall_specs": {
+    "socket$KGPT_phonet": "socket$KGPT_phonet(domain const[AF_PHONET], type const[SOCK_SEQPACKET], proto const[0]) sock_phonet",
+    "bind$KGPT_phonet_stream_ops": "bind$KGPT_phonet_stream_ops(fd sock_phonet, addr ptr[in, sockaddr_pn], addrlen len[addr])",
+    "connect$KGPT_phonet_stream_ops": "connect$KGPT_phonet_stream_ops(fd sock_phonet, addr ptr[in, sockaddr_pn], addrlen len[addr])",
+    "accept4$KGPT_phonet_stream_ops": "accept4$KGPT_phonet_stream_ops(fd sock_phonet, peer ptr[out, sockaddr_pn, opt], peerlen ptr[inout, len[peer, int32]], flags flags[accept_flags]) sock_phonet",
+    "sendto$KGPT_phonet_stream_ops": "sendto$KGPT_phonet_stream_ops(fd sock_phonet, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, sockaddr_pn, opt], addrlen len[addr])",
+    "recvfrom$KGPT_phonet_stream_ops": "recvfrom$KGPT_phonet_stream_ops(fd sock_phonet, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, sockaddr_pn, opt], addrlen len[addr])",
+    "ioctl$KGPT_SIOCPNADDRESOURCE": "ioctl$KGPT_SIOCPNADDRESOURCE(fd sock_phonet, cmd const[SIOCPNADDRESOURCE], arg ptr[in, int32])"
+  },
+  "init_syscalls": [
+    "socket$KGPT_phonet"
+  ],
+  "includes": [
+    "linux/net.h",
+    "linux/socket.h",
+    "uapi/linux/phonet.h"
+  ],
+  "unused_types": {
+    "u16": "type u16 int16"
+  },
+  "ignored_types": {}
+}

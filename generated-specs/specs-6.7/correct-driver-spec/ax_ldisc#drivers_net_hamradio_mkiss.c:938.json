@@ -1,0 +1,69 @@
+{
+  "open": {
+    "filename": "/dev/ptmx",
+    "fd_name": "fd_mkiss",
+    "spec": "openat$KGPT_mkiss(fd const[AT_FDCWD], file ptr[in, string[\"/dev/ptmx\"]], flags flags[open_flags], mode const[0]) fd_mkiss"
+  },
+  "resources": {
+    "fd_mkiss": {
+      "type": "fd",
+      "spec": "resource fd_mkiss[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/net/hamradio/mkiss.c:938",
+  "ioctls": {
+    "SIOCGIFNAME": {
+      "arg": "ptr[out, string]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "SIOCGIFENCAP": {
+      "arg": "ptr[out, int32]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "SIOCSIFENCAP": {
+      "arg": "intptr",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    }
+  },
+  "types": {},
+  "existing_ioctls": {
+    "SIOCSIFHWADDR": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "copy_from_user",
+          "__dev_addr_set"
+        ],
+        "type": [],
+        "usage": [
+          "if (copy_from_user(&addr, (void __user *) arg, AX25_ADDR_LEN))",
+          "netif_tx_lock_bh(dev);",
+          "__dev_addr_set(dev, addr, AX25_ADDR_LEN);",
+          "netif_tx_unlock_bh(dev);"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "openat$KGPT_mkiss": "openat$KGPT_mkiss(fd const[AT_FDCWD], file ptr[in, string[\"/dev/ptmx\"]], flags flags[open_flags], mode const[0]) fd_mkiss",
+    "ioctl$KGPT_SIOCGIFNAME": "ioctl$KGPT_SIOCGIFNAME(fd fd_mkiss, cmd const[SIOCGIFNAME], arg ptr[out, string])",
+    "ioctl$KGPT_SIOCGIFENCAP": "ioctl$KGPT_SIOCGIFENCAP(fd fd_mkiss, cmd const[SIOCGIFENCAP], arg ptr[out, int32])",
+    "ioctl$KGPT_SIOCSIFENCAP": "ioctl$KGPT_SIOCSIFENCAP(fd fd_mkiss, cmd const[SIOCSIFENCAP], arg intptr)"
+  },
+  "init_syscalls": [
+    "openat$KGPT_mkiss"
+  ],
+  "includes": [
+    "uapi/linux/sockios.h",
+    "uapi/linux/fcntl.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

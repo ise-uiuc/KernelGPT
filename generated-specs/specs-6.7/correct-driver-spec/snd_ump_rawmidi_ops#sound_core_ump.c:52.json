@@ -1,0 +1,45 @@
+{
+  "open": {
+    "filename": "/dev/snd/midiC#D#",
+    "fd_name": "fd_snd_midi",
+    "spec": "syz_open_dev$KGPT_snd_midi(dev ptr[in, string[\"/dev/snd/midiC#D#\"]], id proc[0, 1], flags flags[open_flags]) fd_snd_midi"
+  },
+  "resources": {
+    "fd_snd_midi": {
+      "type": "fd",
+      "spec": "resource fd_snd_midi[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/sound/core/ump.c:52",
+  "ioctls": {
+    "SNDRV_UMP_IOCTL_ENDPOINT_INFO": {
+      "arg": "ptr[out, snd_ump_endpoint_info]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "SNDRV_UMP_IOCTL_BLOCK_INFO": {
+      "arg": "ptr[inout, snd_ump_block_info]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "snd_ump_endpoint_info": "snd_ump_endpoint_info {\n\tcard\tint32\n\tdevice\tint32\n\tflags\tint32\n\tprotocol_caps\tint32\n\tprotocol\tint32\n\tnum_blocks\tint32\n\tversion\tint16\n\tfamily_id\tint16\n\tmodel_id\tint16\n\tmanufacturer_id\tint32\n\tsw_revision\tarray[int8, 4]\n\tpadding\tint16\n\tname\tarray[int8, 128]\n\tproduct_id\tarray[int8, 128]\n\treserved\tarray[int8, 32]\n}",
+    "snd_ump_block_info": "snd_ump_block_info {\n\tcard\tint32\n\tdevice\tint32\n\tblock_id\tint8\n\tdirection\tint8\n\tactive\tint8\n\tfirst_group\tint8\n\tnum_groups\tint8\n\tmidi_ci_version\tint8\n\tsysex8_streams\tint8\n\tui_hint\tint8\n\tflags\tint32\n\tname\tarray[int8, 128]\n\treserved\tarray[int8, 32]\n}"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_snd_midi": "syz_open_dev$KGPT_snd_midi(dev ptr[in, string[\"/dev/snd/midiC#D#\"]], id proc[0, 1], flags flags[open_flags]) fd_snd_midi",
+    "ioctl$KGPT_SNDRV_UMP_IOCTL_ENDPOINT_INFO": "ioctl$KGPT_SNDRV_UMP_IOCTL_ENDPOINT_INFO(fd fd_snd_midi, cmd const[SNDRV_UMP_IOCTL_ENDPOINT_INFO], arg ptr[out, snd_ump_endpoint_info])",
+    "ioctl$KGPT_SNDRV_UMP_IOCTL_BLOCK_INFO": "ioctl$KGPT_SNDRV_UMP_IOCTL_BLOCK_INFO(fd fd_snd_midi, cmd const[SNDRV_UMP_IOCTL_BLOCK_INFO], arg ptr[inout, snd_ump_block_info])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_snd_midi"
+  ],
+  "includes": [
+    "uapi/sound/asound.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

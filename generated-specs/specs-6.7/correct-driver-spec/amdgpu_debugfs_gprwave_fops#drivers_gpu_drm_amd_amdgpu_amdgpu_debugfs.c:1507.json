@@ -1,0 +1,40 @@
+{
+  "open": {
+    "filename": "/sys/kernel/debug/dri/#/amdgpu_gprwave",
+    "fd_name": "fd_amdgpu_gprwave",
+    "spec": "openat$KGPT_amdgpu_gprwave(fd const[AT_FDCWD], file ptr[in, string[\"/sys/kernel/debug/dri/#/amdgpu_gprwave\"]], flags flags[open_flags], mode const[0]) fd_amdgpu_gprwave"
+  },
+  "resources": {
+    "fd_amdgpu_gprwave": {
+      "type": "fd",
+      "spec": "resource fd_amdgpu_gprwave[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:1507",
+  "ioctls": {
+    "AMDGPU_DEBUGFS_GPRWAVE_IOC_SET_STATE": {
+      "arg": "ptr[in, amdgpu_debugfs_gprwave_iocdata]",
+      "arg_name_in_usage": "data",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "amdgpu_debugfs_gprwave_iocdata": "amdgpu_debugfs_gprwave_iocdata {\n\tgpr_or_wave\tint32\n\tse\tint32\n\tsh\tint32\n\tcu\tint32\n\twave\tint32\n\tsimd\tint32\n\txcc_id\tint32\n\tgpr\tamdgpu_debugfs_gprwave_iocdata_gpr\n}",
+    "amdgpu_debugfs_gprwave_iocdata_gpr": "amdgpu_debugfs_gprwave_iocdata_gpr {\n\tthread\tint32\n\tvpgr_or_sgpr\tint32\n}"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "openat$KGPT_amdgpu_gprwave": "openat$KGPT_amdgpu_gprwave(fd const[AT_FDCWD], file ptr[in, string[\"/sys/kernel/debug/dri/#/amdgpu_gprwave\"]], flags flags[open_flags], mode const[0]) fd_amdgpu_gprwave",
+    "ioctl$KGPT_AMDGPU_DEBUGFS_GPRWAVE_IOC_SET_STATE": "ioctl$KGPT_AMDGPU_DEBUGFS_GPRWAVE_IOC_SET_STATE(fd fd_amdgpu_gprwave, cmd const[AMDGPU_DEBUGFS_GPRWAVE_IOC_SET_STATE], arg ptr[in, amdgpu_debugfs_gprwave_iocdata])"
+  },
+  "init_syscalls": [
+    "openat$KGPT_amdgpu_gprwave"
+  ],
+  "includes": [
+    "uapi/linux/fcntl.h",
+    "drivers/gpu/drm/amd/amdgpu/amdgpu_umr.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

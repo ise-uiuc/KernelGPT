@@ -1,0 +1,164 @@
+{
+  "socket": {
+    "domain": "AF_RDS",
+    "type": "SOCK_SEQPACKET",
+    "spec": "socket$KGPT_RDS(domain const[AF_RDS], type const[SOCK_SEQPACKET], proto const[0]) sock_rds"
+  },
+  "resources": {
+    "sock_rds": {
+      "type": "sock",
+      "spec": "resource sock_rds[sock]"
+    }
+  },
+  "types": {
+    "sockaddr_rds": "sockaddr_rds {\n\tsa_family\tint16\n\tsin_port\tint16\n\tsin_addr\tarray[int8, 4]\n\tsin6_addr\tarray[int8, 16]\n\tsin6_scope_id\tint32\n} [align[4]]",
+    "rds_tos_t": "type rds_tos_t ptr[in, array[int8]]"
+  },
+  "socket_addr": "sockaddr_rds",
+  "ioctls": {
+    "SIOCRDSSETTOS": {
+      "arg": "ptr[inout, rds_tos_t]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    },
+    "SIOCRDSGETTOS": {
+      "arg": "ptr[out, rds_tos_t]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    }
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "setsockopt": {
+    "RDS_CANCEL_SENT_TO": {
+      "level": "SOL_RDS",
+      "val": "ptr[in, sockaddr_in6]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "RDS_GET_MR": {
+      "level": "SOL_RDS",
+      "val": "ptr[in, rds_get_mr_args]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "RDS_GET_MR_FOR_DEST": {
+      "level": "SOL_RDS",
+      "val": "ptr[in, rds_get_mr_for_dest_args]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "RDS_FREE_MR": {
+      "level": "SOL_RDS",
+      "val": "ptr[in, rds_free_mr_args]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "RDS_RECVERR": {
+      "level": "SOL_RDS",
+      "val": "ptr[in, int32]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "RDS_CONG_MONITOR": {
+      "level": "SOL_RDS",
+      "val": "ptr[in, bool32]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SO_RDS_TRANSPORT": {
+      "level": "SOL_RDS",
+      "val": "ptr[in, int32]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SO_TIMESTAMP_OLD": {
+      "level": "SOL_SOCKET",
+      "val": "ptr[in, int32]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SO_TIMESTAMP_NEW": {
+      "level": "SOL_SOCKET",
+      "val": "ptr[in, int32]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SO_RDS_MSG_RXPATH_LATENCY": {
+      "level": "SOL_RDS",
+      "val": "ptr[in, rds_rx_trace_so]",
+      "len": "len[val]",
+      "val_inference": null
+    }
+  },
+  "unknown": [],
+  "setsockopt_unknown": [],
+  "getsockopt": {
+    "RDS_RECVERR": {
+      "level": "SOL_RDS",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "SO_RDS_TRANSPORT": {
+      "level": "SOL_RDS",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    }
+  },
+  "getsockopt_unknown": [],
+  "proto_ops": {
+    "bind": "rds_bind",
+    "connect": "rds_connect",
+    "accept": "sock_no_accept",
+    "poll": "rds_poll",
+    "ioctl": "rds_ioctl",
+    "sendmsg": "rds_sendmsg",
+    "recvmsg": "rds_recvmsg",
+    "setsockopt": "rds_setsockopt",
+    "getsockopt": "rds_getsockopt"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/rds/af_rds.c:638",
+  "ops_name": "rds_proto_ops",
+  "syscall_specs": {
+    "socket$KGPT_RDS": "socket$KGPT_RDS(domain const[AF_RDS], type const[SOCK_SEQPACKET], proto const[0]) sock_rds",
+    "bind$KGPT_rds_proto_ops": "bind$KGPT_rds_proto_ops(fd sock_rds, addr ptr[in, sockaddr_rds], addrlen len[addr])",
+    "connect$KGPT_rds_proto_ops": "connect$KGPT_rds_proto_ops(fd sock_rds, addr ptr[in, sockaddr_rds], addrlen len[addr])",
+    "accept4$KGPT_rds_proto_ops": "accept4$KGPT_rds_proto_ops(fd sock_rds, peer ptr[out, sockaddr_rds, opt], peerlen ptr[inout, len[peer, int32]], flags flags[accept_flags]) sock_rds",
+    "sendto$KGPT_rds_proto_ops": "sendto$KGPT_rds_proto_ops(fd sock_rds, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, sockaddr_rds, opt], addrlen len[addr])",
+    "recvfrom$KGPT_rds_proto_ops": "recvfrom$KGPT_rds_proto_ops(fd sock_rds, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, sockaddr_rds, opt], addrlen len[addr])",
+    "ioctl$KGPT_SIOCRDSSETTOS": "ioctl$KGPT_SIOCRDSSETTOS(fd sock_rds, cmd const[SIOCRDSSETTOS], arg ptr[inout, rds_tos_t])",
+    "ioctl$KGPT_SIOCRDSGETTOS": "ioctl$KGPT_SIOCRDSGETTOS(fd sock_rds, cmd const[SIOCRDSGETTOS], arg ptr[out, rds_tos_t])",
+    "getsockopt$KGPT_RDS_RECVERR": "getsockopt$KGPT_RDS_RECVERR(fd sock_rds, level const[SOL_RDS], opt const[RDS_RECVERR], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_SO_RDS_TRANSPORT": "getsockopt$KGPT_SO_RDS_TRANSPORT(fd sock_rds, level const[SOL_RDS], opt const[SO_RDS_TRANSPORT], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "setsockopt$KGPT_RDS_CANCEL_SENT_TO": "setsockopt$KGPT_RDS_CANCEL_SENT_TO(fd sock_rds, level const[SOL_RDS], opt const[RDS_CANCEL_SENT_TO], val ptr[in, sockaddr_in6], len len[val])",
+    "setsockopt$KGPT_RDS_GET_MR": "setsockopt$KGPT_RDS_GET_MR(fd sock_rds, level const[SOL_RDS], opt const[RDS_GET_MR], val ptr[in, rds_get_mr_args], len len[val])",
+    "setsockopt$KGPT_RDS_GET_MR_FOR_DEST": "setsockopt$KGPT_RDS_GET_MR_FOR_DEST(fd sock_rds, level const[SOL_RDS], opt const[RDS_GET_MR_FOR_DEST], val ptr[in, rds_get_mr_for_dest_args], len len[val])",
+    "setsockopt$KGPT_RDS_FREE_MR": "setsockopt$KGPT_RDS_FREE_MR(fd sock_rds, level const[SOL_RDS], opt const[RDS_FREE_MR], val ptr[in, rds_free_mr_args], len len[val])",
+    "setsockopt$KGPT_RDS_RECVERR": "setsockopt$KGPT_RDS_RECVERR(fd sock_rds, level const[SOL_RDS], opt const[RDS_RECVERR], val ptr[in, int32], len len[val])",
+    "setsockopt$KGPT_RDS_CONG_MONITOR": "setsockopt$KGPT_RDS_CONG_MONITOR(fd sock_rds, level const[SOL_RDS], opt const[RDS_CONG_MONITOR], val ptr[in, bool32], len len[val])",
+    "setsockopt$KGPT_SO_RDS_TRANSPORT": "setsockopt$KGPT_SO_RDS_TRANSPORT(fd sock_rds, level const[SOL_RDS], opt const[SO_RDS_TRANSPORT], val ptr[in, int32], len len[val])",
+    "setsockopt$KGPT_SO_TIMESTAMP_OLD": "setsockopt$KGPT_SO_TIMESTAMP_OLD(fd sock_rds, level const[SOL_SOCKET], opt const[SO_TIMESTAMP_OLD], val ptr[in, int32], len len[val])",
+    "setsockopt$KGPT_SO_TIMESTAMP_NEW": "setsockopt$KGPT_SO_TIMESTAMP_NEW(fd sock_rds, level const[SOL_SOCKET], opt const[SO_TIMESTAMP_NEW], val ptr[in, int32], len len[val])",
+    "setsockopt$KGPT_SO_RDS_MSG_RXPATH_LATENCY": "setsockopt$KGPT_SO_RDS_MSG_RXPATH_LATENCY(fd sock_rds, level const[SOL_RDS], opt const[SO_RDS_MSG_RXPATH_LATENCY], val ptr[in, rds_rx_trace_so], len len[val])"
+  },
+  "init_syscalls": [
+    "socket$KGPT_RDS"
+  ],
+  "includes": [
+    "uapi/linux/rds.h",
+    "linux/net.h",
+    "linux/socket.h",
+    "uapi/asm-generic/socket.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "sockaddr_in6": "EXISTING",
+    "rds_get_mr_args": "EXISTING",
+    "rds_get_mr_for_dest_args": "EXISTING",
+    "rds_free_mr_args": "EXISTING",
+    "int32": "PRIMITIVE",
+    "rds_rx_trace_so": "EXISTING"
+  }
+}

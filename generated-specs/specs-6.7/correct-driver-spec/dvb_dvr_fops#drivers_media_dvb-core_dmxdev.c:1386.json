@@ -1,0 +1,80 @@
+{
+  "open": {
+    "filename": "/dev/dvb/adapter#/dvr#",
+    "fd_name": "fd_dvb_dvr",
+    "spec": "syz_open_dev$KGPT_dvb_dvr(dev ptr[in, string[\"/dev/dvb/adapter#/dvr#\"]], id proc[0, 1], flags flags[open_flags]) fd_dvb_dvr"
+  },
+  "resources": {
+    "fd_dvb_dvr": {
+      "type": "fd",
+      "spec": "resource fd_dvb_dvr[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/media/dvb-core/dmxdev.c:1386",
+  "ioctls": {
+    "DMX_SET_BUFFER_SIZE": {
+      "arg": "intN",
+      "arg_name_in_usage": "arg",
+      "arg_inference": {
+        "function": [
+          "dvb_dvr_set_buffer_size"
+        ],
+        "type": [
+          "unsigned long"
+        ],
+        "usage": [
+          "ret = dvb_dvr_set_buffer_size(dmxdev, arg);"
+        ]
+      }
+    },
+    "DMX_REQBUFS": {
+      "arg": "ptr[in, dmx_requestbuffers]",
+      "arg_name_in_usage": "parg",
+      "arg_inference": null
+    },
+    "DMX_QUERYBUF": {
+      "arg": "ptr[inout, dmx_buffer]",
+      "arg_name_in_usage": "parg",
+      "arg_inference": null
+    },
+    "DMX_EXPBUF": {
+      "arg": "ptr[in, dmx_exportbuffer]",
+      "arg_name_in_usage": "parg",
+      "arg_inference": null
+    },
+    "DMX_QBUF": {
+      "arg": "ptr[in, dmx_buffer]",
+      "arg_name_in_usage": "parg",
+      "arg_inference": null
+    },
+    "DMX_DQBUF": {
+      "arg": "ptr[inout, dmx_buffer]",
+      "arg_name_in_usage": "parg",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "dmx_requestbuffers": "dmx_requestbuffers {\n\tcount\tint32\n\tsize\tint32\n}",
+    "dmx_buffer": "dmx_buffer {\n\tindex\tint32\n\tbytesused\tint32\n\toffset\tint32\n\tlength\tint32\n\tflags\tint32\n\tcount\tint32\n}",
+    "dmx_exportbuffer": "dmx_exportbuffer {\n\tindex\tint32\n\tflags\tint32\n\tfd\tint32\n}"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_dvb_dvr": "syz_open_dev$KGPT_dvb_dvr(dev ptr[in, string[\"/dev/dvb/adapter#/dvr#\"]], id proc[0, 1], flags flags[open_flags]) fd_dvb_dvr",
+    "ioctl$KGPT_DMX_SET_BUFFER_SIZE": "ioctl$KGPT_DMX_SET_BUFFER_SIZE(fd fd_dvb_dvr, cmd const[DMX_SET_BUFFER_SIZE], arg intptr)",
+    "ioctl$KGPT_DMX_REQBUFS": "ioctl$KGPT_DMX_REQBUFS(fd fd_dvb_dvr, cmd const[DMX_REQBUFS], arg ptr[in, dmx_requestbuffers])",
+    "ioctl$KGPT_DMX_QUERYBUF": "ioctl$KGPT_DMX_QUERYBUF(fd fd_dvb_dvr, cmd const[DMX_QUERYBUF], arg ptr[inout, dmx_buffer])",
+    "ioctl$KGPT_DMX_EXPBUF": "ioctl$KGPT_DMX_EXPBUF(fd fd_dvb_dvr, cmd const[DMX_EXPBUF], arg ptr[in, dmx_exportbuffer])",
+    "ioctl$KGPT_DMX_QBUF": "ioctl$KGPT_DMX_QBUF(fd fd_dvb_dvr, cmd const[DMX_QBUF], arg ptr[in, dmx_buffer])",
+    "ioctl$KGPT_DMX_DQBUF": "ioctl$KGPT_DMX_DQBUF(fd fd_dvb_dvr, cmd const[DMX_DQBUF], arg ptr[inout, dmx_buffer])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_dvb_dvr"
+  ],
+  "includes": [
+    "uapi/linux/dvb/dmx.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

@@ -1,0 +1,45 @@
+{
+  "open": {
+    "filename": "/dev/dri/card#",
+    "fd_name": "fd_vmwgfx",
+    "spec": "syz_open_dev$KGPT_vmwgfx(dev ptr[in, string[\"/dev/dri/card#\"]], id proc[0, 1], flags flags[open_flags]) fd_vmwgfx"
+  },
+  "resources": {
+    "fd_vmwgfx": {
+      "type": "fd",
+      "spec": "resource fd_vmwgfx[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c:1598",
+  "ioctls": {
+    "DRM_VMW_EXECBUF": {
+      "arg": "ptr[in, drm_vmw_execbuf_arg]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "DRM_VMW_UPDATE_LAYOUT": {
+      "arg": "ptr[in, drm_vmw_update_layout]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "drm_vmw_execbuf_arg": "drm_vmw_execbuf_arg {\n\tcommands\tintptr\n\tcommand_size\tint32\n\tthrottle_us\tint32\n\tfence_rep\tintptr\n\tversion\tint32\n\tflags\tint32\n\tcontext_handle\tint32\n\timported_fence_fd\tint32\n}",
+    "drm_vmw_update_layout": "type drm_vmw_update_layout ptr[in, array[int8]]"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_vmwgfx": "syz_open_dev$KGPT_vmwgfx(dev ptr[in, string[\"/dev/dri/card#\"]], id proc[0, 1], flags flags[open_flags]) fd_vmwgfx",
+    "ioctl$KGPT_DRM_VMW_EXECBUF": "ioctl$KGPT_DRM_VMW_EXECBUF(fd fd_vmwgfx, cmd const[DRM_VMW_EXECBUF], arg ptr[in, drm_vmw_execbuf_arg])",
+    "ioctl$KGPT_DRM_VMW_UPDATE_LAYOUT": "ioctl$KGPT_DRM_VMW_UPDATE_LAYOUT(fd fd_vmwgfx, cmd const[DRM_VMW_UPDATE_LAYOUT], arg ptr[in, drm_vmw_update_layout])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_vmwgfx"
+  ],
+  "includes": [
+    "uapi/drm/vmwgfx_drm.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

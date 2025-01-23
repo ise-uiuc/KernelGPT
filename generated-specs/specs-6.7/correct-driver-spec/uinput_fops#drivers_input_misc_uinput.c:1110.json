@@ -1,0 +1,311 @@
+{
+  "open": {
+    "filename": "/dev/uinput",
+    "fd_name": "fd_uinput",
+    "spec": "openat$KGPT_uinput(fd const[AT_FDCWD], file ptr[in, string[\"/dev/uinput\"]], flags const[O_RDWR], mode const[0]) fd_uinput"
+  },
+  "resources": {
+    "fd_uinput": {
+      "type": "fd",
+      "spec": "resource fd_uinput[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/input/misc/uinput.c:1110",
+  "ioctls": {
+    "UI_GET_SYSNAME": {
+      "arg": "ptr[out, array[int8]]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    }
+  },
+  "types": {},
+  "existing_ioctls": {
+    "UI_GET_VERSION": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "UI_DEV_CREATE": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "UI_DEV_DESTROY": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "UI_DEV_SETUP": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "uinput_dev_setup"
+        ],
+        "type": [],
+        "usage": [
+          "retval = uinput_dev_setup(udev, p);"
+        ]
+      }
+    },
+    "UI_SET_EVBIT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "uinput_set_bit"
+        ],
+        "type": [],
+        "usage": [
+          "retval = uinput_set_bit(arg, evbit, EV_MAX);"
+        ]
+      }
+    },
+    "UI_SET_KEYBIT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "uinput_set_bit"
+        ],
+        "type": [],
+        "usage": [
+          "retval = uinput_set_bit(arg, keybit, KEY_MAX);"
+        ]
+      }
+    },
+    "UI_SET_RELBIT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "uinput_set_bit"
+        ],
+        "type": [],
+        "usage": [
+          "retval = uinput_set_bit(arg, relbit, REL_MAX);"
+        ]
+      }
+    },
+    "UI_SET_ABSBIT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "uinput_set_bit"
+        ],
+        "type": [],
+        "usage": [
+          "retval = uinput_set_bit(arg, absbit, ABS_MAX);"
+        ]
+      }
+    },
+    "UI_SET_MSCBIT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "uinput_set_bit"
+        ],
+        "type": [],
+        "usage": [
+          "retval = uinput_set_bit(arg, mscbit, MSC_MAX);"
+        ]
+      }
+    },
+    "UI_SET_LEDBIT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "uinput_set_bit"
+        ],
+        "type": [],
+        "usage": [
+          "retval = uinput_set_bit(arg, ledbit, LED_MAX);"
+        ]
+      }
+    },
+    "UI_SET_SNDBIT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "uinput_set_bit"
+        ],
+        "type": [],
+        "usage": [
+          "retval = uinput_set_bit(arg, sndbit, SND_MAX);"
+        ]
+      }
+    },
+    "UI_SET_FFBIT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "uinput_set_bit"
+        ],
+        "type": [],
+        "usage": [
+          "retval = uinput_set_bit(arg, ffbit, FF_MAX);"
+        ]
+      }
+    },
+    "UI_SET_SWBIT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "uinput_set_bit"
+        ],
+        "type": [],
+        "usage": [
+          "retval = uinput_set_bit(arg, swbit, SW_MAX);"
+        ]
+      }
+    },
+    "UI_SET_PROPBIT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "uinput_set_bit"
+        ],
+        "type": [],
+        "usage": [
+          "retval = uinput_set_bit(arg, propbit, INPUT_PROP_MAX);"
+        ]
+      }
+    },
+    "UI_SET_PHYS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [],
+        "usage": [
+          "phys = strndup_user(p, 1024);"
+        ]
+      }
+    },
+    "UI_BEGIN_FF_UPLOAD": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "uinput_ff_upload_from_user",
+          "uinput_ff_upload_to_user"
+        ],
+        "type": [
+          "uinput_ff_upload"
+        ],
+        "usage": [
+          "retval = uinput_ff_upload_from_user(p, &ff_up);",
+          "retval = uinput_ff_upload_to_user(p, &ff_up);"
+        ]
+      }
+    },
+    "UI_BEGIN_FF_ERASE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [
+          "uinput_ff_erase"
+        ],
+        "usage": [
+          "if (copy_from_user(&ff_erase, p, sizeof(ff_erase))) {"
+        ]
+      }
+    },
+    "UI_END_FF_UPLOAD": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "uinput_ff_upload_from_user"
+        ],
+        "type": [
+          "uinput_ff_upload"
+        ],
+        "usage": [
+          "retval = uinput_ff_upload_from_user(p, &ff_up);"
+        ]
+      }
+    },
+    "UI_END_FF_ERASE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [
+          "uinput_ff_erase"
+        ],
+        "usage": [
+          "if (copy_from_user(&ff_erase, p, sizeof(ff_erase))) {"
+        ]
+      }
+    },
+    "UI_ABS_SETUP": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "uinput_abs_setup"
+        ],
+        "type": [],
+        "usage": [
+          "retval = uinput_abs_setup(udev, p, size);"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "openat$KGPT_uinput": "openat$KGPT_uinput(fd const[AT_FDCWD], file ptr[in, string[\"/dev/uinput\"]], flags const[O_RDWR], mode const[0]) fd_uinput"
+  },
+  "init_syscalls": [
+    "openat$KGPT_uinput"
+  ],
+  "includes": [
+    "uapi/linux/fcntl.h",
+    "uapi/asm-generic/fcntl.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

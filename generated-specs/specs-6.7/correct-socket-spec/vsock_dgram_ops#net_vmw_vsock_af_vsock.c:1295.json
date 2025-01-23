@@ -1,0 +1,45 @@
+{
+  "socket": {
+    "domain": "PF_VSOCK",
+    "type": "SOCK_DGRAM",
+    "spec": "socket$KGPT_vsock_dgram_ops(domain const[PF_VSOCK], type const[SOCK_DGRAM], proto const[0]) sock_vsock_dgram"
+  },
+  "resources": {
+    "sock_vsock_dgram": {
+      "type": "sock",
+      "spec": "resource sock_vsock_dgram[sock]"
+    }
+  },
+  "types": {},
+  "socket_addr": "sockaddr_vm",
+  "proto_ops": {
+    "bind": "vsock_bind",
+    "connect": "vsock_dgram_connect",
+    "accept": "sock_no_accept",
+    "poll": "vsock_poll",
+    "ioctl": "sock_no_ioctl",
+    "sendmsg": "vsock_dgram_sendmsg",
+    "recvmsg": "vsock_dgram_recvmsg"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/vmw_vsock/af_vsock.c:1295",
+  "ops_name": "vsock_dgram_ops",
+  "syscall_specs": {
+    "socket$KGPT_vsock_dgram_ops": "socket$KGPT_vsock_dgram_ops(domain const[PF_VSOCK], type const[SOCK_DGRAM], proto const[0]) sock_vsock_dgram",
+    "bind$KGPT_vsock_dgram_ops": "bind$KGPT_vsock_dgram_ops(fd sock_vsock_dgram, addr ptr[in, sockaddr_vm], addrlen len[addr])",
+    "connect$KGPT_vsock_dgram_ops": "connect$KGPT_vsock_dgram_ops(fd sock_vsock_dgram, addr ptr[in, sockaddr_vm], addrlen len[addr])",
+    "accept4$KGPT_vsock_dgram_ops": "accept4$KGPT_vsock_dgram_ops(fd sock_vsock_dgram, peer ptr[out, sockaddr_vm, opt], peerlen ptr[inout, len[peer, int32]], flags flags[accept_flags]) sock_vsock_dgram",
+    "sendto$KGPT_vsock_dgram_ops": "sendto$KGPT_vsock_dgram_ops(fd sock_vsock_dgram, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, sockaddr_vm, opt], addrlen len[addr])",
+    "recvfrom$KGPT_vsock_dgram_ops": "recvfrom$KGPT_vsock_dgram_ops(fd sock_vsock_dgram, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, sockaddr_vm, opt], addrlen len[addr])"
+  },
+  "init_syscalls": [
+    "socket$KGPT_vsock_dgram_ops"
+  ],
+  "includes": [
+    "linux/net.h",
+    "linux/socket.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "sockaddr_vm": "EXISTING"
+  }
+}

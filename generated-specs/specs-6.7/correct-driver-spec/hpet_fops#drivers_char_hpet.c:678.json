@@ -1,0 +1,82 @@
+{
+  "open": {
+    "filename": "/dev/hpet",
+    "fd_name": "fd_hpet",
+    "spec": "openat$KGPT_hpets(fd const[AT_FDCWD], file ptr[in, string[\"/dev/hpet\"]], flags const[O_RDWR], mode const[0]) fd_hpet"
+  },
+  "resources": {
+    "fd_hpet": {
+      "type": "fd",
+      "spec": "resource fd_hpet[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/char/hpet.c:678",
+  "ioctls": {
+    "HPET_IE_OFF": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "HPET_EPI": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "HPET_DPI": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "HPET_IE_ON": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "HPET_INFO": {
+      "arg": "ptr[out, hpet_info]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": {
+        "function": [
+          "hpet_ioctl_common",
+          "copy_to_user"
+        ],
+        "type": [
+          "hpet_info"
+        ],
+        "usage": [
+          "err = hpet_ioctl_common(file->private_data, cmd, arg, &info);",
+          "if ((cmd == HPET_INFO) && !err && (copy_to_user((void __user *)arg, &info, sizeof(info))))"
+        ]
+      }
+    },
+    "HPET_IRQFREQ": {
+      "arg": "intptr",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "hpet_info": "hpet_info {\n\thi_ireqfreq\tint64\n\thi_flags\tint64\n\thi_hpet\tint16\n\thi_timer\tint16\n}"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "openat$KGPT_hpets": "openat$KGPT_hpets(fd const[AT_FDCWD], file ptr[in, string[\"/dev/hpet\"]], flags const[O_RDWR], mode const[0]) fd_hpet",
+    "ioctl$KGPT_HPET_IE_OFF": "ioctl$KGPT_HPET_IE_OFF(fd fd_hpet, cmd const[HPET_IE_OFF], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_HPET_EPI": "ioctl$KGPT_HPET_EPI(fd fd_hpet, cmd const[HPET_EPI], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_HPET_DPI": "ioctl$KGPT_HPET_DPI(fd fd_hpet, cmd const[HPET_DPI], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_HPET_IE_ON": "ioctl$KGPT_HPET_IE_ON(fd fd_hpet, cmd const[HPET_IE_ON], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_HPET_INFO": "ioctl$KGPT_HPET_INFO(fd fd_hpet, cmd const[HPET_INFO], arg ptr[out, hpet_info])",
+    "ioctl$KGPT_HPET_IRQFREQ": "ioctl$KGPT_HPET_IRQFREQ(fd fd_hpet, cmd const[HPET_IRQFREQ], arg intptr)"
+  },
+  "init_syscalls": [
+    "openat$KGPT_hpets"
+  ],
+  "includes": [
+    "uapi/linux/hpet.h",
+    "uapi/linux/fcntl.h",
+    "uapi/asm-generic/fcntl.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

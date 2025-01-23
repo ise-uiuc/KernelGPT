@@ -1,0 +1,88 @@
+{
+  "open": {
+    "filename": "/dev/ubi#_#",
+    "fd_name": "fd_ubi_vol",
+    "spec": "syz_open_dev$KGPT_ubi(dev ptr[in, string[\"/dev/ubi#_#\"]], id proc[0, 1], vol_id proc[0, 1], flags flags[open_flags]) fd_ubi_vol"
+  },
+  "resources": {
+    "fd_ubi_vol": {
+      "type": "fd",
+      "spec": "resource fd_ubi_vol[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/mtd/ubi/cdev.c:1083",
+  "ioctls": {
+    "UBI_IOCVOLCRBLK": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "UBI_IOCVOLRMBLK": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "UBI_IOCVOLUP": {
+      "arg": "ptr[in, int64]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "UBI_IOCEBCH": {
+      "arg": "ptr[in, ubi_leb_change_req]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "UBI_IOCEBER": {
+      "arg": "intptr",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "UBI_IOCEBMAP": {
+      "arg": "ptr[in, ubi_map_req]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "UBI_IOCEBUNMAP": {
+      "arg": "ptr[in, int32]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "UBI_IOCEBISMAP": {
+      "arg": "ptr[in, int32]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    },
+    "UBI_IOCSETVOLPROP": {
+      "arg": "ptr[in, ubi_set_vol_prop_req]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "ubi_leb_change_req": "ubi_leb_change_req {\n\tlnum\tint32\n\tbytes\tint32\n\tdtype\tint8\n\tpadding\tarray[int8, 7]\n}",
+    "ubi_map_req": "ubi_map_req {\n\tlnum\tint32\n\tdtype\tint8\n\tpadding\tarray[int8, 3]\n}",
+    "ubi_set_vol_prop_req": "ubi_set_vol_prop_req {\n\tproperty\tint8\n\tpadding\tarray[int8, 7]\n\tvalue\tint64\n}"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_ubi": "syz_open_dev$KGPT_ubi(dev ptr[in, string[\"/dev/ubi#_#\"]], id proc[0, 1], vol_id proc[0, 1], flags flags[open_flags]) fd_ubi_vol",
+    "ioctl$KGPT_UBI_IOCVOLCRBLK": "ioctl$KGPT_UBI_IOCVOLCRBLK(fd fd_ubi_vol, cmd const[UBI_IOCVOLCRBLK], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_UBI_IOCVOLRMBLK": "ioctl$KGPT_UBI_IOCVOLRMBLK(fd fd_ubi_vol, cmd const[UBI_IOCVOLRMBLK], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_UBI_IOCVOLUP": "ioctl$KGPT_UBI_IOCVOLUP(fd fd_ubi_vol, cmd const[UBI_IOCVOLUP], arg ptr[in, int64])",
+    "ioctl$KGPT_UBI_IOCEBCH": "ioctl$KGPT_UBI_IOCEBCH(fd fd_ubi_vol, cmd const[UBI_IOCEBCH], arg ptr[in, ubi_leb_change_req])",
+    "ioctl$KGPT_UBI_IOCEBER": "ioctl$KGPT_UBI_IOCEBER(fd fd_ubi_vol, cmd const[UBI_IOCEBER], arg intptr)",
+    "ioctl$KGPT_UBI_IOCEBMAP": "ioctl$KGPT_UBI_IOCEBMAP(fd fd_ubi_vol, cmd const[UBI_IOCEBMAP], arg ptr[in, ubi_map_req])",
+    "ioctl$KGPT_UBI_IOCEBUNMAP": "ioctl$KGPT_UBI_IOCEBUNMAP(fd fd_ubi_vol, cmd const[UBI_IOCEBUNMAP], arg ptr[in, int32])",
+    "ioctl$KGPT_UBI_IOCEBISMAP": "ioctl$KGPT_UBI_IOCEBISMAP(fd fd_ubi_vol, cmd const[UBI_IOCEBISMAP], arg ptr[in, int32])",
+    "ioctl$KGPT_UBI_IOCSETVOLPROP": "ioctl$KGPT_UBI_IOCSETVOLPROP(fd fd_ubi_vol, cmd const[UBI_IOCSETVOLPROP], arg ptr[in, ubi_set_vol_prop_req])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_ubi"
+  ],
+  "includes": [
+    "uapi/mtd/ubi-user.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

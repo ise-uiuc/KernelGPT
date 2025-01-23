@@ -1,0 +1,133 @@
+{
+  "socket": {
+    "domain": "AF_KCM",
+    "type": "SOCK_SEQPACKET",
+    "spec": "socket$KGPT_kcm(domain const[AF_KCM], type const[SOCK_SEQPACKET], proto const[KCMPROTO_CONNECTED]) sock_kcm"
+  },
+  "resources": {
+    "sock_kcm": {
+      "type": "sock",
+      "spec": "resource sock_kcm[sock]"
+    }
+  },
+  "types": {
+    "KCMPROTO_CONNECTED": "define KCMPROTO_CONNECTED 1"
+  },
+  "socket_addr": "sockaddr",
+  "ioctls": {},
+  "existing_ioctls": {
+    "SIOCKCMATTACH": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "info"
+      ],
+      "arg_inference": {
+        "function": [
+          "kcm_attach_ioctl"
+        ],
+        "type": [
+          "kcm_attach"
+        ],
+        "usage": [
+          "struct kcm_attach info;",
+          "if (copy_from_user(&info, (void __user *)arg, sizeof(info)))",
+          "err = kcm_attach_ioctl(sock, &info);"
+        ]
+      }
+    },
+    "SIOCKCMUNATTACH": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "info"
+      ],
+      "arg_inference": {
+        "function": [
+          "kcm_unattach_ioctl"
+        ],
+        "type": [
+          "kcm_unattach"
+        ],
+        "usage": [
+          "struct kcm_unattach info;",
+          "if (copy_from_user(&info, (void __user *)arg, sizeof(info)))",
+          "err = kcm_unattach_ioctl(sock, &info);"
+        ]
+      }
+    },
+    "SIOCKCMCLONE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "info"
+      ],
+      "arg_inference": {
+        "function": [
+          "kcm_clone"
+        ],
+        "type": [
+          "kcm_clone"
+        ],
+        "usage": [
+          "struct kcm_clone info;",
+          "struct file *file;",
+          "info.fd = get_unused_fd_flags(0);",
+          "file = kcm_clone(sock);",
+          "if (copy_to_user((void __user *)arg, &info, sizeof(info)))"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "setsockopt": {
+    "KCM_RECV_DISABLE": {
+      "level": "SOL_KCM",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]"
+    }
+  },
+  "unknown": [],
+  "setsockopt_unknown": [],
+  "getsockopt": {
+    "KCM_RECV_DISABLE": {
+      "level": "SOL_KCM",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    }
+  },
+  "getsockopt_unknown": [],
+  "proto_ops": {
+    "bind": "sock_no_bind",
+    "connect": "sock_no_connect",
+    "accept": "sock_no_accept",
+    "poll": "datagram_poll",
+    "ioctl": "kcm_ioctl",
+    "sendmsg": "kcm_sendmsg",
+    "recvmsg": "kcm_recvmsg",
+    "setsockopt": "kcm_setsockopt",
+    "getsockopt": "kcm_getsockopt"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/kcm/kcmsock.c:1759",
+  "ops_name": "kcm_seqpacket_ops",
+  "syscall_specs": {
+    "socket$KGPT_kcm": "socket$KGPT_kcm(domain const[AF_KCM], type const[SOCK_SEQPACKET], proto const[KCMPROTO_CONNECTED]) sock_kcm",
+    "bind$KGPT_kcm_seqpacket_ops": "bind$KGPT_kcm_seqpacket_ops(fd sock_kcm, addr ptr[in, sockaddr], addrlen len[addr])",
+    "connect$KGPT_kcm_seqpacket_ops": "connect$KGPT_kcm_seqpacket_ops(fd sock_kcm, addr ptr[in, sockaddr], addrlen len[addr])",
+    "accept4$KGPT_kcm_seqpacket_ops": "accept4$KGPT_kcm_seqpacket_ops(fd sock_kcm, peer ptr[out, sockaddr, opt], peerlen ptr[inout, len[peer, int32]], flags flags[accept_flags]) sock_kcm",
+    "sendto$KGPT_kcm_seqpacket_ops": "sendto$KGPT_kcm_seqpacket_ops(fd sock_kcm, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, sockaddr, opt], addrlen len[addr])",
+    "recvfrom$KGPT_kcm_seqpacket_ops": "recvfrom$KGPT_kcm_seqpacket_ops(fd sock_kcm, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, sockaddr, opt], addrlen len[addr])",
+    "getsockopt$KGPT_KCM_RECV_DISABLE": "getsockopt$KGPT_KCM_RECV_DISABLE(fd sock_kcm, level const[SOL_KCM], opt const[KCM_RECV_DISABLE], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "setsockopt$KGPT_KCM_RECV_DISABLE": "setsockopt$KGPT_KCM_RECV_DISABLE(fd sock_kcm, level const[SOL_KCM], opt const[KCM_RECV_DISABLE], val ptr[in, int32], len bytesize[val])"
+  },
+  "init_syscalls": [
+    "socket$KGPT_kcm"
+  ],
+  "includes": [
+    "linux/net.h",
+    "uapi/linux/kcm.h",
+    "linux/socket.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "sockaddr": "EXISTING"
+  }
+}

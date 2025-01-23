@@ -1,0 +1,88 @@
+{
+  "open": {
+    "filename": "/dev/urandom",
+    "fd_name": "fd_urandom",
+    "spec": "openat$KGPT_urandom(fd const[AT_FDCWD], file ptr[in, string[\"/dev/urandom\"]], flags flags[open_flags], mode const[0]) fd_urandom"
+  },
+  "resources": {
+    "fd_urandom": {
+      "type": "fd",
+      "spec": "resource fd_urandom[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/char/random.c:1553",
+  "ioctls": {
+    "RNDRESEEDCRNG": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    }
+  },
+  "types": {},
+  "existing_ioctls": {
+    "RNDGETENTCNT": {
+      "arg": "ptr[inout, int]",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": null
+    },
+    "RNDADDTOENTCNT": {
+      "arg": "ptr[in, int]",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": null
+    },
+    "RNDADDENTROPY": {
+      "arg": "ptr[in, rnd_add_entropy]",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "write_pool_user",
+          "credit_init_bits"
+        ],
+        "type": [
+          "rnd_add_entropy"
+        ],
+        "usage": [
+          "struct iov_iter iter;",
+          "struct iovec iov;",
+          "ssize_t ret;",
+          "int len;",
+          "if (get_user(ent_count, p++))",
+          "if (get_user(len, p++))",
+          "ret = import_single_range(ITER_SOURCE, p, len, &iov, &iter);",
+          "ret = write_pool_user(&iter);",
+          "credit_init_bits(ent_count);"
+        ]
+      }
+    },
+    "RNDZAPENTCNT": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "RNDCLEARPOOL": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "openat$KGPT_urandom": "openat$KGPT_urandom(fd const[AT_FDCWD], file ptr[in, string[\"/dev/urandom\"]], flags flags[open_flags], mode const[0]) fd_urandom",
+    "ioctl$KGPT_RNDRESEEDCRNG": "ioctl$KGPT_RNDRESEEDCRNG(fd fd_urandom, cmd const[RNDRESEEDCRNG], arg ptr[in, array[int8]])"
+  },
+  "init_syscalls": [
+    "openat$KGPT_urandom"
+  ],
+  "includes": [
+    "uapi/linux/fcntl.h",
+    "uapi/linux/random.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

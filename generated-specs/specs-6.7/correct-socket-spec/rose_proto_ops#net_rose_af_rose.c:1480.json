@@ -1,0 +1,320 @@
+{
+  "socket": {
+    "domain": "AF_ROSE",
+    "type": "SOCK_SEQPACKET",
+    "spec": "syz_init_net_socket$KGPT_rose(domain const[AF_ROSE], type const[SOCK_SEQPACKET], proto const[0]) sock_rose"
+  },
+  "resources": {
+    "sock_rose": {
+      "type": "sock",
+      "spec": "resource sock_rose[sock]"
+    }
+  },
+  "types": {},
+  "socket_addr": "sockaddr_rose_any",
+  "ioctls": {
+    "SIOCGIFMETRIC": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SIOCSIFMETRIC": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    }
+  },
+  "existing_ioctls": {
+    "TIOCOUTQ": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "TIOCINQ": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SIOCGIFADDR": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SIOCSIFADDR": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SIOCGIFDSTADDR": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SIOCSIFDSTADDR": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SIOCGIFBRDADDR": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SIOCSIFBRDADDR": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SIOCGIFNETMASK": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SIOCSIFNETMASK": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SIOCADDRT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "rose_rt_ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "return rose_rt_ioctl(cmd, argp);"
+        ]
+      }
+    },
+    "SIOCDELRT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "rose_rt_ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "return rose_rt_ioctl(cmd, argp);"
+        ]
+      }
+    },
+    "SIOCRSCLRRT": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SIOCRSGCAUSE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [
+          "rose_cause_struct"
+        ],
+        "usage": [
+          "struct rose_cause_struct rose_cause;\nrose_cause.cause = rose->cause;\nrose_cause.diagnostic = rose->diagnostic;\nreturn copy_to_user(argp, &rose_cause, sizeof(struct rose_cause_struct)) ? -EFAULT : 0;"
+        ]
+      }
+    },
+    "SIOCRSSCAUSE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [
+          "rose_cause_struct"
+        ],
+        "usage": [
+          "struct rose_cause_struct rose_cause;\nif (copy_from_user(&rose_cause, argp, sizeof(struct rose_cause_struct)))\n\treturn -EFAULT;\nrose->cause = rose_cause.cause;\nrose->diagnostic = rose_cause.diagnostic;\nreturn 0;"
+        ]
+      }
+    },
+    "SIOCRSSL2CALL": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "ax25_listen_release",
+          "ax25_listen_register"
+        ],
+        "type": [
+          "ax25_address"
+        ],
+        "usage": [
+          "if (ax25cmp(&rose_callsign, &null_ax25_address) != 0)\n\tax25_listen_release(&rose_callsign, NULL);\nif (copy_from_user(&rose_callsign, argp, sizeof(ax25_address)))\n\treturn -EFAULT;\nif (ax25cmp(&rose_callsign, &null_ax25_address) != 0)\n\treturn ax25_listen_register(&rose_callsign, NULL);"
+        ]
+      }
+    },
+    "SIOCRSGL2CALL": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [
+          "ax25_address"
+        ],
+        "usage": [
+          "return copy_to_user(argp, &rose_callsign, sizeof(ax25_address)) ? -EFAULT : 0;"
+        ]
+      }
+    },
+    "SIOCRSACCEPT": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "setsockopt": {
+    "ROSE_DEFER": {
+      "level": "SOL_ROSE",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "ROSE_T1": {
+      "level": "SOL_ROSE",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "ROSE_T2": {
+      "level": "SOL_ROSE",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "ROSE_T3": {
+      "level": "SOL_ROSE",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "ROSE_HOLDBACK": {
+      "level": "SOL_ROSE",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "ROSE_IDLE": {
+      "level": "SOL_ROSE",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "ROSE_QBITINCL": {
+      "level": "SOL_ROSE",
+      "val": "int32",
+      "len": "bytesize[val]"
+    }
+  },
+  "unknown": [],
+  "setsockopt_unknown": [],
+  "getsockopt": {
+    "ROSE_DEFER": {
+      "level": "SOL_ROSE",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "ROSE_T1": {
+      "level": "SOL_ROSE",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "ROSE_T2": {
+      "level": "SOL_ROSE",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "ROSE_T3": {
+      "level": "SOL_ROSE",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "ROSE_HOLDBACK": {
+      "level": "SOL_ROSE",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "ROSE_IDLE": {
+      "level": "SOL_ROSE",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "ROSE_QBITINCL": {
+      "level": "SOL_ROSE",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    }
+  },
+  "getsockopt_unknown": [],
+  "proto_ops": {
+    "bind": "rose_bind",
+    "connect": "rose_connect",
+    "accept": "rose_accept",
+    "poll": "datagram_poll",
+    "ioctl": "rose_ioctl",
+    "sendmsg": "rose_sendmsg",
+    "recvmsg": "rose_recvmsg",
+    "setsockopt": "rose_setsockopt",
+    "getsockopt": "rose_getsockopt"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/rose/af_rose.c:1480",
+  "ops_name": "rose_proto_ops",
+  "syscall_specs": {
+    "syz_init_net_socket$KGPT_rose": "syz_init_net_socket$KGPT_rose(domain const[AF_ROSE], type const[SOCK_SEQPACKET], proto const[0]) sock_rose",
+    "bind$KGPT_rose_proto_ops": "bind$KGPT_rose_proto_ops(fd sock_rose, addr ptr[in, sockaddr_rose_any], addrlen len[addr])",
+    "connect$KGPT_rose_proto_ops": "connect$KGPT_rose_proto_ops(fd sock_rose, addr ptr[in, sockaddr_rose_any], addrlen len[addr])",
+    "accept4$KGPT_rose_proto_ops": "accept4$KGPT_rose_proto_ops(fd sock_rose, peer ptr[out, sockaddr_rose_any, opt], peerlen ptr[inout, len[peer, int32]], flags flags[accept_flags]) sock_rose",
+    "sendto$KGPT_rose_proto_ops": "sendto$KGPT_rose_proto_ops(fd sock_rose, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, sockaddr_rose_any, opt], addrlen len[addr])",
+    "recvfrom$KGPT_rose_proto_ops": "recvfrom$KGPT_rose_proto_ops(fd sock_rose, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, sockaddr_rose_any, opt], addrlen len[addr])",
+    "ioctl$KGPT_SIOCGIFMETRIC": "ioctl$KGPT_SIOCGIFMETRIC(fd sock_rose, cmd const[SIOCGIFMETRIC], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_SIOCSIFMETRIC": "ioctl$KGPT_SIOCSIFMETRIC(fd sock_rose, cmd const[SIOCSIFMETRIC], arg ptr[in, array[int8]])",
+    "getsockopt$KGPT_ROSE_DEFER": "getsockopt$KGPT_ROSE_DEFER(fd sock_rose, level const[SOL_ROSE], opt const[ROSE_DEFER], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_ROSE_T1": "getsockopt$KGPT_ROSE_T1(fd sock_rose, level const[SOL_ROSE], opt const[ROSE_T1], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_ROSE_T2": "getsockopt$KGPT_ROSE_T2(fd sock_rose, level const[SOL_ROSE], opt const[ROSE_T2], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_ROSE_T3": "getsockopt$KGPT_ROSE_T3(fd sock_rose, level const[SOL_ROSE], opt const[ROSE_T3], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_ROSE_HOLDBACK": "getsockopt$KGPT_ROSE_HOLDBACK(fd sock_rose, level const[SOL_ROSE], opt const[ROSE_HOLDBACK], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_ROSE_IDLE": "getsockopt$KGPT_ROSE_IDLE(fd sock_rose, level const[SOL_ROSE], opt const[ROSE_IDLE], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_ROSE_QBITINCL": "getsockopt$KGPT_ROSE_QBITINCL(fd sock_rose, level const[SOL_ROSE], opt const[ROSE_QBITINCL], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "setsockopt$KGPT_ROSE_DEFER": "setsockopt$KGPT_ROSE_DEFER(fd sock_rose, level const[SOL_ROSE], opt const[ROSE_DEFER], val int32, len bytesize[val])",
+    "setsockopt$KGPT_ROSE_T1": "setsockopt$KGPT_ROSE_T1(fd sock_rose, level const[SOL_ROSE], opt const[ROSE_T1], val int32, len bytesize[val])",
+    "setsockopt$KGPT_ROSE_T2": "setsockopt$KGPT_ROSE_T2(fd sock_rose, level const[SOL_ROSE], opt const[ROSE_T2], val int32, len bytesize[val])",
+    "setsockopt$KGPT_ROSE_T3": "setsockopt$KGPT_ROSE_T3(fd sock_rose, level const[SOL_ROSE], opt const[ROSE_T3], val int32, len bytesize[val])",
+    "setsockopt$KGPT_ROSE_HOLDBACK": "setsockopt$KGPT_ROSE_HOLDBACK(fd sock_rose, level const[SOL_ROSE], opt const[ROSE_HOLDBACK], val int32, len bytesize[val])",
+    "setsockopt$KGPT_ROSE_IDLE": "setsockopt$KGPT_ROSE_IDLE(fd sock_rose, level const[SOL_ROSE], opt const[ROSE_IDLE], val int32, len bytesize[val])",
+    "setsockopt$KGPT_ROSE_QBITINCL": "setsockopt$KGPT_ROSE_QBITINCL(fd sock_rose, level const[SOL_ROSE], opt const[ROSE_QBITINCL], val int32, len bytesize[val])"
+  },
+  "init_syscalls": [
+    "syz_init_net_socket$KGPT_rose"
+  ],
+  "includes": [
+    "uapi/linux/sockios.h",
+    "linux/net.h",
+    "uapi/linux/rose.h",
+    "linux/socket.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "sockaddr_rose_any": "EXISTING",
+    "sockaddr_rose": "EXISTING",
+    "full_sockaddr_rose": "EXISTING",
+    "ax25_address": "EXISTING"
+  }
+}

@@ -1,0 +1,306 @@
+{
+  "open": {
+    "filename": "/dev/ptp#",
+    "fd_name": "fd_ptp",
+    "spec": "syz_open_dev$KGPT_ptp(dev ptr[in, string[\"/dev/ptp#\"]], id proc[0, 1], flags flags[open_flags]) fd_ptp"
+  },
+  "resources": {
+    "fd_ptp": {
+      "type": "fd",
+      "spec": "resource fd_ptp[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/ptp/ptp_clock.c:158",
+  "ioctls": {
+    "PTP_MASK_CLEAR_ALL": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "PTP_CLOCK_GETCAPS2": {
+      "arg": "ptr[out, ptp_clock_caps]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "PTP_ENABLE_PPS2": {
+      "arg": "intptr",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    },
+    "PTP_SYS_OFFSET_PRECISE2": {
+      "arg": "ptr[out, ptp_sys_offset_precise]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "PTP_SYS_OFFSET_EXTENDED2": {
+      "arg": "ptr[in, ptp_sys_offset_extended]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "PTP_SYS_OFFSET2": {
+      "arg": "ptr[in, ptp_sys_offset]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "PTP_MASK_EN_SINGLE": {
+      "arg": "ptr[in, int32]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": {
+        "function": [
+          "copy_from_user"
+        ],
+        "type": [
+          "int32"
+        ],
+        "usage": [
+          "if (copy_from_user(&i, (void __user *)arg, sizeof(i)))"
+        ]
+      }
+    }
+  },
+  "types": {
+    "ptp_clock_caps": "ptp_clock_caps {\n\tmax_adj\tint32\n\tn_alarm\tint32\n\tn_ext_ts\tint32\n\tn_per_out\tint32\n\tpps\tint32\n\tn_pins\tint32\n\tcross_timestamping\tint32\n\tadjust_phase\tint32\n\tmax_phase_adj\tint32\n\trsv\tarray[int32, 11]\n}",
+    "ptp_sys_offset_precise": "ptp_sys_offset_precise {\n\tdevice\tptp_clock_time\n\tsys_realtime\tptp_clock_time\n\tsys_monoraw\tptp_clock_time\n\trsv\tarray[int32, 4]\n}"
+  },
+  "existing_ioctls": {
+    "PTP_CLOCK_GETCAPS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [
+          "ptp_clock_caps"
+        ],
+        "usage": [
+          "if (copy_to_user((void __user *)arg, &caps, sizeof(caps)))"
+        ]
+      }
+    },
+    "PTP_EXTTS_REQUEST": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "copy_from_user"
+        ],
+        "type": [
+          "ptp_clock_request"
+        ],
+        "usage": [
+          "if (copy_from_user(&req.extts, (void __user *)arg, sizeof(req.extts)))"
+        ]
+      }
+    },
+    "PTP_EXTTS_REQUEST2": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "copy_from_user"
+        ],
+        "type": [
+          "ptp_clock_request"
+        ],
+        "usage": [
+          "if (copy_from_user(&req.extts, (void __user *)arg, sizeof(req.extts)))"
+        ]
+      }
+    },
+    "PTP_PEROUT_REQUEST": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "copy_from_user"
+        ],
+        "type": [
+          "ptp_clock_request"
+        ],
+        "usage": [
+          "if (copy_from_user(&req.perout, (void __user *)arg, sizeof(req.perout)))"
+        ]
+      }
+    },
+    "PTP_PEROUT_REQUEST2": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "copy_from_user"
+        ],
+        "type": [
+          "ptp_clock_request"
+        ],
+        "usage": [
+          "if (copy_from_user(&req.perout, (void __user *)arg, sizeof(req.perout)))"
+        ]
+      }
+    },
+    "PTP_ENABLE_PPS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [],
+        "usage": [
+          "enable = arg ? 1 : 0;"
+        ]
+      }
+    },
+    "PTP_SYS_OFFSET_PRECISE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "copy_to_user"
+        ],
+        "type": [
+          "ptp_sys_offset_precise"
+        ],
+        "usage": [
+          "if (copy_to_user((void __user *)arg, &precise_offset, sizeof(precise_offset)))"
+        ]
+      }
+    },
+    "PTP_SYS_OFFSET_EXTENDED": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "memdup_user"
+        ],
+        "type": [
+          "ptp_sys_offset_extended"
+        ],
+        "usage": [
+          "extoff = memdup_user((void __user *)arg, sizeof(*extoff));"
+        ]
+      }
+    },
+    "PTP_SYS_OFFSET": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "memdup_user"
+        ],
+        "type": [
+          "ptp_sys_offset"
+        ],
+        "usage": [
+          "sysoff = memdup_user((void __user *)arg, sizeof(*sysoff));"
+        ]
+      }
+    },
+    "PTP_PIN_GETFUNC": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "copy_from_user"
+        ],
+        "type": [
+          "ptp_pin_desc"
+        ],
+        "usage": [
+          "if (copy_from_user(&pd, (void __user *)arg, sizeof(pd)))"
+        ]
+      }
+    },
+    "PTP_PIN_GETFUNC2": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "copy_from_user"
+        ],
+        "type": [
+          "ptp_pin_desc"
+        ],
+        "usage": [
+          "if (copy_from_user(&pd, (void __user *)arg, sizeof(pd)))"
+        ]
+      }
+    },
+    "PTP_PIN_SETFUNC": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "copy_from_user"
+        ],
+        "type": [
+          "ptp_pin_desc"
+        ],
+        "usage": [
+          "if (copy_from_user(&pd, (void __user *)arg, sizeof(pd)))"
+        ]
+      }
+    },
+    "PTP_PIN_SETFUNC2": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "copy_from_user"
+        ],
+        "type": [
+          "ptp_pin_desc"
+        ],
+        "usage": [
+          "if (copy_from_user(&pd, (void __user *)arg, sizeof(pd)))"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_ptp": "syz_open_dev$KGPT_ptp(dev ptr[in, string[\"/dev/ptp#\"]], id proc[0, 1], flags flags[open_flags]) fd_ptp",
+    "ioctl$KGPT_PTP_MASK_CLEAR_ALL": "ioctl$KGPT_PTP_MASK_CLEAR_ALL(fd fd_ptp, cmd const[PTP_MASK_CLEAR_ALL], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_PTP_CLOCK_GETCAPS2": "ioctl$KGPT_PTP_CLOCK_GETCAPS2(fd fd_ptp, cmd const[PTP_CLOCK_GETCAPS2], arg ptr[out, ptp_clock_caps])",
+    "ioctl$KGPT_PTP_ENABLE_PPS2": "ioctl$KGPT_PTP_ENABLE_PPS2(fd fd_ptp, cmd const[PTP_ENABLE_PPS2], arg intptr)",
+    "ioctl$KGPT_PTP_SYS_OFFSET_PRECISE2": "ioctl$KGPT_PTP_SYS_OFFSET_PRECISE2(fd fd_ptp, cmd const[PTP_SYS_OFFSET_PRECISE2], arg ptr[out, ptp_sys_offset_precise])",
+    "ioctl$KGPT_PTP_SYS_OFFSET_EXTENDED2": "ioctl$KGPT_PTP_SYS_OFFSET_EXTENDED2(fd fd_ptp, cmd const[PTP_SYS_OFFSET_EXTENDED2], arg ptr[in, ptp_sys_offset_extended])",
+    "ioctl$KGPT_PTP_SYS_OFFSET2": "ioctl$KGPT_PTP_SYS_OFFSET2(fd fd_ptp, cmd const[PTP_SYS_OFFSET2], arg ptr[in, ptp_sys_offset])",
+    "ioctl$KGPT_PTP_MASK_EN_SINGLE": "ioctl$KGPT_PTP_MASK_EN_SINGLE(fd fd_ptp, cmd const[PTP_MASK_EN_SINGLE], arg ptr[in, int32])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_ptp"
+  ],
+  "includes": [
+    "uapi/linux/ptp_clock.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "ptp_sys_offset_extended": "EXISTING",
+    "ptp_sys_offset": "EXISTING",
+    "int32": "PRIMITIVE",
+    "ptp_clock_time": "EXISTING"
+  }
+}

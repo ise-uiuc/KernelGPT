@@ -1,0 +1,450 @@
+{
+  "open": {
+    "filename": "/dev/bus/usb/###/###",
+    "fd_name": "fd_usbdev",
+    "spec": "syz_open_dev$KGPT_usbdev(dev ptr[in, string[\"/dev/bus/usb/###/###\"]], id proc[0, 1], flags flags[open_flags]) fd_usbdev"
+  },
+  "resources": {
+    "fd_usbdev": {
+      "type": "fd",
+      "spec": "resource fd_usbdev[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/usb/core/devio.c:2846",
+  "ioctls": {
+    "USBDEVFS_REAPURB32": {
+      "arg": "ptr[out, intptr]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    },
+    "USBDEVFS_REAPURBNDELAY32": {
+      "arg": "ptr[out, intptr]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    },
+    "USBDEVFS_CONTROL32": {
+      "arg": "ptr[in, usbdevfs_ctrltransfer32]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    },
+    "USBDEVFS_BULK32": {
+      "arg": "ptr[in, usbdevfs_bulktransfer32]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    },
+    "USBDEVFS_DISCSIGNAL32": {
+      "arg": "ptr[in, usbdevfs_disconnectsignal32]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    },
+    "USBDEVFS_SUBMITURB32": {
+      "arg": "ptr[in, usbdevfs_urb32]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    },
+    "USBDEVFS_IOCTL32": {
+      "arg": "ptr[in, usbdevfs_ioctl32]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    },
+    "USBDEVFS_CONNINFO_EX": {
+      "arg": "ptr[out, usbdevfs_conninfo_ex]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    }
+  },
+  "types": {},
+  "existing_ioctls": {
+    "USBDEVFS_REAPURB": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "proc_reapurb"
+        ],
+        "type": [],
+        "usage": [
+          "ret = proc_reapurb(ps, p);"
+        ]
+      }
+    },
+    "USBDEVFS_REAPURBNDELAY": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "proc_reapurbnonblock"
+        ],
+        "type": [],
+        "usage": [
+          "ret = proc_reapurbnonblock(ps, p);"
+        ]
+      }
+    },
+    "USBDEVFS_CONTROL": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "proc_control"
+        ],
+        "type": [],
+        "usage": [
+          "ret = proc_control(ps, p);"
+        ]
+      }
+    },
+    "USBDEVFS_BULK": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "proc_bulk"
+        ],
+        "type": [],
+        "usage": [
+          "ret = proc_bulk(ps, p);"
+        ]
+      }
+    },
+    "USBDEVFS_RESETEP": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "proc_resetep"
+        ],
+        "type": [],
+        "usage": [
+          "ret = proc_resetep(ps, p);"
+        ]
+      }
+    },
+    "USBDEVFS_RESET": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "USBDEVFS_CLEAR_HALT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "proc_clearhalt"
+        ],
+        "type": [],
+        "usage": [
+          "ret = proc_clearhalt(ps, p);"
+        ]
+      }
+    },
+    "USBDEVFS_GETDRIVER": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "proc_getdriver"
+        ],
+        "type": [],
+        "usage": [
+          "ret = proc_getdriver(ps, p);"
+        ]
+      }
+    },
+    "USBDEVFS_CONNECTINFO": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "proc_connectinfo"
+        ],
+        "type": [],
+        "usage": [
+          "ret = proc_connectinfo(ps, p);"
+        ]
+      }
+    },
+    "USBDEVFS_SETINTERFACE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "proc_setintf"
+        ],
+        "type": [],
+        "usage": [
+          "ret = proc_setintf(ps, p);"
+        ]
+      }
+    },
+    "USBDEVFS_SETCONFIGURATION": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "proc_setconfig"
+        ],
+        "type": [],
+        "usage": [
+          "ret = proc_setconfig(ps, p);"
+        ]
+      }
+    },
+    "USBDEVFS_SUBMITURB": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "proc_submiturb"
+        ],
+        "type": [],
+        "usage": [
+          "ret = proc_submiturb(ps, p);"
+        ]
+      }
+    },
+    "USBDEVFS_DISCARDURB": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "proc_unlinkurb"
+        ],
+        "type": [],
+        "usage": [
+          "ret = proc_unlinkurb(ps, p);"
+        ]
+      }
+    },
+    "USBDEVFS_DISCSIGNAL": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "proc_disconnectsignal"
+        ],
+        "type": [],
+        "usage": [
+          "ret = proc_disconnectsignal(ps, p);"
+        ]
+      }
+    },
+    "USBDEVFS_CLAIMINTERFACE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "proc_claiminterface"
+        ],
+        "type": [],
+        "usage": [
+          "ret = proc_claiminterface(ps, p);"
+        ]
+      }
+    },
+    "USBDEVFS_RELEASEINTERFACE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "proc_releaseinterface"
+        ],
+        "type": [],
+        "usage": [
+          "ret = proc_releaseinterface(ps, p);"
+        ]
+      }
+    },
+    "USBDEVFS_IOCTL": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "proc_ioctl_default"
+        ],
+        "type": [],
+        "usage": [
+          "ret = proc_ioctl_default(ps, p);"
+        ]
+      }
+    },
+    "USBDEVFS_CLAIM_PORT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "proc_claim_port"
+        ],
+        "type": [],
+        "usage": [
+          "ret = proc_claim_port(ps, p);"
+        ]
+      }
+    },
+    "USBDEVFS_RELEASE_PORT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "proc_release_port"
+        ],
+        "type": [],
+        "usage": [
+          "ret = proc_release_port(ps, p);"
+        ]
+      }
+    },
+    "USBDEVFS_GET_CAPABILITIES": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "proc_get_capabilities"
+        ],
+        "type": [],
+        "usage": [
+          "ret = proc_get_capabilities(ps, p);"
+        ]
+      }
+    },
+    "USBDEVFS_DISCONNECT_CLAIM": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "proc_disconnect_claim"
+        ],
+        "type": [],
+        "usage": [
+          "ret = proc_disconnect_claim(ps, p);"
+        ]
+      }
+    },
+    "USBDEVFS_ALLOC_STREAMS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "proc_alloc_streams"
+        ],
+        "type": [],
+        "usage": [
+          "ret = proc_alloc_streams(ps, p);"
+        ]
+      }
+    },
+    "USBDEVFS_FREE_STREAMS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "proc_free_streams"
+        ],
+        "type": [],
+        "usage": [
+          "ret = proc_free_streams(ps, p);"
+        ]
+      }
+    },
+    "USBDEVFS_DROP_PRIVILEGES": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "proc_drop_privileges"
+        ],
+        "type": [],
+        "usage": [
+          "ret = proc_drop_privileges(ps, p);"
+        ]
+      }
+    },
+    "USBDEVFS_GET_SPEED": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "USBDEVFS_FORBID_SUSPEND": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "USBDEVFS_ALLOW_SUSPEND": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "USBDEVFS_WAIT_FOR_RESUME": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_usbdev": "syz_open_dev$KGPT_usbdev(dev ptr[in, string[\"/dev/bus/usb/###/###\"]], id proc[0, 1], flags flags[open_flags]) fd_usbdev",
+    "ioctl$KGPT_USBDEVFS_REAPURB32": "ioctl$KGPT_USBDEVFS_REAPURB32(fd fd_usbdev, cmd const[USBDEVFS_REAPURB32], arg ptr[out, intptr])",
+    "ioctl$KGPT_USBDEVFS_REAPURBNDELAY32": "ioctl$KGPT_USBDEVFS_REAPURBNDELAY32(fd fd_usbdev, cmd const[USBDEVFS_REAPURBNDELAY32], arg ptr[out, intptr])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_usbdev"
+  ],
+  "includes": [
+    "uapi/linux/usbdevice_fs.h"
+  ],
+  "unused_types": {
+    "usbdevfs_ctrltransfer32": "usbdevfs_ctrltransfer32 {\n\tbRequestType\tint8\n\tbRequest\tint8\n\twValue\tint16\n\twIndex\tint16\n\twLength\tint16\n\ttimeout\tint32\n\tdata\tintptr\n}",
+    "usbdevfs_bulktransfer32": "usbdevfs_bulktransfer32 {\n\tep\tint32\n\tlen\tint32\n\ttimeout\tint32\n\tdata\tptr[in, array[int8]]\n}",
+    "usbdevfs_disconnectsignal32": "usbdevfs_disconnectsignal32 {\n\tsignr\tint32\n\tcontext\tintptr\n}",
+    "usbdevfs_urb32": "usbdevfs_urb32 {\n\ttype\tint8\n\tendpoint\tint8\n\tstatus\tint32\n\tflags\tint32\n\tbuffer\tintptr\n\tbuffer_length\tint32\n\tactual_length\tint32\n\tstart_frame\tint32\n\tnumber_of_packets\tint32\n\terror_count\tint32\n\tsignr\tint32\n\tusercontext\tintptr\n\tiso_frame_desc\tarray[usbdevfs_iso_packet_desc, 0]\n}",
+    "usbdevfs_ioctl32": "usbdevfs_ioctl32 {\n\tifno\tint32\n\tioctl_code\tint32\n\tdata\tintptr\n}",
+    "usbdevfs_conninfo_ex": "usbdevfs_conninfo_ex {\n\tsize\tint32\n\tbusnum\tint32\n\tdevnum\tint32\n\tspeed\tint32\n\tnum_ports\tint8\n\tports\tarray[int8, 7]\n}"
+  },
+  "ignored_types": {}
+}

@@ -1,0 +1,754 @@
+{
+  "socket": {
+    "domain": "AF_INET6",
+    "type": "SOCK_DGRAM",
+    "spec": "socket$KGPT_l2tp(domain const[AF_INET6], type const[SOCK_DGRAM], proto const[IPPROTO_L2TP]) sock_l2tp6"
+  },
+  "resources": {
+    "sock_l2tp6": {
+      "type": "sock",
+      "spec": "resource sock_l2tp6[sock]"
+    }
+  },
+  "types": {
+    "IPPROTO_L2TP": "define IPPROTO_L2TP 115",
+    "group_req": "group_req {\n\tgr_interface\tint32\n\tgr_group\t__kernel_sockaddr_storage\n}",
+    "group_source_req": "group_source_req {\n\tgsr_interface\tint32\n\tgsr_group\t__kernel_sockaddr_storage\n\tgsr_source\t__kernel_sockaddr_storage\n}",
+    "ip6_mtuinfo": "ip6_mtuinfo {\n\tip6m_addr\tsockaddr_in6\n\tip6m_mtu\tint32\n}",
+    "ipv6_opt_hdr": "ipv6_opt_hdr {\n\tnexthdr\tint8\n\thdrlen\tint8\n\topts\tarray[int8]\n}",
+    "ipv6_txoptions": "ipv6_txoptions {\n\trefcnt\trefcount_t\n\ttot_len\tint32\n\topt_flen\tint16\n\topt_nflen\tint16\n\thopopt\tptr[in, ipv6_opt_hdr]\n\tdst0opt\tptr[in, ipv6_opt_hdr]\n\tsrcrt\tptr[in, ipv6_rt_hdr]\n\tdst1opt\tptr[in, ipv6_opt_hdr]\n}",
+    "group_filter": "group_filter {\n\tgf_interface\tint32\n\tgf_group\t__kernel_sockaddr_storage\n\tgf_fmode\tint32\n\tgf_numsrc\tlen[gf_slist, int32]\n\tgf_slist\tarray[__kernel_sockaddr_storage]\n}",
+    "refcount_t": "type refcount_t int32",
+    "__kernel_sockaddr_storage": "__kernel_sockaddr_storage {\n\tss_family\t__kernel_sa_family_t\n\t__data\tarray[int8, __K_SS_MAXSIZE_minus_sizeof_ushort]\n}",
+    "__K_SS_MAXSIZE_minus_sizeof_ushort": "define __K_SS_MAXSIZE_minus_sizeof_ushort _K_SS_MAXSIZE - sizeof(unsigned short)",
+    "__kernel_sa_family_t": "type __kernel_sa_family_t ptr[in, array[int8]]"
+  },
+  "socket_addr": "sockaddr_l2tpip6",
+  "ioctls": {},
+  "existing_ioctls": {
+    "SIOCOUTQ": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "karg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sk_wmem_alloc_get"
+        ],
+        "type": [],
+        "usage": [
+          "*karg = sk_wmem_alloc_get(sk);"
+        ]
+      }
+    },
+    "SIOCINQ": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "karg"
+      ],
+      "arg_inference": {
+        "function": [
+          "skb_peek"
+        ],
+        "type": [
+          "sk_buff"
+        ],
+        "usage": [
+          "spin_lock_bh(&sk->sk_receive_queue.lock);",
+          "skb = skb_peek(&sk->sk_receive_queue);",
+          "*karg = skb ? skb->len : 0;",
+          "spin_unlock_bh(&sk->sk_receive_queue.lock);"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "setsockopt": {
+    "IPV6_UNICAST_HOPS": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_MULTICAST_LOOP": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_MULTICAST_HOPS": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_MTU": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_MINHOPCOUNT": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_RECVERR_RFC4884": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_MULTICAST_ALL": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_AUTOFLOWLABEL": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_DONTFRAG": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_RECVERR": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_ROUTER_ALERT_ISOLATE": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_MTU_DISCOVER": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_FLOWINFO_SEND": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_ADDR_PREFERENCES": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_V6ONLY": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_RECVPKTINFO": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_2292PKTINFO": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_RECVHOPLIMIT": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_2292HOPLIMIT": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_RECVRTHDR": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_2292RTHDR": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_RECVHOPOPTS": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_2292HOPOPTS": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_RECVDSTOPTS": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_2292DSTOPTS": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_TCLASS": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_RECVTCLASS": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_FLOWINFO": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_RECVPATHMTU": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_TRANSPARENT": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_FREEBIND": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_RECVORIGDSTADDR": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_PKTINFO": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[in, ipv6_mreq]",
+      "len": "bytesize[val]"
+    },
+    "IPV6_UNICAST_IF": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_MULTICAST_IF": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_ADD_MEMBERSHIP": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[in, ipv6_mreq]",
+      "len": "bytesize[val]"
+    },
+    "IPV6_DROP_MEMBERSHIP": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[in, ipv6_mreq]",
+      "len": "bytesize[val]"
+    },
+    "IPV6_JOIN_ANYCAST": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[in, ipv6_mreq]",
+      "len": "bytesize[val]"
+    },
+    "IPV6_LEAVE_ANYCAST": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[in, ipv6_mreq]",
+      "len": "bytesize[val]"
+    },
+    "IPV6_ROUTER_ALERT": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_RECVFRAGSIZE": {
+      "level": "IPPROTO_IPV6",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "IPV6_HOPOPTS": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[in, ipv6_opt_hdr]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "IPV6_RTHDRDSTOPTS": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[in, ipv6_opt_hdr]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "IPV6_RTHDR": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[in, ipv6_opt_hdr]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "IPV6_DSTOPTS": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[in, ipv6_opt_hdr]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "IPV6_2292PKTOPTIONS": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[in, ipv6_txoptions]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "MCAST_JOIN_GROUP": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[in, group_req]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "MCAST_LEAVE_GROUP": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[in, group_req]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "MCAST_JOIN_SOURCE_GROUP": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[in, group_source_req]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "MCAST_LEAVE_SOURCE_GROUP": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[in, group_source_req]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "MCAST_BLOCK_SOURCE": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[in, group_source_req]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "MCAST_UNBLOCK_SOURCE": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[in, group_source_req]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "MCAST_MSFILTER": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[in, group_filter]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "IPV6_FLOWLABEL_MGR": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[in, in6_flowlabel_req]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "IPV6_IPSEC_POLICY": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[in, xfrm_userpolicy_info]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "IPV6_XFRM_POLICY": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[in, xfrm_userpolicy_info]",
+      "len": "len[val]",
+      "val_inference": null
+    }
+  },
+  "unknown": [],
+  "setsockopt_unknown": [],
+  "getsockopt": {
+    "IPV6_ADDRFORM": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_MTU": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_V6ONLY": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_RECVPKTINFO": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_2292PKTINFO": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_RECVHOPLIMIT": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_2292HOPLIMIT": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_RECVRTHDR": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_2292RTHDR": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_RECVHOPOPTS": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_2292HOPOPTS": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_RECVDSTOPTS": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_2292DSTOPTS": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_TCLASS": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_RECVTCLASS": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_FLOWINFO": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_RECVPATHMTU": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_PATHMTU": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, ip6_mtuinfo]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_TRANSPARENT": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_FREEBIND": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_RECVORIGDSTADDR": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_UNICAST_HOPS": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_MULTICAST_HOPS": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_MULTICAST_LOOP": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_MULTICAST_IF": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_MULTICAST_ALL": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_UNICAST_IF": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_MTU_DISCOVER": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_RECVERR": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_FLOWINFO_SEND": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_FLOWLABEL_MGR": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, in6_flowlabel_req]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_ADDR_PREFERENCES": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_MINHOPCOUNT": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_DONTFRAG": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_AUTOFLOWLABEL": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_RECVFRAGSIZE": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_ROUTER_ALERT_ISOLATE": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_RECVERR_RFC4884": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "MCAST_MSFILTER": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[inout, group_filter]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "IPV6_2292PKTOPTIONS": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, array[int8]]",
+      "len": "ptr[inout, len[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_HOPOPTS": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, array[int8]]",
+      "len": "ptr[inout, len[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_RTHDRDSTOPTS": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, array[int8]]",
+      "len": "ptr[inout, len[val, int32]]",
+      "val_inference": null
+    },
+    "IPV6_DSTOPTS": {
+      "level": "IPPROTO_IPV6",
+      "val": "ptr[out, array[int8]]",
+      "len": "ptr[inout, len[val, int32]]",
+      "val_inference": null
+    }
+  },
+  "getsockopt_unknown": [],
+  "proto_ops": {
+    "bind": "l2tp_ip6_bind",
+    "connect": "l2tp_ip6_connect",
+    "ioctl": "l2tp_ioctl",
+    "sendmsg": "l2tp_ip6_sendmsg",
+    "recvmsg": "l2tp_ip6_recvmsg",
+    "setsockopt": "ipv6_setsockopt",
+    "getsockopt": "ipv6_getsockopt"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/l2tp/l2tp_ip6.c:712",
+  "ops_name": "l2tp_ip6_prot",
+  "syscall_specs": {
+    "socket$KGPT_l2tp": "socket$KGPT_l2tp(domain const[AF_INET6], type const[SOCK_DGRAM], proto const[IPPROTO_L2TP]) sock_l2tp6",
+    "bind$KGPT_l2tp_ip6_prot": "bind$KGPT_l2tp_ip6_prot(fd sock_l2tp6, addr ptr[in, sockaddr_l2tpip6], addrlen len[addr])",
+    "connect$KGPT_l2tp_ip6_prot": "connect$KGPT_l2tp_ip6_prot(fd sock_l2tp6, addr ptr[in, sockaddr_l2tpip6], addrlen len[addr])",
+    "sendto$KGPT_l2tp_ip6_prot": "sendto$KGPT_l2tp_ip6_prot(fd sock_l2tp6, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, sockaddr_l2tpip6, opt], addrlen len[addr])",
+    "recvfrom$KGPT_l2tp_ip6_prot": "recvfrom$KGPT_l2tp_ip6_prot(fd sock_l2tp6, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, sockaddr_l2tpip6, opt], addrlen len[addr])",
+    "getsockopt$KGPT_IPV6_ADDRFORM": "getsockopt$KGPT_IPV6_ADDRFORM(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_ADDRFORM], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_MTU": "getsockopt$KGPT_IPV6_MTU(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_MTU], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_V6ONLY": "getsockopt$KGPT_IPV6_V6ONLY(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_V6ONLY], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_RECVPKTINFO": "getsockopt$KGPT_IPV6_RECVPKTINFO(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_RECVPKTINFO], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_2292PKTINFO": "getsockopt$KGPT_IPV6_2292PKTINFO(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_2292PKTINFO], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_RECVHOPLIMIT": "getsockopt$KGPT_IPV6_RECVHOPLIMIT(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_RECVHOPLIMIT], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_2292HOPLIMIT": "getsockopt$KGPT_IPV6_2292HOPLIMIT(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_2292HOPLIMIT], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_RECVRTHDR": "getsockopt$KGPT_IPV6_RECVRTHDR(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_RECVRTHDR], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_2292RTHDR": "getsockopt$KGPT_IPV6_2292RTHDR(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_2292RTHDR], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_RECVHOPOPTS": "getsockopt$KGPT_IPV6_RECVHOPOPTS(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_RECVHOPOPTS], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_2292HOPOPTS": "getsockopt$KGPT_IPV6_2292HOPOPTS(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_2292HOPOPTS], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_RECVDSTOPTS": "getsockopt$KGPT_IPV6_RECVDSTOPTS(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_RECVDSTOPTS], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_2292DSTOPTS": "getsockopt$KGPT_IPV6_2292DSTOPTS(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_2292DSTOPTS], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_TCLASS": "getsockopt$KGPT_IPV6_TCLASS(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_TCLASS], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_RECVTCLASS": "getsockopt$KGPT_IPV6_RECVTCLASS(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_RECVTCLASS], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_FLOWINFO": "getsockopt$KGPT_IPV6_FLOWINFO(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_FLOWINFO], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_RECVPATHMTU": "getsockopt$KGPT_IPV6_RECVPATHMTU(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_RECVPATHMTU], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_PATHMTU": "getsockopt$KGPT_IPV6_PATHMTU(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_PATHMTU], val ptr[out, ip6_mtuinfo], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_TRANSPARENT": "getsockopt$KGPT_IPV6_TRANSPARENT(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_TRANSPARENT], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_FREEBIND": "getsockopt$KGPT_IPV6_FREEBIND(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_FREEBIND], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_RECVORIGDSTADDR": "getsockopt$KGPT_IPV6_RECVORIGDSTADDR(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_RECVORIGDSTADDR], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_UNICAST_HOPS": "getsockopt$KGPT_IPV6_UNICAST_HOPS(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_UNICAST_HOPS], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_MULTICAST_HOPS": "getsockopt$KGPT_IPV6_MULTICAST_HOPS(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_MULTICAST_HOPS], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_MULTICAST_LOOP": "getsockopt$KGPT_IPV6_MULTICAST_LOOP(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_MULTICAST_LOOP], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_MULTICAST_IF": "getsockopt$KGPT_IPV6_MULTICAST_IF(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_MULTICAST_IF], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_MULTICAST_ALL": "getsockopt$KGPT_IPV6_MULTICAST_ALL(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_MULTICAST_ALL], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_UNICAST_IF": "getsockopt$KGPT_IPV6_UNICAST_IF(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_UNICAST_IF], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_MTU_DISCOVER": "getsockopt$KGPT_IPV6_MTU_DISCOVER(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_MTU_DISCOVER], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_RECVERR": "getsockopt$KGPT_IPV6_RECVERR(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_RECVERR], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_FLOWINFO_SEND": "getsockopt$KGPT_IPV6_FLOWINFO_SEND(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_FLOWINFO_SEND], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_FLOWLABEL_MGR": "getsockopt$KGPT_IPV6_FLOWLABEL_MGR(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_FLOWLABEL_MGR], val ptr[out, in6_flowlabel_req], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_ADDR_PREFERENCES": "getsockopt$KGPT_IPV6_ADDR_PREFERENCES(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_ADDR_PREFERENCES], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_MINHOPCOUNT": "getsockopt$KGPT_IPV6_MINHOPCOUNT(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_MINHOPCOUNT], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_DONTFRAG": "getsockopt$KGPT_IPV6_DONTFRAG(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_DONTFRAG], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_AUTOFLOWLABEL": "getsockopt$KGPT_IPV6_AUTOFLOWLABEL(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_AUTOFLOWLABEL], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_RECVFRAGSIZE": "getsockopt$KGPT_IPV6_RECVFRAGSIZE(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_RECVFRAGSIZE], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_ROUTER_ALERT_ISOLATE": "getsockopt$KGPT_IPV6_ROUTER_ALERT_ISOLATE(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_ROUTER_ALERT_ISOLATE], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_IPV6_RECVERR_RFC4884": "getsockopt$KGPT_IPV6_RECVERR_RFC4884(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_RECVERR_RFC4884], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_MCAST_MSFILTER": "getsockopt$KGPT_MCAST_MSFILTER(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[MCAST_MSFILTER], val ptr[inout, group_filter], len len[val])",
+    "getsockopt$KGPT_IPV6_2292PKTOPTIONS": "getsockopt$KGPT_IPV6_2292PKTOPTIONS(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_2292PKTOPTIONS], val ptr[out, array[int8]], len ptr[inout, len[val, int32]])",
+    "getsockopt$KGPT_IPV6_HOPOPTS": "getsockopt$KGPT_IPV6_HOPOPTS(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_HOPOPTS], val ptr[out, array[int8]], len ptr[inout, len[val, int32]])",
+    "getsockopt$KGPT_IPV6_RTHDRDSTOPTS": "getsockopt$KGPT_IPV6_RTHDRDSTOPTS(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_RTHDRDSTOPTS], val ptr[out, array[int8]], len ptr[inout, len[val, int32]])",
+    "getsockopt$KGPT_IPV6_DSTOPTS": "getsockopt$KGPT_IPV6_DSTOPTS(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_DSTOPTS], val ptr[out, array[int8]], len ptr[inout, len[val, int32]])",
+    "setsockopt$KGPT_IPV6_UNICAST_HOPS": "setsockopt$KGPT_IPV6_UNICAST_HOPS(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_UNICAST_HOPS], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_MULTICAST_LOOP": "setsockopt$KGPT_IPV6_MULTICAST_LOOP(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_MULTICAST_LOOP], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_MULTICAST_HOPS": "setsockopt$KGPT_IPV6_MULTICAST_HOPS(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_MULTICAST_HOPS], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_MTU": "setsockopt$KGPT_IPV6_MTU(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_MTU], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_MINHOPCOUNT": "setsockopt$KGPT_IPV6_MINHOPCOUNT(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_MINHOPCOUNT], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_RECVERR_RFC4884": "setsockopt$KGPT_IPV6_RECVERR_RFC4884(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_RECVERR_RFC4884], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_MULTICAST_ALL": "setsockopt$KGPT_IPV6_MULTICAST_ALL(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_MULTICAST_ALL], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_AUTOFLOWLABEL": "setsockopt$KGPT_IPV6_AUTOFLOWLABEL(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_AUTOFLOWLABEL], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_DONTFRAG": "setsockopt$KGPT_IPV6_DONTFRAG(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_DONTFRAG], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_RECVERR": "setsockopt$KGPT_IPV6_RECVERR(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_RECVERR], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_ROUTER_ALERT_ISOLATE": "setsockopt$KGPT_IPV6_ROUTER_ALERT_ISOLATE(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_ROUTER_ALERT_ISOLATE], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_MTU_DISCOVER": "setsockopt$KGPT_IPV6_MTU_DISCOVER(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_MTU_DISCOVER], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_FLOWINFO_SEND": "setsockopt$KGPT_IPV6_FLOWINFO_SEND(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_FLOWINFO_SEND], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_ADDR_PREFERENCES": "setsockopt$KGPT_IPV6_ADDR_PREFERENCES(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_ADDR_PREFERENCES], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_V6ONLY": "setsockopt$KGPT_IPV6_V6ONLY(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_V6ONLY], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_RECVPKTINFO": "setsockopt$KGPT_IPV6_RECVPKTINFO(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_RECVPKTINFO], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_2292PKTINFO": "setsockopt$KGPT_IPV6_2292PKTINFO(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_2292PKTINFO], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_RECVHOPLIMIT": "setsockopt$KGPT_IPV6_RECVHOPLIMIT(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_RECVHOPLIMIT], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_2292HOPLIMIT": "setsockopt$KGPT_IPV6_2292HOPLIMIT(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_2292HOPLIMIT], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_RECVRTHDR": "setsockopt$KGPT_IPV6_RECVRTHDR(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_RECVRTHDR], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_2292RTHDR": "setsockopt$KGPT_IPV6_2292RTHDR(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_2292RTHDR], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_RECVHOPOPTS": "setsockopt$KGPT_IPV6_RECVHOPOPTS(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_RECVHOPOPTS], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_2292HOPOPTS": "setsockopt$KGPT_IPV6_2292HOPOPTS(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_2292HOPOPTS], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_RECVDSTOPTS": "setsockopt$KGPT_IPV6_RECVDSTOPTS(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_RECVDSTOPTS], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_2292DSTOPTS": "setsockopt$KGPT_IPV6_2292DSTOPTS(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_2292DSTOPTS], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_TCLASS": "setsockopt$KGPT_IPV6_TCLASS(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_TCLASS], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_RECVTCLASS": "setsockopt$KGPT_IPV6_RECVTCLASS(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_RECVTCLASS], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_FLOWINFO": "setsockopt$KGPT_IPV6_FLOWINFO(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_FLOWINFO], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_RECVPATHMTU": "setsockopt$KGPT_IPV6_RECVPATHMTU(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_RECVPATHMTU], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_TRANSPARENT": "setsockopt$KGPT_IPV6_TRANSPARENT(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_TRANSPARENT], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_FREEBIND": "setsockopt$KGPT_IPV6_FREEBIND(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_FREEBIND], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_RECVORIGDSTADDR": "setsockopt$KGPT_IPV6_RECVORIGDSTADDR(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_RECVORIGDSTADDR], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_PKTINFO": "setsockopt$KGPT_IPV6_PKTINFO(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_PKTINFO], val ptr[in, ipv6_mreq], len bytesize[val])",
+    "setsockopt$KGPT_IPV6_UNICAST_IF": "setsockopt$KGPT_IPV6_UNICAST_IF(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_UNICAST_IF], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_MULTICAST_IF": "setsockopt$KGPT_IPV6_MULTICAST_IF(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_MULTICAST_IF], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_ADD_MEMBERSHIP": "setsockopt$KGPT_IPV6_ADD_MEMBERSHIP(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_ADD_MEMBERSHIP], val ptr[in, ipv6_mreq], len bytesize[val])",
+    "setsockopt$KGPT_IPV6_DROP_MEMBERSHIP": "setsockopt$KGPT_IPV6_DROP_MEMBERSHIP(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_DROP_MEMBERSHIP], val ptr[in, ipv6_mreq], len bytesize[val])",
+    "setsockopt$KGPT_IPV6_JOIN_ANYCAST": "setsockopt$KGPT_IPV6_JOIN_ANYCAST(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_JOIN_ANYCAST], val ptr[in, ipv6_mreq], len bytesize[val])",
+    "setsockopt$KGPT_IPV6_LEAVE_ANYCAST": "setsockopt$KGPT_IPV6_LEAVE_ANYCAST(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_LEAVE_ANYCAST], val ptr[in, ipv6_mreq], len bytesize[val])",
+    "setsockopt$KGPT_IPV6_ROUTER_ALERT": "setsockopt$KGPT_IPV6_ROUTER_ALERT(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_ROUTER_ALERT], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_RECVFRAGSIZE": "setsockopt$KGPT_IPV6_RECVFRAGSIZE(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_RECVFRAGSIZE], val int32, len bytesize[val])",
+    "setsockopt$KGPT_IPV6_HOPOPTS": "setsockopt$KGPT_IPV6_HOPOPTS(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_HOPOPTS], val ptr[in, ipv6_opt_hdr], len len[val])",
+    "setsockopt$KGPT_IPV6_RTHDRDSTOPTS": "setsockopt$KGPT_IPV6_RTHDRDSTOPTS(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_RTHDRDSTOPTS], val ptr[in, ipv6_opt_hdr], len len[val])",
+    "setsockopt$KGPT_IPV6_RTHDR": "setsockopt$KGPT_IPV6_RTHDR(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_RTHDR], val ptr[in, ipv6_opt_hdr], len len[val])",
+    "setsockopt$KGPT_IPV6_DSTOPTS": "setsockopt$KGPT_IPV6_DSTOPTS(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_DSTOPTS], val ptr[in, ipv6_opt_hdr], len len[val])",
+    "setsockopt$KGPT_IPV6_2292PKTOPTIONS": "setsockopt$KGPT_IPV6_2292PKTOPTIONS(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_2292PKTOPTIONS], val ptr[in, ipv6_txoptions], len len[val])",
+    "setsockopt$KGPT_MCAST_JOIN_GROUP": "setsockopt$KGPT_MCAST_JOIN_GROUP(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[MCAST_JOIN_GROUP], val ptr[in, group_req], len len[val])",
+    "setsockopt$KGPT_MCAST_LEAVE_GROUP": "setsockopt$KGPT_MCAST_LEAVE_GROUP(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[MCAST_LEAVE_GROUP], val ptr[in, group_req], len len[val])",
+    "setsockopt$KGPT_MCAST_JOIN_SOURCE_GROUP": "setsockopt$KGPT_MCAST_JOIN_SOURCE_GROUP(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[MCAST_JOIN_SOURCE_GROUP], val ptr[in, group_source_req], len len[val])",
+    "setsockopt$KGPT_MCAST_LEAVE_SOURCE_GROUP": "setsockopt$KGPT_MCAST_LEAVE_SOURCE_GROUP(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[MCAST_LEAVE_SOURCE_GROUP], val ptr[in, group_source_req], len len[val])",
+    "setsockopt$KGPT_MCAST_BLOCK_SOURCE": "setsockopt$KGPT_MCAST_BLOCK_SOURCE(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[MCAST_BLOCK_SOURCE], val ptr[in, group_source_req], len len[val])",
+    "setsockopt$KGPT_MCAST_UNBLOCK_SOURCE": "setsockopt$KGPT_MCAST_UNBLOCK_SOURCE(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[MCAST_UNBLOCK_SOURCE], val ptr[in, group_source_req], len len[val])",
+    "setsockopt$KGPT_MCAST_MSFILTER": "setsockopt$KGPT_MCAST_MSFILTER(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[MCAST_MSFILTER], val ptr[in, group_filter], len len[val])",
+    "setsockopt$KGPT_IPV6_FLOWLABEL_MGR": "setsockopt$KGPT_IPV6_FLOWLABEL_MGR(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_FLOWLABEL_MGR], val ptr[in, in6_flowlabel_req], len len[val])",
+    "setsockopt$KGPT_IPV6_IPSEC_POLICY": "setsockopt$KGPT_IPV6_IPSEC_POLICY(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_IPSEC_POLICY], val ptr[in, xfrm_userpolicy_info], len len[val])",
+    "setsockopt$KGPT_IPV6_XFRM_POLICY": "setsockopt$KGPT_IPV6_XFRM_POLICY(fd sock_l2tp6, level const[IPPROTO_IPV6], opt const[IPV6_XFRM_POLICY], val ptr[in, xfrm_userpolicy_info], len len[val])"
+  },
+  "init_syscalls": [
+    "socket$KGPT_l2tp"
+  ],
+  "includes": [
+    "linux/net.h",
+    "uapi/linux/in.h",
+    "samples/bpf/net_shared.h",
+    "uapi/linux/in6.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}
