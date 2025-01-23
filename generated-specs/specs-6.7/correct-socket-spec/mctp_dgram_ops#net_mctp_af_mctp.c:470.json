@@ -1,0 +1,87 @@
+{
+  "socket": {
+    "domain": "AF_MCTP",
+    "type": "SOCK_DGRAM",
+    "spec": "socket$KGPT_MCTP(domain const[AF_MCTP], type const[SOCK_DGRAM], proto const[0]) sock_mctp"
+  },
+  "resources": {
+    "sock_mctp": {
+      "type": "sock",
+      "spec": "resource sock_mctp[sock]"
+    }
+  },
+  "types": {
+    "sockaddr_mctp": "sockaddr_mctp {\n\tsmctp_family\tconst[AF_MCTP, int16]\n\t__smctp_pad0\tconst[0, int16]\n\tsmctp_network\tint32\n\tsmctp_addr\tmctp_addr\n\tsmctp_type\tint8\n\tsmctp_tag\tint8\n\t__smctp_pad1\tconst[0, int8]\n}",
+    "mctp_ioc_tag_ctl": "mctp_ioc_tag_ctl {\n\tpeer_addr\tmctp_eid_t\n\ttag\tint8\n\tflags\tint16\n}",
+    "mctp_addr": "mctp_addr {\n\ts_addr\tmctp_eid_t\n}",
+    "mctp_eid_t": "type mctp_eid_t ptr[in, array[int8]]"
+  },
+  "socket_addr": "sockaddr_mctp",
+  "ioctls": {
+    "SIOCMCTPALLOCTAG": {
+      "arg": "ptr[inout, mctp_ioc_tag_ctl]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "SIOCMCTPDROPTAG": {
+      "arg": "ptr[in, mctp_ioc_tag_ctl]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    }
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "setsockopt": {
+    "MCTP_OPT_ADDR_EXT": {
+      "level": "SOL_MCTP",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]"
+    }
+  },
+  "unknown": [],
+  "setsockopt_unknown": [],
+  "getsockopt": {
+    "MCTP_OPT_ADDR_EXT": {
+      "level": "SOL_MCTP",
+      "val": "ptr[out, int32]",
+      "len": "ptr[in, int32]",
+      "val_inference": null
+    }
+  },
+  "getsockopt_unknown": [],
+  "proto_ops": {
+    "bind": "mctp_bind",
+    "connect": "sock_no_connect",
+    "accept": "sock_no_accept",
+    "poll": "datagram_poll",
+    "ioctl": "mctp_ioctl",
+    "sendmsg": "mctp_sendmsg",
+    "recvmsg": "mctp_recvmsg",
+    "setsockopt": "mctp_setsockopt",
+    "getsockopt": "mctp_getsockopt"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/mctp/af_mctp.c:470",
+  "ops_name": "mctp_dgram_ops",
+  "syscall_specs": {
+    "socket$KGPT_MCTP": "socket$KGPT_MCTP(domain const[AF_MCTP], type const[SOCK_DGRAM], proto const[0]) sock_mctp",
+    "bind$KGPT_mctp_dgram_ops": "bind$KGPT_mctp_dgram_ops(fd sock_mctp, addr ptr[in, sockaddr_mctp], addrlen len[addr])",
+    "connect$KGPT_mctp_dgram_ops": "connect$KGPT_mctp_dgram_ops(fd sock_mctp, addr ptr[in, sockaddr_mctp], addrlen len[addr])",
+    "accept4$KGPT_mctp_dgram_ops": "accept4$KGPT_mctp_dgram_ops(fd sock_mctp, peer ptr[out, sockaddr_mctp, opt], peerlen ptr[inout, len[peer, int32]], flags flags[accept_flags]) sock_mctp",
+    "sendto$KGPT_mctp_dgram_ops": "sendto$KGPT_mctp_dgram_ops(fd sock_mctp, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, sockaddr_mctp, opt], addrlen len[addr])",
+    "recvfrom$KGPT_mctp_dgram_ops": "recvfrom$KGPT_mctp_dgram_ops(fd sock_mctp, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, sockaddr_mctp, opt], addrlen len[addr])",
+    "ioctl$KGPT_SIOCMCTPALLOCTAG": "ioctl$KGPT_SIOCMCTPALLOCTAG(fd sock_mctp, cmd const[SIOCMCTPALLOCTAG], arg ptr[inout, mctp_ioc_tag_ctl])",
+    "ioctl$KGPT_SIOCMCTPDROPTAG": "ioctl$KGPT_SIOCMCTPDROPTAG(fd sock_mctp, cmd const[SIOCMCTPDROPTAG], arg ptr[in, mctp_ioc_tag_ctl])",
+    "getsockopt$KGPT_MCTP_OPT_ADDR_EXT": "getsockopt$KGPT_MCTP_OPT_ADDR_EXT(fd sock_mctp, level const[SOL_MCTP], opt const[MCTP_OPT_ADDR_EXT], val ptr[out, int32], len ptr[in, int32])",
+    "setsockopt$KGPT_MCTP_OPT_ADDR_EXT": "setsockopt$KGPT_MCTP_OPT_ADDR_EXT(fd sock_mctp, level const[SOL_MCTP], opt const[MCTP_OPT_ADDR_EXT], val ptr[in, int32], len bytesize[val])"
+  },
+  "init_syscalls": [
+    "socket$KGPT_MCTP"
+  ],
+  "includes": [
+    "linux/net.h",
+    "linux/socket.h",
+    "uapi/linux/mctp.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

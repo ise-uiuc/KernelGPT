@@ -1,0 +1,267 @@
+{
+  "open": {
+    "filename": "/dev/snd/controlC#",
+    "fd_name": "fd_snd_ctl",
+    "spec": "syz_open_dev$KGPT_snd_control(dev ptr[in, string[\"/dev/snd/controlC#\"]], id proc[0, 31], flags flags[open_flags]) fd_snd_ctl"
+  },
+  "resources": {
+    "fd_snd_ctl": {
+      "type": "fd",
+      "spec": "resource fd_snd_ctl[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/sound/core/control.c:2369",
+  "ioctls": {
+    "SNDRV_CTL_IOCTL_POWER": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    }
+  },
+  "types": {},
+  "existing_ioctls": {
+    "SNDRV_CTL_IOCTL_PVERSION": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [
+        "ip"
+      ],
+      "arg_inference": null
+    },
+    "SNDRV_CTL_IOCTL_CARD_INFO": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_ctl_card_info"
+        ],
+        "type": [],
+        "usage": [
+          "return snd_ctl_card_info(card, ctl, cmd, argp);"
+        ]
+      }
+    },
+    "SNDRV_CTL_IOCTL_ELEM_LIST": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_ctl_elem_list_user"
+        ],
+        "type": [],
+        "usage": [
+          "return snd_ctl_elem_list_user(card, argp);"
+        ]
+      }
+    },
+    "SNDRV_CTL_IOCTL_ELEM_INFO": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_ctl_elem_info_user"
+        ],
+        "type": [],
+        "usage": [
+          "return snd_ctl_elem_info_user(ctl, argp);"
+        ]
+      }
+    },
+    "SNDRV_CTL_IOCTL_ELEM_READ": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_ctl_elem_read_user"
+        ],
+        "type": [],
+        "usage": [
+          "return snd_ctl_elem_read_user(card, argp);"
+        ]
+      }
+    },
+    "SNDRV_CTL_IOCTL_ELEM_WRITE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_ctl_elem_write_user"
+        ],
+        "type": [],
+        "usage": [
+          "return snd_ctl_elem_write_user(ctl, argp);"
+        ]
+      }
+    },
+    "SNDRV_CTL_IOCTL_ELEM_LOCK": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_ctl_elem_lock"
+        ],
+        "type": [],
+        "usage": [
+          "return snd_ctl_elem_lock(ctl, argp);"
+        ]
+      }
+    },
+    "SNDRV_CTL_IOCTL_ELEM_UNLOCK": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_ctl_elem_unlock"
+        ],
+        "type": [],
+        "usage": [
+          "return snd_ctl_elem_unlock(ctl, argp);"
+        ]
+      }
+    },
+    "SNDRV_CTL_IOCTL_ELEM_ADD": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_ctl_elem_add_user"
+        ],
+        "type": [],
+        "usage": [
+          "return snd_ctl_elem_add_user(ctl, argp, 0);"
+        ]
+      }
+    },
+    "SNDRV_CTL_IOCTL_ELEM_REPLACE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_ctl_elem_add_user"
+        ],
+        "type": [],
+        "usage": [
+          "return snd_ctl_elem_add_user(ctl, argp, 1);"
+        ]
+      }
+    },
+    "SNDRV_CTL_IOCTL_ELEM_REMOVE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_ctl_elem_remove"
+        ],
+        "type": [],
+        "usage": [
+          "return snd_ctl_elem_remove(ctl, argp);"
+        ]
+      }
+    },
+    "SNDRV_CTL_IOCTL_SUBSCRIBE_EVENTS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "ip"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_ctl_subscribe_events"
+        ],
+        "type": [],
+        "usage": [
+          "return snd_ctl_subscribe_events(ctl, ip);"
+        ]
+      }
+    },
+    "SNDRV_CTL_IOCTL_TLV_READ": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_ctl_tlv_ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "down_read(&ctl->card->controls_rwsem);",
+          "err = snd_ctl_tlv_ioctl(ctl, argp, SNDRV_CTL_TLV_OP_READ);",
+          "up_read(&ctl->card->controls_rwsem);"
+        ]
+      }
+    },
+    "SNDRV_CTL_IOCTL_TLV_WRITE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_ctl_tlv_ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "down_write(&ctl->card->controls_rwsem);",
+          "err = snd_ctl_tlv_ioctl(ctl, argp, SNDRV_CTL_TLV_OP_WRITE);",
+          "up_write(&ctl->card->controls_rwsem);"
+        ]
+      }
+    },
+    "SNDRV_CTL_IOCTL_TLV_COMMAND": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_ctl_tlv_ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "down_write(&ctl->card->controls_rwsem);",
+          "err = snd_ctl_tlv_ioctl(ctl, argp, SNDRV_CTL_TLV_OP_CMD);",
+          "up_write(&ctl->card->controls_rwsem);"
+        ]
+      }
+    },
+    "SNDRV_CTL_IOCTL_POWER_STATE": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [
+        "ip"
+      ],
+      "arg_inference": null
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_snd_control": "syz_open_dev$KGPT_snd_control(dev ptr[in, string[\"/dev/snd/controlC#\"]], id proc[0, 31], flags flags[open_flags]) fd_snd_ctl",
+    "ioctl$KGPT_SNDRV_CTL_IOCTL_POWER": "ioctl$KGPT_SNDRV_CTL_IOCTL_POWER(fd fd_snd_ctl, cmd const[SNDRV_CTL_IOCTL_POWER], arg ptr[in, array[int8]])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_snd_control"
+  ],
+  "includes": [
+    "uapi/sound/asound.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

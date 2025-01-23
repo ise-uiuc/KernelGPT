@@ -1,0 +1,352 @@
+{
+  "socket": {
+    "domain": "AF_ATMSVC",
+    "type": "SOCK_DGRAM",
+    "spec": "socket$KGPT_atmsvc(domain const[AF_ATMSVC], type const[SOCK_DGRAM], proto const[0]) sock_atmsvc"
+  },
+  "resources": {
+    "sock_atmsvc": {
+      "type": "sock",
+      "spec": "resource sock_atmsvc[sock]"
+    }
+  },
+  "types": {
+    "atm_backend_t": "type atm_backend_t ptr[in, array[int8]]",
+    "atm_dev_stats": "atm_dev_stats {\n\taal0\tatm_aal_stats\n\taal34\tatm_aal_stats\n\taal5\tatm_aal_stats\n}",
+    "atm_ci_range": "type atm_ci_range ptr[in, array[int8]]",
+    "atm_link_rate": "type atm_link_rate ptr[in, array[int8]]",
+    "atm_sap": "atm_sap {\n\tbhli\tatm_bhli\n\tblli\tarray[atm_blli, ATM_MAX_BLLI]\n}",
+    "atm_qos": "atm_qos {\n\ttxtp\tatm_trafprm\n\trxtp\tatm_trafprm\n\taal\tint8\n}",
+    "sockaddr_atmpvc": "sockaddr_atmpvc {\n\tsap_family\tconst[AF_ATMPVC, int16]\n\tsap_addr\tatmpvc_addr\n}",
+    "SOL_SOCKET": "define SOL_SOCKET 1",
+    "SO_ATMQOS": "define SO_ATMQOS 28674",
+    "sockaddr_atmsvc": "sockaddr_atmsvc {\n\tsas_family\tconst[AF_ATMSVC, int16]\n\tsas_addr\tsockaddr_atmsvc_addr\n}",
+    "atm_iobuf": "atm_iobuf {\n\tlength\tint32\n\tbuffer\tptr[inout, array[int8]]\n}",
+    "atm_aal_stats": "type atm_aal_stats ptr[in, array[int8]]",
+    "atm_bhli": "atm_bhli {\n\thl_type\tint8\n\thl_length\tint8\n\thl_info\tarray[int8, ATM_MAX_HLI]\n}",
+    "atm_blli": "atm_blli {\n\tl2_proto\tint8\n\tl2\tatm_blli_l2_union\n\tl3_proto\tint8\n\tl3\tatm_blli_l3_union\n}",
+    "atm_blli_l2_union": "atm_blli_l2_union [\n\titu\tatm_blli_l2_itu\n\tuser\tint8\n]",
+    "atm_blli_l2_itu": "atm_blli_l2_itu {\n\tmode\tint8\n\twindow\tint8\n}",
+    "atm_blli_l3_union": "atm_blli_l3_union [\n\titu\tatm_blli_l3_itu\n\tuser\tint8\n\th310\tatm_blli_l3_h310\n\ttr9577\tatm_blli_l3_tr9577\n]",
+    "atm_blli_l3_itu": "atm_blli_l3_itu {\n\tmode\tint8\n\tdef_size\tint8\n\twindow\tint8\n}",
+    "atm_blli_l3_h310": "atm_blli_l3_h310 {\n\tterm_type\tint8\n\tfw_mpx_cap\tint8\n\tbw_mpx_cap\tint8\n}",
+    "atm_blli_l3_tr9577": "atm_blli_l3_tr9577 {\n\tipi\tint8\n\tsnap\tarray[int8, 5]\n}",
+    "atmpvc_addr": "atmpvc_addr {\n\titf\tint16\n\tvpi\tint16\n\tvci\tint32\n}",
+    "atm_trafprm": "atm_trafprm {\n\ttraffic_class\tint8\n\tmax_pcr\tint32\n\tpcr\tint32\n\tmin_pcr\tint32\n\tmax_cdv\tint32\n\tmax_sdu\tint32\n\ticr\tint32\n\ttbe\tint32\n\tfrtt\tint32:24\n\trif\tint32:4\n\trdf\tint32:4\n\tnrm_pres\tint32:1\n\ttrm_pres\tint32:1\n\tadtf_pres\tint32:1\n\tcdf_pres\tint32:1\n\tnrm\tint32:3\n\ttrm\tint32:3\n\tadtf\tint32:10\n\tcdf\tint32:3\n\tspare\tint32:9\n}",
+    "sockaddr_atmsvc_addr": "sockaddr_atmsvc_addr {\n\tprv\tarray[int8, ATM_ESA_LEN]\n\tpub\tarray[int8, ATM_E164_LEN_ADD_ONE]\n\tlij_type\tint8\n\tlij_id\tint32\n}",
+    "ATM_E164_LEN_ADD_ONE": "define ATM_E164_LEN_ADD_ONE 16",
+    "ATM_ESA_LEN": "define ATM_ESA_LEN 20"
+  },
+  "socket_addr": "sockaddr_atmsvc",
+  "ioctls": {
+    "ATM_SETSC": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "ATMSIGD_CTRL": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "ATMMPC_CTRL": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "ATMMPC_DATA": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "ATMARPD_CTRL": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "ATMLEC_CTRL": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "ATM_RSTADDR": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "ATM_SETCIRANGE": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SONET_GETSTATZ": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SONET_SETDIAG": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SONET_CLRDIAG": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SONET_SETFRAMING": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "ATM_ADDPARTY": {
+      "arg": "ptr[in, sockaddr_atmsvc]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "ATM_DROPPARTY": {
+      "arg": "intptr",
+      "arg_name_in_usage": "ep_ref",
+      "arg_inference": null
+    },
+    "ATM_SETBACKEND": {
+      "arg": "intptr",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "ATM_NEWBACKENDIF": {
+      "arg": "ptr[in, atm_backend_t]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "ATM_GETNAMES": {
+      "arg": "ptr[inout, atm_iobuf]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "ATM_GETTYPE": {
+      "arg": "ptr[out, array[int8]]",
+      "arg_name_in_usage": "buf",
+      "arg_inference": null
+    },
+    "ATM_GETESI": {
+      "arg": "ptr[out, array[int8]]",
+      "arg_name_in_usage": "buf",
+      "arg_inference": null
+    },
+    "ATM_SETESI": {
+      "arg": "ptr[in, array[int8, ESI_LEN]]",
+      "arg_name_in_usage": "buf",
+      "arg_inference": null
+    },
+    "ATM_SETESIF": {
+      "arg": "ptr[in, array[int8]]",
+      "arg_name_in_usage": "buf",
+      "arg_inference": null
+    },
+    "ATM_GETSTATZ": {
+      "arg": "ptr[out, atm_dev_stats]",
+      "arg_name_in_usage": "buf",
+      "arg_inference": null
+    },
+    "ATM_GETSTAT": {
+      "arg": "ptr[out, atm_dev_stats]",
+      "arg_name_in_usage": "buf",
+      "arg_inference": null
+    },
+    "ATM_GETCIRANGE": {
+      "arg": "ptr[out, atm_ci_range]",
+      "arg_name_in_usage": "buf",
+      "arg_inference": null
+    },
+    "ATM_GETLINKRATE": {
+      "arg": "ptr[out, atm_link_rate]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    },
+    "ATM_ADDADDR": {
+      "arg": "ptr[in, sockaddr_atmsvc]",
+      "arg_name_in_usage": "buf",
+      "arg_inference": null
+    },
+    "ATM_DELADDR": {
+      "arg": "ptr[in, sockaddr_atmsvc]",
+      "arg_name_in_usage": "buf",
+      "arg_inference": null
+    },
+    "ATM_ADDLECSADDR": {
+      "arg": "ptr[in, sockaddr_atmsvc]",
+      "arg_name_in_usage": "buf",
+      "arg_inference": null
+    },
+    "ATM_DELLECSADDR": {
+      "arg": "ptr[in, sockaddr_atmsvc]",
+      "arg_name_in_usage": "buf",
+      "arg_inference": null
+    },
+    "ATM_GETADDR": {
+      "arg": "ptr[out, array[sockaddr_atmsvc]]",
+      "arg_name_in_usage": "buf",
+      "arg_inference": null
+    },
+    "ATM_GETLECSADDR": {
+      "arg": "ptr[out, array[sockaddr_atmsvc]]",
+      "arg_name_in_usage": "buf",
+      "arg_inference": null
+    },
+    "ATM_SETLOOP": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": "buf",
+      "arg_inference": null
+    }
+  },
+  "existing_ioctls": {
+    "SIOCOUTQ": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": null
+    },
+    "SIOCINQ": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": null
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "setsockopt": {
+    "SO_ATMSAP": {
+      "level": "SOL_ATM",
+      "val": "ptr[in, atm_sap]",
+      "len": "bytesize[val]"
+    },
+    "SO_MULTIPOINT": {
+      "level": "SOL_ATM",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]"
+    },
+    "SO_ATMQOS": {
+      "level": "",
+      "val": "ptr[in, atm_qos]",
+      "len": "bytesize[val]",
+      "SO_SETCLP": {
+        "level": "",
+        "val": "ptr[in, int32]",
+        "len": "bytesize[val]",
+        "unknown": []
+      },
+      "types": {
+        "atm_qos": "UNKNOWN"
+      }
+    }
+  },
+  "unknown": [],
+  "setsockopt_unknown": [],
+  "getsockopt": {
+    "SO_ATMSAP": {
+      "level": "SOL_ATM",
+      "val": "ptr[out, atm_sap]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "SO_ATMQOS": {
+      "level": "SOL_ATM",
+      "val": "ptr[out, atm_qos]",
+      "len": "ptr[in, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "SO_SETCLP": {
+      "level": "SOL_ATM",
+      "val": "ptr[out, int32]",
+      "len": "ptr[in, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "SO_ATMPVC": {
+      "level": "SOL_ATM",
+      "val": "ptr[out, sockaddr_atmpvc]",
+      "len": "ptr[in, bytesize[val, int32]]",
+      "val_inference": null
+    }
+  },
+  "getsockopt_unknown": [],
+  "proto_ops": {
+    "bind": "svc_bind",
+    "connect": "svc_connect",
+    "accept": "svc_accept",
+    "poll": "vcc_poll",
+    "ioctl": "svc_ioctl",
+    "sendmsg": "vcc_sendmsg",
+    "recvmsg": "vcc_recvmsg",
+    "setsockopt": "svc_setsockopt",
+    "getsockopt": "svc_getsockopt"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/atm/svc.c:634",
+  "ops_name": "svc_proto_ops",
+  "syscall_specs": {
+    "socket$KGPT_atmsvc": "socket$KGPT_atmsvc(domain const[AF_ATMSVC], type const[SOCK_DGRAM], proto const[0]) sock_atmsvc",
+    "bind$KGPT_svc_proto_ops": "bind$KGPT_svc_proto_ops(fd sock_atmsvc, addr ptr[in, sockaddr_atmsvc], addrlen len[addr])",
+    "connect$KGPT_svc_proto_ops": "connect$KGPT_svc_proto_ops(fd sock_atmsvc, addr ptr[in, sockaddr_atmsvc], addrlen len[addr])",
+    "accept4$KGPT_svc_proto_ops": "accept4$KGPT_svc_proto_ops(fd sock_atmsvc, peer ptr[out, sockaddr_atmsvc, opt], peerlen ptr[inout, len[peer, int32]], flags flags[accept_flags]) sock_atmsvc",
+    "sendto$KGPT_svc_proto_ops": "sendto$KGPT_svc_proto_ops(fd sock_atmsvc, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, sockaddr_atmsvc, opt], addrlen len[addr])",
+    "recvfrom$KGPT_svc_proto_ops": "recvfrom$KGPT_svc_proto_ops(fd sock_atmsvc, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, sockaddr_atmsvc, opt], addrlen len[addr])",
+    "ioctl$KGPT_ATM_SETSC": "ioctl$KGPT_ATM_SETSC(fd sock_atmsvc, cmd const[ATM_SETSC], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_ATMSIGD_CTRL": "ioctl$KGPT_ATMSIGD_CTRL(fd sock_atmsvc, cmd const[ATMSIGD_CTRL], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_ATMMPC_CTRL": "ioctl$KGPT_ATMMPC_CTRL(fd sock_atmsvc, cmd const[ATMMPC_CTRL], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_ATMMPC_DATA": "ioctl$KGPT_ATMMPC_DATA(fd sock_atmsvc, cmd const[ATMMPC_DATA], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_ATMARPD_CTRL": "ioctl$KGPT_ATMARPD_CTRL(fd sock_atmsvc, cmd const[ATMARPD_CTRL], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_ATMLEC_CTRL": "ioctl$KGPT_ATMLEC_CTRL(fd sock_atmsvc, cmd const[ATMLEC_CTRL], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_ATM_RSTADDR": "ioctl$KGPT_ATM_RSTADDR(fd sock_atmsvc, cmd const[ATM_RSTADDR], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_ATM_SETCIRANGE": "ioctl$KGPT_ATM_SETCIRANGE(fd sock_atmsvc, cmd const[ATM_SETCIRANGE], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_SONET_GETSTATZ": "ioctl$KGPT_SONET_GETSTATZ(fd sock_atmsvc, cmd const[SONET_GETSTATZ], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_SONET_SETDIAG": "ioctl$KGPT_SONET_SETDIAG(fd sock_atmsvc, cmd const[SONET_SETDIAG], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_SONET_CLRDIAG": "ioctl$KGPT_SONET_CLRDIAG(fd sock_atmsvc, cmd const[SONET_CLRDIAG], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_SONET_SETFRAMING": "ioctl$KGPT_SONET_SETFRAMING(fd sock_atmsvc, cmd const[SONET_SETFRAMING], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_ATM_ADDPARTY": "ioctl$KGPT_ATM_ADDPARTY(fd sock_atmsvc, cmd const[ATM_ADDPARTY], arg ptr[in, sockaddr_atmsvc])",
+    "ioctl$KGPT_ATM_DROPPARTY": "ioctl$KGPT_ATM_DROPPARTY(fd sock_atmsvc, cmd const[ATM_DROPPARTY], arg intptr)",
+    "ioctl$KGPT_ATM_SETBACKEND": "ioctl$KGPT_ATM_SETBACKEND(fd sock_atmsvc, cmd const[ATM_SETBACKEND], arg intptr)",
+    "ioctl$KGPT_ATM_NEWBACKENDIF": "ioctl$KGPT_ATM_NEWBACKENDIF(fd sock_atmsvc, cmd const[ATM_NEWBACKENDIF], arg ptr[in, atm_backend_t])",
+    "ioctl$KGPT_ATM_GETNAMES": "ioctl$KGPT_ATM_GETNAMES(fd sock_atmsvc, cmd const[ATM_GETNAMES], arg ptr[inout, atm_iobuf])",
+    "ioctl$KGPT_ATM_GETTYPE": "ioctl$KGPT_ATM_GETTYPE(fd sock_atmsvc, cmd const[ATM_GETTYPE], arg ptr[out, array[int8]])",
+    "ioctl$KGPT_ATM_GETESI": "ioctl$KGPT_ATM_GETESI(fd sock_atmsvc, cmd const[ATM_GETESI], arg ptr[out, array[int8]])",
+    "ioctl$KGPT_ATM_SETESI": "ioctl$KGPT_ATM_SETESI(fd sock_atmsvc, cmd const[ATM_SETESI], arg ptr[in, array[int8, ESI_LEN]])",
+    "ioctl$KGPT_ATM_SETESIF": "ioctl$KGPT_ATM_SETESIF(fd sock_atmsvc, cmd const[ATM_SETESIF], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_ATM_GETSTATZ": "ioctl$KGPT_ATM_GETSTATZ(fd sock_atmsvc, cmd const[ATM_GETSTATZ], arg ptr[out, atm_dev_stats])",
+    "ioctl$KGPT_ATM_GETSTAT": "ioctl$KGPT_ATM_GETSTAT(fd sock_atmsvc, cmd const[ATM_GETSTAT], arg ptr[out, atm_dev_stats])",
+    "ioctl$KGPT_ATM_GETCIRANGE": "ioctl$KGPT_ATM_GETCIRANGE(fd sock_atmsvc, cmd const[ATM_GETCIRANGE], arg ptr[out, atm_ci_range])",
+    "ioctl$KGPT_ATM_GETLINKRATE": "ioctl$KGPT_ATM_GETLINKRATE(fd sock_atmsvc, cmd const[ATM_GETLINKRATE], arg ptr[out, atm_link_rate])",
+    "ioctl$KGPT_ATM_ADDADDR": "ioctl$KGPT_ATM_ADDADDR(fd sock_atmsvc, cmd const[ATM_ADDADDR], arg ptr[in, sockaddr_atmsvc])",
+    "ioctl$KGPT_ATM_DELADDR": "ioctl$KGPT_ATM_DELADDR(fd sock_atmsvc, cmd const[ATM_DELADDR], arg ptr[in, sockaddr_atmsvc])",
+    "ioctl$KGPT_ATM_ADDLECSADDR": "ioctl$KGPT_ATM_ADDLECSADDR(fd sock_atmsvc, cmd const[ATM_ADDLECSADDR], arg ptr[in, sockaddr_atmsvc])",
+    "ioctl$KGPT_ATM_DELLECSADDR": "ioctl$KGPT_ATM_DELLECSADDR(fd sock_atmsvc, cmd const[ATM_DELLECSADDR], arg ptr[in, sockaddr_atmsvc])",
+    "ioctl$KGPT_ATM_GETADDR": "ioctl$KGPT_ATM_GETADDR(fd sock_atmsvc, cmd const[ATM_GETADDR], arg ptr[out, array[sockaddr_atmsvc]])",
+    "ioctl$KGPT_ATM_GETLECSADDR": "ioctl$KGPT_ATM_GETLECSADDR(fd sock_atmsvc, cmd const[ATM_GETLECSADDR], arg ptr[out, array[sockaddr_atmsvc]])",
+    "ioctl$KGPT_ATM_SETLOOP": "ioctl$KGPT_ATM_SETLOOP(fd sock_atmsvc, cmd const[ATM_SETLOOP], arg ptr[in, array[int8]])",
+    "getsockopt$KGPT_SO_ATMSAP": "getsockopt$KGPT_SO_ATMSAP(fd sock_atmsvc, level const[SOL_ATM], opt const[SO_ATMSAP], val ptr[out, atm_sap], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_SO_ATMQOS": "getsockopt$KGPT_SO_ATMQOS(fd sock_atmsvc, level const[SOL_ATM], opt const[SO_ATMQOS], val ptr[out, atm_qos], len ptr[in, bytesize[val, int32]])",
+    "getsockopt$KGPT_SO_SETCLP": "getsockopt$KGPT_SO_SETCLP(fd sock_atmsvc, level const[SOL_ATM], opt const[SO_SETCLP], val ptr[out, int32], len ptr[in, bytesize[val, int32]])",
+    "getsockopt$KGPT_SO_ATMPVC": "getsockopt$KGPT_SO_ATMPVC(fd sock_atmsvc, level const[SOL_ATM], opt const[SO_ATMPVC], val ptr[out, sockaddr_atmpvc], len ptr[in, bytesize[val, int32]])",
+    "setsockopt$KGPT_SO_ATMSAP": "setsockopt$KGPT_SO_ATMSAP(fd sock_atmsvc, level const[SOL_ATM], opt const[SO_ATMSAP], val ptr[in, atm_sap], len bytesize[val])",
+    "setsockopt$KGPT_SO_MULTIPOINT": "setsockopt$KGPT_SO_MULTIPOINT(fd sock_atmsvc, level const[SOL_ATM], opt const[SO_MULTIPOINT], val ptr[in, int32], len bytesize[val])",
+    "setsockopt$KGPT_SO_ATMQOS": "setsockopt$KGPT_SO_ATMQOS(fd sock_atmsvc, level const[SOL_SOCKET], opt const[SO_ATMQOS], val ptr[in, atm_qos], len bytesize[val])"
+  },
+  "init_syscalls": [
+    "socket$KGPT_atmsvc"
+  ],
+  "includes": [
+    "linux/net.h",
+    "uapi/linux/atm.h",
+    "uapi/linux/sonet.h",
+    "uapi/linux/atmsvc.h",
+    "uapi/linux/atmarp.h",
+    "uapi/linux/atmmpc.h",
+    "uapi/linux/atmlec.h",
+    "uapi/linux/atmsap.h",
+    "uapi/linux/atmdev.h",
+    "linux/socket.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

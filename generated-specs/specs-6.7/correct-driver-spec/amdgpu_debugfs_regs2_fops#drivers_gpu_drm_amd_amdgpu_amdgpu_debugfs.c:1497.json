@@ -1,0 +1,49 @@
+{
+  "open": {
+    "filename": "/sys/kernel/debug/dri/#/amdgpu_regs2",
+    "fd_name": "fd_amdgpu_regs2",
+    "spec": "syz_open_dev$KGPT_amdgpu_regs2(dev ptr[in, string[\"/sys/kernel/debug/dri/#/amdgpu_regs2\"]], id proc[0, 1], flags flags[open_flags]) fd_amdgpu_regs2"
+  },
+  "resources": {
+    "fd_amdgpu_regs2": {
+      "type": "fd",
+      "spec": "resource fd_amdgpu_regs2[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:1497",
+  "ioctls": {
+    "AMDGPU_DEBUGFS_REGS2_IOC_SET_STATE_V2": {
+      "arg": "ptr[in, amdgpu_debugfs_regs2_iocdata_v2]",
+      "arg_name_in_usage": "data",
+      "arg_inference": null
+    },
+    "AMDGPU_DEBUGFS_REGS2_IOC_SET_STATE": {
+      "arg": "ptr[in, amdgpu_debugfs_regs2_iocdata]",
+      "arg_name_in_usage": "data",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "amdgpu_debugfs_regs2_iocdata_v2": "amdgpu_debugfs_regs2_iocdata_v2 {\n\tuse_srbm\tint32\n\tuse_grbm\tint32\n\tpg_lock\tint32\n\tgrbm\tamdgpu_debugfs_regs2_iocdata_v2_grbm\n\tsrbm\tamdgpu_debugfs_regs2_iocdata_v2_srbm\n\txcc_id\tint32\n}",
+    "amdgpu_debugfs_regs2_iocdata": "amdgpu_debugfs_regs2_iocdata {\n\tuse_srbm\tint32\n\tuse_grbm\tint32\n\tpg_lock\tint32\n\tgrbm\tamdgpu_debugfs_regs2_iocdata_grbm\n\tsrbm\tamdgpu_debugfs_regs2_iocdata_srbm\n}",
+    "amdgpu_debugfs_regs2_iocdata_v2_grbm": "amdgpu_debugfs_regs2_iocdata_v2_grbm {\n\tse\tint32\n\tsh\tint32\n\tinstance\tint32\n}",
+    "amdgpu_debugfs_regs2_iocdata_v2_srbm": "amdgpu_debugfs_regs2_iocdata_v2_srbm {\n\tme\tint32\n\tpipe\tint32\n\tqueue\tint32\n\tvmid\tint32\n}",
+    "amdgpu_debugfs_regs2_iocdata_grbm": "amdgpu_debugfs_regs2_iocdata_grbm {\n\tse\tint32\n\tsh\tint32\n\tinstance\tint32\n}",
+    "amdgpu_debugfs_regs2_iocdata_srbm": "amdgpu_debugfs_regs2_iocdata_srbm {\n\tme\tint32\n\tpipe\tint32\n\tqueue\tint32\n\tvmid\tint32\n}"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_amdgpu_regs2": "syz_open_dev$KGPT_amdgpu_regs2(dev ptr[in, string[\"/sys/kernel/debug/dri/#/amdgpu_regs2\"]], id proc[0, 1], flags flags[open_flags]) fd_amdgpu_regs2",
+    "ioctl$KGPT_AMDGPU_DEBUGFS_REGS2_IOC_SET_STATE_V2": "ioctl$KGPT_AMDGPU_DEBUGFS_REGS2_IOC_SET_STATE_V2(fd fd_amdgpu_regs2, cmd const[AMDGPU_DEBUGFS_REGS2_IOC_SET_STATE_V2], arg ptr[in, amdgpu_debugfs_regs2_iocdata_v2])",
+    "ioctl$KGPT_AMDGPU_DEBUGFS_REGS2_IOC_SET_STATE": "ioctl$KGPT_AMDGPU_DEBUGFS_REGS2_IOC_SET_STATE(fd fd_amdgpu_regs2, cmd const[AMDGPU_DEBUGFS_REGS2_IOC_SET_STATE], arg ptr[in, amdgpu_debugfs_regs2_iocdata])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_amdgpu_regs2"
+  ],
+  "includes": [
+    "drivers/gpu/drm/amd/amdgpu/amdgpu_umr.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

@@ -1,0 +1,53 @@
+{
+  "open": {
+    "filename": "/dev/v4l-subdev#",
+    "fd_name": "fd_isppreview",
+    "spec": "syz_open_dev$KGPT_v4l_subdev(dev ptr[in, string[\"/dev/v4l-subdev#\"]], id proc[0, 1], flags flags[open_flags]) fd_isppreview"
+  },
+  "resources": {
+    "fd_isppreview": {
+      "type": "fd",
+      "spec": "resource fd_isppreview[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/media/platform/ti/omap3isp/isppreview.c:2106",
+  "ioctls": {
+    "VIDIOC_OMAP3ISP_PRV_CFG": {
+      "arg": "ptr[in, omap3isp_prev_update_config]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "omap3isp_prev_update_config": "omap3isp_prev_update_config {\n\tupdate\tint32\n\tflag\tint32\n\tshading_shift\tint32\n\tluma\t ptr[in, omap3isp_prev_luma]\n\thmed\t ptr[in, omap3isp_prev_hmed]\n\tcfa\t ptr[in, omap3isp_prev_cfa]\n\tcsup\t ptr[in, omap3isp_prev_csup]\n\twbal\t ptr[in, omap3isp_prev_wbal]\n\tblkadj\t ptr[in, omap3isp_prev_blkadj]\n\trgb2rgb\t ptr[in, omap3isp_prev_rgbtorgb]\n\tcsc\t ptr[in, omap3isp_prev_csc]\n\tyclimit\t ptr[in, omap3isp_prev_yclimit]\n\tdcor\t ptr[in, omap3isp_prev_dcor]\n\tnf\t ptr[in, omap3isp_prev_nf]\n\tgamma\t ptr[in, omap3isp_prev_gtables]\n}",
+    "omap3isp_prev_luma": "omap3isp_prev_luma {\n\ttable\tarray[int32, OMAP3ISP_PREV_YENH_TBL_SIZE]\n}",
+    "omap3isp_prev_hmed": "omap3isp_prev_hmed {\n\todddist\tint8\n\tevendist\tint8\n\tthres\tint8\n}",
+    "omap3isp_prev_csup": "omap3isp_prev_csup {\n\tgain\tint8\n\tthres\tint8\n\thypf_en\tint8\n}",
+    "omap3isp_prev_wbal": "omap3isp_prev_wbal {\n\tdgain\tint16\n\tcoef3\tint8\n\tcoef2\tint8\n\tcoef1\tint8\n\tcoef0\tint8\n}",
+    "omap3isp_prev_blkadj": "omap3isp_prev_blkadj {\n\tred\tint8\n\tgreen\tint8\n\tblue\tint8\n}",
+    "omap3isp_prev_rgbtorgb": "omap3isp_prev_rgbtorgb {\n\tmatrix\tarray[array[int16, OMAP3ISP_RGB_MAX], OMAP3ISP_RGB_MAX]\n\toffset\tarray[int16, OMAP3ISP_RGB_MAX]\n}",
+    "omap3isp_prev_csc": "omap3isp_prev_csc {\n\tmatrix\tarray[array[int16, OMAP3ISP_RGB_MAX], OMAP3ISP_RGB_MAX]\n\toffset\tarray[int16, OMAP3ISP_RGB_MAX]\n}",
+    "omap3isp_prev_yclimit": "omap3isp_prev_yclimit {\n\tminC\tint8\n\tmaxC\tint8\n\tminY\tint8\n\tmaxY\tint8\n}",
+    "omap3isp_prev_dcor": "omap3isp_prev_dcor {\n\tcouplet_mode_en\tint8\n\tdetect_correct\tarray[int32, OMAP3ISP_PREV_DETECT_CORRECT_CHANNELS]\n}",
+    "omap3isp_prev_nf": "omap3isp_prev_nf {\n\tspread\tint8\n\ttable\tarray[int32, OMAP3ISP_PREV_NF_TBL_SIZE]\n}",
+    "omap3isp_prev_gtables": "omap3isp_prev_gtables {\n\tred\tarray[int32, OMAP3ISP_PREV_GAMMA_TBL_SIZE]\n\tgreen\tarray[int32, OMAP3ISP_PREV_GAMMA_TBL_SIZE]\n\tblue\tarray[int32, OMAP3ISP_PREV_GAMMA_TBL_SIZE]\n}",
+    "omap3isp_prev_cfa": "omap3isp_prev_cfa {\n\tformat\tint32\n\tgradthrs_vert\tint8\n\tgradthrs_horz\tint8\n\ttable\tarray[array[int32, OMAP3ISP_PREV_CFA_BLK_SIZE_CONST], 4]\n}",
+    "OMAP3ISP_PREV_CFA_BLK_SIZE_CONST": "define OMAP3ISP_PREV_CFA_BLK_SIZE_CONST 4"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_v4l_subdev": "syz_open_dev$KGPT_v4l_subdev(dev ptr[in, string[\"/dev/v4l-subdev#\"]], id proc[0, 1], flags flags[open_flags]) fd_isppreview",
+    "ioctl$KGPT_VIDIOC_OMAP3ISP_PRV_CFG": "ioctl$KGPT_VIDIOC_OMAP3ISP_PRV_CFG(fd fd_isppreview, cmd const[VIDIOC_OMAP3ISP_PRV_CFG], arg ptr[in, omap3isp_prev_update_config])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_v4l_subdev"
+  ],
+  "includes": [
+    "uapi/linux/omap3isp.h"
+  ],
+  "unused_types": {
+    "omap3isp_cfa_fmt": "omap3isp_cfa_fmt = OMAP3ISP_CFAFMT_BAYER, OMAP3ISP_CFAFMT_SONYVGA, OMAP3ISP_CFAFMT_RGBFOVEON, OMAP3ISP_CFAFMT_DNSPL, OMAP3ISP_CFAFMT_HONEYCOMB, OMAP3ISP_CFAFMT_RRGGBBFOVEON"
+  },
+  "ignored_types": {}
+}

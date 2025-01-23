@@ -1,0 +1,142 @@
+{
+  "socket": {
+    "domain": "AF_SMC",
+    "type": "SOCK_STREAM",
+    "spec": "socket$KGPT_smc(domain const[AF_SMC], type const[SOCK_STREAM], proto const[0]) sock_smc"
+  },
+  "resources": {
+    "sock_smc": {
+      "type": "sock",
+      "spec": "resource sock_smc[sock]"
+    }
+  },
+  "types": {},
+  "socket_addr": "sockaddr_in",
+  "ioctls": {},
+  "existing_ioctls": {
+    "SIOCINQ": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SIOCOUTQ": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SIOCOUTQNSD": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SIOCATMARK": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "setsockopt": {
+    "TCP_ULP": {
+      "level": "SOL_TCP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "TCP_FASTOPEN": {
+      "level": "SOL_TCP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "TCP_FASTOPEN_CONNECT": {
+      "level": "SOL_TCP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "TCP_FASTOPEN_KEY": {
+      "level": "SOL_TCP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "TCP_FASTOPEN_NO_COOKIE": {
+      "level": "SOL_TCP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "TCP_NODELAY": {
+      "level": "SOL_TCP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "TCP_CORK": {
+      "level": "SOL_TCP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "TCP_DEFER_ACCEPT": {
+      "level": "SOL_TCP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "SMC_LIMIT_HS": {
+      "level": "SOL_SMC",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]",
+      "unknown": []
+    }
+  },
+  "unknown": [],
+  "setsockopt_unknown": [],
+  "getsockopt": {
+    "SMC_LIMIT_HS": {
+      "level": "SOL_SMC",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    }
+  },
+  "getsockopt_unknown": [],
+  "proto_ops": {
+    "bind": "smc_bind",
+    "connect": "smc_connect",
+    "accept": "smc_accept",
+    "poll": "smc_poll",
+    "ioctl": "smc_ioctl",
+    "sendmsg": "smc_sendmsg",
+    "recvmsg": "smc_recvmsg",
+    "setsockopt": "smc_setsockopt",
+    "getsockopt": "smc_getsockopt"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/smc/af_smc.c:3261",
+  "ops_name": "smc_sock_ops",
+  "syscall_specs": {
+    "socket$KGPT_smc": "socket$KGPT_smc(domain const[AF_SMC], type const[SOCK_STREAM], proto const[0]) sock_smc",
+    "bind$KGPT_smc_sock_ops": "bind$KGPT_smc_sock_ops(fd sock_smc, addr ptr[in, sockaddr_in], addrlen len[addr])",
+    "connect$KGPT_smc_sock_ops": "connect$KGPT_smc_sock_ops(fd sock_smc, addr ptr[in, sockaddr_in], addrlen len[addr])",
+    "accept4$KGPT_smc_sock_ops": "accept4$KGPT_smc_sock_ops(fd sock_smc, peer ptr[out, sockaddr_in, opt], peerlen ptr[inout, len[peer, int32]], flags flags[accept_flags]) sock_smc",
+    "sendto$KGPT_smc_sock_ops": "sendto$KGPT_smc_sock_ops(fd sock_smc, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, sockaddr_in, opt], addrlen len[addr])",
+    "recvfrom$KGPT_smc_sock_ops": "recvfrom$KGPT_smc_sock_ops(fd sock_smc, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, sockaddr_in, opt], addrlen len[addr])",
+    "getsockopt$KGPT_SMC_LIMIT_HS": "getsockopt$KGPT_SMC_LIMIT_HS(fd sock_smc, level const[SOL_SMC], opt const[SMC_LIMIT_HS], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "setsockopt$KGPT_TCP_ULP": "setsockopt$KGPT_TCP_ULP(fd sock_smc, level const[SOL_TCP], opt const[TCP_ULP], val int32, len bytesize[val])",
+    "setsockopt$KGPT_TCP_FASTOPEN": "setsockopt$KGPT_TCP_FASTOPEN(fd sock_smc, level const[SOL_TCP], opt const[TCP_FASTOPEN], val int32, len bytesize[val])",
+    "setsockopt$KGPT_TCP_FASTOPEN_CONNECT": "setsockopt$KGPT_TCP_FASTOPEN_CONNECT(fd sock_smc, level const[SOL_TCP], opt const[TCP_FASTOPEN_CONNECT], val int32, len bytesize[val])",
+    "setsockopt$KGPT_TCP_FASTOPEN_KEY": "setsockopt$KGPT_TCP_FASTOPEN_KEY(fd sock_smc, level const[SOL_TCP], opt const[TCP_FASTOPEN_KEY], val int32, len bytesize[val])",
+    "setsockopt$KGPT_TCP_FASTOPEN_NO_COOKIE": "setsockopt$KGPT_TCP_FASTOPEN_NO_COOKIE(fd sock_smc, level const[SOL_TCP], opt const[TCP_FASTOPEN_NO_COOKIE], val int32, len bytesize[val])",
+    "setsockopt$KGPT_TCP_NODELAY": "setsockopt$KGPT_TCP_NODELAY(fd sock_smc, level const[SOL_TCP], opt const[TCP_NODELAY], val int32, len bytesize[val])",
+    "setsockopt$KGPT_TCP_CORK": "setsockopt$KGPT_TCP_CORK(fd sock_smc, level const[SOL_TCP], opt const[TCP_CORK], val int32, len bytesize[val])",
+    "setsockopt$KGPT_TCP_DEFER_ACCEPT": "setsockopt$KGPT_TCP_DEFER_ACCEPT(fd sock_smc, level const[SOL_TCP], opt const[TCP_DEFER_ACCEPT], val int32, len bytesize[val])",
+    "setsockopt$KGPT_SMC_LIMIT_HS": "setsockopt$KGPT_SMC_LIMIT_HS(fd sock_smc, level const[SOL_SMC], opt const[SMC_LIMIT_HS], val ptr[in, int32], len bytesize[val])"
+  },
+  "init_syscalls": [
+    "socket$KGPT_smc"
+  ],
+  "includes": [
+    "linux/net.h",
+    "uapi/linux/tcp.h",
+    "linux/socket.h",
+    "uapi/linux/smc.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "sockaddr_in": "EXISTING"
+  }
+}

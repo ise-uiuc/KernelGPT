@@ -1,0 +1,251 @@
+{
+  "open": {
+    "filename": "/dev/sg#",
+    "fd_name": "fd_sg",
+    "spec": "syz_open_dev$KGPT_sg(dev ptr[in, string[\"/dev/sg#\"]], id proc[0, 1], flags flags[open_flags]) fd_sg"
+  },
+  "resources": {
+    "fd_sg": {
+      "type": "fd",
+      "spec": "resource fd_sg[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/scsi/sg.c:1413",
+  "ioctls": {
+    "SG_SET_FORCE_LOW_DMA": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SG_GET_TRANSFORM": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    }
+  },
+  "types": {},
+  "existing_ioctls": {
+    "SG_IO": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "sg_new_write",
+          "wait_event_interruptible",
+          "srp_done",
+          "sg_new_read"
+        ],
+        "type": [],
+        "usage": [
+          "result = sg_new_write(sfp, filp, p, SZ_SG_IO_HDR, 1, read_only, 1, &srp);",
+          "result = wait_event_interruptible(sfp->read_wait, srp_done(sfp, srp));",
+          "result = sg_new_read(sfp, p, SZ_SG_IO_HDR, srp);"
+        ]
+      }
+    },
+    "SG_SET_TIMEOUT": {
+      "arg": "int",
+      "arg_name_in_usage": [
+        "val"
+      ],
+      "arg_inference": null
+    },
+    "SG_GET_TIMEOUT": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SG_GET_LOW_DMA": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SG_GET_SCSI_ID": {
+      "arg": "sg_scsi_id_t",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": null
+    },
+    "SG_SET_FORCE_PACK_ID": {
+      "arg": "int",
+      "arg_name_in_usage": [
+        "val"
+      ],
+      "arg_inference": null
+    },
+    "SG_GET_PACK_ID": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SG_GET_NUM_WAITING": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SG_GET_SG_TABLESIZE": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SG_SET_RESERVED_SIZE": {
+      "arg": "int",
+      "arg_name_in_usage": [
+        "val"
+      ],
+      "arg_inference": null
+    },
+    "SG_GET_RESERVED_SIZE": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SG_SET_COMMAND_Q": {
+      "arg": "int",
+      "arg_name_in_usage": [
+        "val"
+      ],
+      "arg_inference": null
+    },
+    "SG_GET_COMMAND_Q": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SG_SET_KEEP_ORPHAN": {
+      "arg": "int",
+      "arg_name_in_usage": [
+        "val"
+      ],
+      "arg_inference": null
+    },
+    "SG_GET_KEEP_ORPHAN": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SG_NEXT_CMD_LEN": {
+      "arg": "int",
+      "arg_name_in_usage": [
+        "val"
+      ],
+      "arg_inference": null
+    },
+    "SG_GET_VERSION_NUM": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SG_GET_ACCESS_COUNT": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SG_GET_REQUEST_TABLE": {
+      "arg": "sg_req_info_t",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": null
+    },
+    "SG_EMULATED_HOST": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SCSI_IOCTL_SEND_COMMAND": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "scsi_ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "return scsi_ioctl(sdp->device, filp->f_mode & FMODE_WRITE, cmd_in, p);"
+        ]
+      }
+    },
+    "SG_SET_DEBUG": {
+      "arg": "int",
+      "arg_name_in_usage": [
+        "val"
+      ],
+      "arg_inference": null
+    },
+    "BLKSECTGET": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "BLKTRACESETUP": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "blk_trace_setup"
+        ],
+        "type": [],
+        "usage": [
+          "return blk_trace_setup(sdp->device->request_queue, sdp->name, MKDEV(SCSI_GENERIC_MAJOR, sdp->index), NULL, p);"
+        ]
+      }
+    },
+    "BLKTRACESTART": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "BLKTRACESTOP": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "BLKTRACETEARDOWN": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SCSI_IOCTL_GET_IDLUN": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SCSI_IOCTL_GET_BUS_NUMBER": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SCSI_IOCTL_PROBE_HOST": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SG_SCSI_RESET": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_sg": "syz_open_dev$KGPT_sg(dev ptr[in, string[\"/dev/sg#\"]], id proc[0, 1], flags flags[open_flags]) fd_sg",
+    "ioctl$KGPT_SG_SET_FORCE_LOW_DMA": "ioctl$KGPT_SG_SET_FORCE_LOW_DMA(fd fd_sg, cmd const[SG_SET_FORCE_LOW_DMA], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_SG_GET_TRANSFORM": "ioctl$KGPT_SG_GET_TRANSFORM(fd fd_sg, cmd const[SG_GET_TRANSFORM], arg ptr[in, array[int8]])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_sg"
+  ],
+  "includes": [
+    "scsi/sg.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

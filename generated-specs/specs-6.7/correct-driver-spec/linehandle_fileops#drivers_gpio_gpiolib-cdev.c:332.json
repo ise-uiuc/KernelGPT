@@ -1,0 +1,53 @@
+{
+  "open": {
+    "filename": "/dev/gpiochip#",
+    "fd_name": "fd_gpiochip",
+    "spec": "syz_open_dev$KGPT_gpiochip(dev ptr[in, string[\"/dev/gpiochip#\"]], id proc[0, 1], flags flags[open_flags]) fd_gpiochip"
+  },
+  "resources": {
+    "fd_gpiochip": {
+      "type": "fd",
+      "spec": "resource fd_gpiochip[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/gpio/gpiolib-cdev.c:332",
+  "ioctls": {
+    "GPIOHANDLE_GET_LINE_VALUES_IOCTL": {
+      "arg": "ptr[inout, gpiohandle_data]",
+      "arg_name_in_usage": "ip",
+      "arg_inference": null
+    },
+    "GPIOHANDLE_SET_LINE_VALUES_IOCTL": {
+      "arg": "ptr[in, gpiohandle_data]",
+      "arg_name_in_usage": "ip",
+      "arg_inference": null
+    },
+    "GPIOHANDLE_SET_CONFIG_IOCTL": {
+      "arg": "ptr[in, gpiohandle_config]",
+      "arg_name_in_usage": "ip",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "gpiohandle_data": "gpiohandle_data {\n\tvalues\tarray[int8, GPIOHANDLES_MAX]\n}",
+    "gpiohandle_config": "gpiohandle_config {\n\tflags\tint32\n\tdefault_values\tarray[int8, GPIOHANDLES_MAX]\n\tpadding\tarray[int32, 4]\n}"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_gpiochip": "syz_open_dev$KGPT_gpiochip(dev ptr[in, string[\"/dev/gpiochip#\"]], id proc[0, 1], flags flags[open_flags]) fd_gpiochip",
+    "ioctl$KGPT_GPIOHANDLE_GET_LINE_VALUES_IOCTL": "ioctl$KGPT_GPIOHANDLE_GET_LINE_VALUES_IOCTL(fd fd_gpiochip, cmd const[GPIOHANDLE_GET_LINE_VALUES_IOCTL], arg ptr[inout, gpiohandle_data])",
+    "ioctl$KGPT_GPIOHANDLE_SET_LINE_VALUES_IOCTL": "ioctl$KGPT_GPIOHANDLE_SET_LINE_VALUES_IOCTL(fd fd_gpiochip, cmd const[GPIOHANDLE_SET_LINE_VALUES_IOCTL], arg ptr[in, gpiohandle_data])",
+    "ioctl$KGPT_GPIOHANDLE_SET_CONFIG_IOCTL": "ioctl$KGPT_GPIOHANDLE_SET_CONFIG_IOCTL(fd fd_gpiochip, cmd const[GPIOHANDLE_SET_CONFIG_IOCTL], arg ptr[in, gpiohandle_config])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_gpiochip"
+  ],
+  "includes": [
+    "uapi/linux/gpio.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "GPIOHANDLES_MAX": "UNFOUND_MACRO"
+  }
+}

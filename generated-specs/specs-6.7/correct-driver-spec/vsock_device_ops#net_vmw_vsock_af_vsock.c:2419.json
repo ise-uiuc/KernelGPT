@@ -1,0 +1,38 @@
+{
+  "open": {
+    "filename": "/dev/vsock",
+    "fd_name": "fd_vsock",
+    "spec": "openat$KGPT_vmw_vsock(fd const[AT_FDCWD], file ptr[in, string[\"/dev/vsock\"]], flags const[O_RDWR], mode const[0]) fd_vsock"
+  },
+  "resources": {
+    "fd_vsock": {
+      "type": "fd",
+      "spec": "resource fd_vsock[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/vmw_vsock/af_vsock.c:2419",
+  "ioctls": {
+    "IOCTL_VM_SOCKETS_GET_LOCAL_CID": {
+      "arg": "ptr[out, int32]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    }
+  },
+  "types": {},
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "openat$KGPT_vmw_vsock": "openat$KGPT_vmw_vsock(fd const[AT_FDCWD], file ptr[in, string[\"/dev/vsock\"]], flags const[O_RDWR], mode const[0]) fd_vsock",
+    "ioctl$KGPT_IOCTL_VM_SOCKETS_GET_LOCAL_CID": "ioctl$KGPT_IOCTL_VM_SOCKETS_GET_LOCAL_CID(fd fd_vsock, cmd const[IOCTL_VM_SOCKETS_GET_LOCAL_CID], arg ptr[out, int32])"
+  },
+  "init_syscalls": [
+    "openat$KGPT_vmw_vsock"
+  ],
+  "includes": [
+    "uapi/linux/vm_sockets.h",
+    "uapi/linux/fcntl.h",
+    "uapi/asm-generic/fcntl.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

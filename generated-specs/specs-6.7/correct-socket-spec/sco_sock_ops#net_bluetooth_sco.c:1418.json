@@ -1,0 +1,180 @@
+{
+  "socket": {
+    "domain": "AF_BLUETOOTH",
+    "type": "SOCK_SEQPACKET",
+    "spec": "socket$KGPT_bluetooth(domain const[AF_BLUETOOTH], type const[SOCK_SEQPACKET], proto const[0]) sock_sco"
+  },
+  "resources": {
+    "sock_sco": {
+      "type": "sock",
+      "spec": "resource sock_sco[sock]"
+    }
+  },
+  "types": {
+    "bt_voice": "bt_voice {\n\tsetting\tint16\n}",
+    "bt_codecs": "bt_codecs {\n\tnum_codecs\tint8\n\tcodecs\tarray[bt_codec]\n}",
+    "bt_codec": "bt_codec {\n\tid\tint8\n\tcid\tint16\n\tvid\tint16\n\tdata_path\tint8\n\tnum_caps\tint8\n}"
+  },
+  "socket_addr": "sockaddr_sco",
+  "ioctls": {},
+  "existing_ioctls": {
+    "TIOCOUTQ": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "put_user"
+        ],
+        "type": [],
+        "usage": [
+          "long amount;",
+          "amount = sk->sk_sndbuf - sk_wmem_alloc_get(sk);",
+          "if (amount < 0)\n\tamount = 0;",
+          "err = put_user(amount, (int __user *)arg);"
+        ]
+      }
+    },
+    "TIOCINQ": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "put_user"
+        ],
+        "type": [],
+        "usage": [
+          "struct sk_buff *skb;",
+          "long amount;",
+          "lock_sock(sk);",
+          "skb = skb_peek(&sk->sk_receive_queue);",
+          "amount = skb ? skb->len : 0;",
+          "release_sock(sk);",
+          "err = put_user(amount, (int __user *)arg);"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "setsockopt": {
+    "BT_DEFER_SETUP": {
+      "level": "SOL_BLUETOOTH",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]"
+    },
+    "BT_VOICE": {
+      "level": "SOL_BLUETOOTH",
+      "val": "ptr[in, bt_voice]",
+      "len": "bytesize[val]"
+    },
+    "BT_PKT_STATUS": {
+      "level": "SOL_BLUETOOTH",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]"
+    },
+    "BT_CODEC": {
+      "level": "SOL_BLUETOOTH",
+      "val": "ptr[in, bt_codecs]",
+      "len": "bytesize[val]"
+    }
+  },
+  "unknown": [],
+  "setsockopt_unknown": [],
+  "getsockopt": {
+    "BT_DEFER_SETUP": {
+      "level": "SOL_BLUETOOTH",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "BT_VOICE": {
+      "level": "SOL_BLUETOOTH",
+      "val": "ptr[out, bt_voice]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "BT_PHY": {
+      "level": "SOL_BLUETOOTH",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "BT_PKT_STATUS": {
+      "level": "SOL_BLUETOOTH",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "BT_SNDMTU": {
+      "level": "SOL_BLUETOOTH",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "BT_RCVMTU": {
+      "level": "SOL_BLUETOOTH",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "BT_CODEC": {
+      "level": "SOL_BLUETOOTH",
+      "val": "ptr[in, bt_codec]",
+      "len": "bytesize[val]",
+      "val_inference": null
+    }
+  },
+  "getsockopt_unknown": [],
+  "proto_ops": {
+    "bind": "sco_sock_bind",
+    "connect": "sco_sock_connect",
+    "accept": "sco_sock_accept",
+    "poll": "bt_sock_poll",
+    "ioctl": "bt_sock_ioctl",
+    "sendmsg": "sco_sock_sendmsg",
+    "recvmsg": "sco_sock_recvmsg",
+    "setsockopt": "sco_sock_setsockopt",
+    "getsockopt": "sco_sock_getsockopt"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/bluetooth/sco.c:1418",
+  "ops_name": "sco_sock_ops",
+  "syscall_specs": {
+    "socket$KGPT_bluetooth": "socket$KGPT_bluetooth(domain const[AF_BLUETOOTH], type const[SOCK_SEQPACKET], proto const[0]) sock_sco",
+    "bind$KGPT_sco_sock_ops": "bind$KGPT_sco_sock_ops(fd sock_sco, addr ptr[in, sockaddr_sco], addrlen len[addr])",
+    "connect$KGPT_sco_sock_ops": "connect$KGPT_sco_sock_ops(fd sock_sco, addr ptr[in, sockaddr_sco], addrlen len[addr])",
+    "accept4$KGPT_sco_sock_ops": "accept4$KGPT_sco_sock_ops(fd sock_sco, peer ptr[out, sockaddr_sco, opt], peerlen ptr[inout, len[peer, int32]], flags flags[accept_flags]) sock_sco",
+    "sendto$KGPT_sco_sock_ops": "sendto$KGPT_sco_sock_ops(fd sock_sco, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, sockaddr_sco, opt], addrlen len[addr])",
+    "recvfrom$KGPT_sco_sock_ops": "recvfrom$KGPT_sco_sock_ops(fd sock_sco, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, sockaddr_sco, opt], addrlen len[addr])",
+    "getsockopt$KGPT_BT_DEFER_SETUP": "getsockopt$KGPT_BT_DEFER_SETUP(fd sock_sco, level const[SOL_BLUETOOTH], opt const[BT_DEFER_SETUP], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_BT_VOICE": "getsockopt$KGPT_BT_VOICE(fd sock_sco, level const[SOL_BLUETOOTH], opt const[BT_VOICE], val ptr[out, bt_voice], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_BT_PHY": "getsockopt$KGPT_BT_PHY(fd sock_sco, level const[SOL_BLUETOOTH], opt const[BT_PHY], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_BT_PKT_STATUS": "getsockopt$KGPT_BT_PKT_STATUS(fd sock_sco, level const[SOL_BLUETOOTH], opt const[BT_PKT_STATUS], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_BT_SNDMTU": "getsockopt$KGPT_BT_SNDMTU(fd sock_sco, level const[SOL_BLUETOOTH], opt const[BT_SNDMTU], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_BT_RCVMTU": "getsockopt$KGPT_BT_RCVMTU(fd sock_sco, level const[SOL_BLUETOOTH], opt const[BT_RCVMTU], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_BT_CODEC": "getsockopt$KGPT_BT_CODEC(fd sock_sco, level const[SOL_BLUETOOTH], opt const[BT_CODEC], val ptr[in, bt_codec], len bytesize[val])",
+    "setsockopt$KGPT_BT_DEFER_SETUP": "setsockopt$KGPT_BT_DEFER_SETUP(fd sock_sco, level const[SOL_BLUETOOTH], opt const[BT_DEFER_SETUP], val ptr[in, int32], len bytesize[val])",
+    "setsockopt$KGPT_BT_VOICE": "setsockopt$KGPT_BT_VOICE(fd sock_sco, level const[SOL_BLUETOOTH], opt const[BT_VOICE], val ptr[in, bt_voice], len bytesize[val])",
+    "setsockopt$KGPT_BT_PKT_STATUS": "setsockopt$KGPT_BT_PKT_STATUS(fd sock_sco, level const[SOL_BLUETOOTH], opt const[BT_PKT_STATUS], val ptr[in, int32], len bytesize[val])",
+    "setsockopt$KGPT_BT_CODEC": "setsockopt$KGPT_BT_CODEC(fd sock_sco, level const[SOL_BLUETOOTH], opt const[BT_CODEC], val ptr[in, bt_codecs], len bytesize[val])"
+  },
+  "init_syscalls": [
+    "socket$KGPT_bluetooth"
+  ],
+  "includes": [
+    "linux/net.h",
+    "net/bluetooth/bluetooth.h",
+    "linux/socket.h"
+  ],
+  "unused_types": {
+    "codec_list": "codec_list {\n\tlist\tlist_head\n\tid\tint8\n\tcid\tint16\n\tvid\tint16\n\ttransport\tint8\n\tnum_caps\tint8\n\tlen\tint32\n\tcaps\tarray[hci_codec_caps, num_caps]\n}",
+    "hci_codec_caps": "hci_codec_caps {\n\tlen\tint8\n\tdata\tarray[int8]\n}",
+    "list_head": "list_head {\n\tnext\t*list_head\n\tprev\t*list_head\n}",
+    "hci_dev": "UNKNOWN"
+  },
+  "ignored_types": {
+    "sockaddr_sco": "EXISTING"
+  }
+}

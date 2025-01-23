@@ -1,0 +1,113 @@
+{
+  "open": {
+    "filename": "/dev/ptmx",
+    "fd_name": "fd_ptmx",
+    "spec": "openat$KGPT_ptmx(fd const[AT_FDCWD], file ptr[in, string[\"/dev/ptmx\"]], flags flags[open_flags], mode const[0]) fd_ptmx"
+  },
+  "resources": {
+    "fd_ptmx": {
+      "type": "fd",
+      "spec": "resource fd_ptmx[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/tty/pty.c:745",
+  "ioctls": {
+    "TIOCGPTN": {
+      "arg": "ptr[out, int32]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    }
+  },
+  "types": {},
+  "existing_ioctls": {
+    "TIOCSPTLCK": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "pty_set_lock"
+        ],
+        "type": [],
+        "usage": [
+          "return pty_set_lock(tty, (int __user *)arg);"
+        ]
+      }
+    },
+    "TIOCGPTLCK": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "pty_get_lock"
+        ],
+        "type": [],
+        "usage": [
+          "return pty_get_lock(tty, (int __user *)arg);"
+        ]
+      }
+    },
+    "TIOCPKT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "pty_set_pktmode"
+        ],
+        "type": [],
+        "usage": [
+          "return pty_set_pktmode(tty, (int __user *)arg);"
+        ]
+      }
+    },
+    "TIOCGPKT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "pty_get_pktmode"
+        ],
+        "type": [],
+        "usage": [
+          "return pty_get_pktmode(tty, (int __user *)arg);"
+        ]
+      }
+    },
+    "TIOCSIG": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "pty_signal"
+        ],
+        "type": [],
+        "usage": [
+          "return pty_signal(tty, (int) arg);"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "openat$KGPT_ptmx": "openat$KGPT_ptmx(fd const[AT_FDCWD], file ptr[in, string[\"/dev/ptmx\"]], flags flags[open_flags], mode const[0]) fd_ptmx",
+    "ioctl$KGPT_TIOCGPTN": "ioctl$KGPT_TIOCGPTN(fd fd_ptmx, cmd const[TIOCGPTN], arg ptr[out, int32])"
+  },
+  "init_syscalls": [
+    "openat$KGPT_ptmx"
+  ],
+  "includes": [
+    "uapi/linux/fcntl.h",
+    "uapi/asm-generic/ioctls.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

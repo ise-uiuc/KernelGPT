@@ -1,0 +1,344 @@
+{
+  "open": {
+    "filename": "/dev/ch#",
+    "fd_name": "fd_ch",
+    "spec": "syz_open_dev$KGPT_ch(dev ptr[in, string[\"/dev/ch#\"]], id proc[0, 1], flags flags[open_flags]) fd_ch"
+  },
+  "resources": {
+    "fd_ch": {
+      "type": "fd",
+      "spec": "resource fd_ch[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/scsi/ch.c:985",
+  "ioctls": {
+    "CHIOINITELEM": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "CHIOGPARAMS": {
+      "arg": "ptr[out, changer_params]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "CHIOGVPARAMS": {
+      "arg": "ptr[out, changer_vendor_params]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "CHIOPOSITION": {
+      "arg": "ptr[in, changer_position]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "CHIOMOVE": {
+      "arg": "ptr[in, changer_move]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "CHIOEXCHANGE": {
+      "arg": "ptr[in, changer_exchange]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "CHIOGSTATUS": {
+      "arg": "ptr[in, changer_element_status]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "CHIOGSTATUS32": {
+      "arg": "ptr[in, changer_element_status32]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "CHIOGELEM": {
+      "arg": "ptr[in, changer_get_element]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "CHIOSVOLTAG": {
+      "arg": "ptr[in, changer_set_voltag]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "changer_params": "changer_params {\n\tcp_curpicker\tint32\n\tcp_npickers\tint32\n\tcp_nslots\tint32\n\tcp_nportals\tint32\n\tcp_ndrives\tint32\n}",
+    "changer_vendor_params": "changer_vendor_params {\n\tcvp_n1\tint32\n\tcvp_label1\tarray[int8, 16]\n\tcvp_n2\tint32\n\tcvp_label2\tarray[int8, 16]\n\tcvp_n3\tint32\n\tcvp_label3\tarray[int8, 16]\n\tcvp_n4\tint32\n\tcvp_label4\tarray[int8, 16]\n\treserved\tarray[int32, 8]\n}",
+    "changer_position": "changer_position {\n\tcp_type\tint32\n\tcp_unit\tint32\n\tcp_flags\tint32\n}",
+    "changer_move": "changer_move {\n\tcm_fromtype\tint32\n\tcm_fromunit\tint32\n\tcm_totype\tint32\n\tcm_tounit\tint32\n\tcm_flags\tint32\n}",
+    "changer_exchange": "changer_exchange {\n\tce_srctype\tint32\n\tce_srcunit\tint32\n\tce_fdsttype\tint32\n\tce_fdstunit\tint32\n\tce_sdsttype\tint32\n\tce_sdstunit\tint32\n\tce_flags\tint32\n}",
+    "changer_element_status": "changer_element_status {\n\tces_type\tint32\n\tces_data\tptr[in, array[int8]]\n}",
+    "changer_get_element": "changer_get_element {\n\tcge_type\tint32\n\tcge_unit\tint32\n\tcge_status\tint32\n\tcge_errno\tint32\n\tcge_srctype\tint32\n\tcge_srcunit\tint32\n\tcge_id\tint32\n\tcge_lun\tint32\n\tcge_pvoltag\tarray[int8, 36]\n\tcge_avoltag\tarray[int8, 36]\n\tcge_flags\tint32\n}",
+    "changer_set_voltag": "changer_set_voltag {\n\tcsv_type\tint32\n\tcsv_unit\tint32\n\tcsv_voltag\tarray[int8, 36]\n\tcsv_flags\tint32\n}"
+  },
+  "existing_ioctls": {
+    "SCSI_IOCTL_SEND_COMMAND": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sg_scsi_ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "return sg_scsi_ioctl(q, open_for_write, arg);"
+        ]
+      }
+    },
+    "SCSI_IOCTL_TEST_UNIT_READY": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SCSI_IOCTL_BENCHMARK_COMMAND": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SCSI_IOCTL_SYNC": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SCSI_IOCTL_START_UNIT": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SCSI_IOCTL_STOP_UNIT": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SG_GET_VERSION_NUM": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sg_get_version"
+        ],
+        "type": [],
+        "usage": [
+          "return sg_get_version(arg);"
+        ]
+      }
+    },
+    "SG_SET_TIMEOUT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sg_set_timeout"
+        ],
+        "type": [],
+        "usage": [
+          "return sg_set_timeout(sdev, arg);"
+        ]
+      }
+    },
+    "SG_GET_TIMEOUT": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SG_GET_RESERVED_SIZE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sg_get_reserved_size"
+        ],
+        "type": [],
+        "usage": [
+          "return sg_get_reserved_size(sdev, arg);"
+        ]
+      }
+    },
+    "SG_SET_RESERVED_SIZE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sg_set_reserved_size"
+        ],
+        "type": [],
+        "usage": [
+          "return sg_set_reserved_size(sdev, arg);"
+        ]
+      }
+    },
+    "SG_EMULATED_HOST": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sg_emulated_host"
+        ],
+        "type": [],
+        "usage": [
+          "return sg_emulated_host(q, arg);"
+        ]
+      }
+    },
+    "SG_IO": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "scsi_ioctl_sg_io"
+        ],
+        "type": [],
+        "usage": [
+          "return scsi_ioctl_sg_io(sdev, open_for_write, arg);"
+        ]
+      }
+    },
+    "CDROM_SEND_PACKET": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "scsi_cdrom_send_packet"
+        ],
+        "type": [],
+        "usage": [
+          "return scsi_cdrom_send_packet(sdev, open_for_write, arg);"
+        ]
+      }
+    },
+    "CDROMCLOSETRAY": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "CDROMEJECT": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SCSI_IOCTL_GET_IDLUN": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "scsi_get_idlun"
+        ],
+        "type": [],
+        "usage": [
+          "return scsi_get_idlun(sdev, arg);"
+        ]
+      }
+    },
+    "SCSI_IOCTL_GET_BUS_NUMBER": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [],
+        "usage": [
+          "return put_user(sdev->host->host_no, (int __user *)arg);"
+        ]
+      }
+    },
+    "SCSI_IOCTL_PROBE_HOST": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "ioctl_probe"
+        ],
+        "type": [],
+        "usage": [
+          "return ioctl_probe(sdev->host, arg);"
+        ]
+      }
+    },
+    "SCSI_IOCTL_DOORLOCK": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SCSI_IOCTL_DOORUNLOCK": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SCSI_IOCTL_GET_PCI": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "scsi_ioctl_get_pci"
+        ],
+        "type": [],
+        "usage": [
+          "return scsi_ioctl_get_pci(sdev, arg);"
+        ]
+      }
+    },
+    "SG_SCSI_RESET": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "scsi_ioctl_reset"
+        ],
+        "type": [],
+        "usage": [
+          "return scsi_ioctl_reset(sdev, arg);"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_ch": "syz_open_dev$KGPT_ch(dev ptr[in, string[\"/dev/ch#\"]], id proc[0, 1], flags flags[open_flags]) fd_ch",
+    "ioctl$KGPT_CHIOINITELEM": "ioctl$KGPT_CHIOINITELEM(fd fd_ch, cmd const[CHIOINITELEM], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_CHIOGPARAMS": "ioctl$KGPT_CHIOGPARAMS(fd fd_ch, cmd const[CHIOGPARAMS], arg ptr[out, changer_params])",
+    "ioctl$KGPT_CHIOGVPARAMS": "ioctl$KGPT_CHIOGVPARAMS(fd fd_ch, cmd const[CHIOGVPARAMS], arg ptr[out, changer_vendor_params])",
+    "ioctl$KGPT_CHIOPOSITION": "ioctl$KGPT_CHIOPOSITION(fd fd_ch, cmd const[CHIOPOSITION], arg ptr[in, changer_position])",
+    "ioctl$KGPT_CHIOMOVE": "ioctl$KGPT_CHIOMOVE(fd fd_ch, cmd const[CHIOMOVE], arg ptr[in, changer_move])",
+    "ioctl$KGPT_CHIOEXCHANGE": "ioctl$KGPT_CHIOEXCHANGE(fd fd_ch, cmd const[CHIOEXCHANGE], arg ptr[in, changer_exchange])",
+    "ioctl$KGPT_CHIOGSTATUS": "ioctl$KGPT_CHIOGSTATUS(fd fd_ch, cmd const[CHIOGSTATUS], arg ptr[in, changer_element_status])",
+    "ioctl$KGPT_CHIOGELEM": "ioctl$KGPT_CHIOGELEM(fd fd_ch, cmd const[CHIOGELEM], arg ptr[in, changer_get_element])",
+    "ioctl$KGPT_CHIOSVOLTAG": "ioctl$KGPT_CHIOSVOLTAG(fd fd_ch, cmd const[CHIOSVOLTAG], arg ptr[in, changer_set_voltag])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_ch"
+  ],
+  "includes": [
+    "uapi/linux/chio.h"
+  ],
+  "unused_types": {
+    "changer_element_status32": "changer_element_status32 {\n\tces_type\tint32\n\tces_data\tintptr\n}"
+  },
+  "ignored_types": {}
+}

@@ -1,0 +1,457 @@
+{
+  "open": {
+    "filename": "/dev/dsp#",
+    "fd_name": "fd_snd_pcm_oss",
+    "spec": "syz_open_dev$KGPT_snd_pcm_oss(dev ptr[in, string[\"/dev/dsp#\"]], id proc[0, 1], flags flags[open_flags]) fd_snd_pcm_oss"
+  },
+  "resources": {
+    "fd_snd_pcm_oss": {
+      "type": "fd",
+      "spec": "resource fd_snd_pcm_oss[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/sound/core/oss/pcm_oss.c:3122",
+  "ioctls": {
+    "SOUND_PCM_WRITE_FILTER": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SOUND_PCM_READ_FILTER": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SNDCTL_DSP_SETSYNCRO": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SNDCTL_DSP_PROFILE": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SNDCTL_DSP_MAPINBUF": {
+      "arg": "ptr[in, buffmem_desc]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "SNDCTL_DSP_MAPOUTBUF": {
+      "arg": "ptr[in, buffmem_desc]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "buffmem_desc": "buffmem_desc {\n\tbuffer\t ptr[in, array[int32]]\n\tsize\tint32\n}"
+  },
+  "existing_ioctls": {
+    "OSS_GETVERSION": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "put_user"
+        ],
+        "type": [],
+        "usage": [
+          "return put_user(SNDRV_OSS_VERSION, p);"
+        ]
+      }
+    },
+    "OSS_ALSAEMULVER": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "put_user"
+        ],
+        "type": [],
+        "usage": [
+          "return put_user(1, p);"
+        ]
+      }
+    },
+    "SNDCTL_DSP_RESET": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SNDCTL_DSP_SYNC": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SNDCTL_DSP_SPEED": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_pcm_oss_set_rate",
+          "put_user",
+          "get_user"
+        ],
+        "type": [],
+        "usage": [
+          "if (get_user(res, p)) return -EFAULT;",
+          "res = snd_pcm_oss_set_rate(pcm_oss_file, res);",
+          "return put_user(res, p);"
+        ]
+      }
+    },
+    "SOUND_PCM_READ_RATE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_pcm_oss_get_rate",
+          "put_user"
+        ],
+        "type": [],
+        "usage": [
+          "res = snd_pcm_oss_get_rate(pcm_oss_file);",
+          "return put_user(res, p);"
+        ]
+      }
+    },
+    "SNDCTL_DSP_STEREO": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_pcm_oss_set_channels",
+          "put_user",
+          "get_user"
+        ],
+        "type": [],
+        "usage": [
+          "if (get_user(res, p)) return -EFAULT;",
+          "res = snd_pcm_oss_set_channels(pcm_oss_file, res);",
+          "return put_user(--res, p);"
+        ]
+      }
+    },
+    "SNDCTL_DSP_GETBLKSIZE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_pcm_oss_get_block_size",
+          "put_user"
+        ],
+        "type": [],
+        "usage": [
+          "res = snd_pcm_oss_get_block_size(pcm_oss_file);",
+          "return put_user(res, p);"
+        ]
+      }
+    },
+    "SNDCTL_DSP_SETFMT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_pcm_oss_set_format",
+          "put_user",
+          "get_user"
+        ],
+        "type": [],
+        "usage": [
+          "if (get_user(res, p)) return -EFAULT;",
+          "res = snd_pcm_oss_set_format(pcm_oss_file, res);",
+          "return put_user(res, p);"
+        ]
+      }
+    },
+    "SOUND_PCM_READ_BITS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_pcm_oss_get_format",
+          "put_user"
+        ],
+        "type": [],
+        "usage": [
+          "res = snd_pcm_oss_get_format(pcm_oss_file);",
+          "return put_user(res, p);"
+        ]
+      }
+    },
+    "SNDCTL_DSP_CHANNELS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_pcm_oss_set_channels",
+          "put_user",
+          "get_user"
+        ],
+        "type": [],
+        "usage": [
+          "if (get_user(res, p)) return -EFAULT;",
+          "res = snd_pcm_oss_set_channels(pcm_oss_file, res);",
+          "return put_user(res, p);"
+        ]
+      }
+    },
+    "SOUND_PCM_READ_CHANNELS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_pcm_oss_get_channels",
+          "put_user"
+        ],
+        "type": [],
+        "usage": [
+          "res = snd_pcm_oss_get_channels(pcm_oss_file);",
+          "return put_user(res, p);"
+        ]
+      }
+    },
+    "SNDCTL_DSP_POST": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SNDCTL_DSP_SUBDIVIDE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_pcm_oss_set_subdivide",
+          "put_user",
+          "get_user"
+        ],
+        "type": [],
+        "usage": [
+          "if (get_user(res, p)) return -EFAULT;",
+          "res = snd_pcm_oss_set_subdivide(pcm_oss_file, res);",
+          "return put_user(res, p);"
+        ]
+      }
+    },
+    "SNDCTL_DSP_SETFRAGMENT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_pcm_oss_set_fragment",
+          "get_user"
+        ],
+        "type": [],
+        "usage": [
+          "if (get_user(res, p)) return -EFAULT;",
+          "return snd_pcm_oss_set_fragment(pcm_oss_file, res);"
+        ]
+      }
+    },
+    "SNDCTL_DSP_GETFMTS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_pcm_oss_get_formats",
+          "put_user"
+        ],
+        "type": [],
+        "usage": [
+          "res = snd_pcm_oss_get_formats(pcm_oss_file);",
+          "return put_user(res, p);"
+        ]
+      }
+    },
+    "SNDCTL_DSP_GETOSPACE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_pcm_oss_get_space"
+        ],
+        "type": [
+          "audio_buf_info"
+        ],
+        "usage": [
+          "return snd_pcm_oss_get_space(pcm_oss_file, SNDRV_PCM_STREAM_PLAYBACK, (struct audio_buf_info __user *) arg);"
+        ]
+      }
+    },
+    "SNDCTL_DSP_GETISPACE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_pcm_oss_get_space"
+        ],
+        "type": [
+          "audio_buf_info"
+        ],
+        "usage": [
+          "return snd_pcm_oss_get_space(pcm_oss_file, SNDRV_PCM_STREAM_CAPTURE, (struct audio_buf_info __user *) arg);"
+        ]
+      }
+    },
+    "SNDCTL_DSP_NONBLOCK": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SNDCTL_DSP_GETCAPS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_pcm_oss_get_caps",
+          "put_user"
+        ],
+        "type": [],
+        "usage": [
+          "res = snd_pcm_oss_get_caps(pcm_oss_file);",
+          "return put_user(res, p);"
+        ]
+      }
+    },
+    "SNDCTL_DSP_GETTRIGGER": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_pcm_oss_get_trigger",
+          "put_user"
+        ],
+        "type": [],
+        "usage": [
+          "res = snd_pcm_oss_get_trigger(pcm_oss_file);",
+          "return put_user(res, p);"
+        ]
+      }
+    },
+    "SNDCTL_DSP_SETTRIGGER": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_pcm_oss_set_trigger",
+          "get_user"
+        ],
+        "type": [],
+        "usage": [
+          "if (get_user(res, p)) return -EFAULT;",
+          "return snd_pcm_oss_set_trigger(pcm_oss_file, res);"
+        ]
+      }
+    },
+    "SNDCTL_DSP_GETIPTR": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_pcm_oss_get_ptr"
+        ],
+        "type": [
+          "count_info"
+        ],
+        "usage": [
+          "return snd_pcm_oss_get_ptr(pcm_oss_file, SNDRV_PCM_STREAM_CAPTURE, (struct count_info __user *) arg);"
+        ]
+      }
+    },
+    "SNDCTL_DSP_GETOPTR": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_pcm_oss_get_ptr"
+        ],
+        "type": [
+          "count_info"
+        ],
+        "usage": [
+          "return snd_pcm_oss_get_ptr(pcm_oss_file, SNDRV_PCM_STREAM_PLAYBACK, (struct count_info __user *) arg);"
+        ]
+      }
+    },
+    "SNDCTL_DSP_SETDUPLEX": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SNDCTL_DSP_GETODELAY": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_pcm_oss_get_odelay",
+          "put_user"
+        ],
+        "type": [],
+        "usage": [
+          "res = snd_pcm_oss_get_odelay(pcm_oss_file);",
+          "return put_user(res, p);"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_snd_pcm_oss": "syz_open_dev$KGPT_snd_pcm_oss(dev ptr[in, string[\"/dev/dsp#\"]], id proc[0, 1], flags flags[open_flags]) fd_snd_pcm_oss",
+    "ioctl$KGPT_SOUND_PCM_WRITE_FILTER": "ioctl$KGPT_SOUND_PCM_WRITE_FILTER(fd fd_snd_pcm_oss, cmd const[SOUND_PCM_WRITE_FILTER], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_SOUND_PCM_READ_FILTER": "ioctl$KGPT_SOUND_PCM_READ_FILTER(fd fd_snd_pcm_oss, cmd const[SOUND_PCM_READ_FILTER], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_SNDCTL_DSP_SETSYNCRO": "ioctl$KGPT_SNDCTL_DSP_SETSYNCRO(fd fd_snd_pcm_oss, cmd const[SNDCTL_DSP_SETSYNCRO], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_SNDCTL_DSP_PROFILE": "ioctl$KGPT_SNDCTL_DSP_PROFILE(fd fd_snd_pcm_oss, cmd const[SNDCTL_DSP_PROFILE], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_SNDCTL_DSP_MAPINBUF": "ioctl$KGPT_SNDCTL_DSP_MAPINBUF(fd fd_snd_pcm_oss, cmd const[SNDCTL_DSP_MAPINBUF], arg ptr[in, buffmem_desc])",
+    "ioctl$KGPT_SNDCTL_DSP_MAPOUTBUF": "ioctl$KGPT_SNDCTL_DSP_MAPOUTBUF(fd fd_snd_pcm_oss, cmd const[SNDCTL_DSP_MAPOUTBUF], arg ptr[in, buffmem_desc])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_snd_pcm_oss"
+  ],
+  "includes": [
+    "uapi/linux/soundcard.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

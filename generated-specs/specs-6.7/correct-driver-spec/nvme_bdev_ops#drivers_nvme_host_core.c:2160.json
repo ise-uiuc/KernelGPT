@@ -1,0 +1,222 @@
+{
+  "open": {
+    "filename": "/dev/nvme#n#",
+    "fd_name": "fd_nvme",
+    "spec": "syz_open_dev$KGPT_nvme(dev ptr[in, string[\"/dev/nvme#n#\"]], id proc[0, 1], flags flags[open_flags]) fd_nvme"
+  },
+  "resources": {
+    "fd_nvme": {
+      "type": "fd",
+      "spec": "resource fd_nvme[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/nvme/host/core.c:2160",
+  "ioctls": {
+    "NVME_IOCTL_ID": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "NVME_IOCTL_ADMIN_CMD": {
+      "arg": "ptr[in,out, nvme_passthru_cmd]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "NVME_IOCTL_ADMIN64_CMD": {
+      "arg": "ptr[in, nvme_passthru_cmd64]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "NVME_IOCTL_IO_CMD": {
+      "arg": "ptr[in, nvme_passthru_cmd]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "NVME_IOCTL_SUBMIT_IO": {
+      "arg": "ptr[in, nvme_user_io]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "NVME_IOCTL_IO64_CMD_VEC": {
+      "arg": "ptr[in, nvme_passthru_cmd64]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "NVME_IOCTL_IO64_CMD": {
+      "arg": "ptr[in, nvme_passthru_cmd64]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "IOC_OPAL_SAVE": {
+      "arg": "ptr[in, opal_lock_unlock]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    },
+    "IOC_OPAL_LOCK_UNLOCK": {
+      "arg": "ptr[in, opal_lock_unlock]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    },
+    "IOC_OPAL_TAKE_OWNERSHIP": {
+      "arg": "ptr[in, opal_key]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    },
+    "IOC_OPAL_ACTIVATE_LSP": {
+      "arg": "ptr[in, opal_lr_act]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    },
+    "IOC_OPAL_SET_PW": {
+      "arg": "ptr[in, opal_new_pw]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    },
+    "IOC_OPAL_ACTIVATE_USR": {
+      "arg": "ptr[in, opal_session_info]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    },
+    "IOC_OPAL_REVERT_TPR": {
+      "arg": "ptr[in, opal_key]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    },
+    "IOC_OPAL_LR_SETUP": {
+      "arg": "ptr[in, opal_user_lr_setup]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    },
+    "IOC_OPAL_ADD_USR_TO_LR": {
+      "arg": "ptr[in, opal_lock_unlock]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    },
+    "IOC_OPAL_ENABLE_DISABLE_MBR": {
+      "arg": "ptr[in, opal_mbr_data]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    },
+    "IOC_OPAL_MBR_DONE": {
+      "arg": "ptr[in, opal_mbr_done]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    },
+    "IOC_OPAL_WRITE_SHADOW_MBR": {
+      "arg": "ptr[in, opal_shadow_mbr]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    },
+    "IOC_OPAL_ERASE_LR": {
+      "arg": "ptr[in, opal_session_info]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    },
+    "IOC_OPAL_SECURE_ERASE_LR": {
+      "arg": "ptr[in, opal_session_info]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    },
+    "IOC_OPAL_PSID_REVERT_TPR": {
+      "arg": "ptr[in, opal_key]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    },
+    "IOC_OPAL_GENERIC_TABLE_RW": {
+      "arg": "ptr[in, opal_read_write_table]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    },
+    "IOC_OPAL_GET_STATUS": {
+      "arg": "ptr[out, opal_status]",
+      "arg_name_in_usage": "data",
+      "arg_inference": null
+    },
+    "IOC_OPAL_GET_LR_STATUS": {
+      "arg": "ptr[inout, opal_lr_status]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "IOC_OPAL_GET_GEOMETRY": {
+      "arg": "ptr[out, opal_geometry]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "IOC_OPAL_REVERT_LSP": {
+      "arg": "ptr[in, opal_revert_lsp]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    },
+    "IOC_OPAL_DISCOVERY": {
+      "arg": "ptr[out, opal_discovery]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "nvme_passthru_cmd": "nvme_passthru_cmd {\n\topcode\tint8\n\tflags\tint8\n\trsvd1\tint16\n\tnsid\tint32\n\tcdw2\tint32\n\tcdw3\tint32\n\tmetadata\tint64\n\taddr\tint64\n\tmetadata_len\tint32\n\tdata_len\tint32\n\tcdw10\tint32\n\tcdw11\tint32\n\tcdw12\tint32\n\tcdw13\tint32\n\tcdw14\tint32\n\tcdw15\tint32\n\ttimeout_ms\tint32\n\tresult\tint32\n}",
+    "nvme_passthru_cmd64": "nvme_passthru_cmd64 {\n\topcode\tint8\n\tflags\tint8\n\trsvd1\tint16\n\tnsid\tint32\n\tcdw2\tint32\n\tcdw3\tint32\n\tmetadata\tint64\n\taddr\tint64\n\tmetadata_len\tint32\n\tdata_len\tint32\n\tvec_cnt\tint32\n\tcdw10\tint32\n\tcdw11\tint32\n\tcdw12\tint32\n\tcdw13\tint32\n\tcdw14\tint32\n\tcdw15\tint32\n\ttimeout_ms\tint32\n\trsvd2\tint32\n\tresult\tint64\n}",
+    "nvme_user_io": "nvme_user_io {\n\topcode\tint8\n\tflags\tint8\n\tcontrol\tint16\n\tnblocks\tint16\n\trsvd\tint16\n\tmetadata\tint64\n\taddr\tint64\n\tslba\tint64\n\tdsmgmt\tint32\n\treftag\tint32\n\tapptag\tint16\n\tappmask\tint16\n}",
+    "opal_lock_unlock": "opal_lock_unlock {\n\tsession\topal_session_info\n\tl_state\tint32\n\tflags\tint16\n\t__align\tarray[int8, 2]\n}",
+    "opal_session_info": "opal_session_info {\n\tsum\tint32\n\twho\tint32\n\topal_key\topal_key\n}",
+    "opal_key": "opal_key {\n\tlr\tint8\n\tkey_len\tint8\n\tkey_type\tint8\n\t__align\tarray[int8, 5]\n\tkey\tarray[int8, OPAL_KEY_MAX]\n}",
+    "opal_lr_act": "opal_lr_act {\n\tkey\topal_key\n\tsum\tint32\n\tnum_lrs\tint8\n\tlr\tarray[int8, OPAL_MAX_LRS]\n\talign\tarray[int8, 2]\n}",
+    "opal_new_pw": "opal_new_pw {\n\tsession\topal_session_info\n\tnew_user_pw\topal_session_info\n}",
+    "opal_user_lr_setup": "opal_user_lr_setup {\n\trange_start\tint64\n\trange_length\tint64\n\tRLE\tint32\n\tWLE\tint32\n\tsession\topal_session_info\n}",
+    "opal_mbr_data": "opal_mbr_data {\n\tkey\topal_key\n\tenable_disable\tint8\n\t__align\tarray[int8, 7]\n}",
+    "opal_mbr_done": "opal_mbr_done {\n\tkey\topal_key\n\tdone_flag\tint8\n\t__align\tarray[int8, 7]\n}",
+    "opal_status": "opal_status {\n\tflags\tint32\n\treserved\tint32\n}",
+    "opal_lr_status": "opal_lr_status {\n\tsession\topal_session_info\n\trange_start\tint64\n\trange_length\tint64\n\tRLE\tint32\n\tWLE\tint32\n\tl_state\tint32\n\talign\tarray[int8, 4]\n}",
+    "opal_geometry": "opal_geometry {\n\talign\tint8\n\tlogical_block_size\tint32\n\talignment_granularity\tint64\n\tlowest_aligned_lba\tint64\n\t__align\tarray[int8, 3]\n}",
+    "opal_revert_lsp": "opal_revert_lsp {\n\tkey\topal_key\n\toptions\tint32\n\t__pad\tint32\n}",
+    "opal_discovery": "opal_discovery {\n\tdata\tint64\n\tsize\tint64\n}",
+    "opal_shadow_mbr": "opal_shadow_mbr {\n\tkey\topal_key\n\tdata\tconst[0, int64]\n\toffset\tint64\n\tsize\tint64\n}",
+    "opal_read_write_table": "opal_read_write_table {\n\tkey\topal_key\n\tdata\tint64\n\ttable_uid\tarray[const[0, int8], OPAL_UID_LENGTH]\n\toffset\tint64\n\tsize\tint64\n\tflags\tflags[opal_table_flags, int64]\n\tpriv\tint64\n}",
+    "opal_table_flags": "opal_table_flags = OPAL_TABLE_READ, OPAL_TABLE_WRITE",
+    "OPAL_TABLE_READ": "define OPAL_TABLE_READ 1",
+    "OPAL_TABLE_WRITE": "define OPAL_TABLE_WRITE 2",
+    "OPAL_UID_LENGTH": "define OPAL_UID_LENGTH 8"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_nvme": "syz_open_dev$KGPT_nvme(dev ptr[in, string[\"/dev/nvme#n#\"]], id proc[0, 1], flags flags[open_flags]) fd_nvme",
+    "ioctl$KGPT_NVME_IOCTL_ID": "ioctl$KGPT_NVME_IOCTL_ID(fd fd_nvme, cmd const[NVME_IOCTL_ID], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_NVME_IOCTL_ADMIN_CMD": "ioctl$KGPT_NVME_IOCTL_ADMIN_CMD(fd fd_nvme, cmd const[NVME_IOCTL_ADMIN_CMD], arg ptr[inout, nvme_passthru_cmd])",
+    "ioctl$KGPT_NVME_IOCTL_ADMIN64_CMD": "ioctl$KGPT_NVME_IOCTL_ADMIN64_CMD(fd fd_nvme, cmd const[NVME_IOCTL_ADMIN64_CMD], arg ptr[in, nvme_passthru_cmd64])",
+    "ioctl$KGPT_NVME_IOCTL_IO_CMD": "ioctl$KGPT_NVME_IOCTL_IO_CMD(fd fd_nvme, cmd const[NVME_IOCTL_IO_CMD], arg ptr[in, nvme_passthru_cmd])",
+    "ioctl$KGPT_NVME_IOCTL_SUBMIT_IO": "ioctl$KGPT_NVME_IOCTL_SUBMIT_IO(fd fd_nvme, cmd const[NVME_IOCTL_SUBMIT_IO], arg ptr[in, nvme_user_io])",
+    "ioctl$KGPT_NVME_IOCTL_IO64_CMD_VEC": "ioctl$KGPT_NVME_IOCTL_IO64_CMD_VEC(fd fd_nvme, cmd const[NVME_IOCTL_IO64_CMD_VEC], arg ptr[in, nvme_passthru_cmd64])",
+    "ioctl$KGPT_NVME_IOCTL_IO64_CMD": "ioctl$KGPT_NVME_IOCTL_IO64_CMD(fd fd_nvme, cmd const[NVME_IOCTL_IO64_CMD], arg ptr[in, nvme_passthru_cmd64])",
+    "ioctl$KGPT_IOC_OPAL_SAVE": "ioctl$KGPT_IOC_OPAL_SAVE(fd fd_nvme, cmd const[IOC_OPAL_SAVE], arg ptr[in, opal_lock_unlock])",
+    "ioctl$KGPT_IOC_OPAL_LOCK_UNLOCK": "ioctl$KGPT_IOC_OPAL_LOCK_UNLOCK(fd fd_nvme, cmd const[IOC_OPAL_LOCK_UNLOCK], arg ptr[in, opal_lock_unlock])",
+    "ioctl$KGPT_IOC_OPAL_TAKE_OWNERSHIP": "ioctl$KGPT_IOC_OPAL_TAKE_OWNERSHIP(fd fd_nvme, cmd const[IOC_OPAL_TAKE_OWNERSHIP], arg ptr[in, opal_key])",
+    "ioctl$KGPT_IOC_OPAL_ACTIVATE_LSP": "ioctl$KGPT_IOC_OPAL_ACTIVATE_LSP(fd fd_nvme, cmd const[IOC_OPAL_ACTIVATE_LSP], arg ptr[in, opal_lr_act])",
+    "ioctl$KGPT_IOC_OPAL_SET_PW": "ioctl$KGPT_IOC_OPAL_SET_PW(fd fd_nvme, cmd const[IOC_OPAL_SET_PW], arg ptr[in, opal_new_pw])",
+    "ioctl$KGPT_IOC_OPAL_ACTIVATE_USR": "ioctl$KGPT_IOC_OPAL_ACTIVATE_USR(fd fd_nvme, cmd const[IOC_OPAL_ACTIVATE_USR], arg ptr[in, opal_session_info])",
+    "ioctl$KGPT_IOC_OPAL_REVERT_TPR": "ioctl$KGPT_IOC_OPAL_REVERT_TPR(fd fd_nvme, cmd const[IOC_OPAL_REVERT_TPR], arg ptr[in, opal_key])",
+    "ioctl$KGPT_IOC_OPAL_LR_SETUP": "ioctl$KGPT_IOC_OPAL_LR_SETUP(fd fd_nvme, cmd const[IOC_OPAL_LR_SETUP], arg ptr[in, opal_user_lr_setup])",
+    "ioctl$KGPT_IOC_OPAL_ADD_USR_TO_LR": "ioctl$KGPT_IOC_OPAL_ADD_USR_TO_LR(fd fd_nvme, cmd const[IOC_OPAL_ADD_USR_TO_LR], arg ptr[in, opal_lock_unlock])",
+    "ioctl$KGPT_IOC_OPAL_ENABLE_DISABLE_MBR": "ioctl$KGPT_IOC_OPAL_ENABLE_DISABLE_MBR(fd fd_nvme, cmd const[IOC_OPAL_ENABLE_DISABLE_MBR], arg ptr[in, opal_mbr_data])",
+    "ioctl$KGPT_IOC_OPAL_MBR_DONE": "ioctl$KGPT_IOC_OPAL_MBR_DONE(fd fd_nvme, cmd const[IOC_OPAL_MBR_DONE], arg ptr[in, opal_mbr_done])",
+    "ioctl$KGPT_IOC_OPAL_WRITE_SHADOW_MBR": "ioctl$KGPT_IOC_OPAL_WRITE_SHADOW_MBR(fd fd_nvme, cmd const[IOC_OPAL_WRITE_SHADOW_MBR], arg ptr[in, opal_shadow_mbr])",
+    "ioctl$KGPT_IOC_OPAL_ERASE_LR": "ioctl$KGPT_IOC_OPAL_ERASE_LR(fd fd_nvme, cmd const[IOC_OPAL_ERASE_LR], arg ptr[in, opal_session_info])",
+    "ioctl$KGPT_IOC_OPAL_SECURE_ERASE_LR": "ioctl$KGPT_IOC_OPAL_SECURE_ERASE_LR(fd fd_nvme, cmd const[IOC_OPAL_SECURE_ERASE_LR], arg ptr[in, opal_session_info])",
+    "ioctl$KGPT_IOC_OPAL_PSID_REVERT_TPR": "ioctl$KGPT_IOC_OPAL_PSID_REVERT_TPR(fd fd_nvme, cmd const[IOC_OPAL_PSID_REVERT_TPR], arg ptr[in, opal_key])",
+    "ioctl$KGPT_IOC_OPAL_GENERIC_TABLE_RW": "ioctl$KGPT_IOC_OPAL_GENERIC_TABLE_RW(fd fd_nvme, cmd const[IOC_OPAL_GENERIC_TABLE_RW], arg ptr[in, opal_read_write_table])",
+    "ioctl$KGPT_IOC_OPAL_GET_STATUS": "ioctl$KGPT_IOC_OPAL_GET_STATUS(fd fd_nvme, cmd const[IOC_OPAL_GET_STATUS], arg ptr[out, opal_status])",
+    "ioctl$KGPT_IOC_OPAL_GET_LR_STATUS": "ioctl$KGPT_IOC_OPAL_GET_LR_STATUS(fd fd_nvme, cmd const[IOC_OPAL_GET_LR_STATUS], arg ptr[inout, opal_lr_status])",
+    "ioctl$KGPT_IOC_OPAL_GET_GEOMETRY": "ioctl$KGPT_IOC_OPAL_GET_GEOMETRY(fd fd_nvme, cmd const[IOC_OPAL_GET_GEOMETRY], arg ptr[out, opal_geometry])",
+    "ioctl$KGPT_IOC_OPAL_REVERT_LSP": "ioctl$KGPT_IOC_OPAL_REVERT_LSP(fd fd_nvme, cmd const[IOC_OPAL_REVERT_LSP], arg ptr[in, opal_revert_lsp])",
+    "ioctl$KGPT_IOC_OPAL_DISCOVERY": "ioctl$KGPT_IOC_OPAL_DISCOVERY(fd fd_nvme, cmd const[IOC_OPAL_DISCOVERY], arg ptr[out, opal_discovery])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_nvme"
+  ],
+  "includes": [
+    "uapi/linux/nvme_ioctl.h",
+    "uapi/linux/sed-opal.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

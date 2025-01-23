@@ -1,0 +1,173 @@
+{
+  "open": {
+    "filename": "/dev/snd/seq",
+    "fd_name": "fd_snd_seq",
+    "spec": "openat$KGPT_seq(fd const[AT_FDCWD], file ptr[in, string[\"/dev/snd/seq\"]], flags flags[open_flags], mode const[0]) fd_snd_seq"
+  },
+  "resources": {
+    "fd_snd_seq": {
+      "type": "fd",
+      "spec": "resource fd_snd_seq[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/sound/core/seq/seq_clientmgr.c:2711",
+  "ioctls": {
+    "SNDRV_SEQ_IOCTL_RUNNING_INFO": {
+      "arg": "ptr[in, snd_seq_running_info]",
+      "arg_name_in_usage": "running_info",
+      "arg_inference": null
+    },
+    "SNDRV_SEQ_IOCTL_CLIENT_INFO": {
+      "arg": "ptr[inout, snd_seq_client_info]",
+      "arg_name_in_usage": "client_info",
+      "arg_inference": null
+    },
+    "SNDRV_SEQ_IOCTL_PORT_INFO": {
+      "arg": "ptr[inout, snd_seq_port_info]",
+      "arg_name_in_usage": "port_info",
+      "arg_inference": null
+    },
+    "SNDRV_SEQ_IOCTL_PORT_SUBSCRIBE": {
+      "arg": "ptr[in, snd_seq_port_subscribe]",
+      "arg_name_in_usage": "port_subscribe",
+      "arg_inference": null
+    },
+    "SNDRV_SEQ_IOCTL_QUEUE_INFO": {
+      "arg": "ptr[inout, snd_seq_queue_info]",
+      "arg_name_in_usage": "queue_info",
+      "arg_inference": null
+    },
+    "SNDRV_SEQ_IOCTL_QUEUE_STATUS": {
+      "arg": "ptr[out, snd_seq_queue_status]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    },
+    "SNDRV_SEQ_IOCTL_QUEUE_TEMPO": {
+      "arg": "ptr[in, snd_seq_queue_tempo]",
+      "arg_name_in_usage": "tempo",
+      "arg_inference": null
+    },
+    "SNDRV_SEQ_IOCTL_QUEUE_TIMER": {
+      "arg": "ptr[in, snd_seq_queue_timer]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    },
+    "SNDRV_SEQ_IOCTL_QUEUE_CLIENT": {
+      "arg": "ptr[in, snd_seq_queue_client]",
+      "arg_name_in_usage": "queue_client",
+      "arg_inference": null
+    },
+    "SNDRV_SEQ_IOCTL_CLIENT_POOL": {
+      "arg": "ptr[inout, snd_seq_client_pool]",
+      "arg_name_in_usage": "client_pool",
+      "arg_inference": null
+    },
+    "SNDRV_SEQ_IOCTL_GET_CLIENT_UMP_INFO": {
+      "arg": "ptr[inout, snd_seq_client_ump_info]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "SNDRV_SEQ_IOCTL_SET_CLIENT_UMP_INFO": {
+      "arg": "ptr[in, snd_seq_client_ump_info]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "snd_seq_client_ump_info": "snd_seq_client_ump_info {\n\tclient\tint32\n\ttype\tint32\n\tinfo\tarray[int8, 512]\n}"
+  },
+  "existing_ioctls": {
+    "SNDRV_SEQ_IOCTL_PVERSION": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "pversion"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [
+          "int"
+        ],
+        "usage": [
+          "int pversion;"
+        ]
+      }
+    },
+    "SNDRV_SEQ_IOCTL_CLIENT_ID": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "client_id"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [
+          "int"
+        ],
+        "usage": [
+          "int client_id;"
+        ]
+      }
+    },
+    "SNDRV_SEQ_IOCTL_SYSTEM_INFO": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "system_info"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [
+          "snd_seq_system_info"
+        ],
+        "usage": [
+          "struct snd_seq_system_info system_info;"
+        ]
+      }
+    },
+    "SNDRV_SEQ_IOCTL_REMOVE_EVENTS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "remove_events"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [
+          "snd_seq_remove_events"
+        ],
+        "usage": [
+          "struct snd_seq_remove_events remove_events;"
+        ]
+      }
+    },
+    "SNDRV_SEQ_IOCTL_QUERY_SUBS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "query_subs"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [
+          "snd_seq_query_subs"
+        ],
+        "usage": [
+          "struct snd_seq_query_subs query_subs;"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "openat$KGPT_seq": "openat$KGPT_seq(fd const[AT_FDCWD], file ptr[in, string[\"/dev/snd/seq\"]], flags flags[open_flags], mode const[0]) fd_snd_seq",
+    "ioctl$KGPT_SNDRV_SEQ_IOCTL_GET_CLIENT_UMP_INFO": "ioctl$KGPT_SNDRV_SEQ_IOCTL_GET_CLIENT_UMP_INFO(fd fd_snd_seq, cmd const[SNDRV_SEQ_IOCTL_GET_CLIENT_UMP_INFO], arg ptr[inout, snd_seq_client_ump_info])",
+    "ioctl$KGPT_SNDRV_SEQ_IOCTL_SET_CLIENT_UMP_INFO": "ioctl$KGPT_SNDRV_SEQ_IOCTL_SET_CLIENT_UMP_INFO(fd fd_snd_seq, cmd const[SNDRV_SEQ_IOCTL_SET_CLIENT_UMP_INFO], arg ptr[in, snd_seq_client_ump_info])"
+  },
+  "init_syscalls": [
+    "openat$KGPT_seq"
+  ],
+  "includes": [
+    "uapi/linux/fcntl.h",
+    "uapi/sound/asequencer.h"
+  ],
+  "unused_types": {
+    "snd_seq_queue_tempo": "snd_seq_queue_tempo {\n\tqueue\tint32\n\ttempo\tint32\n\tppq\tint32\n\tskew_value\tint32\n\tskew_base\tint32\n\treserved\tarray[int8, 24]\n}"
+  },
+  "ignored_types": {}
+}

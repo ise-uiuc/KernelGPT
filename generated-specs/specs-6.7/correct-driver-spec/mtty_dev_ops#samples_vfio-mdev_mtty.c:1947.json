@@ -1,0 +1,105 @@
+{
+  "open": {
+    "filename": "/dev/vfio/vfio-mtty#",
+    "fd_name": "fd_mtty",
+    "spec": "syz_open_dev$KGPT_mtty(dev ptr[in, string[\"/dev/vfio/vfio-mtty#\"]], id proc[0, 1], flags flags[open_flags]) fd_mtty"
+  },
+  "resources": {
+    "fd_mtty": {
+      "type": "fd",
+      "spec": "resource fd_mtty[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/samples/vfio-mdev/mtty.c:1947",
+  "ioctls": {
+    "VFIO_DEVICE_RESET": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "VFIO_DEVICE_GET_INFO": {
+      "arg": "ptr[inout, vfio_device_info]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "VFIO_DEVICE_GET_REGION_INFO": {
+      "arg": "ptr[inout, vfio_region_info]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": {
+        "function": [
+          "mtty_get_region_info"
+        ],
+        "type": [
+          "vfio_region_info"
+        ],
+        "usage": [
+          "struct vfio_region_info info;",
+          "if (copy_from_user(&info, (void __user *)arg, minsz))",
+          "ret = mtty_get_region_info(mdev_state, &info, &cap_type_id, &cap_type);",
+          "if (copy_to_user((void __user *)arg, &info, minsz))"
+        ]
+      }
+    },
+    "VFIO_DEVICE_GET_IRQ_INFO": {
+      "arg": "ptr[inout, vfio_irq_info]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "VFIO_DEVICE_SET_IRQS": {
+      "arg": "ptr[in, vfio_irq_set]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "vfio_device_info": "vfio_device_info {\n\targsz\tint32\n\tflags\tflags[vfio_device_flags, int32]\n\tnum_regions\tint32\n\tnum_irqs\tint32\n\tcap_offset\tint32\n\tpad\tint32\n}",
+    "vfio_region_info": "vfio_region_info {\n\targsz\tint32\n\tflags\tflags[vfio_region_info_flags, int32]\n\tindex\tint32\n\tcap_offset\tint32\n\tsize\tint64\n\toffset\tint64\n}",
+    "vfio_irq_info": "vfio_irq_info {\n\targsz\tint32\n\tflags\tflags[vfio_irq_info_flags, int32]\n\tindex\tint32\n\tcount\tint32\n}",
+    "vfio_irq_set": "vfio_irq_set {\n\targsz\tint32\n\tflags\tflags[vfio_irq_set_flags, int32]\n\tindex\tint32\n\tstart\tint32\n\tcount\tint32\n\tdata\tarray[int8]\n}",
+    "vfio_device_flags": "vfio_device_flags = VFIO_DEVICE_FLAGS_RESET, VFIO_DEVICE_FLAGS_PCI, VFIO_DEVICE_FLAGS_PLATFORM, VFIO_DEVICE_FLAGS_AMBA, VFIO_DEVICE_FLAGS_CCW, VFIO_DEVICE_FLAGS_AP, VFIO_DEVICE_FLAGS_FSL_MC, VFIO_DEVICE_FLAGS_CAPS, VFIO_DEVICE_FLAGS_CDX",
+    "vfio_region_info_flags": "vfio_region_info_flags = VFIO_REGION_INFO_FLAG_READ, VFIO_REGION_INFO_FLAG_WRITE, VFIO_REGION_INFO_FLAG_MMAP, VFIO_REGION_INFO_FLAG_CAPS",
+    "vfio_irq_info_flags": "vfio_irq_info_flags = VFIO_IRQ_INFO_EVENTFD, VFIO_IRQ_INFO_MASKABLE, VFIO_IRQ_INFO_AUTOMASKED, VFIO_IRQ_INFO_NORESIZE",
+    "vfio_irq_set_flags": "vfio_irq_set_flags = VFIO_IRQ_SET_DATA_NONE, VFIO_IRQ_SET_DATA_BOOL, VFIO_IRQ_SET_DATA_EVENTFD, VFIO_IRQ_SET_ACTION_MASK, VFIO_IRQ_SET_ACTION_UNMASK, VFIO_IRQ_SET_ACTION_TRIGGER",
+    "VFIO_DEVICE_FLAGS_RESET": "define VFIO_DEVICE_FLAGS_RESET 0x1",
+    "VFIO_DEVICE_FLAGS_PCI": "define VFIO_DEVICE_FLAGS_PCI 0x2",
+    "VFIO_DEVICE_FLAGS_PLATFORM": "define VFIO_DEVICE_FLAGS_PLATFORM 0x4",
+    "VFIO_DEVICE_FLAGS_AMBA": "define VFIO_DEVICE_FLAGS_AMBA 0x8",
+    "VFIO_DEVICE_FLAGS_CCW": "define VFIO_DEVICE_FLAGS_CCW 0x10",
+    "VFIO_DEVICE_FLAGS_AP": "define VFIO_DEVICE_FLAGS_AP 0x20",
+    "VFIO_DEVICE_FLAGS_FSL_MC": "define VFIO_DEVICE_FLAGS_FSL_MC 0x40",
+    "VFIO_DEVICE_FLAGS_CAPS": "define VFIO_DEVICE_FLAGS_CAPS 0x80",
+    "VFIO_DEVICE_FLAGS_CDX": "define VFIO_DEVICE_FLAGS_CDX 0x100",
+    "VFIO_REGION_INFO_FLAG_READ": "define VFIO_REGION_INFO_FLAG_READ 0x1",
+    "VFIO_REGION_INFO_FLAG_WRITE": "define VFIO_REGION_INFO_FLAG_WRITE 0x2",
+    "VFIO_REGION_INFO_FLAG_MMAP": "define VFIO_REGION_INFO_FLAG_MMAP 0x4",
+    "VFIO_REGION_INFO_FLAG_CAPS": "define VFIO_REGION_INFO_FLAG_CAPS 0x8",
+    "VFIO_IRQ_INFO_EVENTFD": "define VFIO_IRQ_INFO_EVENTFD 1",
+    "VFIO_IRQ_INFO_MASKABLE": "define VFIO_IRQ_INFO_MASKABLE 2",
+    "VFIO_IRQ_INFO_AUTOMASKED": "define VFIO_IRQ_INFO_AUTOMASKED 4",
+    "VFIO_IRQ_INFO_NORESIZE": "define VFIO_IRQ_INFO_NORESIZE 8",
+    "VFIO_IRQ_SET_DATA_NONE": "define VFIO_IRQ_SET_DATA_NONE 0x1",
+    "VFIO_IRQ_SET_DATA_BOOL": "define VFIO_IRQ_SET_DATA_BOOL 0x2",
+    "VFIO_IRQ_SET_DATA_EVENTFD": "define VFIO_IRQ_SET_DATA_EVENTFD 0x4",
+    "VFIO_IRQ_SET_ACTION_MASK": "define VFIO_IRQ_SET_ACTION_MASK 0x8",
+    "VFIO_IRQ_SET_ACTION_UNMASK": "define VFIO_IRQ_SET_ACTION_UNMASK 0x10",
+    "VFIO_IRQ_SET_ACTION_TRIGGER": "define VFIO_IRQ_SET_ACTION_TRIGGER 0x20"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_mtty": "syz_open_dev$KGPT_mtty(dev ptr[in, string[\"/dev/vfio/vfio-mtty#\"]], id proc[0, 1], flags flags[open_flags]) fd_mtty",
+    "ioctl$KGPT_VFIO_DEVICE_RESET": "ioctl$KGPT_VFIO_DEVICE_RESET(fd fd_mtty, cmd const[VFIO_DEVICE_RESET], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_VFIO_DEVICE_GET_INFO": "ioctl$KGPT_VFIO_DEVICE_GET_INFO(fd fd_mtty, cmd const[VFIO_DEVICE_GET_INFO], arg ptr[inout, vfio_device_info])",
+    "ioctl$KGPT_VFIO_DEVICE_GET_REGION_INFO": "ioctl$KGPT_VFIO_DEVICE_GET_REGION_INFO(fd fd_mtty, cmd const[VFIO_DEVICE_GET_REGION_INFO], arg ptr[inout, vfio_region_info])",
+    "ioctl$KGPT_VFIO_DEVICE_GET_IRQ_INFO": "ioctl$KGPT_VFIO_DEVICE_GET_IRQ_INFO(fd fd_mtty, cmd const[VFIO_DEVICE_GET_IRQ_INFO], arg ptr[inout, vfio_irq_info])",
+    "ioctl$KGPT_VFIO_DEVICE_SET_IRQS": "ioctl$KGPT_VFIO_DEVICE_SET_IRQS(fd fd_mtty, cmd const[VFIO_DEVICE_SET_IRQS], arg ptr[in, vfio_irq_set])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_mtty"
+  ],
+  "includes": [
+    "uapi/linux/vfio.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

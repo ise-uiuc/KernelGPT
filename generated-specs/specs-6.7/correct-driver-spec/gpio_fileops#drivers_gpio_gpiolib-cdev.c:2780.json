@@ -1,0 +1,94 @@
+{
+  "open": {
+    "filename": "/dev/gpiochip#",
+    "fd_name": "fd_gpio",
+    "spec": "syz_open_dev$KGPT_gpiochip(dev ptr[in, string[\"/dev/gpiochip#\"]], id proc[0, 1], flags flags[open_flags]) fd_gpio"
+  },
+  "resources": {
+    "fd_gpio": {
+      "type": "fd",
+      "spec": "resource fd_gpio[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/gpio/gpiolib-cdev.c:2780",
+  "ioctls": {
+    "GPIO_GET_CHIPINFO_IOCTL": {
+      "arg": "ptr[out, gpiochip_info]",
+      "arg_name_in_usage": "ip",
+      "arg_inference": null
+    },
+    "GPIO_GET_LINEHANDLE_IOCTL": {
+      "arg": "ptr[in, gpiohandle_request]",
+      "arg_name_in_usage": "ip",
+      "arg_inference": null
+    },
+    "GPIO_GET_LINEEVENT_IOCTL": {
+      "arg": "ptr[in, gpioevent_request]",
+      "arg_name_in_usage": "ip",
+      "arg_inference": null
+    },
+    "GPIO_GET_LINEINFO_IOCTL": {
+      "arg": "ptr[in,out, gpioline_info]",
+      "arg_name_in_usage": "ip",
+      "arg_inference": null
+    },
+    "GPIO_GET_LINEINFO_WATCH_IOCTL": {
+      "arg": "ptr[inout, gpioline_info]",
+      "arg_name_in_usage": "ip",
+      "arg_inference": null
+    },
+    "GPIO_V2_GET_LINEINFO_IOCTL": {
+      "arg": "ptr[inout, gpio_v2_line_info]",
+      "arg_name_in_usage": "ip",
+      "arg_inference": null
+    },
+    "GPIO_V2_GET_LINEINFO_WATCH_IOCTL": {
+      "arg": "ptr[in,out, gpio_v2_line_info]",
+      "arg_name_in_usage": "ip",
+      "arg_inference": null
+    },
+    "GPIO_V2_GET_LINE_IOCTL": {
+      "arg": "ptr[in, gpio_v2_line_request]",
+      "arg_name_in_usage": "ip",
+      "arg_inference": null
+    },
+    "GPIO_GET_LINEINFO_UNWATCH_IOCTL": {
+      "arg": "ptr[in, int32]",
+      "arg_name_in_usage": "ip",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "gpiochip_info": "gpiochip_info {\n\tname\tarray[int8, GPIO_MAX_NAME_SIZE]\n\tlabel\tarray[int8, GPIO_MAX_NAME_SIZE]\n\tlines\tint32\n}",
+    "gpiohandle_request": "gpiohandle_request {\n\tlineoffsets\tarray[int32, GPIOHANDLES_MAX]\n\tflags\tint32\n\tdefault_values\tarray[int8, GPIOHANDLES_MAX]\n\tconsumer_label\tarray[int8, GPIO_MAX_NAME_SIZE]\n\tlines\tint32\n\tfd\tint32\n}",
+    "gpioevent_request": "gpioevent_request {\n\tlineoffset\tint32\n\thandleflags\tint32\n\teventflags\tint32\n\tconsumer_label\tarray[int8, GPIO_MAX_NAME_SIZE]\n\tfd\tint32\n}",
+    "gpioline_info": "gpioline_info {\n\tline_offset\tint32\n\tflags\tint32\n\tname\tarray[int8, GPIO_MAX_NAME_SIZE]\n\tconsumer\tarray[int8, GPIO_MAX_NAME_SIZE]\n}",
+    "gpio_v2_line_info": "gpio_v2_line_info {\n\tname\tarray[int8, GPIO_MAX_NAME_SIZE]\n\tconsumer\tarray[int8, GPIO_MAX_NAME_SIZE]\n\toffset\tint32\n\tnum_attrs\tint32\n\tflags\tint64\n\tattrs\tarray[gpio_v2_line_attribute, GPIO_V2_LINE_NUM_ATTRS_MAX]\n\tpadding\tarray[int32, 4]\n}",
+    "gpio_v2_line_request": "gpio_v2_line_request {\n\toffsets\tarray[int32, GPIO_V2_LINES_MAX]\n\tconsumer\tarray[int8, GPIO_MAX_NAME_SIZE]\n\tconfig\tgpio_v2_line_config\n\tnum_lines\tint32\n\tevent_buffer_size\tint32\n\tpadding\tarray[int32, 5]\n\tfd\tint32\n}",
+    "gpio_v2_line_attribute": "gpio_v2_line_attribute {\n\tid\tint32\n\tpadding\tint32\n\tflags\tint64\n\tvalues\tint64\n\tdebounce_period_us\tint32\n}",
+    "gpio_v2_line_config": "gpio_v2_line_config {\n\tflags\tint64\n\tnum_attrs\tint32\n\tpadding\tarray[int32, 5]\n\tattrs\tarray[gpio_v2_line_config_attribute, GPIO_V2_LINE_NUM_ATTRS_MAX]\n}",
+    "gpio_v2_line_config_attribute": "gpio_v2_line_config_attribute {\n\tattr\tgpio_v2_line_attribute\n\tmask\tint64\n}"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_gpiochip": "syz_open_dev$KGPT_gpiochip(dev ptr[in, string[\"/dev/gpiochip#\"]], id proc[0, 1], flags flags[open_flags]) fd_gpio",
+    "ioctl$KGPT_GPIO_GET_CHIPINFO_IOCTL": "ioctl$KGPT_GPIO_GET_CHIPINFO_IOCTL(fd fd_gpio, cmd const[GPIO_GET_CHIPINFO_IOCTL], arg ptr[out, gpiochip_info])",
+    "ioctl$KGPT_GPIO_GET_LINEHANDLE_IOCTL": "ioctl$KGPT_GPIO_GET_LINEHANDLE_IOCTL(fd fd_gpio, cmd const[GPIO_GET_LINEHANDLE_IOCTL], arg ptr[in, gpiohandle_request])",
+    "ioctl$KGPT_GPIO_GET_LINEEVENT_IOCTL": "ioctl$KGPT_GPIO_GET_LINEEVENT_IOCTL(fd fd_gpio, cmd const[GPIO_GET_LINEEVENT_IOCTL], arg ptr[in, gpioevent_request])",
+    "ioctl$KGPT_GPIO_GET_LINEINFO_IOCTL": "ioctl$KGPT_GPIO_GET_LINEINFO_IOCTL(fd fd_gpio, cmd const[GPIO_GET_LINEINFO_IOCTL], arg ptr[inout, gpioline_info])",
+    "ioctl$KGPT_GPIO_GET_LINEINFO_WATCH_IOCTL": "ioctl$KGPT_GPIO_GET_LINEINFO_WATCH_IOCTL(fd fd_gpio, cmd const[GPIO_GET_LINEINFO_WATCH_IOCTL], arg ptr[inout, gpioline_info])",
+    "ioctl$KGPT_GPIO_V2_GET_LINEINFO_IOCTL": "ioctl$KGPT_GPIO_V2_GET_LINEINFO_IOCTL(fd fd_gpio, cmd const[GPIO_V2_GET_LINEINFO_IOCTL], arg ptr[inout, gpio_v2_line_info])",
+    "ioctl$KGPT_GPIO_V2_GET_LINEINFO_WATCH_IOCTL": "ioctl$KGPT_GPIO_V2_GET_LINEINFO_WATCH_IOCTL(fd fd_gpio, cmd const[GPIO_V2_GET_LINEINFO_WATCH_IOCTL], arg ptr[inout, gpio_v2_line_info])",
+    "ioctl$KGPT_GPIO_V2_GET_LINE_IOCTL": "ioctl$KGPT_GPIO_V2_GET_LINE_IOCTL(fd fd_gpio, cmd const[GPIO_V2_GET_LINE_IOCTL], arg ptr[in, gpio_v2_line_request])",
+    "ioctl$KGPT_GPIO_GET_LINEINFO_UNWATCH_IOCTL": "ioctl$KGPT_GPIO_GET_LINEINFO_UNWATCH_IOCTL(fd fd_gpio, cmd const[GPIO_GET_LINEINFO_UNWATCH_IOCTL], arg ptr[in, int32])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_gpiochip"
+  ],
+  "includes": [
+    "uapi/linux/gpio.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

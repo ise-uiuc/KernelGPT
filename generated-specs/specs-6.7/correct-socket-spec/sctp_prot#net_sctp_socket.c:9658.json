@@ -1,0 +1,815 @@
+{
+  "socket": {
+    "domain": "AF_INET",
+    "type": "SOCK_SEQPACKET",
+    "spec": "socket$KGPT_inet_sctp(domain const[AF_INET], type const[SOCK_SEQPACKET], proto const[IPPROTO_SCTP]) sock_inet_sctp"
+  },
+  "resources": {
+    "sock_inet_sctp": {
+      "type": "sock",
+      "spec": "resource sock_inet_sctp[sock]"
+    }
+  },
+  "types": {
+    "IPPROTO_SCTP": "define IPPROTO_SCTP 132",
+    "sctp_addr": "sctp_addr [\n\tv4\tsockaddr_in\n\tv6\tsockaddr_in6\n\tsa\tsockaddr\n]",
+    "sctp_peeloff_flags_arg_t": "sctp_peeloff_flags_arg_t {\n\tp_arg\tsctp_peeloff_arg_t\n\tflags\tint32\n}",
+    "sctp_paddrthlds_v2": "sctp_paddrthlds_v2 {\n\tspt_assoc_id\tsctp_assoc_t\n\tspt_address\tsockaddr_storage\n\tspt_pathmaxrxt\tint16\n\tspt_pathpfthld\tint16\n\tspt_pathcpthld\tint16\n}",
+    "sctp_udpencaps": "sctp_udpencaps {\n\tsue_assoc_id\tsctp_assoc_t\n\tsue_address\tsockaddr_storage\n\tsue_port\tint16\n}",
+    "sctp_probeinterval": "sctp_probeinterval {\n\tspi_assoc_id\tsctp_assoc_t\n\tspi_address\tsockaddr_storage\n\tspi_interval\tint32\n}",
+    "sctp_assoc_t": "type sctp_assoc_t ptr[in, array[int8]]"
+  },
+  "socket_addr": "sctp_addr",
+  "ioctls": {},
+  "existing_ioctls": {
+    "SIOCINQ": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "karg"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [
+          "int"
+        ],
+        "usage": [
+          "int rc = -ENOTCONN;",
+          "lock_sock(sk);",
+          "if (sctp_style(sk, TCP) && sctp_sstate(sk, LISTENING))",
+          "goto out;",
+          "switch (cmd) {",
+          "case SIOCINQ: {",
+          "struct sk_buff *skb;",
+          "*karg = 0;",
+          "skb = skb_peek(&sk->sk_receive_queue);",
+          "if (skb != NULL) {",
+          "*karg = skb->len;",
+          "}",
+          "rc = 0;",
+          "break;",
+          "}",
+          "default:",
+          "rc = -ENOIOCTLCMD;",
+          "break;",
+          "}",
+          "out:",
+          "release_sock(sk);",
+          "return rc;"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "setsockopt": {
+    "SCTP_DISABLE_FRAGMENTS": {
+      "level": "SOL_SCTP",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]",
+      "SCTP_EVENTS": {
+        "level": "SOL_SCTP",
+        "val": "ptr[in, sctp_event_subscribe]",
+        "len": "bytesize[val]",
+        "SCTP_AUTOCLOSE": {
+          "level": "SOL_SCTP",
+          "val": "ptr[in, int32]",
+          "len": "bytesize[val]",
+          "SCTP_PEER_ADDR_PARAMS": {
+            "level": "SOL_SCTP",
+            "val": "ptr[in, sctp_paddrparams]",
+            "len": "bytesize[val]",
+            "SCTP_DELAYED_SACK": {
+              "level": "SOL_SCTP",
+              "val": "ptr[in, sctp_sack_info]",
+              "len": "bytesize[val]",
+              "SCTP_PARTIAL_DELIVERY_POINT": {
+                "level": "SOL_SCTP",
+                "val": "ptr[in, int32]",
+                "len": "bytesize[val]",
+                "SCTP_INITMSG": {
+                  "level": "SOL_SCTP",
+                  "val": "ptr[in, sctp_initmsg]",
+                  "len": "bytesize[val]",
+                  "SCTP_DEFAULT_SEND_PARAM": {
+                    "level": "SOL_SCTP",
+                    "val": "ptr[in, sctp_sndrcvinfo]",
+                    "len": "bytesize[val]",
+                    "SCTP_DEFAULT_SNDINFO": {
+                      "level": "SOL_SCTP",
+                      "val": "ptr[in, sctp_sndinfo]",
+                      "len": "bytesize[val]",
+                      "SCTP_PRIMARY_ADDR": {
+                        "level": "SOL_SCTP",
+                        "val": "ptr[in, sctp_setpeerprim]",
+                        "len": "bytesize[val]",
+                        "SCTP_SET_PEER_PRIMARY_ADDR": {
+                          "level": "SOL_SCTP",
+                          "val": "ptr[in, sctp_prim]",
+                          "len": "bytesize[val]",
+                          "SCTP_NODELAY": {
+                            "level": "SOL_SCTP",
+                            "val": "ptr[in, int32]",
+                            "len": "bytesize[val]",
+                            "SCTP_RTOINFO": {
+                              "level": "SOL_SCTP",
+                              "val": "ptr[in, sctp_rtoinfo]",
+                              "len": "bytesize[val]",
+                              "SCTP_ASSOCINFO": {
+                                "level": "SOL_SCTP",
+                                "val": "ptr[in, sctp_assocparams]",
+                                "len": "bytesize[val]",
+                                "SCTP_I_WANT_MAPPED_V4_ADDR": {
+                                  "level": "SOL_SCTP",
+                                  "val": "ptr[in, int32]",
+                                  "len": "bytesize[val]",
+                                  "SCTP_MAXSEG": {
+                                    "level": "SOL_SCTP",
+                                    "val": "ptr[in, int32]",
+                                    "len": "bytesize[val]",
+                                    "SCTP_ADAPTATION_LAYER": {
+                                      "level": "SOL_SCTP",
+                                      "val": "ptr[in, sctp_setadaptation]",
+                                      "len": "bytesize[val]",
+                                      "SCTP_CONTEXT": {
+                                        "level": "SOL_SCTP",
+                                        "val": "ptr[in, int32]",
+                                        "len": "bytesize[val]",
+                                        "SCTP_FRAGMENT_INTERLEAVE": {
+                                          "level": "SOL_SCTP",
+                                          "val": "ptr[in, int32]",
+                                          "len": "bytesize[val]",
+                                          "SCTP_MAX_BURST": {
+                                            "level": "SOL_SCTP",
+                                            "val": "ptr[in, int32]",
+                                            "len": "bytesize[val]",
+                                            "SCTP_AUTH_CHUNK": {
+                                              "level": "SOL_SCTP",
+                                              "val": "ptr[in, sctp_authchunk]",
+                                              "len": "bytesize[val]",
+                                              "SCTP_HMAC_IDENT": {
+                                                "level": "SOL_SCTP",
+                                                "val": "ptr[in, sctp_hmacalgo]",
+                                                "len": "bytesize[val]",
+                                                "SCTP_AUTH_KEY": {
+                                                  "level": "SOL_SCTP",
+                                                  "val": "ptr[in, sctp_authkey]",
+                                                  "len": "bytesize[val]",
+                                                  "SCTP_AUTH_ACTIVE_KEY": {
+                                                    "level": "SOL_SCTP",
+                                                    "val": "ptr[in, sctp_authkeyid]",
+                                                    "len": "bytesize[val]",
+                                                    "SCTP_AUTH_DELETE_KEY": {
+                                                      "level": "SOL_SCTP",
+                                                      "val": "ptr[in, sctp_authkeyid]",
+                                                      "len": "bytesize[val]",
+                                                      "SCTP_AUTH_DEACTIVATE_KEY": {
+                                                        "level": "SOL_SCTP",
+                                                        "val": "ptr[in, sctp_authkeyid]",
+                                                        "len": "bytesize[val]",
+                                                        "SCTP_AUTO_ASCONF": {
+                                                          "level": "SOL_SCTP",
+                                                          "val": "ptr[in, int32]",
+                                                          "len": "bytesize[val]",
+                                                          "SCTP_PEER_ADDR_THLDS": {
+                                                            "level": "SOL_SCTP",
+                                                            "val": "ptr[in, sctp_paddrthlds]",
+                                                            "len": "bytesize[val]",
+                                                            "SCTP_PEER_ADDR_THLDS_V2": {
+                                                              "level": "SOL_SCTP",
+                                                              "val": "ptr[in, sctp_paddrthlds_v2]",
+                                                              "len": "bytesize[val]",
+                                                              "SCTP_RECVRCVINFO": {
+                                                                "level": "SOL_SCTP",
+                                                                "val": "ptr[in, int32]",
+                                                                "len": "bytesize[val]",
+                                                                "SCTP_RECVNXTINFO": {
+                                                                  "level": "SOL_SCTP",
+                                                                  "val": "ptr[in, int32]",
+                                                                  "len": "bytesize[val]",
+                                                                  "SCTP_PR_SUPPORTED": {
+                                                                    "level": "SOL_SCTP",
+                                                                    "val": "ptr[in, int32]",
+                                                                    "len": "bytesize[val]",
+                                                                    "SCTP_DEFAULT_PRINFO": {
+                                                                      "level": "SOL_SCTP",
+                                                                      "val": "ptr[in, sctp_default_prinfo]",
+                                                                      "len": "bytesize[val]",
+                                                                      "SCTP_RECONFIG_SUPPORTED": {
+                                                                        "level": "SOL_SCTP",
+                                                                        "val": "ptr[in, int32]",
+                                                                        "len": "bytesize[val]",
+                                                                        "SCTP_ENABLE_STREAM_RESET": {
+                                                                          "level": "SOL_SCTP",
+                                                                          "val": "ptr[in, sctp_enable_strreset]",
+                                                                          "len": "bytesize[val]",
+                                                                          "SCTP_RESET_STREAMS": {
+                                                                            "level": "SOL_SCTP",
+                                                                            "val": "ptr[in, sctp_reset_streams]",
+                                                                            "len": "bytesize[val]",
+                                                                            "SCTP_RESET_ASSOC": {
+                                                                              "level": "SOL_SCTP",
+                                                                              "val": "ptr[in, sctp_assoc_value]",
+                                                                              "len": "bytesize[val]",
+                                                                              "SCTP_ADD_STREAMS": {
+                                                                                "level": "SOL_SCTP",
+                                                                                "val": "ptr[in, sctp_add_streams]",
+                                                                                "len": "bytesize[val]",
+                                                                                "SCTP_STREAM_SCHEDULER": {
+                                                                                  "level": "SOL_SCTP",
+                                                                                  "val": "ptr[in, int32]",
+                                                                                  "len": "bytesize[val]",
+                                                                                  "SCTP_STREAM_SCHEDULER_VALUE": {
+                                                                                    "level": "SOL_SCTP",
+                                                                                    "val": "ptr[in, sctp_stream_value]",
+                                                                                    "len": "bytesize[val]",
+                                                                                    "SCTP_INTERLEAVING_SUPPORTED": {
+                                                                                      "level": "SOL_SCTP",
+                                                                                      "val": "ptr[in, int32]",
+                                                                                      "len": "bytesize[val]",
+                                                                                      "SCTP_REUSE_PORT": {
+                                                                                        "level": "SOL_SCTP",
+                                                                                        "val": "ptr[in, int32]",
+                                                                                        "len": "bytesize[val]",
+                                                                                        "SCTP_EVENT": {
+                                                                                          "level": "SOL_SCTP",
+                                                                                          "val": "ptr[in, sctp_event_subscribe]",
+                                                                                          "len": "bytesize[val]",
+                                                                                          "SCTP_ASCONF_SUPPORTED": {
+                                                                                            "level": "SOL_SCTP",
+                                                                                            "val": "ptr[in, int32]",
+                                                                                            "len": "bytesize[val]",
+                                                                                            "SCTP_AUTH_SUPPORTED": {
+                                                                                              "level": "SOL_SCTP",
+                                                                                              "val": "ptr[in, int32]",
+                                                                                              "len": "bytesize[val]",
+                                                                                              "SCTP_ECN_SUPPORTED": {
+                                                                                                "level": "SOL_SCTP",
+                                                                                                "val": "ptr[in, int32]",
+                                                                                                "len": "bytesize[val]",
+                                                                                                "SCTP_EXPOSE_POTENTIALLY_FAILED_STATE": {
+                                                                                                  "level": "SOL_SCTP",
+                                                                                                  "val": "ptr[in, int32]",
+                                                                                                  "len": "bytesize[val]",
+                                                                                                  "SCTP_REMOTE_UDP_ENCAPS_PORT": {
+                                                                                                    "level": "SOL_SCTP",
+                                                                                                    "val": "ptr[in, sctp_udpencaps]",
+                                                                                                    "len": "bytesize[val]",
+                                                                                                    "SCTP_PLPMTUD_PROBE_INTERVAL": {
+                                                                                                      "level": "SOL_SCTP",
+                                                                                                      "val": "ptr[in, int32]",
+                                                                                                      "len": "bytesize[val]",
+                                                                                                      "unknown": [],
+                                                                                                      "types": {
+                                                                                                        "sctp_event_subscribe": "UNKNOWN",
+                                                                                                        "sctp_paddrparams": "UNKNOWN",
+                                                                                                        "sctp_sack_info": "UNKNOWN",
+                                                                                                        "sctp_initmsg": "UNKNOWN",
+                                                                                                        "sctp_sndrcvinfo": "UNKNOWN",
+                                                                                                        "sctp_sndinfo": "UNKNOWN",
+                                                                                                        "sctp_setpeerprim": "UNKNOWN",
+                                                                                                        "sctp_prim": "UNKNOWN",
+                                                                                                        "sctp_rtoinfo": "UNKNOWN",
+                                                                                                        "sctp_assocparams": "UNKNOWN",
+                                                                                                        "sctp_setadaptation": "UNKNOWN",
+                                                                                                        "sctp_authchunk": "UNKNOWN",
+                                                                                                        "sctp_hmacalgo": "UNKNOWN",
+                                                                                                        "sctp_authkey": "UNKNOWN",
+                                                                                                        "sctp_authkeyid": "UNKNOWN",
+                                                                                                        "sctp_paddrthlds": "UNKNOWN",
+                                                                                                        "sctp_paddrthlds_v2": "UNKNOWN",
+                                                                                                        "sctp_default_prinfo": "UNKNOWN",
+                                                                                                        "sctp_enable_strreset": "UNKNOWN",
+                                                                                                        "sctp_reset_streams": "UNKNOWN",
+                                                                                                        "sctp_assoc_value": "UNKNOWN",
+                                                                                                        "sctp_add_streams": "UNKNOWN",
+                                                                                                        "sctp_stream_value": "UNKNOWN",
+                                                                                                        "sctp_udpencaps": "UNKNOWN"
+                                                                                                      }
+                                                                                                    }
+                                                                                                  }
+                                                                                                }
+                                                                                              }
+                                                                                            }
+                                                                                          }
+                                                                                        }
+                                                                                      }
+                                                                                    }
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "SCTP_SOCKOPT_BINDX_ADD": {
+      "level": "SOL_SCTP",
+      "val": "ptr[in, array[sockaddr_storage]]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_SOCKOPT_BINDX_REM": {
+      "level": "SOL_SCTP",
+      "val": "ptr[in, array[sockaddr_storage]]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_SOCKOPT_CONNECTX_OLD": {
+      "level": "SOL_SCTP",
+      "val": "ptr[in, array[sockaddr_storage]]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_SOCKOPT_CONNECTX": {
+      "level": "SOL_SCTP",
+      "val": "ptr[in, array[sockaddr_storage]]",
+      "len": "len[val]",
+      "val_inference": null
+    }
+  },
+  "unknown": [],
+  "setsockopt_unknown": [],
+  "getsockopt": {
+    "SCTP_STATUS": {
+      "level": "SOL_SCTP",
+      "val": "ptr[inout, sctp_status]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_DISABLE_FRAGMENTS": {
+      "level": "SOL_SCTP",
+      "val": "ptr[out, int32]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_EVENTS": {
+      "level": "SOL_SCTP",
+      "val": "ptr[out, sctp_event_subscribe]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_AUTOCLOSE": {
+      "level": "SOL_SCTP",
+      "val": "ptr[out, int32]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_SOCKOPT_PEELOFF": {
+      "level": "SOL_SCTP",
+      "val": "ptr[in, sctp_peeloff_arg_t]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_SOCKOPT_PEELOFF_FLAGS": {
+      "level": "SOL_SCTP",
+      "val": "ptr[in, sctp_peeloff_flags_arg_t]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_PEER_ADDR_PARAMS": {
+      "level": "SOL_SCTP",
+      "val": "ptr[inout, sctp_paddrparams]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_DELAYED_SACK": {
+      "level": "SOL_SCTP",
+      "val": "ptr[in, sctp_sack_info]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_INITMSG": {
+      "level": "SOL_SCTP",
+      "val": "ptr[out, sctp_initmsg]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_GET_PEER_ADDRS": {
+      "level": "SOL_SCTP",
+      "val": "ptr[inout, sctp_getaddrs]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_GET_LOCAL_ADDRS": {
+      "level": "SOL_SCTP",
+      "val": "ptr[out, sctp_getaddrs]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_SOCKOPT_CONNECTX3": {
+      "level": "SOL_SCTP",
+      "val": "ptr[in, sctp_getaddrs_old]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_DEFAULT_SEND_PARAM": {
+      "level": "SOL_SCTP",
+      "val": "ptr[inout, sctp_sndrcvinfo]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_DEFAULT_SNDINFO": {
+      "level": "SOL_SCTP",
+      "val": "ptr[in, sctp_sndinfo]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_PRIMARY_ADDR": {
+      "level": "SOL_SCTP",
+      "val": "ptr[inout, sctp_prim]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_NODELAY": {
+      "level": "SOL_SCTP",
+      "val": "ptr[out, int32]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_RTOINFO": {
+      "level": "SOL_SCTP",
+      "val": "ptr[in, sctp_rtoinfo]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_ASSOCINFO": {
+      "level": "SOL_SCTP",
+      "val": "ptr[in, sctp_assocparams]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_I_WANT_MAPPED_V4_ADDR": {
+      "level": "SOL_SCTP",
+      "val": "ptr[out, int32]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_MAXSEG": {
+      "level": "SOL_SCTP",
+      "val": "ptr[in, sctp_assoc_value]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_GET_PEER_ADDR_INFO": {
+      "level": "SOL_SCTP",
+      "val": "ptr[inout, sctp_paddrinfo]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_ADAPTATION_LAYER": {
+      "level": "SOL_SCTP",
+      "val": "ptr[out, sctp_setadaptation]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_CONTEXT": {
+      "level": "SOL_SCTP",
+      "val": "ptr[inout, sctp_assoc_value]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_FRAGMENT_INTERLEAVE": {
+      "level": "SOL_SCTP",
+      "val": "ptr[out, int32]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_PARTIAL_DELIVERY_POINT": {
+      "level": "SOL_SCTP",
+      "val": "ptr[out, int32]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_MAX_BURST": {
+      "level": "SOL_SCTP",
+      "val": "ptr[in, sctp_assoc_value]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_HMAC_IDENT": {
+      "level": "SOL_SCTP",
+      "val": "ptr[out, sctp_hmacalgo]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_AUTH_ACTIVE_KEY": {
+      "level": "SOL_SCTP",
+      "val": "ptr[inout, sctp_authkeyid]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_PEER_AUTH_CHUNKS": {
+      "level": "SOL_SCTP",
+      "val": "ptr[inout, sctp_authchunks]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_LOCAL_AUTH_CHUNKS": {
+      "level": "SOL_SCTP",
+      "val": "ptr[in, sctp_authchunks]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_GET_ASSOC_NUMBER": {
+      "level": "SOL_SCTP",
+      "val": "ptr[out, int32]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_GET_ASSOC_ID_LIST": {
+      "level": "SOL_SCTP",
+      "val": "ptr[out, sctp_assoc_ids]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_AUTO_ASCONF": {
+      "level": "SOL_SCTP",
+      "val": "ptr[in, int32]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_PEER_ADDR_THLDS": {
+      "level": "SOL_SCTP",
+      "val": "ptr[inout, sctp_paddrthlds_v2]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_PEER_ADDR_THLDS_V2": {
+      "level": "SOL_SCTP",
+      "val": "ptr[in, sctp_paddrthlds_v2]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_GET_ASSOC_STATS": {
+      "level": "SOL_SCTP",
+      "val": "ptr[inout, sctp_assoc_stats]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_RECVRCVINFO": {
+      "level": "SOL_SCTP",
+      "val": "ptr[in, int32]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_RECVNXTINFO": {
+      "level": "SOL_SCTP",
+      "val": "ptr[out, int32]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_PR_SUPPORTED": {
+      "level": "SOL_SCTP",
+      "val": "ptr[inout, sctp_assoc_value]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_DEFAULT_PRINFO": {
+      "level": "SOL_SCTP",
+      "val": "ptr[inout, sctp_default_prinfo]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_PR_ASSOC_STATUS": {
+      "level": "SOL_SCTP",
+      "val": "ptr[in, sctp_prstatus]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_PR_STREAM_STATUS": {
+      "level": "SOL_SCTP",
+      "val": "ptr[inout, sctp_prstatus]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_RECONFIG_SUPPORTED": {
+      "level": "SOL_SCTP",
+      "val": "ptr[inout, sctp_assoc_value]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_ENABLE_STREAM_RESET": {
+      "level": "SOL_SCTP",
+      "val": "ptr[in, sctp_assoc_value]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_STREAM_SCHEDULER": {
+      "level": "SOL_SCTP",
+      "val": "ptr[inout, sctp_assoc_value]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_STREAM_SCHEDULER_VALUE": {
+      "level": "SOL_SCTP",
+      "val": "ptr[inout, sctp_stream_value]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_INTERLEAVING_SUPPORTED": {
+      "level": "SOL_SCTP",
+      "val": "ptr[inout, sctp_assoc_value]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_REUSE_PORT": {
+      "level": "SOL_SCTP",
+      "val": "ptr[out, int32]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_EVENT": {
+      "level": "SOL_SCTP",
+      "val": "ptr[inout, sctp_event_subscribe]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_ASCONF_SUPPORTED": {
+      "level": "SOL_SCTP",
+      "val": "ptr[inout, sctp_assoc_value]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_AUTH_SUPPORTED": {
+      "level": "SOL_SCTP",
+      "val": "ptr[inout, sctp_assoc_value]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_ECN_SUPPORTED": {
+      "level": "SOL_SCTP",
+      "val": "ptr[inout, sctp_assoc_value]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_EXPOSE_POTENTIALLY_FAILED_STATE": {
+      "level": "SOL_SCTP",
+      "val": "ptr[inout, sctp_assoc_value]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_REMOTE_UDP_ENCAPS_PORT": {
+      "level": "SOL_SCTP",
+      "val": "ptr[in, sctp_udpencaps]",
+      "len": "len[val]",
+      "val_inference": null
+    },
+    "SCTP_PLPMTUD_PROBE_INTERVAL": {
+      "level": "SOL_SCTP",
+      "val": "ptr[in, sctp_probeinterval]",
+      "len": "len[val]",
+      "val_inference": null
+    }
+  },
+  "getsockopt_unknown": [],
+  "proto_ops": {
+    "bind": "sctp_bind",
+    "accept": "sctp_accept",
+    "ioctl": "sctp_ioctl",
+    "sendmsg": "sctp_sendmsg",
+    "recvmsg": "sctp_recvmsg",
+    "setsockopt": "sctp_setsockopt",
+    "getsockopt": "sctp_getsockopt"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/sctp/socket.c:9658",
+  "ops_name": "sctp_prot",
+  "syscall_specs": {
+    "socket$KGPT_inet_sctp": "socket$KGPT_inet_sctp(domain const[AF_INET], type const[SOCK_SEQPACKET], proto const[IPPROTO_SCTP]) sock_inet_sctp",
+    "bind$KGPT_sctp_prot": "bind$KGPT_sctp_prot(fd sock_inet_sctp, addr ptr[in, sctp_addr], addrlen len[addr])",
+    "accept4$KGPT_sctp_prot": "accept4$KGPT_sctp_prot(fd sock_inet_sctp, peer ptr[out, sctp_addr, opt], peerlen ptr[inout, len[peer, int32]], flags flags[accept_flags]) sock_inet_sctp",
+    "sendto$KGPT_sctp_prot": "sendto$KGPT_sctp_prot(fd sock_inet_sctp, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, sctp_addr, opt], addrlen len[addr])",
+    "recvfrom$KGPT_sctp_prot": "recvfrom$KGPT_sctp_prot(fd sock_inet_sctp, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, sctp_addr, opt], addrlen len[addr])",
+    "getsockopt$KGPT_SCTP_STATUS": "getsockopt$KGPT_SCTP_STATUS(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_STATUS], val ptr[inout, sctp_status], len len[val])",
+    "getsockopt$KGPT_SCTP_DISABLE_FRAGMENTS": "getsockopt$KGPT_SCTP_DISABLE_FRAGMENTS(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_DISABLE_FRAGMENTS], val ptr[out, int32], len len[val])",
+    "getsockopt$KGPT_SCTP_EVENTS": "getsockopt$KGPT_SCTP_EVENTS(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_EVENTS], val ptr[out, sctp_event_subscribe], len len[val])",
+    "getsockopt$KGPT_SCTP_AUTOCLOSE": "getsockopt$KGPT_SCTP_AUTOCLOSE(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_AUTOCLOSE], val ptr[out, int32], len len[val])",
+    "getsockopt$KGPT_SCTP_SOCKOPT_PEELOFF": "getsockopt$KGPT_SCTP_SOCKOPT_PEELOFF(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_SOCKOPT_PEELOFF], val ptr[in, sctp_peeloff_arg_t], len len[val])",
+    "getsockopt$KGPT_SCTP_SOCKOPT_PEELOFF_FLAGS": "getsockopt$KGPT_SCTP_SOCKOPT_PEELOFF_FLAGS(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_SOCKOPT_PEELOFF_FLAGS], val ptr[in, sctp_peeloff_flags_arg_t], len len[val])",
+    "getsockopt$KGPT_SCTP_PEER_ADDR_PARAMS": "getsockopt$KGPT_SCTP_PEER_ADDR_PARAMS(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_PEER_ADDR_PARAMS], val ptr[inout, sctp_paddrparams], len len[val])",
+    "getsockopt$KGPT_SCTP_DELAYED_SACK": "getsockopt$KGPT_SCTP_DELAYED_SACK(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_DELAYED_SACK], val ptr[in, sctp_sack_info], len len[val])",
+    "getsockopt$KGPT_SCTP_INITMSG": "getsockopt$KGPT_SCTP_INITMSG(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_INITMSG], val ptr[out, sctp_initmsg], len len[val])",
+    "getsockopt$KGPT_SCTP_GET_PEER_ADDRS": "getsockopt$KGPT_SCTP_GET_PEER_ADDRS(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_GET_PEER_ADDRS], val ptr[inout, sctp_getaddrs], len len[val])",
+    "getsockopt$KGPT_SCTP_GET_LOCAL_ADDRS": "getsockopt$KGPT_SCTP_GET_LOCAL_ADDRS(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_GET_LOCAL_ADDRS], val ptr[out, sctp_getaddrs], len len[val])",
+    "getsockopt$KGPT_SCTP_SOCKOPT_CONNECTX3": "getsockopt$KGPT_SCTP_SOCKOPT_CONNECTX3(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_SOCKOPT_CONNECTX3], val ptr[in, sctp_getaddrs_old], len len[val])",
+    "getsockopt$KGPT_SCTP_DEFAULT_SEND_PARAM": "getsockopt$KGPT_SCTP_DEFAULT_SEND_PARAM(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_DEFAULT_SEND_PARAM], val ptr[inout, sctp_sndrcvinfo], len len[val])",
+    "getsockopt$KGPT_SCTP_DEFAULT_SNDINFO": "getsockopt$KGPT_SCTP_DEFAULT_SNDINFO(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_DEFAULT_SNDINFO], val ptr[in, sctp_sndinfo], len len[val])",
+    "getsockopt$KGPT_SCTP_PRIMARY_ADDR": "getsockopt$KGPT_SCTP_PRIMARY_ADDR(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_PRIMARY_ADDR], val ptr[inout, sctp_prim], len len[val])",
+    "getsockopt$KGPT_SCTP_NODELAY": "getsockopt$KGPT_SCTP_NODELAY(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_NODELAY], val ptr[out, int32], len len[val])",
+    "getsockopt$KGPT_SCTP_RTOINFO": "getsockopt$KGPT_SCTP_RTOINFO(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_RTOINFO], val ptr[in, sctp_rtoinfo], len len[val])",
+    "getsockopt$KGPT_SCTP_ASSOCINFO": "getsockopt$KGPT_SCTP_ASSOCINFO(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_ASSOCINFO], val ptr[in, sctp_assocparams], len len[val])",
+    "getsockopt$KGPT_SCTP_I_WANT_MAPPED_V4_ADDR": "getsockopt$KGPT_SCTP_I_WANT_MAPPED_V4_ADDR(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_I_WANT_MAPPED_V4_ADDR], val ptr[out, int32], len len[val])",
+    "getsockopt$KGPT_SCTP_MAXSEG": "getsockopt$KGPT_SCTP_MAXSEG(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_MAXSEG], val ptr[in, sctp_assoc_value], len len[val])",
+    "getsockopt$KGPT_SCTP_GET_PEER_ADDR_INFO": "getsockopt$KGPT_SCTP_GET_PEER_ADDR_INFO(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_GET_PEER_ADDR_INFO], val ptr[inout, sctp_paddrinfo], len len[val])",
+    "getsockopt$KGPT_SCTP_ADAPTATION_LAYER": "getsockopt$KGPT_SCTP_ADAPTATION_LAYER(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_ADAPTATION_LAYER], val ptr[out, sctp_setadaptation], len len[val])",
+    "getsockopt$KGPT_SCTP_CONTEXT": "getsockopt$KGPT_SCTP_CONTEXT(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_CONTEXT], val ptr[inout, sctp_assoc_value], len len[val])",
+    "getsockopt$KGPT_SCTP_FRAGMENT_INTERLEAVE": "getsockopt$KGPT_SCTP_FRAGMENT_INTERLEAVE(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_FRAGMENT_INTERLEAVE], val ptr[out, int32], len len[val])",
+    "getsockopt$KGPT_SCTP_PARTIAL_DELIVERY_POINT": "getsockopt$KGPT_SCTP_PARTIAL_DELIVERY_POINT(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_PARTIAL_DELIVERY_POINT], val ptr[out, int32], len len[val])",
+    "getsockopt$KGPT_SCTP_MAX_BURST": "getsockopt$KGPT_SCTP_MAX_BURST(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_MAX_BURST], val ptr[in, sctp_assoc_value], len len[val])",
+    "getsockopt$KGPT_SCTP_HMAC_IDENT": "getsockopt$KGPT_SCTP_HMAC_IDENT(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_HMAC_IDENT], val ptr[out, sctp_hmacalgo], len len[val])",
+    "getsockopt$KGPT_SCTP_AUTH_ACTIVE_KEY": "getsockopt$KGPT_SCTP_AUTH_ACTIVE_KEY(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_AUTH_ACTIVE_KEY], val ptr[inout, sctp_authkeyid], len len[val])",
+    "getsockopt$KGPT_SCTP_PEER_AUTH_CHUNKS": "getsockopt$KGPT_SCTP_PEER_AUTH_CHUNKS(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_PEER_AUTH_CHUNKS], val ptr[inout, sctp_authchunks], len len[val])",
+    "getsockopt$KGPT_SCTP_LOCAL_AUTH_CHUNKS": "getsockopt$KGPT_SCTP_LOCAL_AUTH_CHUNKS(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_LOCAL_AUTH_CHUNKS], val ptr[in, sctp_authchunks], len len[val])",
+    "getsockopt$KGPT_SCTP_GET_ASSOC_NUMBER": "getsockopt$KGPT_SCTP_GET_ASSOC_NUMBER(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_GET_ASSOC_NUMBER], val ptr[out, int32], len len[val])",
+    "getsockopt$KGPT_SCTP_GET_ASSOC_ID_LIST": "getsockopt$KGPT_SCTP_GET_ASSOC_ID_LIST(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_GET_ASSOC_ID_LIST], val ptr[out, sctp_assoc_ids], len len[val])",
+    "getsockopt$KGPT_SCTP_AUTO_ASCONF": "getsockopt$KGPT_SCTP_AUTO_ASCONF(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_AUTO_ASCONF], val ptr[in, int32], len len[val])",
+    "getsockopt$KGPT_SCTP_PEER_ADDR_THLDS": "getsockopt$KGPT_SCTP_PEER_ADDR_THLDS(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_PEER_ADDR_THLDS], val ptr[inout, sctp_paddrthlds_v2], len len[val])",
+    "getsockopt$KGPT_SCTP_PEER_ADDR_THLDS_V2": "getsockopt$KGPT_SCTP_PEER_ADDR_THLDS_V2(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_PEER_ADDR_THLDS_V2], val ptr[in, sctp_paddrthlds_v2], len len[val])",
+    "getsockopt$KGPT_SCTP_GET_ASSOC_STATS": "getsockopt$KGPT_SCTP_GET_ASSOC_STATS(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_GET_ASSOC_STATS], val ptr[inout, sctp_assoc_stats], len len[val])",
+    "getsockopt$KGPT_SCTP_RECVRCVINFO": "getsockopt$KGPT_SCTP_RECVRCVINFO(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_RECVRCVINFO], val ptr[in, int32], len len[val])",
+    "getsockopt$KGPT_SCTP_RECVNXTINFO": "getsockopt$KGPT_SCTP_RECVNXTINFO(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_RECVNXTINFO], val ptr[out, int32], len len[val])",
+    "getsockopt$KGPT_SCTP_PR_SUPPORTED": "getsockopt$KGPT_SCTP_PR_SUPPORTED(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_PR_SUPPORTED], val ptr[inout, sctp_assoc_value], len len[val])",
+    "getsockopt$KGPT_SCTP_DEFAULT_PRINFO": "getsockopt$KGPT_SCTP_DEFAULT_PRINFO(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_DEFAULT_PRINFO], val ptr[inout, sctp_default_prinfo], len len[val])",
+    "getsockopt$KGPT_SCTP_PR_ASSOC_STATUS": "getsockopt$KGPT_SCTP_PR_ASSOC_STATUS(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_PR_ASSOC_STATUS], val ptr[in, sctp_prstatus], len len[val])",
+    "getsockopt$KGPT_SCTP_PR_STREAM_STATUS": "getsockopt$KGPT_SCTP_PR_STREAM_STATUS(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_PR_STREAM_STATUS], val ptr[inout, sctp_prstatus], len len[val])",
+    "getsockopt$KGPT_SCTP_RECONFIG_SUPPORTED": "getsockopt$KGPT_SCTP_RECONFIG_SUPPORTED(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_RECONFIG_SUPPORTED], val ptr[inout, sctp_assoc_value], len len[val])",
+    "getsockopt$KGPT_SCTP_ENABLE_STREAM_RESET": "getsockopt$KGPT_SCTP_ENABLE_STREAM_RESET(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_ENABLE_STREAM_RESET], val ptr[in, sctp_assoc_value], len len[val])",
+    "getsockopt$KGPT_SCTP_STREAM_SCHEDULER": "getsockopt$KGPT_SCTP_STREAM_SCHEDULER(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_STREAM_SCHEDULER], val ptr[inout, sctp_assoc_value], len len[val])",
+    "getsockopt$KGPT_SCTP_STREAM_SCHEDULER_VALUE": "getsockopt$KGPT_SCTP_STREAM_SCHEDULER_VALUE(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_STREAM_SCHEDULER_VALUE], val ptr[inout, sctp_stream_value], len len[val])",
+    "getsockopt$KGPT_SCTP_INTERLEAVING_SUPPORTED": "getsockopt$KGPT_SCTP_INTERLEAVING_SUPPORTED(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_INTERLEAVING_SUPPORTED], val ptr[inout, sctp_assoc_value], len len[val])",
+    "getsockopt$KGPT_SCTP_REUSE_PORT": "getsockopt$KGPT_SCTP_REUSE_PORT(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_REUSE_PORT], val ptr[out, int32], len len[val])",
+    "getsockopt$KGPT_SCTP_EVENT": "getsockopt$KGPT_SCTP_EVENT(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_EVENT], val ptr[inout, sctp_event_subscribe], len len[val])",
+    "getsockopt$KGPT_SCTP_ASCONF_SUPPORTED": "getsockopt$KGPT_SCTP_ASCONF_SUPPORTED(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_ASCONF_SUPPORTED], val ptr[inout, sctp_assoc_value], len len[val])",
+    "getsockopt$KGPT_SCTP_AUTH_SUPPORTED": "getsockopt$KGPT_SCTP_AUTH_SUPPORTED(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_AUTH_SUPPORTED], val ptr[inout, sctp_assoc_value], len len[val])",
+    "getsockopt$KGPT_SCTP_ECN_SUPPORTED": "getsockopt$KGPT_SCTP_ECN_SUPPORTED(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_ECN_SUPPORTED], val ptr[inout, sctp_assoc_value], len len[val])",
+    "getsockopt$KGPT_SCTP_EXPOSE_POTENTIALLY_FAILED_STATE": "getsockopt$KGPT_SCTP_EXPOSE_POTENTIALLY_FAILED_STATE(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_EXPOSE_POTENTIALLY_FAILED_STATE], val ptr[inout, sctp_assoc_value], len len[val])",
+    "getsockopt$KGPT_SCTP_REMOTE_UDP_ENCAPS_PORT": "getsockopt$KGPT_SCTP_REMOTE_UDP_ENCAPS_PORT(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_REMOTE_UDP_ENCAPS_PORT], val ptr[in, sctp_udpencaps], len len[val])",
+    "getsockopt$KGPT_SCTP_PLPMTUD_PROBE_INTERVAL": "getsockopt$KGPT_SCTP_PLPMTUD_PROBE_INTERVAL(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_PLPMTUD_PROBE_INTERVAL], val ptr[in, sctp_probeinterval], len len[val])",
+    "setsockopt$KGPT_SCTP_DISABLE_FRAGMENTS": "setsockopt$KGPT_SCTP_DISABLE_FRAGMENTS(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_DISABLE_FRAGMENTS], val ptr[in, int32], len bytesize[val])",
+    "setsockopt$KGPT_SCTP_SOCKOPT_BINDX_ADD": "setsockopt$KGPT_SCTP_SOCKOPT_BINDX_ADD(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_SOCKOPT_BINDX_ADD], val ptr[in, array[sockaddr_storage]], len len[val])",
+    "setsockopt$KGPT_SCTP_SOCKOPT_BINDX_REM": "setsockopt$KGPT_SCTP_SOCKOPT_BINDX_REM(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_SOCKOPT_BINDX_REM], val ptr[in, array[sockaddr_storage]], len len[val])",
+    "setsockopt$KGPT_SCTP_SOCKOPT_CONNECTX_OLD": "setsockopt$KGPT_SCTP_SOCKOPT_CONNECTX_OLD(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_SOCKOPT_CONNECTX_OLD], val ptr[in, array[sockaddr_storage]], len len[val])",
+    "setsockopt$KGPT_SCTP_SOCKOPT_CONNECTX": "setsockopt$KGPT_SCTP_SOCKOPT_CONNECTX(fd sock_inet_sctp, level const[SOL_SCTP], opt const[SCTP_SOCKOPT_CONNECTX], val ptr[in, array[sockaddr_storage]], len len[val])"
+  },
+  "init_syscalls": [
+    "socket$KGPT_inet_sctp"
+  ],
+  "includes": [
+    "linux/net.h",
+    "uapi/linux/sctp.h",
+    "samples/bpf/net_shared.h",
+    "uapi/linux/in.h",
+    "linux/socket.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "sockaddr_storage": "EXISTING",
+    "sctp_status": "EXISTING",
+    "sctp_event_subscribe": "EXISTING",
+    "sctp_peeloff_arg_t": "EXISTING",
+    "sctp_paddrparams": "EXISTING",
+    "sctp_sack_info": "EXISTING",
+    "sctp_initmsg": "EXISTING",
+    "sctp_getaddrs": "EXISTING",
+    "sctp_getaddrs_old": "EXISTING",
+    "sctp_sndrcvinfo": "EXISTING",
+    "sctp_sndinfo": "EXISTING",
+    "sctp_prim": "EXISTING",
+    "sctp_rtoinfo": "EXISTING",
+    "sctp_assocparams": "EXISTING",
+    "sctp_assoc_value": "EXISTING",
+    "sctp_paddrinfo": "EXISTING",
+    "sctp_setadaptation": "EXISTING",
+    "sctp_hmacalgo": "EXISTING",
+    "sctp_authkeyid": "EXISTING",
+    "sctp_authchunks": "EXISTING",
+    "sctp_assoc_ids": "EXISTING",
+    "sctp_assoc_stats": "EXISTING",
+    "sctp_default_prinfo": "EXISTING",
+    "sctp_prstatus": "EXISTING",
+    "sctp_stream_value": "EXISTING",
+    "sockaddr_in": "EXISTING",
+    "sockaddr_in6": "EXISTING",
+    "sockaddr": "EXISTING"
+  }
+}

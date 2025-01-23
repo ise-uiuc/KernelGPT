@@ -1,0 +1,70 @@
+{
+  "open": {
+    "filename": "/dev/net/tun",
+    "fd_name": "fd_hdlc_fr",
+    "spec": "openat$KGPT_net_tun(fd const[AT_FDCWD], file ptr[in, string[\"/dev/net/tun\"]], flags flags[open_flags], mode const[0]) fd_hdlc_fr"
+  },
+  "resources": {
+    "fd_hdlc_fr": {
+      "type": "fd",
+      "spec": "resource fd_hdlc_fr[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/net/wan/hdlc_fr.c:1174",
+  "ioctls": {
+    "IF_GET_PROTO": {
+      "arg": "ptr[out, fr_proto]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    },
+    "IF_PROTO_FR": {
+      "arg": "ptr[in, fr_proto]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    },
+    "IF_PROTO_FR_ADD_PVC": {
+      "arg": "ptr[in, fr_proto_pvc]",
+      "arg_name_in_usage": "ifs->ifs_ifsu.fr_pvc",
+      "arg_inference": null
+    },
+    "IF_PROTO_FR_DEL_PVC": {
+      "arg": "ptr[in, fr_proto_pvc]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    },
+    "IF_PROTO_FR_ADD_ETH_PVC": {
+      "arg": "ptr[in, fr_proto_pvc]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    },
+    "IF_PROTO_FR_DEL_ETH_PVC": {
+      "arg": "ptr[in, fr_proto_pvc]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    }
+  },
+  "types": {},
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "openat$KGPT_net_tun": "openat$KGPT_net_tun(fd const[AT_FDCWD], file ptr[in, string[\"/dev/net/tun\"]], flags flags[open_flags], mode const[0]) fd_hdlc_fr",
+    "ioctl$KGPT_IF_GET_PROTO": "ioctl$KGPT_IF_GET_PROTO(fd fd_hdlc_fr, cmd const[IF_GET_PROTO], arg ptr[out, fr_proto])",
+    "ioctl$KGPT_IF_PROTO_FR": "ioctl$KGPT_IF_PROTO_FR(fd fd_hdlc_fr, cmd const[IF_PROTO_FR], arg ptr[in, fr_proto])",
+    "ioctl$KGPT_IF_PROTO_FR_ADD_PVC": "ioctl$KGPT_IF_PROTO_FR_ADD_PVC(fd fd_hdlc_fr, cmd const[IF_PROTO_FR_ADD_PVC], arg ptr[in, fr_proto_pvc])",
+    "ioctl$KGPT_IF_PROTO_FR_DEL_PVC": "ioctl$KGPT_IF_PROTO_FR_DEL_PVC(fd fd_hdlc_fr, cmd const[IF_PROTO_FR_DEL_PVC], arg ptr[in, fr_proto_pvc])",
+    "ioctl$KGPT_IF_PROTO_FR_ADD_ETH_PVC": "ioctl$KGPT_IF_PROTO_FR_ADD_ETH_PVC(fd fd_hdlc_fr, cmd const[IF_PROTO_FR_ADD_ETH_PVC], arg ptr[in, fr_proto_pvc])",
+    "ioctl$KGPT_IF_PROTO_FR_DEL_ETH_PVC": "ioctl$KGPT_IF_PROTO_FR_DEL_ETH_PVC(fd fd_hdlc_fr, cmd const[IF_PROTO_FR_DEL_ETH_PVC], arg ptr[in, fr_proto_pvc])"
+  },
+  "init_syscalls": [
+    "openat$KGPT_net_tun"
+  ],
+  "includes": [
+    "uapi/linux/fcntl.h",
+    "uapi/linux/if.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "fr_proto": "EXISTING",
+    "fr_proto_pvc": "EXISTING"
+  }
+}

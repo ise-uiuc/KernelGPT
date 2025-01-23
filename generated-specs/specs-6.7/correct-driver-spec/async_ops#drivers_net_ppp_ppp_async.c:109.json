@@ -1,0 +1,135 @@
+{
+  "open": {
+    "filename": "/dev/pts/#",
+    "fd_name": "fd_ppp_async",
+    "spec": "syz_open_dev$KGPT_ppp_async(dev ptr[in, string[\"/dev/pts/#\"]], id proc[0, 1], flags flags[open_flags]) fd_ppp_async"
+  },
+  "resources": {
+    "fd_ppp_async": {
+      "type": "fd",
+      "spec": "resource fd_ppp_async[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/net/ppp/ppp_async.c:109",
+  "ioctls": {
+    "PPPIOCGASYNCMAP": {
+      "arg": "ptr[out, int32]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "PPPIOCSASYNCMAP": {
+      "arg": "ptr[in, int32]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    },
+    "PPPIOCGRASYNCMAP": {
+      "arg": "ptr[out, int32]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    },
+    "PPPIOCSRASYNCMAP": {
+      "arg": "ptr[in, int32]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "PPPIOCGXASYNCMAP": {
+      "arg": "ptr[out, array[int32, 8]]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "PPPIOCSXASYNCMAP": {
+      "arg": "ptr[in, array[int32, 8]]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    }
+  },
+  "types": {},
+  "existing_ioctls": {
+    "PPPIOCGFLAGS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "put_user"
+        ],
+        "type": [
+          "int"
+        ],
+        "usage": [
+          "if (put_user(val, p))"
+        ]
+      }
+    },
+    "PPPIOCSFLAGS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "get_user"
+        ],
+        "type": [
+          "int"
+        ],
+        "usage": [
+          "if (get_user(val, p))"
+        ]
+      }
+    },
+    "PPPIOCGMRU": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "put_user"
+        ],
+        "type": [
+          "int"
+        ],
+        "usage": [
+          "if (put_user(ap->mru, p))"
+        ]
+      }
+    },
+    "PPPIOCSMRU": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "get_user"
+        ],
+        "type": [
+          "int"
+        ],
+        "usage": [
+          "if (get_user(val, p))"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_ppp_async": "syz_open_dev$KGPT_ppp_async(dev ptr[in, string[\"/dev/pts/#\"]], id proc[0, 1], flags flags[open_flags]) fd_ppp_async",
+    "ioctl$KGPT_PPPIOCGASYNCMAP": "ioctl$KGPT_PPPIOCGASYNCMAP(fd fd_ppp_async, cmd const[PPPIOCGASYNCMAP], arg ptr[out, int32])",
+    "ioctl$KGPT_PPPIOCSASYNCMAP": "ioctl$KGPT_PPPIOCSASYNCMAP(fd fd_ppp_async, cmd const[PPPIOCSASYNCMAP], arg ptr[in, int32])",
+    "ioctl$KGPT_PPPIOCGRASYNCMAP": "ioctl$KGPT_PPPIOCGRASYNCMAP(fd fd_ppp_async, cmd const[PPPIOCGRASYNCMAP], arg ptr[out, int32])",
+    "ioctl$KGPT_PPPIOCSRASYNCMAP": "ioctl$KGPT_PPPIOCSRASYNCMAP(fd fd_ppp_async, cmd const[PPPIOCSRASYNCMAP], arg ptr[in, int32])",
+    "ioctl$KGPT_PPPIOCGXASYNCMAP": "ioctl$KGPT_PPPIOCGXASYNCMAP(fd fd_ppp_async, cmd const[PPPIOCGXASYNCMAP], arg ptr[out, array[int32, 8]])",
+    "ioctl$KGPT_PPPIOCSXASYNCMAP": "ioctl$KGPT_PPPIOCSXASYNCMAP(fd fd_ppp_async, cmd const[PPPIOCSXASYNCMAP], arg ptr[in, array[int32, 8]])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_ppp_async"
+  ],
+  "includes": [
+    "uapi/linux/ppp-ioctl.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

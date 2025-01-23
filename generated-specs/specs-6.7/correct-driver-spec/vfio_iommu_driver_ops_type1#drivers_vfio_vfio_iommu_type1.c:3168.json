@@ -1,0 +1,105 @@
+{
+  "open": {
+    "filename": "/dev/vfio/vfio",
+    "fd_name": "fd_vfio",
+    "spec": "openat$KGPT_vfio(fd const[AT_FDCWD], file ptr[in, string[\"/dev/vfio/vfio\"]], flags const[O_RDWR], mode const[0]) fd_vfio"
+  },
+  "resources": {
+    "fd_vfio": {
+      "type": "fd",
+      "spec": "resource fd_vfio[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/vfio/vfio_iommu_type1.c:3168",
+  "ioctls": {
+    "VFIO_IOMMU_DIRTY_PAGES": {
+      "arg": "ptr[in, vfio_iommu_type1_dirty_bitmap]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "vfio_iommu_type1_dirty_bitmap": "vfio_iommu_type1_dirty_bitmap {\n\targsz\tint32\n\tflags\tflags[vfio_iommu_dirty_pages_flags, int32]\n\tdata\tarray[int8]\n}",
+    "vfio_iommu_dirty_pages_flags": "vfio_iommu_dirty_pages_flags = VFIO_IOMMU_DIRTY_PAGES_FLAG_START, VFIO_IOMMU_DIRTY_PAGES_FLAG_STOP, VFIO_IOMMU_DIRTY_PAGES_FLAG_GET_BITMAP",
+    "VFIO_IOMMU_DIRTY_PAGES_FLAG_START": "define VFIO_IOMMU_DIRTY_PAGES_FLAG_START (1<<0)",
+    "VFIO_IOMMU_DIRTY_PAGES_FLAG_STOP": "define VFIO_IOMMU_DIRTY_PAGES_FLAG_STOP (1<<1)",
+    "VFIO_IOMMU_DIRTY_PAGES_FLAG_GET_BITMAP": "define VFIO_IOMMU_DIRTY_PAGES_FLAG_GET_BITMAP (1<<2)"
+  },
+  "existing_ioctls": {
+    "VFIO_CHECK_EXTENSION": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "vfio_iommu_type1_check_extension"
+        ],
+        "type": [],
+        "usage": [
+          "return vfio_iommu_type1_check_extension(iommu, arg);"
+        ]
+      }
+    },
+    "VFIO_IOMMU_GET_INFO": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "vfio_iommu_type1_get_info"
+        ],
+        "type": [],
+        "usage": [
+          "return vfio_iommu_type1_get_info(iommu, arg);"
+        ]
+      }
+    },
+    "VFIO_IOMMU_MAP_DMA": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "vfio_iommu_type1_map_dma"
+        ],
+        "type": [],
+        "usage": [
+          "return vfio_iommu_type1_map_dma(iommu, arg);"
+        ]
+      }
+    },
+    "VFIO_IOMMU_UNMAP_DMA": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "vfio_iommu_type1_unmap_dma"
+        ],
+        "type": [],
+        "usage": [
+          "return vfio_iommu_type1_unmap_dma(iommu, arg);"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "openat$KGPT_vfio": "openat$KGPT_vfio(fd const[AT_FDCWD], file ptr[in, string[\"/dev/vfio/vfio\"]], flags const[O_RDWR], mode const[0]) fd_vfio",
+    "ioctl$KGPT_VFIO_IOMMU_DIRTY_PAGES": "ioctl$KGPT_VFIO_IOMMU_DIRTY_PAGES(fd fd_vfio, cmd const[VFIO_IOMMU_DIRTY_PAGES], arg ptr[in, vfio_iommu_type1_dirty_bitmap])"
+  },
+  "init_syscalls": [
+    "openat$KGPT_vfio"
+  ],
+  "includes": [
+    "uapi/linux/vfio.h",
+    "uapi/linux/fcntl.h",
+    "uapi/asm-generic/fcntl.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

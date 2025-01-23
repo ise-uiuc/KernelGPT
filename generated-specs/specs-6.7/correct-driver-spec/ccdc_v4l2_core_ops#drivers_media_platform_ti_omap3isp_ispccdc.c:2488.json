@@ -1,0 +1,50 @@
+{
+  "open": {
+    "filename": "/dev/v4l-subdev#",
+    "fd_name": "fd_ccdc",
+    "spec": "syz_open_dev$KGPT_v4l_subdev(dev ptr[in, string[\"/dev/v4l-subdev#\"]], id proc[0, 1], flags flags[open_flags]) fd_ccdc"
+  },
+  "resources": {
+    "fd_ccdc": {
+      "type": "fd",
+      "spec": "resource fd_ccdc[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/media/platform/ti/omap3isp/ispccdc.c:2488",
+  "ioctls": {
+    "VIDIOC_OMAP3ISP_CCDC_CFG": {
+      "arg": "ptr[in, omap3isp_ccdc_update_config]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "omap3isp_ccdc_update_config": "omap3isp_ccdc_update_config {\n\tupdate\tint16\n\tflag\tint16\n\talawip\tflags[omap3isp_alaw_ipwidth, int32]\n\tbclamp\tptr[in, omap3isp_ccdc_bclamp]\n\tblcomp\tptr[in, omap3isp_ccdc_blcomp]\n\tfpc\tptr[in, omap3isp_ccdc_fpc]\n\tlsc_cfg\tptr[in, omap3isp_ccdc_lsc_config]\n\tcull\tptr[in, omap3isp_ccdc_culling]\n\tlsc\tptr[in, array[int8]]\n}",
+    "omap3isp_alaw_ipwidth": "omap3isp_alaw_ipwidth = ISPCCDC_ALAW_IP_WIDTH_10BIT, ISPCCDC_ALAW_IP_WIDTH_11BIT, ISPCCDC_ALAW_IP_WIDTH_12BIT, ISPCCDC_ALAW_IP_WIDTH_13BIT, ISPCCDC_ALAW_IP_WIDTH_14BIT, ISPCCDC_ALAW_IP_WIDTH_15BIT",
+    "omap3isp_ccdc_bclamp": "omap3isp_ccdc_bclamp {\n\tobgain\tint8\n\tobstpixel\tint8\n\toblines\tint8\n\toblen\tint8\n\tdcsubval\tint16\n}",
+    "omap3isp_ccdc_blcomp": "omap3isp_ccdc_blcomp {\n\tb_mg\tint8\n\tgb_g\tint8\n\tgr_cy\tint8\n\tr_ye\tint8\n}",
+    "omap3isp_ccdc_fpc": "omap3isp_ccdc_fpc {\n\tfpnum\tint16\n\tfpcaddr\tint32\n}",
+    "omap3isp_ccdc_lsc_config": "omap3isp_ccdc_lsc_config {\n\toffset\tint16\n\tgain_mode_n\tint8\n\tgain_mode_m\tint8\n\tgain_format\tint8\n\tfmtsph\tint16\n\tfmtlnh\tint16\n\tfmtslv\tint16\n\tfmtlnv\tint16\n\tinitial_x\tint8\n\tinitial_y\tint8\n\tsize\tint32\n}",
+    "omap3isp_ccdc_culling": "omap3isp_ccdc_culling {\n\tv_pattern\tint8\n\th_odd\tint16\n\th_even\tint16\n}",
+    "ISPCCDC_ALAW_IP_WIDTH_10BIT": "define ISPCCDC_ALAW_IP_WIDTH_10BIT 0",
+    "ISPCCDC_ALAW_IP_WIDTH_11BIT": "define ISPCCDC_ALAW_IP_WIDTH_11BIT 1",
+    "ISPCCDC_ALAW_IP_WIDTH_12BIT": "define ISPCCDC_ALAW_IP_WIDTH_12BIT 2",
+    "ISPCCDC_ALAW_IP_WIDTH_13BIT": "define ISPCCDC_ALAW_IP_WIDTH_13BIT 3",
+    "ISPCCDC_ALAW_IP_WIDTH_14BIT": "define ISPCCDC_ALAW_IP_WIDTH_14BIT 4",
+    "ISPCCDC_ALAW_IP_WIDTH_15BIT": "define ISPCCDC_ALAW_IP_WIDTH_15BIT 5"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_v4l_subdev": "syz_open_dev$KGPT_v4l_subdev(dev ptr[in, string[\"/dev/v4l-subdev#\"]], id proc[0, 1], flags flags[open_flags]) fd_ccdc",
+    "ioctl$KGPT_VIDIOC_OMAP3ISP_CCDC_CFG": "ioctl$KGPT_VIDIOC_OMAP3ISP_CCDC_CFG(fd fd_ccdc, cmd const[VIDIOC_OMAP3ISP_CCDC_CFG], arg ptr[in, omap3isp_ccdc_update_config])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_v4l_subdev"
+  ],
+  "includes": [
+    "uapi/linux/omap3isp.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

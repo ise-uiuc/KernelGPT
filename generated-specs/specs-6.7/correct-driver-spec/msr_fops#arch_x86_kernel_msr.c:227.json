@@ -1,0 +1,58 @@
+{
+  "open": {
+    "filename": "/dev/cpu/#/msr",
+    "fd_name": "fd_msr",
+    "spec": "syz_open_dev$KGPT_msr(dev ptr[in, string[\"/dev/cpu/#/msr\"]], id proc[0, NR_CPUS], flags flags[open_flags]) fd_msr"
+  },
+  "resources": {
+    "fd_msr": {
+      "type": "fd",
+      "spec": "resource fd_msr[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/arch/x86/kernel/msr.c:227",
+  "ioctls": {
+    "X86_IOC_WRMSR_REGS": {
+      "arg": "ptr[inout, array[u32, 8]]",
+      "arg_name_in_usage": "uregs",
+      "arg_inference": null
+    }
+  },
+  "types": {},
+  "existing_ioctls": {
+    "X86_IOC_RDMSR_REGS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "uregs"
+      ],
+      "arg_inference": {
+        "function": [
+          "rdmsr_safe_regs_on_cpu"
+        ],
+        "type": [
+          "u32[8]"
+        ],
+        "usage": [
+          "u32 __user *uregs = (u32 __user *)arg;",
+          "u32 regs[8];",
+          "if (copy_from_user(&regs, uregs, sizeof(regs)))",
+          "err = rdmsr_safe_regs_on_cpu(cpu, regs);",
+          "if (copy_to_user(uregs, &regs, sizeof(regs)))"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_msr": "syz_open_dev$KGPT_msr(dev ptr[in, string[\"/dev/cpu/#/msr\"]], id proc[0, NR_CPUS], flags flags[open_flags]) fd_msr",
+    "ioctl$KGPT_X86_IOC_WRMSR_REGS": "ioctl$KGPT_X86_IOC_WRMSR_REGS(fd fd_msr, cmd const[X86_IOC_WRMSR_REGS], arg ptr[inout, array[int32, 8]])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_msr"
+  ],
+  "includes": [
+    "linux/threads.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

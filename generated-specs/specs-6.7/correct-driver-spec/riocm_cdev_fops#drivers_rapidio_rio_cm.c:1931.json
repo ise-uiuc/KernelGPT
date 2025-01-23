@@ -1,0 +1,121 @@
+{
+  "open": {
+    "filename": "/dev/rio_cm",
+    "fd_name": "fd_rio_cm",
+    "spec": "openat$KGPT_rio_cm(fd const[AT_FDCWD], file ptr[in, string[\"/dev/rio_cm\"]], flags flags[open_flags], mode const[0]) fd_rio_cm"
+  },
+  "resources": {
+    "fd_rio_cm": {
+      "type": "fd",
+      "spec": "resource fd_rio_cm[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/rapidio/rio_cm.c:1931",
+  "ioctls": {
+    "RIO_CM_EP_GET_LIST_SIZE": {
+      "arg": "ptr[out, int32]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "RIO_CM_EP_GET_LIST": {
+      "arg": "ptr[inout, rio_cm_ep_list]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "RIO_CM_CHAN_CREATE": {
+      "arg": "ptr[inout, rio_cm_channel]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": {
+        "function": [
+          "cm_chan_create"
+        ],
+        "type": [
+          "u16 __user *"
+        ],
+        "usage": [
+          "u16 __user *p = arg;\n\tif (get_user(ch_num, p))\n\t\treturn -EFAULT;\n\t...\n\treturn put_user(ch_num, p);"
+        ]
+      }
+    },
+    "RIO_CM_CHAN_CLOSE": {
+      "arg": "ptr[in, int16]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "RIO_CM_CHAN_BIND": {
+      "arg": "ptr[in, rio_cm_channel]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "RIO_CM_CHAN_LISTEN": {
+      "arg": "ptr[in, int16]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "RIO_CM_CHAN_ACCEPT": {
+      "arg": "ptr[inout, rio_cm_accept]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "RIO_CM_CHAN_CONNECT": {
+      "arg": "ptr[in, rio_cm_channel]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "RIO_CM_CHAN_SEND": {
+      "arg": "ptr[in, rio_cm_msg]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "RIO_CM_CHAN_RECEIVE": {
+      "arg": "ptr[inout, rio_cm_msg]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": {
+        "function": [
+          "cm_chan_msg_rcv"
+        ],
+        "type": [],
+        "usage": [
+          "struct rio_cm_msg msg;\n\tif (copy_from_user(&msg, arg, sizeof(msg)))\n\t\treturn -EFAULT;\n\t/* ... */\n\tif (copy_to_user((void __user *)(uintptr_t)msg.msg, buf, msg_size))\n\t\tret = -EFAULT;"
+        ]
+      }
+    },
+    "RIO_CM_MPORT_GET_LIST": {
+      "arg": "ptr[inout, rio_cm_mport_get_list]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "rio_cm_ep_list": "type rio_cm_ep_list ptr[in, array[int8]]",
+    "rio_cm_channel": "rio_cm_channel {\n\tid\tint16\n\tremote_channel\tint16\n\tremote_destid\tint16\n\tmport_id\tint8\n}",
+    "rio_cm_accept": "rio_cm_accept {\n\tch_num\tint16\n\tpad0\tconst[0, int16]\n\twait_to\tint32\n}",
+    "rio_cm_msg": "rio_cm_msg {\n\tch_num\tint16\n\tsize\tint16\n\trxto\tint32\n\tmsg\tint64\n}",
+    "rio_cm_mport_get_list": "type rio_cm_mport_get_list ptr[in, array[int8]]"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "openat$KGPT_rio_cm": "openat$KGPT_rio_cm(fd const[AT_FDCWD], file ptr[in, string[\"/dev/rio_cm\"]], flags flags[open_flags], mode const[0]) fd_rio_cm",
+    "ioctl$KGPT_RIO_CM_EP_GET_LIST_SIZE": "ioctl$KGPT_RIO_CM_EP_GET_LIST_SIZE(fd fd_rio_cm, cmd const[RIO_CM_EP_GET_LIST_SIZE], arg ptr[out, int32])",
+    "ioctl$KGPT_RIO_CM_EP_GET_LIST": "ioctl$KGPT_RIO_CM_EP_GET_LIST(fd fd_rio_cm, cmd const[RIO_CM_EP_GET_LIST], arg ptr[inout, rio_cm_ep_list])",
+    "ioctl$KGPT_RIO_CM_CHAN_CREATE": "ioctl$KGPT_RIO_CM_CHAN_CREATE(fd fd_rio_cm, cmd const[RIO_CM_CHAN_CREATE], arg ptr[inout, rio_cm_channel])",
+    "ioctl$KGPT_RIO_CM_CHAN_CLOSE": "ioctl$KGPT_RIO_CM_CHAN_CLOSE(fd fd_rio_cm, cmd const[RIO_CM_CHAN_CLOSE], arg ptr[in, int16])",
+    "ioctl$KGPT_RIO_CM_CHAN_BIND": "ioctl$KGPT_RIO_CM_CHAN_BIND(fd fd_rio_cm, cmd const[RIO_CM_CHAN_BIND], arg ptr[in, rio_cm_channel])",
+    "ioctl$KGPT_RIO_CM_CHAN_LISTEN": "ioctl$KGPT_RIO_CM_CHAN_LISTEN(fd fd_rio_cm, cmd const[RIO_CM_CHAN_LISTEN], arg ptr[in, int16])",
+    "ioctl$KGPT_RIO_CM_CHAN_ACCEPT": "ioctl$KGPT_RIO_CM_CHAN_ACCEPT(fd fd_rio_cm, cmd const[RIO_CM_CHAN_ACCEPT], arg ptr[inout, rio_cm_accept])",
+    "ioctl$KGPT_RIO_CM_CHAN_CONNECT": "ioctl$KGPT_RIO_CM_CHAN_CONNECT(fd fd_rio_cm, cmd const[RIO_CM_CHAN_CONNECT], arg ptr[in, rio_cm_channel])",
+    "ioctl$KGPT_RIO_CM_CHAN_SEND": "ioctl$KGPT_RIO_CM_CHAN_SEND(fd fd_rio_cm, cmd const[RIO_CM_CHAN_SEND], arg ptr[in, rio_cm_msg])",
+    "ioctl$KGPT_RIO_CM_CHAN_RECEIVE": "ioctl$KGPT_RIO_CM_CHAN_RECEIVE(fd fd_rio_cm, cmd const[RIO_CM_CHAN_RECEIVE], arg ptr[inout, rio_cm_msg])",
+    "ioctl$KGPT_RIO_CM_MPORT_GET_LIST": "ioctl$KGPT_RIO_CM_MPORT_GET_LIST(fd fd_rio_cm, cmd const[RIO_CM_MPORT_GET_LIST], arg ptr[inout, rio_cm_mport_get_list])"
+  },
+  "init_syscalls": [
+    "openat$KGPT_rio_cm"
+  ],
+  "includes": [
+    "uapi/linux/rio_cm_cdev.h",
+    "uapi/linux/fcntl.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

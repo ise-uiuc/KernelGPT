@@ -1,0 +1,69 @@
+{
+  "open": {
+    "filename": "/dev/nvme#",
+    "fd_name": "fd_nvme",
+    "spec": "syz_open_dev$KGPT_nvme(dev ptr[in, string[\"/dev/nvme#\"]], id proc[0, 1], flags flags[open_flags]) fd_nvme"
+  },
+  "resources": {
+    "fd_nvme": {
+      "type": "fd",
+      "spec": "resource fd_nvme[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/nvme/host/core.c:3239",
+  "ioctls": {
+    "NVME_IOCTL_RESET": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "NVME_IOCTL_SUBSYS_RESET": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "NVME_IOCTL_RESCAN": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "NVME_IOCTL_ADMIN_CMD": {
+      "arg": "ptr[in, nvme_passthru_cmd]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "NVME_IOCTL_ADMIN64_CMD": {
+      "arg": "ptr[in,out, nvme_passthru_cmd64]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "NVME_IOCTL_IO_CMD": {
+      "arg": "ptr[in, nvme_passthru_cmd]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "nvme_passthru_cmd": "nvme_passthru_cmd {\n\topcode\tint8\n\tflags\tint8\n\trsvd1\tint16\n\tnsid\tint32\n\tcdw2\tint32\n\tcdw3\tint32\n\tmetadata\tint64\n\taddr\tint64\n\tmetadata_len\tint32\n\tdata_len\tint32\n\tcdw10\tint32\n\tcdw11\tint32\n\tcdw12\tint32\n\tcdw13\tint32\n\tcdw14\tint32\n\tcdw15\tint32\n\ttimeout_ms\tint32\n\tresult\tint32\n}",
+    "nvme_passthru_cmd64": "nvme_passthru_cmd64 {\n\topcode\tint8\n\tflags\tint8\n\trsvd1\tint16\n\tnsid\tint32\n\tcdw2\tint32\n\tcdw3\tint32\n\tmetadata\tint64\n\taddr\tint64\n\tmetadata_len\tint32\n\tdata_len\tint32\n\tvec_cnt\tint32\n\tcdw10\tint32\n\tcdw11\tint32\n\tcdw12\tint32\n\tcdw13\tint32\n\tcdw14\tint32\n\tcdw15\tint32\n\ttimeout_ms\tint32\n\trsvd2\tint32\n\tresult\tint64\n}"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_nvme": "syz_open_dev$KGPT_nvme(dev ptr[in, string[\"/dev/nvme#\"]], id proc[0, 1], flags flags[open_flags]) fd_nvme",
+    "ioctl$KGPT_NVME_IOCTL_RESET": "ioctl$KGPT_NVME_IOCTL_RESET(fd fd_nvme, cmd const[NVME_IOCTL_RESET], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_NVME_IOCTL_SUBSYS_RESET": "ioctl$KGPT_NVME_IOCTL_SUBSYS_RESET(fd fd_nvme, cmd const[NVME_IOCTL_SUBSYS_RESET], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_NVME_IOCTL_RESCAN": "ioctl$KGPT_NVME_IOCTL_RESCAN(fd fd_nvme, cmd const[NVME_IOCTL_RESCAN], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_NVME_IOCTL_ADMIN_CMD": "ioctl$KGPT_NVME_IOCTL_ADMIN_CMD(fd fd_nvme, cmd const[NVME_IOCTL_ADMIN_CMD], arg ptr[in, nvme_passthru_cmd])",
+    "ioctl$KGPT_NVME_IOCTL_ADMIN64_CMD": "ioctl$KGPT_NVME_IOCTL_ADMIN64_CMD(fd fd_nvme, cmd const[NVME_IOCTL_ADMIN64_CMD], arg ptr[inout, nvme_passthru_cmd64])",
+    "ioctl$KGPT_NVME_IOCTL_IO_CMD": "ioctl$KGPT_NVME_IOCTL_IO_CMD(fd fd_nvme, cmd const[NVME_IOCTL_IO_CMD], arg ptr[in, nvme_passthru_cmd])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_nvme"
+  ],
+  "includes": [
+    "uapi/linux/nvme_ioctl.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

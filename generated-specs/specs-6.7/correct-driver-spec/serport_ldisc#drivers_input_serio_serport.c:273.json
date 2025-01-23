@@ -1,0 +1,36 @@
+{
+  "open": {
+    "filename": "/dev/ttyS#",
+    "fd_name": "fd_serport",
+    "spec": "syz_open_dev$KGPT_serport(dev ptr[in, string[\"/dev/ttyS#\"]], id proc[0, 1], flags flags[open_flags]) fd_serport"
+  },
+  "resources": {
+    "fd_serport": {
+      "type": "fd",
+      "spec": "resource fd_serport[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/input/serio/serport.c:273",
+  "ioctls": {
+    "SPIOCSTYPE": {
+      "arg": "intptr",
+      "arg_name_in_usage": "type",
+      "arg_inference": null
+    }
+  },
+  "types": {},
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_serport": "syz_open_dev$KGPT_serport(dev ptr[in, string[\"/dev/ttyS#\"]], id proc[0, 1], flags flags[open_flags]) fd_serport",
+    "ioctl$KGPT_SPIOCSTYPE": "ioctl$KGPT_SPIOCSTYPE(fd fd_serport, cmd const[SPIOCSTYPE], arg intptr)"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_serport"
+  ],
+  "includes": [
+    "uapi/linux/serio.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

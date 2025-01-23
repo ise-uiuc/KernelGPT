@@ -1,0 +1,64 @@
+{
+  "open": {
+    "filename": "/dev/dvb/adapter#/net#",
+    "fd_name": "fd_dvb_net",
+    "spec": "syz_open_dev$KGPT_dvb_net(dev ptr[in, string[\"/dev/dvb/adapter#/net#\"]], id proc[0, 1], flags flags[open_flags]) fd_dvb_net"
+  },
+  "resources": {
+    "fd_dvb_net": {
+      "type": "fd",
+      "spec": "resource fd_dvb_net[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/media/dvb-core/dvb_net.c:1608",
+  "ioctls": {
+    "NET_ADD_IF": {
+      "arg": "ptr[in, dvb_net_if]",
+      "arg_name_in_usage": "dvbnetif",
+      "arg_inference": null
+    },
+    "NET_GET_IF": {
+      "arg": "ptr[in, dvb_net_if]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    },
+    "NET_REMOVE_IF": {
+      "arg": "intptr",
+      "arg_name_in_usage": "parg",
+      "arg_inference": null
+    },
+    "__NET_ADD_IF_OLD": {
+      "arg": "ptr[in, __dvb_net_if_old]",
+      "arg_name_in_usage": "dvbnetif",
+      "arg_inference": null
+    },
+    "__NET_GET_IF_OLD": {
+      "arg": "ptr[in, __dvb_net_if_old]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "dvb_net_if": "dvb_net_if {\n\tpid\tint16\n\tif_num\tint16\n\tfeedtype\tdvb_net_feedtype\n}",
+    "__dvb_net_if_old": "__dvb_net_if_old {\n\tpid\tint16\n\tif_num\tint16\n}",
+    "dvb_net_feedtype": "type dvb_net_feedtype ptr[in, array[int8]]"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_dvb_net": "syz_open_dev$KGPT_dvb_net(dev ptr[in, string[\"/dev/dvb/adapter#/net#\"]], id proc[0, 1], flags flags[open_flags]) fd_dvb_net",
+    "ioctl$KGPT_NET_ADD_IF": "ioctl$KGPT_NET_ADD_IF(fd fd_dvb_net, cmd const[NET_ADD_IF], arg ptr[in, dvb_net_if])",
+    "ioctl$KGPT_NET_GET_IF": "ioctl$KGPT_NET_GET_IF(fd fd_dvb_net, cmd const[NET_GET_IF], arg ptr[in, dvb_net_if])",
+    "ioctl$KGPT_NET_REMOVE_IF": "ioctl$KGPT_NET_REMOVE_IF(fd fd_dvb_net, cmd const[NET_REMOVE_IF], arg intptr)",
+    "ioctl$KGPT___NET_ADD_IF_OLD": "ioctl$KGPT___NET_ADD_IF_OLD(fd fd_dvb_net, cmd const[__NET_ADD_IF_OLD], arg ptr[in, __dvb_net_if_old])",
+    "ioctl$KGPT___NET_GET_IF_OLD": "ioctl$KGPT___NET_GET_IF_OLD(fd fd_dvb_net, cmd const[__NET_GET_IF_OLD], arg ptr[in, __dvb_net_if_old])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_dvb_net"
+  ],
+  "includes": [
+    "uapi/linux/dvb/net.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

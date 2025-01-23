@@ -1,0 +1,41 @@
+{
+  "open": {
+    "filename": "/dev/fsl-mc",
+    "fd_name": "fd_fsl_mc",
+    "spec": "openat$KGPT_mc(fd const[AT_FDCWD], file ptr[in, string[\"/dev/fsl-mc\"]], flags flags[open_flags], mode const[0]) fd_fsl_mc"
+  },
+  "resources": {
+    "fd_fsl_mc": {
+      "type": "fd",
+      "spec": "resource fd_fsl_mc[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/bus/fsl-mc/fsl-mc-uapi.c:566",
+  "ioctls": {
+    "FSL_MC_SEND_MC_COMMAND": {
+      "arg": "ptr[inout, fsl_mc_command]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "fsl_mc_command": "fsl_mc_command {\n\theader\tint64\n\tparams\tarray[int64, MC_CMD_NUM_OF_PARAMS]\n}"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "openat$KGPT_mc": "openat$KGPT_mc(fd const[AT_FDCWD], file ptr[in, string[\"/dev/fsl-mc\"]], flags flags[open_flags], mode const[0]) fd_fsl_mc",
+    "ioctl$KGPT_FSL_MC_SEND_MC_COMMAND": "ioctl$KGPT_FSL_MC_SEND_MC_COMMAND(fd fd_fsl_mc, cmd const[FSL_MC_SEND_MC_COMMAND], arg ptr[inout, fsl_mc_command])"
+  },
+  "init_syscalls": [
+    "openat$KGPT_mc"
+  ],
+  "includes": [
+    "uapi/linux/fsl_mc.h",
+    "uapi/linux/fcntl.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "MC_CMD_NUM_OF_PARAMS": "UNFOUND_MACRO"
+  }
+}

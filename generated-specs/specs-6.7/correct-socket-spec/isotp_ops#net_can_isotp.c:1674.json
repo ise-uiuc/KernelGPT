@@ -1,0 +1,124 @@
+{
+  "socket": {
+    "domain": "PF_CAN",
+    "type": "SOCK_DGRAM",
+    "spec": "socket$KGPT_can_isotp(domain const[PF_CAN], type const[SOCK_DGRAM], proto const[CAN_ISOTP]) sock_can_isotp"
+  },
+  "resources": {
+    "sock_can_isotp": {
+      "type": "sock",
+      "spec": "resource sock_can_isotp[sock]"
+    }
+  },
+  "types": {
+    "CAN_ISOTP": "define CAN_ISOTP 6",
+    "can_isotp_options": "can_isotp_options {\n\tflags\tint32\n\tframe_txtime\tint32\n\text_address\tint8\n\ttxpad_content\tint8\n\trxpad_content\tint8\n\trx_ext_address\tint8\n}",
+    "can_isotp_fc_options": "can_isotp_fc_options {\n\tbs\tint8\n\tstmin\tint8\n\twftmax\tint8\n}",
+    "can_isotp_ll_options": "can_isotp_ll_options {\n\tmtu\tint8\n\ttx_dl\tint8\n\ttx_flags\tint8\n}"
+  },
+  "socket_addr": "sockaddr_can",
+  "setsockopt": {
+    "CAN_ISOTP_OPTS": {
+      "level": "SOL_CAN_ISOTP",
+      "val": "ptr[in, can_isotp_options]",
+      "len": "bytesize[val]"
+    },
+    "CAN_ISOTP_RECV_FC": {
+      "level": "SOL_CAN_ISOTP",
+      "val": "ptr[in, can_isotp_fc_options]",
+      "len": "bytesize[val]"
+    },
+    "CAN_ISOTP_TX_STMIN": {
+      "level": "SOL_CAN_ISOTP",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]"
+    },
+    "CAN_ISOTP_RX_STMIN": {
+      "level": "SOL_CAN_ISOTP",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]"
+    },
+    "CAN_ISOTP_LL_OPTS": {
+      "level": "SOL_CAN_ISOTP",
+      "val": "ptr[in, can_isotp_ll_options]",
+      "len": "bytesize[val]"
+    }
+  },
+  "unknown": [],
+  "setsockopt_unknown": [],
+  "getsockopt": {
+    "CAN_ISOTP_OPTS": {
+      "level": "SOL_CAN_ISOTP",
+      "val": "ptr[out, can_isotp_options]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "CAN_ISOTP_RECV_FC": {
+      "level": "SOL_CAN_ISOTP",
+      "val": "ptr[out, can_isotp_fc_options]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "CAN_ISOTP_TX_STMIN": {
+      "level": "SOL_CAN_ISOTP",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "CAN_ISOTP_RX_STMIN": {
+      "level": "SOL_CAN_ISOTP",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "CAN_ISOTP_LL_OPTS": {
+      "level": "SOL_CAN_ISOTP",
+      "val": "ptr[out, can_isotp_ll_options]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    }
+  },
+  "getsockopt_unknown": [],
+  "proto_ops": {
+    "bind": "isotp_bind",
+    "connect": "sock_no_connect",
+    "accept": "sock_no_accept",
+    "poll": "isotp_poll",
+    "ioctl": "isotp_sock_no_ioctlcmd",
+    "sendmsg": "isotp_sendmsg",
+    "recvmsg": "isotp_recvmsg",
+    "setsockopt": "isotp_setsockopt",
+    "getsockopt": "isotp_getsockopt"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/can/isotp.c:1674",
+  "ops_name": "isotp_ops",
+  "syscall_specs": {
+    "socket$KGPT_can_isotp": "socket$KGPT_can_isotp(domain const[PF_CAN], type const[SOCK_DGRAM], proto const[CAN_ISOTP]) sock_can_isotp",
+    "bind$KGPT_isotp_ops": "bind$KGPT_isotp_ops(fd sock_can_isotp, addr ptr[in, sockaddr_can], addrlen len[addr])",
+    "connect$KGPT_isotp_ops": "connect$KGPT_isotp_ops(fd sock_can_isotp, addr ptr[in, sockaddr_can], addrlen len[addr])",
+    "accept4$KGPT_isotp_ops": "accept4$KGPT_isotp_ops(fd sock_can_isotp, peer ptr[out, sockaddr_can, opt], peerlen ptr[inout, len[peer, int32]], flags flags[accept_flags]) sock_can_isotp",
+    "sendto$KGPT_isotp_ops": "sendto$KGPT_isotp_ops(fd sock_can_isotp, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, sockaddr_can, opt], addrlen len[addr])",
+    "recvfrom$KGPT_isotp_ops": "recvfrom$KGPT_isotp_ops(fd sock_can_isotp, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, sockaddr_can, opt], addrlen len[addr])",
+    "getsockopt$KGPT_CAN_ISOTP_OPTS": "getsockopt$KGPT_CAN_ISOTP_OPTS(fd sock_can_isotp, level const[SOL_CAN_ISOTP], opt const[CAN_ISOTP_OPTS], val ptr[out, can_isotp_options], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_CAN_ISOTP_RECV_FC": "getsockopt$KGPT_CAN_ISOTP_RECV_FC(fd sock_can_isotp, level const[SOL_CAN_ISOTP], opt const[CAN_ISOTP_RECV_FC], val ptr[out, can_isotp_fc_options], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_CAN_ISOTP_TX_STMIN": "getsockopt$KGPT_CAN_ISOTP_TX_STMIN(fd sock_can_isotp, level const[SOL_CAN_ISOTP], opt const[CAN_ISOTP_TX_STMIN], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_CAN_ISOTP_RX_STMIN": "getsockopt$KGPT_CAN_ISOTP_RX_STMIN(fd sock_can_isotp, level const[SOL_CAN_ISOTP], opt const[CAN_ISOTP_RX_STMIN], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_CAN_ISOTP_LL_OPTS": "getsockopt$KGPT_CAN_ISOTP_LL_OPTS(fd sock_can_isotp, level const[SOL_CAN_ISOTP], opt const[CAN_ISOTP_LL_OPTS], val ptr[out, can_isotp_ll_options], len ptr[inout, bytesize[val, int32]])",
+    "setsockopt$KGPT_CAN_ISOTP_OPTS": "setsockopt$KGPT_CAN_ISOTP_OPTS(fd sock_can_isotp, level const[SOL_CAN_ISOTP], opt const[CAN_ISOTP_OPTS], val ptr[in, can_isotp_options], len bytesize[val])",
+    "setsockopt$KGPT_CAN_ISOTP_RECV_FC": "setsockopt$KGPT_CAN_ISOTP_RECV_FC(fd sock_can_isotp, level const[SOL_CAN_ISOTP], opt const[CAN_ISOTP_RECV_FC], val ptr[in, can_isotp_fc_options], len bytesize[val])",
+    "setsockopt$KGPT_CAN_ISOTP_TX_STMIN": "setsockopt$KGPT_CAN_ISOTP_TX_STMIN(fd sock_can_isotp, level const[SOL_CAN_ISOTP], opt const[CAN_ISOTP_TX_STMIN], val ptr[in, int32], len bytesize[val])",
+    "setsockopt$KGPT_CAN_ISOTP_RX_STMIN": "setsockopt$KGPT_CAN_ISOTP_RX_STMIN(fd sock_can_isotp, level const[SOL_CAN_ISOTP], opt const[CAN_ISOTP_RX_STMIN], val ptr[in, int32], len bytesize[val])",
+    "setsockopt$KGPT_CAN_ISOTP_LL_OPTS": "setsockopt$KGPT_CAN_ISOTP_LL_OPTS(fd sock_can_isotp, level const[SOL_CAN_ISOTP], opt const[CAN_ISOTP_LL_OPTS], val ptr[in, can_isotp_ll_options], len bytesize[val])"
+  },
+  "init_syscalls": [
+    "socket$KGPT_can_isotp"
+  ],
+  "includes": [
+    "linux/net.h",
+    "uapi/linux/can.h",
+    "linux/socket.h",
+    "uapi/linux/can/isotp.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

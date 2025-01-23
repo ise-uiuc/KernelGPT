@@ -1,0 +1,38 @@
+{
+  "open": {
+    "filename": "/dev/v4l-subdev#",
+    "fd_name": "fd_mt9m114",
+    "spec": "syz_open_dev$KGPT_v4l_subdev(dev ptr[in, string[\"/dev/v4l-subdev#\"]], id proc[0, 1], flags flags[open_flags]) fd_mt9m114"
+  },
+  "resources": {
+    "fd_mt9m114": {
+      "type": "fd",
+      "spec": "resource fd_mt9m114[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/staging/media/atomisp/i2c/atomisp-mt9m114.c:1489",
+  "ioctls": {
+    "ATOMISP_IOC_S_EXPOSURE": {
+      "arg": "ptr[in, atomisp_exposure]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "atomisp_exposure": "atomisp_exposure {\n\tintegration_time\tarray[int32, 8]\n\tshutter_speed\tarray[int32, 8]\n\tgain\tarray[int32, 4]\n\taperture\tint32\n}"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_v4l_subdev": "syz_open_dev$KGPT_v4l_subdev(dev ptr[in, string[\"/dev/v4l-subdev#\"]], id proc[0, 1], flags flags[open_flags]) fd_mt9m114",
+    "ioctl$KGPT_ATOMISP_IOC_S_EXPOSURE": "ioctl$KGPT_ATOMISP_IOC_S_EXPOSURE(fd fd_mt9m114, cmd const[ATOMISP_IOC_S_EXPOSURE], arg ptr[in, atomisp_exposure])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_v4l_subdev"
+  ],
+  "includes": [
+    "drivers/staging/media/atomisp/include/linux/atomisp.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

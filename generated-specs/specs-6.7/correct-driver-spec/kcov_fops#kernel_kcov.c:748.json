@@ -1,0 +1,63 @@
+{
+  "open": {
+    "filename": "/sys/kernel/debug/kcov",
+    "fd_name": "fd_kcov",
+    "spec": "openat$KGPT_kcov(fd const[AT_FDCWD], file ptr[in, string[\"/sys/kernel/debug/kcov\"]], flags flags[open_flags], mode const[0]) fd_kcov"
+  },
+  "resources": {
+    "fd_kcov": {
+      "type": "fd",
+      "spec": "resource fd_kcov[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/kernel/kcov.c:748",
+  "ioctls": {
+    "KCOV_DISABLE": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "KCOV_INIT_TRACE": {
+      "arg": "intptr",
+      "arg_name_in_usage": "size",
+      "arg_inference": null
+    },
+    "KCOV_REMOTE_ENABLE": {
+      "arg": "ptr[in, kcov_remote_arg]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    },
+    "KCOV_ENABLE": {
+      "arg": "flags[kcov_mode]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "kcov_remote_arg": "kcov_remote_arg {\n\ttrace_mode\tint32\n\tarea_size\tint32\n\tnum_handles\tint32\n\tcommon_handle\tint64\n\thandles\tarray[int64]\n}",
+    "kcov_mode": "kcov_mode = KCOV_MODE_DISABLED, KCOV_MODE_INIT, KCOV_MODE_TRACE_PC, KCOV_MODE_TRACE_CMP",
+    "KCOV_MODE_DISABLED": "define KCOV_MODE_DISABLED 0",
+    "KCOV_MODE_INIT": "define KCOV_MODE_INIT 1",
+    "KCOV_MODE_TRACE_PC": "define KCOV_MODE_TRACE_PC 2",
+    "KCOV_MODE_TRACE_CMP": "define KCOV_MODE_TRACE_CMP 3"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "openat$KGPT_kcov": "openat$KGPT_kcov(fd const[AT_FDCWD], file ptr[in, string[\"/sys/kernel/debug/kcov\"]], flags flags[open_flags], mode const[0]) fd_kcov",
+    "ioctl$KGPT_KCOV_DISABLE": "ioctl$KGPT_KCOV_DISABLE(fd fd_kcov, cmd const[KCOV_DISABLE], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_KCOV_INIT_TRACE": "ioctl$KGPT_KCOV_INIT_TRACE(fd fd_kcov, cmd const[KCOV_INIT_TRACE], arg intptr)",
+    "ioctl$KGPT_KCOV_REMOTE_ENABLE": "ioctl$KGPT_KCOV_REMOTE_ENABLE(fd fd_kcov, cmd const[KCOV_REMOTE_ENABLE], arg ptr[in, kcov_remote_arg])",
+    "ioctl$KGPT_KCOV_ENABLE": "ioctl$KGPT_KCOV_ENABLE(fd fd_kcov, cmd const[KCOV_ENABLE], arg flags[kcov_mode])"
+  },
+  "init_syscalls": [
+    "openat$KGPT_kcov"
+  ],
+  "includes": [
+    "linux/kcov.h",
+    "uapi/linux/fcntl.h",
+    "uapi/linux/kcov.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

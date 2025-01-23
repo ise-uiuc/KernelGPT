@@ -1,0 +1,72 @@
+{
+  "open": {
+    "filename": "/dev/ubi#_#",
+    "fd_name": "fd_ubi",
+    "spec": "syz_open_dev$KGPT_ubi(dev ptr[in, string[\"/dev/ubi#_#\"]], id proc[0, 1], volid proc[0, 1], flags flags[open_flags]) fd_ubi"
+  },
+  "resources": {
+    "fd_ubi": {
+      "type": "fd",
+      "spec": "resource fd_ubi[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/mtd/ubi/cdev.c:1096",
+  "ioctls": {
+    "UBI_IOCMKVOL": {
+      "arg": "ptr[in, ubi_mkvol_req]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "UBI_IOCRMVOL": {
+      "arg": "intptr",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "UBI_IOCRSVOL": {
+      "arg": "ptr[in, ubi_rsvol_req]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "UBI_IOCRNVOL": {
+      "arg": "ptr[in, ubi_rnvol_req]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "UBI_IOCRPEB": {
+      "arg": "ptr[in, int32]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "UBI_IOCSPEB": {
+      "arg": "ptr[in, int32]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "ubi_rsvol_req": "ubi_rsvol_req {\n\tbytes\tint64\n\tvol_id\tint32\n}",
+    "ubi_rnvol_req": "ubi_rnvol_req {\n\tcount\tint32\n\tpadding1\tarray[int8, 12]\n\tents\tarray[ubi_rnvol_req_entry, UBI_MAX_RNVOL]\n}",
+    "ubi_mkvol_req": "ubi_mkvol_req {\n\tvol_id\tint32\n\talignment\tint32\n\tbytes\tint64\n\tvol_type\tint8\n\tflags\tint8\n\tname_len\tint16\n\tpadding2\tarray[int8, 4]\n\tname\tarray[int8, UBI_MAX_VOLUME_NAME_ADD_ONE]\n}",
+    "ubi_rnvol_req_entry": "type ubi_rnvol_req_entry ptr[in, array[int8]]",
+    "UBI_MAX_VOLUME_NAME_ADD_ONE": "define UBI_MAX_VOLUME_NAME_ADD_ONE 128"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_ubi": "syz_open_dev$KGPT_ubi(dev ptr[in, string[\"/dev/ubi#_#\"]], id proc[0, 1], volid proc[0, 1], flags flags[open_flags]) fd_ubi",
+    "ioctl$KGPT_UBI_IOCMKVOL": "ioctl$KGPT_UBI_IOCMKVOL(fd fd_ubi, cmd const[UBI_IOCMKVOL], arg ptr[in, ubi_mkvol_req])",
+    "ioctl$KGPT_UBI_IOCRMVOL": "ioctl$KGPT_UBI_IOCRMVOL(fd fd_ubi, cmd const[UBI_IOCRMVOL], arg intptr)",
+    "ioctl$KGPT_UBI_IOCRSVOL": "ioctl$KGPT_UBI_IOCRSVOL(fd fd_ubi, cmd const[UBI_IOCRSVOL], arg ptr[in, ubi_rsvol_req])",
+    "ioctl$KGPT_UBI_IOCRNVOL": "ioctl$KGPT_UBI_IOCRNVOL(fd fd_ubi, cmd const[UBI_IOCRNVOL], arg ptr[in, ubi_rnvol_req])",
+    "ioctl$KGPT_UBI_IOCRPEB": "ioctl$KGPT_UBI_IOCRPEB(fd fd_ubi, cmd const[UBI_IOCRPEB], arg ptr[in, int32])",
+    "ioctl$KGPT_UBI_IOCSPEB": "ioctl$KGPT_UBI_IOCSPEB(fd fd_ubi, cmd const[UBI_IOCSPEB], arg ptr[in, int32])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_ubi"
+  ],
+  "includes": [
+    "uapi/mtd/ubi-user.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

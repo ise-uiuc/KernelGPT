@@ -1,0 +1,50 @@
+{
+  "open": {
+    "filename": "/sys/kernel/security/loadpin/dm-verity",
+    "fd_name": "fd_loadpin_dm_verity",
+    "spec": "openat$KGPT_loadpin_dm_verity(fd const[AT_FDCWD], file ptr[in, string[\"/sys/kernel/security/loadpin/dm-verity\"]], flags const[O_RDWR], mode const[0600]) fd_loadpin_dm_verity"
+  },
+  "resources": {
+    "fd_loadpin_dm_verity": {
+      "type": "fd",
+      "spec": "resource fd_loadpin_dm_verity[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/security/loadpin/loadpin.c:400",
+  "ioctls": {
+    "LOADPIN_IOC_SET_TRUSTED_VERITY_DIGESTS": {
+      "arg": "intptr",
+      "arg_name_in_usage": "fd",
+      "arg_inference": {
+        "function": [
+          "read_trusted_verity_root_digests"
+        ],
+        "type": [
+          "unsigned int"
+        ],
+        "usage": [
+          "unsigned int fd;",
+          "if (copy_from_user(&fd, uarg, sizeof(fd)))",
+          "return read_trusted_verity_root_digests(fd);"
+        ]
+      }
+    }
+  },
+  "types": {},
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "openat$KGPT_loadpin_dm_verity": "openat$KGPT_loadpin_dm_verity(fd const[AT_FDCWD], file ptr[in, string[\"/sys/kernel/security/loadpin/dm-verity\"]], flags const[O_RDWR], mode const[0600]) fd_loadpin_dm_verity",
+    "ioctl$KGPT_LOADPIN_IOC_SET_TRUSTED_VERITY_DIGESTS": "ioctl$KGPT_LOADPIN_IOC_SET_TRUSTED_VERITY_DIGESTS(fd fd_loadpin_dm_verity, cmd const[LOADPIN_IOC_SET_TRUSTED_VERITY_DIGESTS], arg intptr)"
+  },
+  "init_syscalls": [
+    "openat$KGPT_loadpin_dm_verity"
+  ],
+  "includes": [
+    "uapi/linux/fcntl.h",
+    "uapi/linux/loadpin.h",
+    "uapi/asm-generic/fcntl.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

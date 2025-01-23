@@ -1,0 +1,96 @@
+{
+  "open": {
+    "filename": "/dev/vfio/#",
+    "fd_name": "fd_mbochs",
+    "spec": "syz_open_dev$KGPT_vfio(dev ptr[in, string[\"/dev/vfio/#\"]], id proc[0, 1], flags flags[open_flags]) fd_mbochs"
+  },
+  "resources": {
+    "fd_mbochs": {
+      "type": "fd",
+      "spec": "resource fd_mbochs[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/samples/vfio-mdev/mbochs.c:1369",
+  "ioctls": {
+    "VFIO_DEVICE_SET_IRQS": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "VFIO_DEVICE_RESET": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": {
+        "function": [
+          "mbochs_reset"
+        ],
+        "type": [],
+        "usage": [
+          "return mbochs_reset(mdev_state);"
+        ]
+      }
+    },
+    "VFIO_DEVICE_GET_INFO": {
+      "arg": "ptr[inout, vfio_device_info]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "VFIO_DEVICE_GET_REGION_INFO": {
+      "arg": "ptr[inout, vfio_region_info_ext]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "VFIO_DEVICE_GET_IRQ_INFO": {
+      "arg": "ptr[inout, vfio_irq_info]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "VFIO_DEVICE_QUERY_GFX_PLANE": {
+      "arg": "ptr[inout, vfio_device_gfx_plane_info]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "VFIO_DEVICE_GET_GFX_DMABUF": {
+      "arg": "ptr[in, int32]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "vfio_device_info": "vfio_device_info {\n\targsz\tint32\n\tflags\tflags[vfio_device_flags, int32]\n\tnum_regions\tint32\n\tnum_irqs\tint32\n\tcap_offset\tint32\n\tpad\tint32\n}",
+    "vfio_region_info_ext": "vfio_region_info_ext {\n\tbase\tvfio_region_info\n\ttype\tvfio_region_info_cap_type\n}",
+    "vfio_device_gfx_plane_info": "vfio_device_gfx_plane_info {\n\targsz\tint32\n\tflags\tflags[vfio_device_gfx_plane_info_flags, int32]\n\tdrm_plane_type\tint32\n\tdrm_format\tint32\n\tdrm_format_mod\tint64\n\twidth\tint32\n\theight\tint32\n\tstride\tint32\n\tsize\tint32\n\tx_pos\tint32\n\ty_pos\tint32\n\tx_hot\tint32\n\ty_hot\tint32\n\tunion\tvfio_device_gfx_plane_info_union\n\treserved\tint32\n}",
+    "vfio_irq_info": "vfio_irq_info {\n\targsz\tint32\n\tflags\tflags[vfio_irq_info_flags, int32]\n\tindex\tint32\n\tcount\tint32\n}",
+    "vfio_device_flags": "vfio_device_flags = VFIO_DEVICE_FLAGS_RESET, VFIO_DEVICE_FLAGS_PCI, VFIO_DEVICE_FLAGS_PLATFORM, VFIO_DEVICE_FLAGS_AMBA, VFIO_DEVICE_FLAGS_CCW, VFIO_DEVICE_FLAGS_AP, VFIO_DEVICE_FLAGS_FSL_MC, VFIO_DEVICE_FLAGS_CAPS, VFIO_DEVICE_FLAGS_CDX",
+    "vfio_region_info": "vfio_region_info {\n\targsz\tint32\n\tflags\tflags[vfio_region_info_flags, int32]\n\tindex\tint32\n\tcap_offset\tint32\n\tsize\tint64\n\toffset\tint64\n}",
+    "vfio_region_info_cap_type": "vfio_region_info_cap_type {\n\theader\tvfio_info_cap_header\n\ttype\tint32\n\tsubtype\tint32\n}",
+    "vfio_region_info_flags": "vfio_region_info_flags = VFIO_REGION_INFO_FLAG_READ, VFIO_REGION_INFO_FLAG_WRITE, VFIO_REGION_INFO_FLAG_MMAP, VFIO_REGION_INFO_FLAG_CAPS",
+    "vfio_irq_info_flags": "vfio_irq_info_flags = VFIO_IRQ_INFO_EVENTFD, VFIO_IRQ_INFO_MASKABLE, VFIO_IRQ_INFO_AUTOMASKED, VFIO_IRQ_INFO_NORESIZE",
+    "vfio_device_gfx_plane_info_flags": "vfio_device_gfx_plane_info_flags = VFIO_GFX_PLANE_TYPE_PROBE, VFIO_GFX_PLANE_TYPE_DMABUF, VFIO_GFX_PLANE_TYPE_REGION",
+    "vfio_device_gfx_plane_info_union": "vfio_device_gfx_plane_info_union [\n\tregion_index\tint32\n\tdmabuf_id\tint32\n]",
+    "VFIO_IRQ_INFO_EVENTFD": "define VFIO_IRQ_INFO_EVENTFD 1",
+    "VFIO_IRQ_INFO_MASKABLE": "define VFIO_IRQ_INFO_MASKABLE 2",
+    "VFIO_IRQ_INFO_AUTOMASKED": "define VFIO_IRQ_INFO_AUTOMASKED 4",
+    "VFIO_IRQ_INFO_NORESIZE": "define VFIO_IRQ_INFO_NORESIZE 8"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_vfio": "syz_open_dev$KGPT_vfio(dev ptr[in, string[\"/dev/vfio/#\"]], id proc[0, 1], flags flags[open_flags]) fd_mbochs",
+    "ioctl$KGPT_VFIO_DEVICE_SET_IRQS": "ioctl$KGPT_VFIO_DEVICE_SET_IRQS(fd fd_mbochs, cmd const[VFIO_DEVICE_SET_IRQS], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_VFIO_DEVICE_RESET": "ioctl$KGPT_VFIO_DEVICE_RESET(fd fd_mbochs, cmd const[VFIO_DEVICE_RESET], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_VFIO_DEVICE_GET_INFO": "ioctl$KGPT_VFIO_DEVICE_GET_INFO(fd fd_mbochs, cmd const[VFIO_DEVICE_GET_INFO], arg ptr[inout, vfio_device_info])",
+    "ioctl$KGPT_VFIO_DEVICE_GET_REGION_INFO": "ioctl$KGPT_VFIO_DEVICE_GET_REGION_INFO(fd fd_mbochs, cmd const[VFIO_DEVICE_GET_REGION_INFO], arg ptr[inout, vfio_region_info_ext])",
+    "ioctl$KGPT_VFIO_DEVICE_GET_IRQ_INFO": "ioctl$KGPT_VFIO_DEVICE_GET_IRQ_INFO(fd fd_mbochs, cmd const[VFIO_DEVICE_GET_IRQ_INFO], arg ptr[inout, vfio_irq_info])",
+    "ioctl$KGPT_VFIO_DEVICE_QUERY_GFX_PLANE": "ioctl$KGPT_VFIO_DEVICE_QUERY_GFX_PLANE(fd fd_mbochs, cmd const[VFIO_DEVICE_QUERY_GFX_PLANE], arg ptr[inout, vfio_device_gfx_plane_info])",
+    "ioctl$KGPT_VFIO_DEVICE_GET_GFX_DMABUF": "ioctl$KGPT_VFIO_DEVICE_GET_GFX_DMABUF(fd fd_mbochs, cmd const[VFIO_DEVICE_GET_GFX_DMABUF], arg ptr[in, int32])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_vfio"
+  ],
+  "includes": [
+    "uapi/linux/vfio.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

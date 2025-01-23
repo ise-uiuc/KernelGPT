@@ -1,0 +1,45 @@
+{
+  "open": {
+    "filename": "/dev/net/tun",
+    "fd_name": "fd_hdlc_cisco",
+    "spec": "openat$KGPT_net_tun(fd const[AT_FDCWD], file ptr[in, string[\"/dev/net/tun\"]], flags flags[open_flags], mode const[0]) fd_hdlc_cisco"
+  },
+  "resources": {
+    "fd_hdlc_cisco": {
+      "type": "fd",
+      "spec": "resource fd_hdlc_cisco[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/net/wan/hdlc_cisco.c:296",
+  "ioctls": {
+    "IF_GET_PROTO": {
+      "arg": "ptr[out, cisco_proto]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    },
+    "IF_PROTO_CISCO": {
+      "arg": "ptr[in, cisco_proto]",
+      "arg_name_in_usage": "cisco_s",
+      "arg_inference": null
+    }
+  },
+  "types": {},
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "openat$KGPT_net_tun": "openat$KGPT_net_tun(fd const[AT_FDCWD], file ptr[in, string[\"/dev/net/tun\"]], flags flags[open_flags], mode const[0]) fd_hdlc_cisco",
+    "ioctl$KGPT_IF_GET_PROTO": "ioctl$KGPT_IF_GET_PROTO(fd fd_hdlc_cisco, cmd const[IF_GET_PROTO], arg ptr[out, cisco_proto])",
+    "ioctl$KGPT_IF_PROTO_CISCO": "ioctl$KGPT_IF_PROTO_CISCO(fd fd_hdlc_cisco, cmd const[IF_PROTO_CISCO], arg ptr[in, cisco_proto])"
+  },
+  "init_syscalls": [
+    "openat$KGPT_net_tun"
+  ],
+  "includes": [
+    "uapi/linux/fcntl.h",
+    "uapi/linux/if.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "cisco_proto": "EXISTING"
+  }
+}

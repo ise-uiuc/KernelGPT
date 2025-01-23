@@ -1,0 +1,304 @@
+{
+  "open": {
+    "filename": "/dev/input/event#",
+    "fd_name": "fd_evdev",
+    "spec": "syz_open_dev$KGPT_evdev(dev ptr[in, string[\"/dev/input/event#\"]], id proc[0, 1], flags flags[open_flags]) fd_evdev"
+  },
+  "resources": {
+    "fd_evdev": {
+      "type": "fd",
+      "spec": "resource fd_evdev[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/input/evdev.c:1292",
+  "ioctls": {
+    "EVIOCGPROP": {
+      "arg": "ptr[out, array[int8]]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    },
+    "EVIOCGMTSLOTS": {
+      "arg": "ptr[in, eviocg_mtslots]",
+      "arg_name_in_usage": "ip",
+      "arg_inference": null
+    },
+    "EVIOCGKEY": {
+      "arg": "ptr[out, array[int8]]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    },
+    "EVIOCGLED": {
+      "arg": "ptr[out, array[int32]]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    },
+    "EVIOCGSND": {
+      "arg": "ptr[out, array[int32]]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    },
+    "EVIOCGSW": {
+      "arg": "ptr[out, array[int32]]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    },
+    "EVIOCGNAME": {
+      "arg": "ptr[out, array[int8]]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    },
+    "EVIOCGPHYS": {
+      "arg": "ptr[out, array[int8]]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    },
+    "EVIOCGUNIQ": {
+      "arg": "ptr[out, array[int8]]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    },
+    "EVIOCGABS": {
+      "arg": "ptr[out, input_absinfo]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    },
+    "EVIOCSABS": {
+      "arg": "ptr[in, input_absinfo]",
+      "arg_name_in_usage": "p",
+      "arg_inference": null
+    }
+  },
+  "types": {},
+  "existing_ioctls": {
+    "EVIOCGVERSION": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [
+        "ip"
+      ],
+      "arg_inference": null
+    },
+    "EVIOCGID": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": null
+    },
+    "EVIOCGREP": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [
+        "ip"
+      ],
+      "arg_inference": null
+    },
+    "EVIOCSREP": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "ip"
+      ],
+      "arg_inference": {
+        "function": [
+          "input_inject_event"
+        ],
+        "type": [],
+        "usage": [
+          "if (get_user(u, ip))\n\t\t\treturn -EFAULT;",
+          "if (get_user(v, ip + 1))\n\t\t\treturn -EFAULT;",
+          "input_inject_event(&evdev->handle, EV_REP, REP_DELAY, u);",
+          "input_inject_event(&evdev->handle, EV_REP, REP_PERIOD, v);"
+        ]
+      }
+    },
+    "EVIOCRMFF": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "input_ff_erase"
+        ],
+        "type": [],
+        "usage": [
+          "return input_ff_erase(dev, (int)(unsigned long) p, file);"
+        ]
+      }
+    },
+    "EVIOCGEFFECTS": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [
+        "ip"
+      ],
+      "arg_inference": null
+    },
+    "EVIOCGRAB": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "evdev_grab",
+          "evdev_ungrab"
+        ],
+        "type": [],
+        "usage": [
+          "if (p)\n\t\t\treturn evdev_grab(evdev, client);",
+          "else\n\t\t\treturn evdev_ungrab(evdev, client);"
+        ]
+      }
+    },
+    "EVIOCREVOKE": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": null
+    },
+    "EVIOCGMASK": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "evdev_get_mask"
+        ],
+        "type": [
+          "input_mask"
+        ],
+        "usage": [
+          "if (copy_from_user(&mask, p, sizeof(mask)))\n\t\t\treturn -EFAULT;",
+          "codes_ptr = (void __user *)(unsigned long)mask.codes_ptr;",
+          "return evdev_get_mask(client, mask.type, codes_ptr, mask.codes_size, compat_mode);"
+        ]
+      }
+    },
+    "EVIOCSMASK": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "evdev_set_mask"
+        ],
+        "type": [
+          "input_mask"
+        ],
+        "usage": [
+          "if (copy_from_user(&mask, p, sizeof(mask)))\n\t\t\treturn -EFAULT;",
+          "codes_ptr = (const void __user *)(unsigned long)mask.codes_ptr;",
+          "return evdev_set_mask(client, mask.type, codes_ptr, mask.codes_size, compat_mode);"
+        ]
+      }
+    },
+    "EVIOCSCLOCKID": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "evdev_set_clk_type"
+        ],
+        "type": [],
+        "usage": [
+          "if (copy_from_user(&i, p, sizeof(unsigned int)))\n\t\t\treturn -EFAULT;",
+          "return evdev_set_clk_type(client, i);"
+        ]
+      }
+    },
+    "EVIOCGKEYCODE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "evdev_handle_get_keycode"
+        ],
+        "type": [],
+        "usage": [
+          "return evdev_handle_get_keycode(dev, p);"
+        ]
+      }
+    },
+    "EVIOCSKEYCODE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "evdev_handle_set_keycode"
+        ],
+        "type": [],
+        "usage": [
+          "return evdev_handle_set_keycode(dev, p);"
+        ]
+      }
+    },
+    "EVIOCGKEYCODE_V2": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "evdev_handle_get_keycode_v2"
+        ],
+        "type": [],
+        "usage": [
+          "return evdev_handle_get_keycode_v2(dev, p);"
+        ]
+      }
+    },
+    "EVIOCSKEYCODE_V2": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "evdev_handle_set_keycode_v2"
+        ],
+        "type": [],
+        "usage": [
+          "return evdev_handle_set_keycode_v2(dev, p);"
+        ]
+      }
+    },
+    "EVIOCSFF": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "input_ff_upload"
+        ],
+        "type": [
+          "ff_effect"
+        ],
+        "usage": [
+          "if (input_ff_effect_from_user(p, size, &effect))\n\t\t\treturn -EFAULT;",
+          "error = input_ff_upload(dev, &effect, file);",
+          "if (put_user(effect.id, &(((struct ff_effect __user *)p)->id)))\n\t\t\treturn -EFAULT;"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_evdev": "syz_open_dev$KGPT_evdev(dev ptr[in, string[\"/dev/input/event#\"]], id proc[0, 1], flags flags[open_flags]) fd_evdev"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_evdev"
+  ],
+  "includes": [],
+  "unused_types": {
+    "eviocg_mtslots": "type eviocg_mtslots ptr[in, array[int8]]"
+  },
+  "ignored_types": {}
+}

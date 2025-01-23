@@ -1,0 +1,303 @@
+{
+  "socket": {
+    "domain": "AF_X25",
+    "type": "SOCK_SEQPACKET",
+    "spec": "socket$KGPT_X25(domain const[AF_X25], type const[SOCK_SEQPACKET], proto const[0]) sock_x25"
+  },
+  "resources": {
+    "sock_x25": {
+      "type": "sock",
+      "spec": "resource sock_x25[sock]"
+    }
+  },
+  "types": {},
+  "socket_addr": "sockaddr_x25",
+  "ioctls": {
+    "SIOCGIFMETRIC": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "argument_inference": null
+    },
+    "SIOCSIFMETRIC": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "argument_inference": null
+    }
+  },
+  "existing_ioctls": {
+    "TIOCOUTQ": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "argument_inference": null
+    },
+    "TIOCINQ": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "argument_inference": null
+    },
+    "SIOCGIFADDR": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "argument_inference": null
+    },
+    "SIOCSIFADDR": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "argument_inference": null
+    },
+    "SIOCGIFDSTADDR": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "argument_inference": null
+    },
+    "SIOCSIFDSTADDR": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "argument_inference": null
+    },
+    "SIOCGIFBRDADDR": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "argument_inference": null
+    },
+    "SIOCSIFBRDADDR": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "argument_inference": null
+    },
+    "SIOCGIFNETMASK": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "argument_inference": null
+    },
+    "SIOCSIFNETMASK": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "argument_inference": null
+    },
+    "SIOCADDRT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "argument_inference": {
+        "function": [
+          "x25_route_ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "rc = x25_route_ioctl(cmd, argp);"
+        ]
+      }
+    },
+    "SIOCDELRT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "argument_inference": {
+        "function": [
+          "x25_route_ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "rc = x25_route_ioctl(cmd, argp);"
+        ]
+      }
+    },
+    "SIOCX25GSUBSCRIP": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "argument_inference": {
+        "function": [
+          "x25_subscr_ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "rc = x25_subscr_ioctl(cmd, argp);"
+        ]
+      }
+    },
+    "SIOCX25SSUBSCRIP": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "argument_inference": {
+        "function": [
+          "x25_subscr_ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "rc = x25_subscr_ioctl(cmd, argp);"
+        ]
+      }
+    },
+    "SIOCX25GFACILITIES": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "argument_inference": null
+    },
+    "SIOCX25SFACILITIES": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "argument_inference": {
+        "function": [],
+        "type": [
+          "x25_facilities"
+        ],
+        "usage": [
+          "if (copy_from_user(&facilities, argp, sizeof(facilities)))"
+        ]
+      }
+    },
+    "SIOCX25GDTEFACILITIES": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "argument_inference": null
+    },
+    "SIOCX25SDTEFACILITIES": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "argument_inference": {
+        "function": [],
+        "type": [
+          "x25_dte_facilities"
+        ],
+        "usage": [
+          "if (copy_from_user(&dtefacs, argp, sizeof(dtefacs)))"
+        ]
+      }
+    },
+    "SIOCX25GCALLUSERDATA": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "argument_inference": null
+    },
+    "SIOCX25SCALLUSERDATA": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "argument_inference": {
+        "function": [],
+        "type": [
+          "x25_calluserdata"
+        ],
+        "usage": [
+          "if (copy_from_user(&calluserdata, argp, sizeof(calluserdata)))"
+        ]
+      }
+    },
+    "SIOCX25GCAUSEDIAG": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "argument_inference": null
+    },
+    "SIOCX25SCAUSEDIAG": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "argument_inference": {
+        "function": [],
+        "type": [
+          "x25_causediag"
+        ],
+        "usage": [
+          "if (copy_from_user(&causediag, argp, sizeof(causediag)))"
+        ]
+      }
+    },
+    "SIOCX25SCUDMATCHLEN": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "argument_inference": {
+        "function": [],
+        "type": [
+          "x25_subaddr"
+        ],
+        "usage": [
+          "if (copy_from_user(&sub_addr, argp, sizeof(sub_addr)))"
+        ]
+      }
+    },
+    "SIOCX25CALLACCPTAPPRV": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "argument_inference": null
+    },
+    "SIOCX25SENDCALLACCPT": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "argument_inference": null
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "setsockopt": {
+    "X25_QBITINCL": {
+      "level": "SOL_X25",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]"
+    }
+  },
+  "unknown": [],
+  "setsockopt_unknown": [],
+  "getsockopt": {
+    "X25_QBITINCL": {
+      "level": "SOL_X25",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    }
+  },
+  "getsockopt_unknown": [],
+  "proto_ops": {
+    "bind": "x25_bind",
+    "connect": "x25_connect",
+    "accept": "x25_accept",
+    "poll": "datagram_poll",
+    "ioctl": "x25_ioctl",
+    "sendmsg": "x25_sendmsg",
+    "recvmsg": "x25_recvmsg",
+    "setsockopt": "x25_setsockopt",
+    "getsockopt": "x25_getsockopt"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/x25/af_x25.c:1738",
+  "ops_name": "x25_proto_ops",
+  "syscall_specs": {
+    "socket$KGPT_X25": "socket$KGPT_X25(domain const[AF_X25], type const[SOCK_SEQPACKET], proto const[0]) sock_x25",
+    "bind$KGPT_x25_proto_ops": "bind$KGPT_x25_proto_ops(fd sock_x25, addr ptr[in, sockaddr_x25], addrlen len[addr])",
+    "connect$KGPT_x25_proto_ops": "connect$KGPT_x25_proto_ops(fd sock_x25, addr ptr[in, sockaddr_x25], addrlen len[addr])",
+    "accept4$KGPT_x25_proto_ops": "accept4$KGPT_x25_proto_ops(fd sock_x25, peer ptr[out, sockaddr_x25, opt], peerlen ptr[inout, len[peer, int32]], flags flags[accept_flags]) sock_x25",
+    "sendto$KGPT_x25_proto_ops": "sendto$KGPT_x25_proto_ops(fd sock_x25, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, sockaddr_x25, opt], addrlen len[addr])",
+    "recvfrom$KGPT_x25_proto_ops": "recvfrom$KGPT_x25_proto_ops(fd sock_x25, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, sockaddr_x25, opt], addrlen len[addr])",
+    "ioctl$KGPT_SIOCGIFMETRIC": "ioctl$KGPT_SIOCGIFMETRIC(fd sock_x25, cmd const[SIOCGIFMETRIC], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_SIOCSIFMETRIC": "ioctl$KGPT_SIOCSIFMETRIC(fd sock_x25, cmd const[SIOCSIFMETRIC], arg ptr[in, array[int8]])",
+    "getsockopt$KGPT_X25_QBITINCL": "getsockopt$KGPT_X25_QBITINCL(fd sock_x25, level const[SOL_X25], opt const[X25_QBITINCL], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "setsockopt$KGPT_X25_QBITINCL": "setsockopt$KGPT_X25_QBITINCL(fd sock_x25, level const[SOL_X25], opt const[X25_QBITINCL], val ptr[in, int32], len bytesize[val])"
+  },
+  "init_syscalls": [
+    "socket$KGPT_X25"
+  ],
+  "includes": [
+    "linux/net.h",
+    "uapi/linux/sockios.h",
+    "uapi/linux/x25.h",
+    "net/x25.h",
+    "linux/socket.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "sockaddr_x25": "EXISTING",
+    "x25_address": "EXISTING"
+  }
+}

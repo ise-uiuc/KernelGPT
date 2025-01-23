@@ -1,0 +1,260 @@
+{
+  "socket": {
+    "domain": "AF_NETROM",
+    "type": "SOCK_SEQPACKET",
+    "spec": "syz_init_net_socket$KGPT_netrom(domain const[AF_NETROM], type const[SOCK_SEQPACKET], proto const[0]) sock_netrom"
+  },
+  "resources": {
+    "sock_netrom": {
+      "type": "sock",
+      "spec": "resource sock_netrom[sock]"
+    }
+  },
+  "types": {
+    "sockaddr_ax25_any": "sockaddr_ax25_any [\n\tshort\tsockaddr_ax25\n\tfull\tfull_sockaddr_ax25\n] [varlen]"
+  },
+  "socket_addr": "sockaddr_ax25_any",
+  "ioctls": {
+    "SIOCGIFMETRIC": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SIOCSIFMETRIC": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    }
+  },
+  "existing_ioctls": {
+    "TIOCOUTQ": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "put_user"
+        ],
+        "type": [
+          "int"
+        ],
+        "usage": [
+          "return put_user(amount, (int __user *)argp);"
+        ]
+      }
+    },
+    "TIOCINQ": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "put_user"
+        ],
+        "type": [
+          "int"
+        ],
+        "usage": [
+          "return put_user(amount, (int __user *)argp);"
+        ]
+      }
+    },
+    "SIOCGIFADDR": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SIOCSIFADDR": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SIOCGIFDSTADDR": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SIOCSIFDSTADDR": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SIOCGIFBRDADDR": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SIOCSIFBRDADDR": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SIOCGIFNETMASK": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SIOCSIFNETMASK": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SIOCADDRT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "nr_rt_ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "return nr_rt_ioctl(cmd, argp);"
+        ]
+      }
+    },
+    "SIOCDELRT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "nr_rt_ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "return nr_rt_ioctl(cmd, argp);"
+        ]
+      }
+    },
+    "SIOCNRDECOBS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "nr_rt_ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "return nr_rt_ioctl(cmd, argp);"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "setsockopt": {
+    "NETROM_T1": {
+      "level": "SOL_NETROM",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]"
+    },
+    "NETROM_T2": {
+      "level": "SOL_NETROM",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]"
+    },
+    "NETROM_N2": {
+      "level": "SOL_NETROM",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]"
+    },
+    "NETROM_T4": {
+      "level": "SOL_NETROM",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]"
+    },
+    "NETROM_IDLE": {
+      "level": "SOL_NETROM",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]"
+    }
+  },
+  "unknown": [],
+  "setsockopt_unknown": [],
+  "getsockopt": {
+    "NETROM_T1": {
+      "level": "SOL_NETROM",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "NETROM_T2": {
+      "level": "SOL_NETROM",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "NETROM_N2": {
+      "level": "SOL_NETROM",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "NETROM_T4": {
+      "level": "SOL_NETROM",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "NETROM_IDLE": {
+      "level": "SOL_NETROM",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    }
+  },
+  "getsockopt_unknown": [],
+  "proto_ops": {
+    "bind": "nr_bind",
+    "connect": "nr_connect",
+    "accept": "nr_accept",
+    "poll": "datagram_poll",
+    "ioctl": "nr_ioctl",
+    "sendmsg": "nr_sendmsg",
+    "recvmsg": "nr_recvmsg",
+    "setsockopt": "nr_setsockopt",
+    "getsockopt": "nr_getsockopt"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/netrom/af_netrom.c:1353",
+  "ops_name": "nr_proto_ops",
+  "syscall_specs": {
+    "syz_init_net_socket$KGPT_netrom": "syz_init_net_socket$KGPT_netrom(domain const[AF_NETROM], type const[SOCK_SEQPACKET], proto const[0]) sock_netrom",
+    "bind$KGPT_nr_proto_ops": "bind$KGPT_nr_proto_ops(fd sock_netrom, addr ptr[in, sockaddr_ax25_any], addrlen len[addr])",
+    "connect$KGPT_nr_proto_ops": "connect$KGPT_nr_proto_ops(fd sock_netrom, addr ptr[in, sockaddr_ax25_any], addrlen len[addr])",
+    "accept4$KGPT_nr_proto_ops": "accept4$KGPT_nr_proto_ops(fd sock_netrom, peer ptr[out, sockaddr_ax25_any, opt], peerlen ptr[inout, len[peer, int32]], flags flags[accept_flags]) sock_netrom",
+    "sendto$KGPT_nr_proto_ops": "sendto$KGPT_nr_proto_ops(fd sock_netrom, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, sockaddr_ax25_any, opt], addrlen len[addr])",
+    "recvfrom$KGPT_nr_proto_ops": "recvfrom$KGPT_nr_proto_ops(fd sock_netrom, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, sockaddr_ax25_any, opt], addrlen len[addr])",
+    "ioctl$KGPT_SIOCGIFMETRIC": "ioctl$KGPT_SIOCGIFMETRIC(fd sock_netrom, cmd const[SIOCGIFMETRIC], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_SIOCSIFMETRIC": "ioctl$KGPT_SIOCSIFMETRIC(fd sock_netrom, cmd const[SIOCSIFMETRIC], arg ptr[in, array[int8]])",
+    "getsockopt$KGPT_NETROM_T1": "getsockopt$KGPT_NETROM_T1(fd sock_netrom, level const[SOL_NETROM], opt const[NETROM_T1], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_NETROM_T2": "getsockopt$KGPT_NETROM_T2(fd sock_netrom, level const[SOL_NETROM], opt const[NETROM_T2], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_NETROM_N2": "getsockopt$KGPT_NETROM_N2(fd sock_netrom, level const[SOL_NETROM], opt const[NETROM_N2], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_NETROM_T4": "getsockopt$KGPT_NETROM_T4(fd sock_netrom, level const[SOL_NETROM], opt const[NETROM_T4], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_NETROM_IDLE": "getsockopt$KGPT_NETROM_IDLE(fd sock_netrom, level const[SOL_NETROM], opt const[NETROM_IDLE], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "setsockopt$KGPT_NETROM_T1": "setsockopt$KGPT_NETROM_T1(fd sock_netrom, level const[SOL_NETROM], opt const[NETROM_T1], val ptr[in, int32], len bytesize[val])",
+    "setsockopt$KGPT_NETROM_T2": "setsockopt$KGPT_NETROM_T2(fd sock_netrom, level const[SOL_NETROM], opt const[NETROM_T2], val ptr[in, int32], len bytesize[val])",
+    "setsockopt$KGPT_NETROM_N2": "setsockopt$KGPT_NETROM_N2(fd sock_netrom, level const[SOL_NETROM], opt const[NETROM_N2], val ptr[in, int32], len bytesize[val])",
+    "setsockopt$KGPT_NETROM_T4": "setsockopt$KGPT_NETROM_T4(fd sock_netrom, level const[SOL_NETROM], opt const[NETROM_T4], val ptr[in, int32], len bytesize[val])",
+    "setsockopt$KGPT_NETROM_IDLE": "setsockopt$KGPT_NETROM_IDLE(fd sock_netrom, level const[SOL_NETROM], opt const[NETROM_IDLE], val ptr[in, int32], len bytesize[val])"
+  },
+  "init_syscalls": [
+    "syz_init_net_socket$KGPT_netrom"
+  ],
+  "includes": [
+    "uapi/linux/sockios.h",
+    "linux/net.h",
+    "uapi/linux/netrom.h",
+    "linux/socket.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "sockaddr_ax25": "EXISTING",
+    "full_sockaddr_ax25": "EXISTING"
+  }
+}

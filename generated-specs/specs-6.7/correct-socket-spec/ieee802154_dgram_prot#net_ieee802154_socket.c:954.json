@@ -1,0 +1,142 @@
+{
+  "socket": {
+    "domain": "AF_IEEE802154",
+    "type": "SOCK_DGRAM",
+    "spec": "socket$KGPT_ieee802154(domain const[AF_IEEE802154], type const[SOCK_DGRAM], proto const[0]) sock_ieee802154"
+  },
+  "resources": {
+    "sock_ieee802154": {
+      "type": "sock",
+      "spec": "resource sock_ieee802154[sock]"
+    }
+  },
+  "types": {},
+  "socket_addr": "sockaddr_ieee802154",
+  "ioctls": {},
+  "existing_ioctls": {
+    "SIOCOUTQ": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "karg"
+      ],
+      "arg_inference": {
+        "function": [
+          "sk_wmem_alloc_get"
+        ],
+        "type": [],
+        "usage": [
+          "*karg = sk_wmem_alloc_get(sk);"
+        ]
+      }
+    },
+    "SIOCINQ": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "karg"
+      ],
+      "arg_inference": {
+        "function": [
+          "skb_peek",
+          "ieee802154_hdr_length"
+        ],
+        "type": [
+          "sk_buff"
+        ],
+        "usage": [
+          "struct sk_buff *skb;",
+          "*karg = 0;",
+          "spin_lock_bh(&sk->sk_receive_queue.lock);",
+          "skb = skb_peek(&sk->sk_receive_queue);",
+          "if (skb) {",
+          "    *karg = skb->len - ieee802154_hdr_length(skb);",
+          "}",
+          "spin_unlock_bh(&sk->sk_receive_queue.lock);"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "setsockopt": {
+    "WPAN_WANTACK": {
+      "level": "SOL_WPAN",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]"
+    },
+    "WPAN_WANTLQI": {
+      "level": "SOL_WPAN",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]"
+    },
+    "WPAN_SECURITY": {
+      "level": "SOL_WPAN",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]"
+    },
+    "WPAN_SECURITY_LEVEL": {
+      "level": "SOL_WPAN",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]"
+    }
+  },
+  "unknown": [],
+  "setsockopt_unknown": [],
+  "getsockopt": {
+    "WPAN_WANTACK": {
+      "level": "SOL_IEEE802154",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "WPAN_WANTLQI": {
+      "level": "SOL_IEEE802154",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "WPAN_SECURITY": {
+      "level": "SOL_IEEE802154",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "WPAN_SECURITY_LEVEL": {
+      "level": "SOL_IEEE802154",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    }
+  },
+  "getsockopt_unknown": [],
+  "proto_ops": {
+    "bind": "dgram_bind",
+    "connect": "dgram_connect",
+    "ioctl": "dgram_ioctl",
+    "sendmsg": "dgram_sendmsg",
+    "recvmsg": "dgram_recvmsg",
+    "setsockopt": "dgram_setsockopt",
+    "getsockopt": "dgram_getsockopt"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/ieee802154/socket.c:954",
+  "ops_name": "ieee802154_dgram_prot",
+  "syscall_specs": {
+    "socket$KGPT_ieee802154": "socket$KGPT_ieee802154(domain const[AF_IEEE802154], type const[SOCK_DGRAM], proto const[0]) sock_ieee802154",
+    "bind$KGPT_ieee802154_dgram_prot": "bind$KGPT_ieee802154_dgram_prot(fd sock_ieee802154, addr ptr[in, sockaddr_ieee802154], addrlen len[addr])",
+    "connect$KGPT_ieee802154_dgram_prot": "connect$KGPT_ieee802154_dgram_prot(fd sock_ieee802154, addr ptr[in, sockaddr_ieee802154], addrlen len[addr])",
+    "sendto$KGPT_ieee802154_dgram_prot": "sendto$KGPT_ieee802154_dgram_prot(fd sock_ieee802154, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, sockaddr_ieee802154, opt], addrlen len[addr])",
+    "recvfrom$KGPT_ieee802154_dgram_prot": "recvfrom$KGPT_ieee802154_dgram_prot(fd sock_ieee802154, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, sockaddr_ieee802154, opt], addrlen len[addr])",
+    "getsockopt$KGPT_WPAN_WANTACK": "getsockopt$KGPT_WPAN_WANTACK(fd sock_ieee802154, level const[SOL_IEEE802154], opt const[WPAN_WANTACK], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_WPAN_WANTLQI": "getsockopt$KGPT_WPAN_WANTLQI(fd sock_ieee802154, level const[SOL_IEEE802154], opt const[WPAN_WANTLQI], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_WPAN_SECURITY": "getsockopt$KGPT_WPAN_SECURITY(fd sock_ieee802154, level const[SOL_IEEE802154], opt const[WPAN_SECURITY], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_WPAN_SECURITY_LEVEL": "getsockopt$KGPT_WPAN_SECURITY_LEVEL(fd sock_ieee802154, level const[SOL_IEEE802154], opt const[WPAN_SECURITY_LEVEL], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])"
+  },
+  "init_syscalls": [
+    "socket$KGPT_ieee802154"
+  ],
+  "includes": [
+    "linux/net.h",
+    "net/af_ieee802154.h",
+    "linux/socket.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

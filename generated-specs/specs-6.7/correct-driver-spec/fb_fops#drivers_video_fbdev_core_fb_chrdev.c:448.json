@@ -1,0 +1,198 @@
+{
+  "open": {
+    "filename": "/dev/fb#",
+    "fd_name": "fd_fb",
+    "spec": "syz_open_dev$KGPT_fb(dev ptr[in, string[\"/dev/fb#\"]], id proc[0, 1], flags flags[open_flags]) fd_fb"
+  },
+  "resources": {
+    "fd_fb": {
+      "type": "fd",
+      "spec": "resource fd_fb[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/video/fbdev/core/fb_chrdev.c:448",
+  "ioctls": {
+    "FBIO_CURSOR": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    }
+  },
+  "types": {},
+  "existing_ioctls": {
+    "FBIOGET_VSCREENINFO": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "copy_to_user"
+        ],
+        "type": [
+          "fb_var_screeninfo"
+        ],
+        "usage": [
+          "ret = copy_to_user(argp, &var, sizeof(var)) ? -EFAULT : 0;"
+        ]
+      }
+    },
+    "FBIOPUT_VSCREENINFO": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "copy_from_user",
+          "fb_set_var",
+          "copy_to_user"
+        ],
+        "type": [
+          "fb_var_screeninfo"
+        ],
+        "usage": [
+          "if (copy_from_user(&var, argp, sizeof(var)))",
+          "ret = fb_set_var(info, &var);",
+          "if (!ret && copy_to_user(argp, &var, sizeof(var)))"
+        ]
+      }
+    },
+    "FBIOGET_FSCREENINFO": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "copy_to_user"
+        ],
+        "type": [
+          "fb_fix_screeninfo"
+        ],
+        "usage": [
+          "ret = copy_to_user(argp, &fix, sizeof(fix)) ? -EFAULT : 0;"
+        ]
+      }
+    },
+    "FBIOPUTCMAP": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "copy_from_user",
+          "fb_set_user_cmap"
+        ],
+        "type": [
+          "fb_cmap_user"
+        ],
+        "usage": [
+          "if (copy_from_user(&cmap, argp, sizeof(cmap)))",
+          "ret = fb_set_user_cmap(&cmap, info);"
+        ]
+      }
+    },
+    "FBIOGETCMAP": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "copy_from_user",
+          "fb_cmap_to_user"
+        ],
+        "type": [
+          "fb_cmap_user"
+        ],
+        "usage": [
+          "if (copy_from_user(&cmap, argp, sizeof(cmap)))",
+          "ret = fb_cmap_to_user(&cmap_from, &cmap);"
+        ]
+      }
+    },
+    "FBIOPAN_DISPLAY": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "copy_from_user",
+          "fb_pan_display",
+          "copy_to_user"
+        ],
+        "type": [
+          "fb_var_screeninfo"
+        ],
+        "usage": [
+          "if (copy_from_user(&var, argp, sizeof(var)))",
+          "ret = fb_pan_display(info, &var);",
+          "if (ret == 0 && copy_to_user(argp, &var, sizeof(var)))"
+        ]
+      }
+    },
+    "FBIOGET_CON2FBMAP": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "fbcon_get_con2fb_map_ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "ret = fbcon_get_con2fb_map_ioctl(argp);"
+        ]
+      }
+    },
+    "FBIOPUT_CON2FBMAP": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "fbcon_set_con2fb_map_ioctl"
+        ],
+        "type": [],
+        "usage": [
+          "ret = fbcon_set_con2fb_map_ioctl(argp);"
+        ]
+      }
+    },
+    "FBIOBLANK": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "fb_blank",
+          "fbcon_fb_blanked"
+        ],
+        "type": [],
+        "usage": [
+          "if (arg > FB_BLANK_POWERDOWN)",
+          "ret = fb_blank(info, arg);",
+          "fbcon_fb_blanked(info, arg);"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_fb": "syz_open_dev$KGPT_fb(dev ptr[in, string[\"/dev/fb#\"]], id proc[0, 1], flags flags[open_flags]) fd_fb"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_fb"
+  ],
+  "includes": [
+    "uapi/linux/fb.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

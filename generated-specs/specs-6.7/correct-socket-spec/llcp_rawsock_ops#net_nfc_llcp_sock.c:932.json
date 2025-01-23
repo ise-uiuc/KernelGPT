@@ -1,0 +1,45 @@
+{
+  "socket": {
+    "domain": "AF_NFC",
+    "type": "SOCK_RAW",
+    "spec": "socket$KGPT_llcp(domain const[AF_NFC], type const[SOCK_RAW], proto const[0]) sock_llcp"
+  },
+  "resources": {
+    "sock_llcp": {
+      "type": "sock",
+      "spec": "resource sock_llcp[sock]"
+    }
+  },
+  "types": {},
+  "socket_addr": "sockaddr_nfc_llcp",
+  "proto_ops": {
+    "bind": "llcp_raw_sock_bind",
+    "connect": "sock_no_connect",
+    "accept": "sock_no_accept",
+    "poll": "llcp_sock_poll",
+    "ioctl": "sock_no_ioctl",
+    "sendmsg": "sock_no_sendmsg",
+    "recvmsg": "llcp_sock_recvmsg"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/nfc/llcp_sock.c:932",
+  "ops_name": "llcp_rawsock_ops",
+  "syscall_specs": {
+    "socket$KGPT_llcp": "socket$KGPT_llcp(domain const[AF_NFC], type const[SOCK_RAW], proto const[0]) sock_llcp",
+    "bind$KGPT_llcp_rawsock_ops": "bind$KGPT_llcp_rawsock_ops(fd sock_llcp, addr ptr[in, sockaddr_nfc_llcp], addrlen len[addr])",
+    "connect$KGPT_llcp_rawsock_ops": "connect$KGPT_llcp_rawsock_ops(fd sock_llcp, addr ptr[in, sockaddr_nfc_llcp], addrlen len[addr])",
+    "accept4$KGPT_llcp_rawsock_ops": "accept4$KGPT_llcp_rawsock_ops(fd sock_llcp, peer ptr[out, sockaddr_nfc_llcp, opt], peerlen ptr[inout, len[peer, int32]], flags flags[accept_flags]) sock_llcp",
+    "sendto$KGPT_llcp_rawsock_ops": "sendto$KGPT_llcp_rawsock_ops(fd sock_llcp, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, sockaddr_nfc_llcp, opt], addrlen len[addr])",
+    "recvfrom$KGPT_llcp_rawsock_ops": "recvfrom$KGPT_llcp_rawsock_ops(fd sock_llcp, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, sockaddr_nfc_llcp, opt], addrlen len[addr])"
+  },
+  "init_syscalls": [
+    "socket$KGPT_llcp"
+  ],
+  "includes": [
+    "linux/net.h",
+    "linux/socket.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "sockaddr_nfc_llcp": "EXISTING"
+  }
+}

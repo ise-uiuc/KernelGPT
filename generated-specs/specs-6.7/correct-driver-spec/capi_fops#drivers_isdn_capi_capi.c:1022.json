@@ -1,0 +1,226 @@
+{
+  "open": {
+    "filename": "/dev/capi20",
+    "fd_name": "fd_capi",
+    "spec": "openat$KGPT_capi(fd const[AT_FDCWD], file ptr[in, string[\"/dev/capi20\"]], flags flags[open_flags], mode const[0]) fd_capi"
+  },
+  "resources": {
+    "fd_capi": {
+      "type": "fd",
+      "spec": "resource fd_capi[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/isdn/capi/capi.c:1022",
+  "ioctls": {
+    "CAPI_GET_VERSION": {
+      "arg": "ptr[inout, capi_version]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "capi_version": "capi_version {\n\tmajorversion\tint32\n\tminorversion\tint32\n\tmajormanuversion\tint32\n\tminormanuversion\tint32\n}"
+  },
+  "existing_ioctls": {
+    "CAPI_REGISTER": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [
+          "capi_register_params"
+        ],
+        "usage": [
+          "if (copy_from_user(&cdev->ap.rparam, argp, sizeof(struct capi_register_params)))"
+        ]
+      }
+    },
+    "CAPI_GET_SERIAL": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "capi20_get_serial"
+        ],
+        "type": [
+          "capi_serial"
+        ],
+        "usage": [
+          "if (copy_from_user(&data.contr, argp, sizeof(data.contr)))",
+          "cdev->errcode = capi20_get_serial(data.contr, data.serial);",
+          "if (copy_to_user(argp, data.serial, sizeof(data.serial)))"
+        ]
+      }
+    },
+    "CAPI_GET_PROFILE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "capi20_get_profile"
+        ],
+        "type": [
+          "capi_profile"
+        ],
+        "usage": [
+          "if (copy_from_user(&data.contr, argp, sizeof(data.contr)))",
+          "cdev->errcode = capi20_get_profile(data.contr, &data.profile);",
+          "retval = copy_to_user(argp, &data.profile, sizeof(data.profile));"
+        ]
+      }
+    },
+    "CAPI_GET_MANUFACTURER": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "capi20_get_manufacturer"
+        ],
+        "type": [
+          "capi_manufacturer"
+        ],
+        "usage": [
+          "if (copy_from_user(&data.contr, argp, sizeof(data.contr)))",
+          "cdev->errcode = capi20_get_manufacturer(data.contr, data.manufacturer);",
+          "if (copy_to_user(argp, data.manufacturer, sizeof(data.manufacturer)))"
+        ]
+      }
+    },
+    "CAPI_GET_ERRCODE": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "CAPI_INSTALLED": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "CAPI_MANUFACTURER_CMD": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "capi20_manufacturer"
+        ],
+        "type": [
+          "capi_manufacturer_cmd"
+        ],
+        "usage": [
+          "if (copy_from_user(&mcmd, argp, sizeof(mcmd)))",
+          "return capi20_manufacturer(mcmd.cmd, mcmd.data);"
+        ]
+      }
+    },
+    "CAPI_SET_FLAGS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [
+          "unsigned"
+        ],
+        "usage": [
+          "if (copy_from_user(&userflags, argp, sizeof(userflags)))",
+          "cdev->userflags |= userflags;"
+        ]
+      }
+    },
+    "CAPI_CLR_FLAGS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [
+          "unsigned"
+        ],
+        "usage": [
+          "if (copy_from_user(&userflags, argp, sizeof(userflags)))",
+          "cdev->userflags &= ~userflags;"
+        ]
+      }
+    },
+    "CAPI_GET_FLAGS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [],
+        "type": [
+          "unsigned"
+        ],
+        "usage": [
+          "if (copy_to_user(argp, &cdev->userflags, sizeof(cdev->userflags)))"
+        ]
+      }
+    },
+    "CAPI_NCCI_OPENCOUNT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "capincci_find",
+          "capincci_minor_opencount"
+        ],
+        "type": [
+          "unsigned"
+        ],
+        "usage": [
+          "if (copy_from_user(&ncci, argp, sizeof(ncci)))",
+          "nccip = capincci_find(cdev, (u32)ncci);",
+          "count = capincci_minor_opencount(nccip);"
+        ]
+      }
+    },
+    "CAPI_NCCI_GETUNIT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "capincci_find"
+        ],
+        "type": [
+          "unsigned"
+        ],
+        "usage": [
+          "if (copy_from_user(&ncci, argp, sizeof(ncci)))",
+          "nccip = capincci_find(cdev, (u32)ncci);",
+          "unit = mp->minor;"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "openat$KGPT_capi": "openat$KGPT_capi(fd const[AT_FDCWD], file ptr[in, string[\"/dev/capi20\"]], flags flags[open_flags], mode const[0]) fd_capi",
+    "ioctl$KGPT_CAPI_GET_VERSION": "ioctl$KGPT_CAPI_GET_VERSION(fd fd_capi, cmd const[CAPI_GET_VERSION], arg ptr[inout, capi_version])"
+  },
+  "init_syscalls": [
+    "openat$KGPT_capi"
+  ],
+  "includes": [
+    "uapi/linux/fcntl.h",
+    "uapi/linux/capi.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

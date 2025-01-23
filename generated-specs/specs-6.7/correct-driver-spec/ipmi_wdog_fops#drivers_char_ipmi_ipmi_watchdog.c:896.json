@@ -1,0 +1,201 @@
+{
+  "open": {
+    "filename": "/dev/watchdog",
+    "fd_name": "fd_ipmi_wdog",
+    "spec": "openat$KGPT_ipmi_wdog(fd const[AT_FDCWD], file ptr[in, string[\"/dev/watchdog\"]], flags const[O_RDWR], mode const[0]) fd_ipmi_wdog"
+  },
+  "resources": {
+    "fd_ipmi_wdog": {
+      "type": "fd",
+      "spec": "resource fd_ipmi_wdog[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/char/ipmi/ipmi_watchdog.c:896",
+  "ioctls": {
+    "IPMICTL_SEND_COMMAND": {
+      "arg": "ptr[in, ipmi_req]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "IPMICTL_SEND_COMMAND_SETTIME": {
+      "arg": "ptr[in, ipmi_req_settime]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "IPMICTL_RECEIVE_MSG": {
+      "arg": "ptr[in, ipmi_recv]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": {
+        "function": [
+          "handle_recv"
+        ],
+        "type": [
+          "ipmi_recv"
+        ],
+        "usage": [
+          "struct ipmi_recv rsp;",
+          "if (copy_from_user(&rsp, arg, sizeof(rsp)))"
+        ]
+      }
+    },
+    "IPMICTL_RECEIVE_MSG_TRUNC": {
+      "arg": "ptr[in, ipmi_recv]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "IPMICTL_REGISTER_FOR_CMD": {
+      "arg": "ptr[in, ipmi_cmdspec]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "IPMICTL_UNREGISTER_FOR_CMD": {
+      "arg": "ptr[in, ipmi_cmdspec]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "IPMICTL_REGISTER_FOR_CMD_CHANS": {
+      "arg": "ptr[in, ipmi_cmdspec_chans]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    },
+    "IPMICTL_UNREGISTER_FOR_CMD_CHANS": {
+      "arg": "ptr[in, ipmi_cmdspec_chans]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "IPMICTL_SET_GETS_EVENTS_CMD": {
+      "arg": "intptr",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "IPMICTL_SET_MY_ADDRESS_CMD": {
+      "arg": "intptr",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "IPMICTL_GET_MY_ADDRESS_CMD": {
+      "arg": "ptr[out, int32]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "IPMICTL_SET_MY_LUN_CMD": {
+      "arg": "intptr",
+      "arg_name_in_usage": "val",
+      "arg_inference": null
+    },
+    "IPMICTL_GET_MY_LUN_CMD": {
+      "arg": "ptr[out, int32]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": {
+        "function": [
+          "ipmi_get_my_LUN"
+        ],
+        "type": [
+          "unsigned int"
+        ],
+        "usage": [
+          "unsigned int val;",
+          "unsigned char rval;",
+          "if (copy_to_user(arg, &val, sizeof(val)))"
+        ]
+      }
+    },
+    "IPMICTL_SET_MY_CHANNEL_ADDRESS_CMD": {
+      "arg": "ptr[in, ipmi_channel_lun_address_set]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "IPMICTL_GET_MY_CHANNEL_ADDRESS_CMD": {
+      "arg": "ptr[out, ipmi_channel_lun_address_set]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "IPMICTL_SET_MY_CHANNEL_LUN_CMD": {
+      "arg": "ptr[in, ipmi_channel_lun_address_set]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "IPMICTL_GET_MY_CHANNEL_LUN_CMD": {
+      "arg": "ptr[out, ipmi_channel_lun_address_set]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "IPMICTL_SET_TIMING_PARMS_CMD": {
+      "arg": "ptr[in, ipmi_timing_parms]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    },
+    "IPMICTL_GET_TIMING_PARMS_CMD": {
+      "arg": "ptr[out, ipmi_timing_parms]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "IPMICTL_GET_MAINTENANCE_MODE_CMD": {
+      "arg": "ptr[out, int32]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": {
+        "function": [
+          "ipmi_get_maintenance_mode"
+        ],
+        "type": [
+          "int"
+        ],
+        "usage": [
+          "int mode;",
+          "if (copy_to_user(arg, &mode, sizeof(mode)))"
+        ]
+      }
+    },
+    "IPMICTL_SET_MAINTENANCE_MODE_CMD": {
+      "arg": "intptr",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "ipmi_req": "ipmi_req {\n\taddr\tptr[in, ipmi_msg]\n\taddr_len\tint32\n\tmsgid\tint64\n\tmsg\tipmi_msg\n}",
+    "ipmi_cmdspec": "ipmi_cmdspec {\n\tnetfn\tint8\n\tcmd\tint8\n}",
+    "ipmi_cmdspec_chans": "ipmi_cmdspec_chans {\n\tnetfn\tint32\n\tcmd\tint32\n\tchans\tint32\n}",
+    "ipmi_channel_lun_address_set": "ipmi_channel_lun_address_set {\n\tchannel\tint16\n\tvalue\tint8\n}",
+    "ipmi_timing_parms": "ipmi_timing_parms {\n\tretries\tint32\n\tretry_time_ms\tint32\n}",
+    "ipmi_recv": "ipmi_recv {\n\trecv_type\tint32\n\taddr\tptr[inout, array[int8]]\n\taddr_len\tlen[addr, int32]\n\tmsgid\tint64\n\tmsg\tipmi_msg\n}",
+    "ipmi_req_settime": "ipmi_req_settime {\n\treq\tptr[in, ipmi_req]\n\tretries\tint32\n\tretry_time_ms\tint32\n}",
+    "ipmi_msg": "ipmi_msg {\n\tnetfn\tint8\n\tcmd\tint8\n\tdata_len\tint16\n\tdata\tarray[int8]\n}"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "openat$KGPT_ipmi_wdog": "openat$KGPT_ipmi_wdog(fd const[AT_FDCWD], file ptr[in, string[\"/dev/watchdog\"]], flags const[O_RDWR], mode const[0]) fd_ipmi_wdog",
+    "ioctl$KGPT_IPMICTL_SEND_COMMAND": "ioctl$KGPT_IPMICTL_SEND_COMMAND(fd fd_ipmi_wdog, cmd const[IPMICTL_SEND_COMMAND], arg ptr[in, ipmi_req])",
+    "ioctl$KGPT_IPMICTL_SEND_COMMAND_SETTIME": "ioctl$KGPT_IPMICTL_SEND_COMMAND_SETTIME(fd fd_ipmi_wdog, cmd const[IPMICTL_SEND_COMMAND_SETTIME], arg ptr[in, ipmi_req_settime])",
+    "ioctl$KGPT_IPMICTL_RECEIVE_MSG": "ioctl$KGPT_IPMICTL_RECEIVE_MSG(fd fd_ipmi_wdog, cmd const[IPMICTL_RECEIVE_MSG], arg ptr[in, ipmi_recv])",
+    "ioctl$KGPT_IPMICTL_RECEIVE_MSG_TRUNC": "ioctl$KGPT_IPMICTL_RECEIVE_MSG_TRUNC(fd fd_ipmi_wdog, cmd const[IPMICTL_RECEIVE_MSG_TRUNC], arg ptr[in, ipmi_recv])",
+    "ioctl$KGPT_IPMICTL_REGISTER_FOR_CMD": "ioctl$KGPT_IPMICTL_REGISTER_FOR_CMD(fd fd_ipmi_wdog, cmd const[IPMICTL_REGISTER_FOR_CMD], arg ptr[in, ipmi_cmdspec])",
+    "ioctl$KGPT_IPMICTL_UNREGISTER_FOR_CMD": "ioctl$KGPT_IPMICTL_UNREGISTER_FOR_CMD(fd fd_ipmi_wdog, cmd const[IPMICTL_UNREGISTER_FOR_CMD], arg ptr[in, ipmi_cmdspec])",
+    "ioctl$KGPT_IPMICTL_REGISTER_FOR_CMD_CHANS": "ioctl$KGPT_IPMICTL_REGISTER_FOR_CMD_CHANS(fd fd_ipmi_wdog, cmd const[IPMICTL_REGISTER_FOR_CMD_CHANS], arg ptr[in, ipmi_cmdspec_chans])",
+    "ioctl$KGPT_IPMICTL_UNREGISTER_FOR_CMD_CHANS": "ioctl$KGPT_IPMICTL_UNREGISTER_FOR_CMD_CHANS(fd fd_ipmi_wdog, cmd const[IPMICTL_UNREGISTER_FOR_CMD_CHANS], arg ptr[in, ipmi_cmdspec_chans])",
+    "ioctl$KGPT_IPMICTL_SET_GETS_EVENTS_CMD": "ioctl$KGPT_IPMICTL_SET_GETS_EVENTS_CMD(fd fd_ipmi_wdog, cmd const[IPMICTL_SET_GETS_EVENTS_CMD], arg intptr)",
+    "ioctl$KGPT_IPMICTL_SET_MY_ADDRESS_CMD": "ioctl$KGPT_IPMICTL_SET_MY_ADDRESS_CMD(fd fd_ipmi_wdog, cmd const[IPMICTL_SET_MY_ADDRESS_CMD], arg intptr)",
+    "ioctl$KGPT_IPMICTL_GET_MY_ADDRESS_CMD": "ioctl$KGPT_IPMICTL_GET_MY_ADDRESS_CMD(fd fd_ipmi_wdog, cmd const[IPMICTL_GET_MY_ADDRESS_CMD], arg ptr[out, int32])",
+    "ioctl$KGPT_IPMICTL_SET_MY_LUN_CMD": "ioctl$KGPT_IPMICTL_SET_MY_LUN_CMD(fd fd_ipmi_wdog, cmd const[IPMICTL_SET_MY_LUN_CMD], arg intptr)",
+    "ioctl$KGPT_IPMICTL_GET_MY_LUN_CMD": "ioctl$KGPT_IPMICTL_GET_MY_LUN_CMD(fd fd_ipmi_wdog, cmd const[IPMICTL_GET_MY_LUN_CMD], arg ptr[out, int32])",
+    "ioctl$KGPT_IPMICTL_SET_MY_CHANNEL_ADDRESS_CMD": "ioctl$KGPT_IPMICTL_SET_MY_CHANNEL_ADDRESS_CMD(fd fd_ipmi_wdog, cmd const[IPMICTL_SET_MY_CHANNEL_ADDRESS_CMD], arg ptr[in, ipmi_channel_lun_address_set])",
+    "ioctl$KGPT_IPMICTL_GET_MY_CHANNEL_ADDRESS_CMD": "ioctl$KGPT_IPMICTL_GET_MY_CHANNEL_ADDRESS_CMD(fd fd_ipmi_wdog, cmd const[IPMICTL_GET_MY_CHANNEL_ADDRESS_CMD], arg ptr[out, ipmi_channel_lun_address_set])",
+    "ioctl$KGPT_IPMICTL_SET_MY_CHANNEL_LUN_CMD": "ioctl$KGPT_IPMICTL_SET_MY_CHANNEL_LUN_CMD(fd fd_ipmi_wdog, cmd const[IPMICTL_SET_MY_CHANNEL_LUN_CMD], arg ptr[in, ipmi_channel_lun_address_set])",
+    "ioctl$KGPT_IPMICTL_GET_MY_CHANNEL_LUN_CMD": "ioctl$KGPT_IPMICTL_GET_MY_CHANNEL_LUN_CMD(fd fd_ipmi_wdog, cmd const[IPMICTL_GET_MY_CHANNEL_LUN_CMD], arg ptr[out, ipmi_channel_lun_address_set])",
+    "ioctl$KGPT_IPMICTL_SET_TIMING_PARMS_CMD": "ioctl$KGPT_IPMICTL_SET_TIMING_PARMS_CMD(fd fd_ipmi_wdog, cmd const[IPMICTL_SET_TIMING_PARMS_CMD], arg ptr[in, ipmi_timing_parms])",
+    "ioctl$KGPT_IPMICTL_GET_TIMING_PARMS_CMD": "ioctl$KGPT_IPMICTL_GET_TIMING_PARMS_CMD(fd fd_ipmi_wdog, cmd const[IPMICTL_GET_TIMING_PARMS_CMD], arg ptr[out, ipmi_timing_parms])",
+    "ioctl$KGPT_IPMICTL_GET_MAINTENANCE_MODE_CMD": "ioctl$KGPT_IPMICTL_GET_MAINTENANCE_MODE_CMD(fd fd_ipmi_wdog, cmd const[IPMICTL_GET_MAINTENANCE_MODE_CMD], arg ptr[out, int32])",
+    "ioctl$KGPT_IPMICTL_SET_MAINTENANCE_MODE_CMD": "ioctl$KGPT_IPMICTL_SET_MAINTENANCE_MODE_CMD(fd fd_ipmi_wdog, cmd const[IPMICTL_SET_MAINTENANCE_MODE_CMD], arg intptr)"
+  },
+  "init_syscalls": [
+    "openat$KGPT_ipmi_wdog"
+  ],
+  "includes": [
+    "uapi/linux/ipmi.h",
+    "uapi/asm-generic/fcntl.h",
+    "uapi/linux/fcntl.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

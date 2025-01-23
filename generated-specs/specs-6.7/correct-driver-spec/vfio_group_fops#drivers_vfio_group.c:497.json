@@ -1,0 +1,67 @@
+{
+  "open": {
+    "filename": "/dev/vfio/vfio#",
+    "fd_name": "fd_vfio_group",
+    "spec": "syz_open_dev$KGPT_vfio_group(dev ptr[in, string[\"/dev/vfio/vfio#\"]], id proc[0, 1], flags flags[open_flags]) fd_vfio_group"
+  },
+  "resources": {
+    "fd_vfio_group": {
+      "type": "fd",
+      "spec": "resource fd_vfio_group[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/vfio/group.c:497",
+  "ioctls": {
+    "VFIO_GROUP_UNSET_CONTAINER": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "VFIO_GROUP_GET_DEVICE_FD": {
+      "arg": "ptr[in, string]",
+      "arg_name_in_usage": "uarg",
+      "arg_inference": null
+    },
+    "VFIO_GROUP_GET_STATUS": {
+      "arg": "ptr[inout, vfio_group_status]",
+      "arg_name_in_usage": "uarg",
+      "arg_inference": null
+    },
+    "VFIO_GROUP_SET_CONTAINER": {
+      "arg": "intptr",
+      "arg_name_in_usage": "fd",
+      "arg_inference": {
+        "function": [
+          "vfio_group_ioctl_set_container"
+        ],
+        "type": [
+          "int"
+        ],
+        "usage": [
+          "if (get_user(fd, arg))\n\t\treturn -EFAULT;"
+        ]
+      }
+    }
+  },
+  "types": {
+    "vfio_group_status": "vfio_group_status {\n\targsz\tint32\n\tflags\tflags[vfio_group_status_flags, int32]\n}",
+    "vfio_group_status_flags": "vfio_group_status_flags = VFIO_GROUP_FLAGS_VIABLE, VFIO_GROUP_FLAGS_CONTAINER_SET"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_vfio_group": "syz_open_dev$KGPT_vfio_group(dev ptr[in, string[\"/dev/vfio/vfio#\"]], id proc[0, 1], flags flags[open_flags]) fd_vfio_group",
+    "ioctl$KGPT_VFIO_GROUP_UNSET_CONTAINER": "ioctl$KGPT_VFIO_GROUP_UNSET_CONTAINER(fd fd_vfio_group, cmd const[VFIO_GROUP_UNSET_CONTAINER], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_VFIO_GROUP_GET_DEVICE_FD": "ioctl$KGPT_VFIO_GROUP_GET_DEVICE_FD(fd fd_vfio_group, cmd const[VFIO_GROUP_GET_DEVICE_FD], arg ptr[in, string])",
+    "ioctl$KGPT_VFIO_GROUP_GET_STATUS": "ioctl$KGPT_VFIO_GROUP_GET_STATUS(fd fd_vfio_group, cmd const[VFIO_GROUP_GET_STATUS], arg ptr[inout, vfio_group_status])",
+    "ioctl$KGPT_VFIO_GROUP_SET_CONTAINER": "ioctl$KGPT_VFIO_GROUP_SET_CONTAINER(fd fd_vfio_group, cmd const[VFIO_GROUP_SET_CONTAINER], arg intptr)"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_vfio_group"
+  ],
+  "includes": [
+    "uapi/linux/vfio.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

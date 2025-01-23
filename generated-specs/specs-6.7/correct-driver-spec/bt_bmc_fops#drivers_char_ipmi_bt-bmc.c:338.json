@@ -1,0 +1,37 @@
+{
+  "open": {
+    "filename": "/dev/",
+    "fd_name": "fd_bt_bmc",
+    "spec": "openat$KGPT_bt_bmc(fd const[AT_FDCWD], file ptr[in, string[\"/dev/bt-bmc\"]], flags flags[open_flags], mode const[0]) fd_bt_bmc"
+  },
+  "resources": {
+    "fd_bt_bmc": {
+      "type": "fd",
+      "spec": "resource fd_bt_bmc[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/char/ipmi/bt-bmc.c:338",
+  "ioctls": {
+    "BT_BMC_IOCTL_SMS_ATN": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    }
+  },
+  "types": {},
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "openat$KGPT_bt_bmc": "openat$KGPT_bt_bmc(fd const[AT_FDCWD], file ptr[in, string[\"/dev/bt-bmc\"]], flags flags[open_flags], mode const[0]) fd_bt_bmc",
+    "ioctl$KGPT_BT_BMC_IOCTL_SMS_ATN": "ioctl$KGPT_BT_BMC_IOCTL_SMS_ATN(fd fd_bt_bmc, cmd const[BT_BMC_IOCTL_SMS_ATN], arg ptr[in, array[int8]])"
+  },
+  "init_syscalls": [
+    "openat$KGPT_bt_bmc"
+  ],
+  "includes": [
+    "uapi/linux/fcntl.h",
+    "uapi/linux/bt-bmc.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

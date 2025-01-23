@@ -1,0 +1,65 @@
+{
+  "open": {
+    "filename": "/dev/nvram",
+    "fd_name": "fd_nvram",
+    "spec": "openat$KGPT_nvram(fd const[AT_FDCWD], file ptr[in, string[\"/dev/nvram\"]], flags flags[open_flags], mode const[0]) fd_nvram"
+  },
+  "resources": {
+    "fd_nvram": {
+      "type": "fd",
+      "spec": "resource fd_nvram[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/char/nvram.c:490",
+  "ioctls": {
+    "IOC_NVRAM_SYNC": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "NVRAM_INIT": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "NVRAM_SETCKS": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "OBSOLETE_PMAC_NVRAM_GET_OFFSET": {
+      "arg": "ptr[inout, pmac_nvram_partition]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    },
+    "IOC_NVRAM_GET_OFFSET": {
+      "arg": "ptr[inout, nvram_partition]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "pmac_nvram_partition": "type pmac_nvram_partition ptr[in, array[int8]]",
+    "nvram_partition": "type nvram_partition ptr[in, array[int8]]"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "openat$KGPT_nvram": "openat$KGPT_nvram(fd const[AT_FDCWD], file ptr[in, string[\"/dev/nvram\"]], flags flags[open_flags], mode const[0]) fd_nvram",
+    "ioctl$KGPT_IOC_NVRAM_SYNC": "ioctl$KGPT_IOC_NVRAM_SYNC(fd fd_nvram, cmd const[IOC_NVRAM_SYNC], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_NVRAM_INIT": "ioctl$KGPT_NVRAM_INIT(fd fd_nvram, cmd const[NVRAM_INIT], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_NVRAM_SETCKS": "ioctl$KGPT_NVRAM_SETCKS(fd fd_nvram, cmd const[NVRAM_SETCKS], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_OBSOLETE_PMAC_NVRAM_GET_OFFSET": "ioctl$KGPT_OBSOLETE_PMAC_NVRAM_GET_OFFSET(fd fd_nvram, cmd const[OBSOLETE_PMAC_NVRAM_GET_OFFSET], arg ptr[inout, pmac_nvram_partition])",
+    "ioctl$KGPT_IOC_NVRAM_GET_OFFSET": "ioctl$KGPT_IOC_NVRAM_GET_OFFSET(fd fd_nvram, cmd const[IOC_NVRAM_GET_OFFSET], arg ptr[inout, nvram_partition])"
+  },
+  "init_syscalls": [
+    "openat$KGPT_nvram"
+  ],
+  "includes": [
+    "arch/powerpc/include/uapi/asm/nvram.h",
+    "uapi/linux/fcntl.h",
+    "uapi/linux/nvram.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

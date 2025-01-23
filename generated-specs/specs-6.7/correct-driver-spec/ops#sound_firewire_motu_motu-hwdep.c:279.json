@@ -1,0 +1,85 @@
+{
+  "open": {
+    "filename": "/dev/snd/hwC#D#",
+    "fd_name": "fd_snd_motu",
+    "spec": "syz_open_dev$KGPT_snd_motu(dev ptr[in, string[\"/dev/snd/hwC#D#\"]], id proc[0, 1], flags flags[open_flags]) fd_snd_motu"
+  },
+  "resources": {
+    "fd_snd_motu": {
+      "type": "fd",
+      "spec": "resource fd_snd_motu[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/sound/firewire/motu/motu-hwdep.c:279",
+  "ioctls": {
+    "SNDRV_FIREWIRE_IOCTL_MOTU_REGISTER_DSP_METER": {
+      "arg": "ptr[out, snd_firewire_motu_register_dsp_meter]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "SNDRV_FIREWIRE_IOCTL_MOTU_COMMAND_DSP_METER": {
+      "arg": "ptr[out, snd_firewire_motu_command_dsp_meter]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "SNDRV_FIREWIRE_IOCTL_MOTU_REGISTER_DSP_PARAMETER": {
+      "arg": "ptr[inout, snd_firewire_motu_register_dsp_parameter]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "snd_firewire_motu_register_dsp_meter": "snd_firewire_motu_register_dsp_meter {\n\tdata\tarray[int8, SNDRV_FIREWIRE_MOTU_REGISTER_DSP_METER_COUNT]\n}",
+    "snd_firewire_motu_register_dsp_parameter": "snd_firewire_motu_register_dsp_parameter {\n\tmixer\tsnd_firewire_motu_register_dsp_mixer\n\toutput\tsnd_firewire_motu_register_dsp_output\n\tline_input\tsnd_firewire_motu_register_dsp_line_input\n\tinput\tsnd_firewire_motu_register_dsp_input\n\treserved\tarray[int8, 64]\n}",
+    "snd_firewire_motu_command_dsp_meter": "snd_firewire_motu_command_dsp_meter {\n\tdata\tarray[int32, SNDRV_FIREWIRE_MOTU_COMMAND_DSP_METER_COUNT]\n}",
+    "snd_firewire_motu_register_dsp_mixer": "snd_firewire_motu_register_dsp_mixer {\n\tsource\tarray[snd_firewire_motu_register_dsp_mixer_source, SNDRV_FIREWIRE_MOTU_REGISTER_DSP_MIXER_COUNT]\n\toutput\tsnd_firewire_motu_register_dsp_mixer_output\n}",
+    "snd_firewire_motu_register_dsp_mixer_source": "snd_firewire_motu_register_dsp_mixer_source {\n\tgain\tarray[int8, SNDRV_FIREWIRE_MOTU_REGISTER_DSP_MIXER_SRC_COUNT]\n\tpan\tarray[int8, SNDRV_FIREWIRE_MOTU_REGISTER_DSP_MIXER_SRC_COUNT]\n\tflag\tarray[int8, SNDRV_FIREWIRE_MOTU_REGISTER_DSP_MIXER_SRC_COUNT]\n\tpaired_balance\tarray[int8, SNDRV_FIREWIRE_MOTU_REGISTER_DSP_MIXER_SRC_COUNT]\n\tpaired_width\tarray[int8, SNDRV_FIREWIRE_MOTU_REGISTER_DSP_MIXER_SRC_COUNT]\n}",
+    "snd_firewire_motu_register_dsp_mixer_output": "snd_firewire_motu_register_dsp_mixer_output {\n\tpaired_volume\tarray[int8, SNDRV_FIREWIRE_MOTU_REGISTER_DSP_MIXER_COUNT]\n\tpaired_flag\tarray[int8, SNDRV_FIREWIRE_MOTU_REGISTER_DSP_MIXER_COUNT]\n}",
+    "snd_firewire_motu_register_dsp_output": "snd_firewire_motu_register_dsp_output {\n\tmain_paired_volume\tint8\n\thp_paired_volume\tint8\n\thp_paired_assignment\tint8\n\treserved\tarray[int8, 5]\n}",
+    "snd_firewire_motu_register_dsp_line_input": "snd_firewire_motu_register_dsp_line_input {\n\tboost_flag\tint8\n\tnominal_level_flag\tint8\n\treserved\tarray[int8, 6]\n}",
+    "snd_firewire_motu_register_dsp_input": "snd_firewire_motu_register_dsp_input {\n\tgain_and_invert\tarray[int8, SNDRV_FIREWIRE_MOTU_REGISTER_DSP_ALIGNED_INPUT_COUNT]\n\tflag\tarray[int8, SNDRV_FIREWIRE_MOTU_REGISTER_DSP_ALIGNED_INPUT_COUNT]\n}",
+    "SNDRV_FIREWIRE_MOTU_COMMAND_DSP_METER_COUNT": "define SNDRV_FIREWIRE_MOTU_COMMAND_DSP_METER_COUNT 0x100"
+  },
+  "existing_ioctls": {
+    "SNDRV_FIREWIRE_IOCTL_GET_INFO": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "hwdep_get_info"
+        ],
+        "type": [],
+        "usage": [
+          "return hwdep_get_info(motu, (void __user *)arg);"
+        ]
+      }
+    },
+    "SNDRV_FIREWIRE_IOCTL_LOCK": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SNDRV_FIREWIRE_IOCTL_UNLOCK": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_snd_motu": "syz_open_dev$KGPT_snd_motu(dev ptr[in, string[\"/dev/snd/hwC#D#\"]], id proc[0, 1], flags flags[open_flags]) fd_snd_motu",
+    "ioctl$KGPT_SNDRV_FIREWIRE_IOCTL_MOTU_REGISTER_DSP_METER": "ioctl$KGPT_SNDRV_FIREWIRE_IOCTL_MOTU_REGISTER_DSP_METER(fd fd_snd_motu, cmd const[SNDRV_FIREWIRE_IOCTL_MOTU_REGISTER_DSP_METER], arg ptr[out, snd_firewire_motu_register_dsp_meter])",
+    "ioctl$KGPT_SNDRV_FIREWIRE_IOCTL_MOTU_COMMAND_DSP_METER": "ioctl$KGPT_SNDRV_FIREWIRE_IOCTL_MOTU_COMMAND_DSP_METER(fd fd_snd_motu, cmd const[SNDRV_FIREWIRE_IOCTL_MOTU_COMMAND_DSP_METER], arg ptr[out, snd_firewire_motu_command_dsp_meter])",
+    "ioctl$KGPT_SNDRV_FIREWIRE_IOCTL_MOTU_REGISTER_DSP_PARAMETER": "ioctl$KGPT_SNDRV_FIREWIRE_IOCTL_MOTU_REGISTER_DSP_PARAMETER(fd fd_snd_motu, cmd const[SNDRV_FIREWIRE_IOCTL_MOTU_REGISTER_DSP_PARAMETER], arg ptr[inout, snd_firewire_motu_register_dsp_parameter])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_snd_motu"
+  ],
+  "includes": [
+    "uapi/sound/firewire.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

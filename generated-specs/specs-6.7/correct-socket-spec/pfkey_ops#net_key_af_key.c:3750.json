@@ -1,0 +1,48 @@
+{
+  "socket": {
+    "domain": "PF_KEY",
+    "type": "SOCK_RAW",
+    "spec": "socket$KGPT_pfkey(domain const[PF_KEY], type const[SOCK_RAW], proto const[PF_KEY_V2]) sock_pfkey"
+  },
+  "resources": {
+    "sock_pfkey": {
+      "type": "sock",
+      "spec": "resource sock_pfkey[sock]"
+    }
+  },
+  "types": {
+    "PF_KEY_V2": "define PF_KEY_V2 2"
+  },
+  "socket_addr": "sockaddr",
+  "proto_ops": {
+    "bind": "sock_no_bind",
+    "connect": "sock_no_connect",
+    "accept": "sock_no_accept",
+    "poll": "datagram_poll",
+    "ioctl": "sock_no_ioctl",
+    "sendmsg": "pfkey_sendmsg",
+    "recvmsg": "pfkey_recvmsg"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/key/af_key.c:3750",
+  "ops_name": "pfkey_ops",
+  "syscall_specs": {
+    "socket$KGPT_pfkey": "socket$KGPT_pfkey(domain const[PF_KEY], type const[SOCK_RAW], proto const[PF_KEY_V2]) sock_pfkey",
+    "bind$KGPT_pfkey_ops": "bind$KGPT_pfkey_ops(fd sock_pfkey, addr ptr[in, sockaddr], addrlen len[addr])",
+    "connect$KGPT_pfkey_ops": "connect$KGPT_pfkey_ops(fd sock_pfkey, addr ptr[in, sockaddr], addrlen len[addr])",
+    "accept4$KGPT_pfkey_ops": "accept4$KGPT_pfkey_ops(fd sock_pfkey, peer ptr[out, sockaddr, opt], peerlen ptr[inout, len[peer, int32]], flags flags[accept_flags]) sock_pfkey",
+    "sendto$KGPT_pfkey_ops": "sendto$KGPT_pfkey_ops(fd sock_pfkey, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, sockaddr, opt], addrlen len[addr])",
+    "recvfrom$KGPT_pfkey_ops": "recvfrom$KGPT_pfkey_ops(fd sock_pfkey, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, sockaddr, opt], addrlen len[addr])"
+  },
+  "init_syscalls": [
+    "socket$KGPT_pfkey"
+  ],
+  "includes": [
+    "linux/net.h",
+    "linux/socket.h",
+    "uapi/linux/pfkeyv2.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "sockaddr": "EXISTING"
+  }
+}

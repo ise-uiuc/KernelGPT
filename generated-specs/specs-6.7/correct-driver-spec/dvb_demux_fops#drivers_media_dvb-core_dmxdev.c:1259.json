@@ -1,0 +1,154 @@
+{
+  "open": {
+    "filename": "/dev/dvb/adapter#/demux#",
+    "fd_name": "fd_dvb_demux",
+    "spec": "syz_open_dev$KGPT_dvb_demux(dev ptr[in, string[\"/dev/dvb/adapter#/demux#\"]], id proc[0, 1], flags flags[open_flags]) fd_dvb_demux"
+  },
+  "resources": {
+    "fd_dvb_demux": {
+      "type": "fd",
+      "spec": "resource fd_dvb_demux[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/media/dvb-core/dmxdev.c:1259",
+  "ioctls": {
+    "DMX_START": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "DMX_STOP": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "DMX_SET_FILTER": {
+      "arg": "ptr[in, dmx_sct_filter_params]",
+      "arg_name_in_usage": "parg",
+      "arg_inference": null
+    },
+    "DMX_SET_PES_FILTER": {
+      "arg": "ptr[in, dmx_pes_filter_params]",
+      "arg_name_in_usage": "parg",
+      "arg_inference": null
+    },
+    "DMX_SET_BUFFER_SIZE": {
+      "arg": "intptr",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "DMX_GET_PES_PIDS": {
+      "arg": "ptr[out, dmx_pes_pid]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    },
+    "DMX_GET_STC": {
+      "arg": "ptr[inout, dmx_stc]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    },
+    "DMX_ADD_PID": {
+      "arg": "intptr",
+      "arg_name_in_usage": "parg",
+      "arg_inference": null
+    },
+    "DMX_REMOVE_PID": {
+      "arg": "ptr[in, int16]",
+      "arg_name_in_usage": "parg",
+      "arg_inference": null
+    },
+    "DMX_REQBUFS": {
+      "arg": "ptr[in, dmx_requestbuffers]",
+      "arg_name_in_usage": "parg",
+      "arg_inference": null
+    },
+    "DMX_QUERYBUF": {
+      "arg": "ptr[in,out, dmx_buffer]",
+      "arg_name_in_usage": "parg",
+      "arg_inference": null
+    },
+    "DMX_EXPBUF": {
+      "arg": "ptr[in, dmx_exportbuffer]",
+      "arg_name_in_usage": "parg",
+      "arg_inference": null
+    },
+    "DMX_QBUF": {
+      "arg": "ptr[in, dmx_buffer]",
+      "arg_name_in_usage": "parg",
+      "arg_inference": null
+    },
+    "DMX_DQBUF": {
+      "arg": "ptr[inout, dmx_buffer]",
+      "arg_name_in_usage": "parg",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "dmx_sct_filter_params": "dmx_sct_filter_params {\n\tpid\tint16\n\tfilter\tdmx_filter\n\ttimeout\tint32\n\tflags\tflags[dmx_sct_filter_params_flags, int32]\n}",
+    "dmx_pes_pid": "type dmx_pes_pid ptr[in, array[int8]]",
+    "dmx_stc": "dmx_stc {\n\tnum\tint32\n\tbase\tint32\n\tstc\tint64\n}",
+    "dmx_requestbuffers": "dmx_requestbuffers {\n\tcount\tint32\n\tsize\tint32\n}",
+    "dmx_buffer": "dmx_buffer {\n\tindex\tint32\n\tbytesused\tint32\n\toffset\tint32\n\tlength\tint32\n\tflags\tint32\n\tcount\tint32\n}",
+    "dmx_exportbuffer": "dmx_exportbuffer {\n\tindex\tint32\n\tflags\tint32\n\tfd\tint32\n}",
+    "dmx_pes_filter_params": "dmx_pes_filter_params {\n\tpid\tint16\n\tinput\tflags[dmx_input, int32]\n\toutput\tflags[dmx_output, int32]\n\tpes_type\tflags[dmx_ts_pes, int32]\n\tflags\tint32\n}",
+    "dmx_sct_filter_params_flags": "dmx_sct_filter_params_flags = DMX_CHECK_CRC, DMX_ONESHOT, DMX_IMMEDIATE_START",
+    "dmx_filter": "dmx_filter {\n\tfilter\tarray[int8, DMX_FILTER_SIZE]\n\tmask\tarray[int8, DMX_FILTER_SIZE]\n\tmode\tarray[int8, DMX_FILTER_SIZE]\n}",
+    "dmx_input": "dmx_input = DMX_IN_FRONTEND, DMX_IN_DVR",
+    "dmx_output": "dmx_output = DMX_OUT_DECODER, DMX_OUT_TAP, DMX_OUT_TS_TAP, DMX_OUT_TSDEMUX_TAP",
+    "dmx_ts_pes": "dmx_ts_pes = DMX_PES_AUDIO0, DMX_PES_VIDEO0, DMX_PES_TELETEXT0, DMX_PES_SUBTITLE0, DMX_PES_PCR0, DMX_PES_AUDIO1, DMX_PES_VIDEO1, DMX_PES_TELETEXT1, DMX_PES_SUBTITLE1, DMX_PES_PCR1, DMX_PES_AUDIO2, DMX_PES_VIDEO2, DMX_PES_TELETEXT2, DMX_PES_SUBTITLE2, DMX_PES_PCR2, DMX_PES_AUDIO3, DMX_PES_VIDEO3, DMX_PES_TELETEXT3, DMX_PES_SUBTITLE3, DMX_PES_PCR3, DMX_PES_OTHER",
+    "DMX_IN_FRONTEND": "define DMX_IN_FRONTEND 0",
+    "DMX_IN_DVR": "define DMX_IN_DVR 1",
+    "DMX_OUT_DECODER": "define DMX_OUT_DECODER 0",
+    "DMX_OUT_TAP": "define DMX_OUT_TAP 1",
+    "DMX_OUT_TS_TAP": "define DMX_OUT_TS_TAP 2",
+    "DMX_OUT_TSDEMUX_TAP": "define DMX_OUT_TSDEMUX_TAP 3",
+    "DMX_PES_AUDIO0": "define DMX_PES_AUDIO0 0",
+    "DMX_PES_VIDEO0": "define DMX_PES_VIDEO0 1",
+    "DMX_PES_TELETEXT0": "define DMX_PES_TELETEXT0 2",
+    "DMX_PES_SUBTITLE0": "define DMX_PES_SUBTITLE0 3",
+    "DMX_PES_PCR0": "define DMX_PES_PCR0 4",
+    "DMX_PES_AUDIO1": "define DMX_PES_AUDIO1 5",
+    "DMX_PES_VIDEO1": "define DMX_PES_VIDEO1 6",
+    "DMX_PES_TELETEXT1": "define DMX_PES_TELETEXT1 7",
+    "DMX_PES_SUBTITLE1": "define DMX_PES_SUBTITLE1 8",
+    "DMX_PES_PCR1": "define DMX_PES_PCR1 9",
+    "DMX_PES_AUDIO2": "define DMX_PES_AUDIO2 10",
+    "DMX_PES_VIDEO2": "define DMX_PES_VIDEO2 11",
+    "DMX_PES_TELETEXT2": "define DMX_PES_TELETEXT2 12",
+    "DMX_PES_SUBTITLE2": "define DMX_PES_SUBTITLE2 13",
+    "DMX_PES_PCR2": "define DMX_PES_PCR2 14",
+    "DMX_PES_AUDIO3": "define DMX_PES_AUDIO3 15",
+    "DMX_PES_VIDEO3": "define DMX_PES_VIDEO3 16",
+    "DMX_PES_TELETEXT3": "define DMX_PES_TELETEXT3 17",
+    "DMX_PES_SUBTITLE3": "define DMX_PES_SUBTITLE3 18",
+    "DMX_PES_PCR3": "define DMX_PES_PCR3 19",
+    "DMX_PES_OTHER": "define DMX_PES_OTHER 20"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_dvb_demux": "syz_open_dev$KGPT_dvb_demux(dev ptr[in, string[\"/dev/dvb/adapter#/demux#\"]], id proc[0, 1], flags flags[open_flags]) fd_dvb_demux",
+    "ioctl$KGPT_DMX_START": "ioctl$KGPT_DMX_START(fd fd_dvb_demux, cmd const[DMX_START], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_DMX_STOP": "ioctl$KGPT_DMX_STOP(fd fd_dvb_demux, cmd const[DMX_STOP], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_DMX_SET_FILTER": "ioctl$KGPT_DMX_SET_FILTER(fd fd_dvb_demux, cmd const[DMX_SET_FILTER], arg ptr[in, dmx_sct_filter_params])",
+    "ioctl$KGPT_DMX_SET_PES_FILTER": "ioctl$KGPT_DMX_SET_PES_FILTER(fd fd_dvb_demux, cmd const[DMX_SET_PES_FILTER], arg ptr[in, dmx_pes_filter_params])",
+    "ioctl$KGPT_DMX_SET_BUFFER_SIZE": "ioctl$KGPT_DMX_SET_BUFFER_SIZE(fd fd_dvb_demux, cmd const[DMX_SET_BUFFER_SIZE], arg intptr)",
+    "ioctl$KGPT_DMX_GET_PES_PIDS": "ioctl$KGPT_DMX_GET_PES_PIDS(fd fd_dvb_demux, cmd const[DMX_GET_PES_PIDS], arg ptr[out, dmx_pes_pid])",
+    "ioctl$KGPT_DMX_GET_STC": "ioctl$KGPT_DMX_GET_STC(fd fd_dvb_demux, cmd const[DMX_GET_STC], arg ptr[inout, dmx_stc])",
+    "ioctl$KGPT_DMX_ADD_PID": "ioctl$KGPT_DMX_ADD_PID(fd fd_dvb_demux, cmd const[DMX_ADD_PID], arg intptr)",
+    "ioctl$KGPT_DMX_REMOVE_PID": "ioctl$KGPT_DMX_REMOVE_PID(fd fd_dvb_demux, cmd const[DMX_REMOVE_PID], arg ptr[in, int16])",
+    "ioctl$KGPT_DMX_REQBUFS": "ioctl$KGPT_DMX_REQBUFS(fd fd_dvb_demux, cmd const[DMX_REQBUFS], arg ptr[in, dmx_requestbuffers])",
+    "ioctl$KGPT_DMX_QUERYBUF": "ioctl$KGPT_DMX_QUERYBUF(fd fd_dvb_demux, cmd const[DMX_QUERYBUF], arg ptr[inout, dmx_buffer])",
+    "ioctl$KGPT_DMX_EXPBUF": "ioctl$KGPT_DMX_EXPBUF(fd fd_dvb_demux, cmd const[DMX_EXPBUF], arg ptr[in, dmx_exportbuffer])",
+    "ioctl$KGPT_DMX_QBUF": "ioctl$KGPT_DMX_QBUF(fd fd_dvb_demux, cmd const[DMX_QBUF], arg ptr[in, dmx_buffer])",
+    "ioctl$KGPT_DMX_DQBUF": "ioctl$KGPT_DMX_DQBUF(fd fd_dvb_demux, cmd const[DMX_DQBUF], arg ptr[inout, dmx_buffer])"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_dvb_demux"
+  ],
+  "includes": [
+    "uapi/linux/dvb/dmx.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

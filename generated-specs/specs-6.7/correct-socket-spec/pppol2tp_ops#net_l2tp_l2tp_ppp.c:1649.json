@@ -1,0 +1,141 @@
+{
+  "socket": {
+    "domain": "AF_PPPOX",
+    "type": "SOCK_STREAM",
+    "spec": "socket$KGPT_pppol2tp(domain const[AF_PPPOX], type const[SOCK_STREAM], proto const[PX_PROTO_OL2TP]) sock_pppol2tp"
+  },
+  "resources": {
+    "sock_pppol2tp": {
+      "type": "sock",
+      "spec": "resource sock_pppol2tp[sock]"
+    }
+  },
+  "types": {
+    "PX_PROTO_OL2TP": "define PX_PROTO_OL2TP 1"
+  },
+  "socket_addr": "sockaddr",
+  "ioctls": {},
+  "existing_ioctls": {
+    "PPPIOCGCHAN": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "put_user"
+        ],
+        "type": [
+          "int __user *"
+        ],
+        "usage": [
+          "int index;",
+          "index = ppp_channel_index(&po->chan);",
+          "if (put_user(index , (int __user *) arg))"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "setsockopt": {
+    "PPPOL2TP_SO_RECVSEQ": {
+      "level": "SOL_PPPOL2TP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "PPPOL2TP_SO_SENDSEQ": {
+      "level": "SOL_PPPOL2TP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "PPPOL2TP_SO_LNSMODE": {
+      "level": "SOL_PPPOL2TP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    },
+    "PPPOL2TP_SO_REORDERTO": {
+      "level": "SOL_PPPOL2TP",
+      "val": "int32",
+      "len": "bytesize[val]"
+    }
+  },
+  "unknown": [],
+  "setsockopt_unknown": [],
+  "getsockopt": {
+    "PPPOL2TP_SO_RECVSEQ": {
+      "level": "SOL_PPPOL2TP",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "PPPOL2TP_SO_SENDSEQ": {
+      "level": "SOL_PPPOL2TP",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "PPPOL2TP_SO_LNSMODE": {
+      "level": "SOL_PPPOL2TP",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "PPPOL2TP_SO_REORDERTO": {
+      "level": "SOL_PPPOL2TP",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "PPPOL2TP_SO_DEBUG": {
+      "level": "SOL_PPPOL2TP",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    }
+  },
+  "getsockopt_unknown": [],
+  "proto_ops": {
+    "bind": "sock_no_bind",
+    "connect": "pppol2tp_connect",
+    "accept": "sock_no_accept",
+    "poll": "datagram_poll",
+    "ioctl": "pppox_ioctl",
+    "sendmsg": "pppol2tp_sendmsg",
+    "recvmsg": "pppol2tp_recvmsg",
+    "setsockopt": "pppol2tp_setsockopt",
+    "getsockopt": "pppol2tp_getsockopt"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/l2tp/l2tp_ppp.c:1649",
+  "ops_name": "pppol2tp_ops",
+  "syscall_specs": {
+    "socket$KGPT_pppol2tp": "socket$KGPT_pppol2tp(domain const[AF_PPPOX], type const[SOCK_STREAM], proto const[PX_PROTO_OL2TP]) sock_pppol2tp",
+    "bind$KGPT_pppol2tp_ops": "bind$KGPT_pppol2tp_ops(fd sock_pppol2tp, addr ptr[in, sockaddr], addrlen len[addr])",
+    "connect$KGPT_pppol2tp_ops": "connect$KGPT_pppol2tp_ops(fd sock_pppol2tp, addr ptr[in, sockaddr], addrlen len[addr])",
+    "accept4$KGPT_pppol2tp_ops": "accept4$KGPT_pppol2tp_ops(fd sock_pppol2tp, peer ptr[out, sockaddr, opt], peerlen ptr[inout, len[peer, int32]], flags flags[accept_flags]) sock_pppol2tp",
+    "sendto$KGPT_pppol2tp_ops": "sendto$KGPT_pppol2tp_ops(fd sock_pppol2tp, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, sockaddr, opt], addrlen len[addr])",
+    "recvfrom$KGPT_pppol2tp_ops": "recvfrom$KGPT_pppol2tp_ops(fd sock_pppol2tp, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, sockaddr, opt], addrlen len[addr])",
+    "getsockopt$KGPT_PPPOL2TP_SO_RECVSEQ": "getsockopt$KGPT_PPPOL2TP_SO_RECVSEQ(fd sock_pppol2tp, level const[SOL_PPPOL2TP], opt const[PPPOL2TP_SO_RECVSEQ], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_PPPOL2TP_SO_SENDSEQ": "getsockopt$KGPT_PPPOL2TP_SO_SENDSEQ(fd sock_pppol2tp, level const[SOL_PPPOL2TP], opt const[PPPOL2TP_SO_SENDSEQ], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_PPPOL2TP_SO_LNSMODE": "getsockopt$KGPT_PPPOL2TP_SO_LNSMODE(fd sock_pppol2tp, level const[SOL_PPPOL2TP], opt const[PPPOL2TP_SO_LNSMODE], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_PPPOL2TP_SO_REORDERTO": "getsockopt$KGPT_PPPOL2TP_SO_REORDERTO(fd sock_pppol2tp, level const[SOL_PPPOL2TP], opt const[PPPOL2TP_SO_REORDERTO], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_PPPOL2TP_SO_DEBUG": "getsockopt$KGPT_PPPOL2TP_SO_DEBUG(fd sock_pppol2tp, level const[SOL_PPPOL2TP], opt const[PPPOL2TP_SO_DEBUG], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "setsockopt$KGPT_PPPOL2TP_SO_RECVSEQ": "setsockopt$KGPT_PPPOL2TP_SO_RECVSEQ(fd sock_pppol2tp, level const[SOL_PPPOL2TP], opt const[PPPOL2TP_SO_RECVSEQ], val int32, len bytesize[val])",
+    "setsockopt$KGPT_PPPOL2TP_SO_SENDSEQ": "setsockopt$KGPT_PPPOL2TP_SO_SENDSEQ(fd sock_pppol2tp, level const[SOL_PPPOL2TP], opt const[PPPOL2TP_SO_SENDSEQ], val int32, len bytesize[val])",
+    "setsockopt$KGPT_PPPOL2TP_SO_LNSMODE": "setsockopt$KGPT_PPPOL2TP_SO_LNSMODE(fd sock_pppol2tp, level const[SOL_PPPOL2TP], opt const[PPPOL2TP_SO_LNSMODE], val int32, len bytesize[val])",
+    "setsockopt$KGPT_PPPOL2TP_SO_REORDERTO": "setsockopt$KGPT_PPPOL2TP_SO_REORDERTO(fd sock_pppol2tp, level const[SOL_PPPOL2TP], opt const[PPPOL2TP_SO_REORDERTO], val int32, len bytesize[val])"
+  },
+  "init_syscalls": [
+    "socket$KGPT_pppol2tp"
+  ],
+  "includes": [
+    "linux/net.h",
+    "uapi/linux/if_pppol2tp.h",
+    "uapi/linux/if_pppox.h",
+    "linux/socket.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "sockaddr": "EXISTING",
+    "PPPOL2TP_SO_DEBUG": "UNFOUND_MACRO"
+  }
+}

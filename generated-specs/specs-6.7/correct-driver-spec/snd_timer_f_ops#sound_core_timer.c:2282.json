@@ -1,0 +1,229 @@
+{
+  "open": {
+    "filename": "/dev/snd/timer",
+    "fd_name": "fd_snd_timer",
+    "spec": "openat$KGPT_snd_timer(fd const[AT_FDCWD], file ptr[in, string[\"/dev/snd/timer\"]], flags flags[open_flags], mode const[0]) fd_snd_timer"
+  },
+  "resources": {
+    "fd_snd_timer": {
+      "type": "fd",
+      "spec": "resource fd_snd_timer[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/sound/core/timer.c:2282",
+  "ioctls": {
+    "SNDRV_TIMER_IOCTL_START_OLD": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SNDRV_TIMER_IOCTL_STOP_OLD": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SNDRV_TIMER_IOCTL_CONTINUE_OLD": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SNDRV_TIMER_IOCTL_PAUSE_OLD": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SNDRV_TIMER_IOCTL_TREAD_OLD": {
+      "arg": "intptr",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    },
+    "SNDRV_TIMER_IOCTL_TREAD64": {
+      "arg": "ptr[in, int]",
+      "arg_name_in_usage": "argp",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "snd_timer_tread64": "snd_timer_tread64 {\n\tresolution\tint32\n\tticks\tint64\n\tccallback\tint32\n\tccount\tint32\n\tccount_frac\tint32\n\tlast_tstamp\ttimespec64\n\tevents\tarray[snd_timer_event, SND_TIMER_MAX_EVENTS]\n}",
+    "snd_timer_event": "snd_timer_event {\n\ttstamp\ttimespec64\n\tval\tint32\n}",
+    "timespec64": "timespec64 {\n\ttv_sec\tint64\n\ttv_nsec\tint64\n}",
+    "SND_TIMER_MAX_EVENTS": "define SND_TIMER_MAX_EVENTS 32"
+  },
+  "existing_ioctls": {
+    "SNDRV_TIMER_IOCTL_PVERSION": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SNDRV_TIMER_IOCTL_NEXT_DEVICE": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_timer_user_next_device"
+        ],
+        "type": [],
+        "usage": [
+          "return snd_timer_user_next_device(argp);"
+        ]
+      }
+    },
+    "SNDRV_TIMER_IOCTL_GINFO": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_timer_user_ginfo"
+        ],
+        "type": [],
+        "usage": [
+          "return snd_timer_user_ginfo(file, argp);"
+        ]
+      }
+    },
+    "SNDRV_TIMER_IOCTL_GPARAMS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_timer_user_gparams"
+        ],
+        "type": [],
+        "usage": [
+          "return snd_timer_user_gparams(file, argp);"
+        ]
+      }
+    },
+    "SNDRV_TIMER_IOCTL_GSTATUS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_timer_user_gstatus"
+        ],
+        "type": [],
+        "usage": [
+          "return snd_timer_user_gstatus(file, argp);"
+        ]
+      }
+    },
+    "SNDRV_TIMER_IOCTL_SELECT": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_timer_user_tselect"
+        ],
+        "type": [],
+        "usage": [
+          "return snd_timer_user_tselect(file, argp);"
+        ]
+      }
+    },
+    "SNDRV_TIMER_IOCTL_INFO": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_timer_user_info"
+        ],
+        "type": [],
+        "usage": [
+          "return snd_timer_user_info(file, argp);"
+        ]
+      }
+    },
+    "SNDRV_TIMER_IOCTL_PARAMS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_timer_user_params"
+        ],
+        "type": [],
+        "usage": [
+          "return snd_timer_user_params(file, argp);"
+        ]
+      }
+    },
+    "SNDRV_TIMER_IOCTL_STATUS32": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_timer_user_status32"
+        ],
+        "type": [],
+        "usage": [
+          "return snd_timer_user_status32(file, argp);"
+        ]
+      }
+    },
+    "SNDRV_TIMER_IOCTL_STATUS64": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp"
+      ],
+      "arg_inference": {
+        "function": [
+          "snd_timer_user_status64"
+        ],
+        "type": [],
+        "usage": [
+          "return snd_timer_user_status64(file, argp);"
+        ]
+      }
+    },
+    "SNDRV_TIMER_IOCTL_START": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SNDRV_TIMER_IOCTL_STOP": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SNDRV_TIMER_IOCTL_CONTINUE": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    },
+    "SNDRV_TIMER_IOCTL_PAUSE": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": [],
+      "arg_inference": null
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "openat$KGPT_snd_timer": "openat$KGPT_snd_timer(fd const[AT_FDCWD], file ptr[in, string[\"/dev/snd/timer\"]], flags flags[open_flags], mode const[0]) fd_snd_timer",
+    "ioctl$KGPT_SNDRV_TIMER_IOCTL_TREAD_OLD": "ioctl$KGPT_SNDRV_TIMER_IOCTL_TREAD_OLD(fd fd_snd_timer, cmd const[SNDRV_TIMER_IOCTL_TREAD_OLD], arg intptr)",
+    "ioctl$KGPT_SNDRV_TIMER_IOCTL_TREAD64": "ioctl$KGPT_SNDRV_TIMER_IOCTL_TREAD64(fd fd_snd_timer, cmd const[SNDRV_TIMER_IOCTL_TREAD64], arg ptr[in, snd_timer_tread64])"
+  },
+  "init_syscalls": [
+    "openat$KGPT_snd_timer"
+  ],
+  "includes": [
+    "uapi/sound/asound.h",
+    "uapi/linux/fcntl.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

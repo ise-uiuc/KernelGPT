@@ -1,0 +1,437 @@
+{
+  "open": {
+    "filename": "/dev/tty#",
+    "fd_name": "fd_nci_uart",
+    "spec": "syz_open_dev$KGPT_nci_uart(dev ptr[in, string[\"/dev/tty#\"]], id proc[0, 1], flags flags[open_flags]) fd_nci_uart"
+  },
+  "resources": {
+    "fd_nci_uart": {
+      "type": "fd",
+      "spec": "resource fd_nci_uart[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/nfc/nci/uart.c:424",
+  "ioctls": {
+    "NCIUARTSETDRIVER": {
+      "arg": "intptr",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    },
+    "TIOCSETN": {
+      "arg": "ptr[in, sgttyb]",
+      "arg_name_in_usage": "arg",
+      "arg_inference": null
+    }
+  },
+  "types": {},
+  "existing_ioctls": {
+    "TCXONC": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "tty_check_change",
+          "__stop_tty",
+          "__start_tty",
+          "tty_send_xchar"
+        ],
+        "type": [],
+        "usage": [
+          "switch (arg) {",
+          "case TCOOFF:",
+          "case TCOON:",
+          "case TCIOFF:",
+          "case TCION:",
+          "default:"
+        ]
+      }
+    },
+    "TCFLSH": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "tty_check_change",
+          "__tty_perform_flush"
+        ],
+        "type": [],
+        "usage": [
+          "return __tty_perform_flush(tty, arg);"
+        ]
+      }
+    },
+    "TIOCGETP": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "get_sgttyb"
+        ],
+        "type": [
+          "sgttyb"
+        ],
+        "usage": [
+          "return get_sgttyb(real_tty, (struct sgttyb __user *) arg);"
+        ]
+      }
+    },
+    "TIOCSETP": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "set_sgttyb"
+        ],
+        "type": [
+          "sgttyb"
+        ],
+        "usage": [
+          "return set_sgttyb(real_tty, (struct sgttyb __user *) arg);"
+        ]
+      }
+    },
+    "TIOCGETC": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "get_tchars"
+        ],
+        "type": [],
+        "usage": [
+          "return get_tchars(real_tty, p);"
+        ]
+      }
+    },
+    "TIOCSETC": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "set_tchars"
+        ],
+        "type": [],
+        "usage": [
+          "return set_tchars(real_tty, p);"
+        ]
+      }
+    },
+    "TIOCGLTC": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "get_ltchars"
+        ],
+        "type": [],
+        "usage": [
+          "return get_ltchars(real_tty, p);"
+        ]
+      }
+    },
+    "TIOCSLTC": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "set_ltchars"
+        ],
+        "type": [],
+        "usage": [
+          "return set_ltchars(real_tty, p);"
+        ]
+      }
+    },
+    "TCSETSF": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "set_termios"
+        ],
+        "type": [],
+        "usage": [
+          "return set_termios(real_tty, p,  TERMIOS_FLUSH | TERMIOS_WAIT | TERMIOS_OLD);"
+        ]
+      }
+    },
+    "TCSETSW": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "set_termios"
+        ],
+        "type": [],
+        "usage": [
+          "return set_termios(real_tty, p, TERMIOS_WAIT | TERMIOS_OLD);"
+        ]
+      }
+    },
+    "TCSETS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "set_termios"
+        ],
+        "type": [],
+        "usage": [
+          "return set_termios(real_tty, p, TERMIOS_OLD);"
+        ]
+      }
+    },
+    "TCGETS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "copy_termios",
+          "kernel_termios_to_user_termios"
+        ],
+        "type": [
+          "termios"
+        ],
+        "usage": [
+          "copy_termios(real_tty, &kterm);",
+          "if (kernel_termios_to_user_termios((struct termios __user *)arg, &kterm))"
+        ]
+      }
+    },
+    "TCGETS2": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "copy_termios",
+          "kernel_termios_to_user_termios"
+        ],
+        "type": [
+          "termios2"
+        ],
+        "usage": [
+          "copy_termios(real_tty, &kterm);",
+          "if (kernel_termios_to_user_termios((struct termios2 __user *)arg, &kterm))"
+        ]
+      }
+    },
+    "TCSETSF2": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "set_termios"
+        ],
+        "type": [],
+        "usage": [
+          "return set_termios(real_tty, p,  TERMIOS_FLUSH | TERMIOS_WAIT);"
+        ]
+      }
+    },
+    "TCSETSW2": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "set_termios"
+        ],
+        "type": [],
+        "usage": [
+          "return set_termios(real_tty, p, TERMIOS_WAIT);"
+        ]
+      }
+    },
+    "TCSETS2": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "set_termios"
+        ],
+        "type": [],
+        "usage": [
+          "return set_termios(real_tty, p, 0);"
+        ]
+      }
+    },
+    "TCGETA": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "get_termio"
+        ],
+        "type": [],
+        "usage": [
+          "return get_termio(real_tty, p);"
+        ]
+      }
+    },
+    "TCSETAF": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "set_termios"
+        ],
+        "type": [],
+        "usage": [
+          "return set_termios(real_tty, p, TERMIOS_FLUSH | TERMIOS_WAIT | TERMIOS_TERMIO);"
+        ]
+      }
+    },
+    "TCSETAW": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "set_termios"
+        ],
+        "type": [],
+        "usage": [
+          "return set_termios(real_tty, p, TERMIOS_WAIT | TERMIOS_TERMIO);"
+        ]
+      }
+    },
+    "TCSETA": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "p"
+      ],
+      "arg_inference": {
+        "function": [
+          "set_termios"
+        ],
+        "type": [],
+        "usage": [
+          "return set_termios(real_tty, p, TERMIOS_TERMIO);"
+        ]
+      }
+    },
+    "TIOCGLCKTRMIOS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "copy_termios_locked",
+          "kernel_termios_to_user_termios"
+        ],
+        "type": [
+          "termios"
+        ],
+        "usage": [
+          "copy_termios_locked(real_tty, &kterm);",
+          "if (kernel_termios_to_user_termios((struct termios __user *)arg, &kterm))"
+        ]
+      }
+    },
+    "TIOCSLCKTRMIOS": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "copy_termios_locked",
+          "user_termios_to_kernel_termios"
+        ],
+        "type": [
+          "termios"
+        ],
+        "usage": [
+          "if (!capable(CAP_SYS_ADMIN))",
+          "copy_termios_locked(real_tty, &kterm);",
+          "if (user_termios_to_kernel_termios(&kterm, (struct termios __user *) arg))"
+        ]
+      }
+    },
+    "TIOCGSOFTCAR": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "copy_termios",
+          "put_user"
+        ],
+        "type": [],
+        "usage": [
+          "copy_termios(real_tty, &kterm);",
+          "ret = put_user((kterm.c_cflag & CLOCAL) ? 1 : 0, (int __user *)arg);"
+        ]
+      }
+    },
+    "TIOCSSOFTCAR": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "arg"
+      ],
+      "arg_inference": {
+        "function": [
+          "get_user",
+          "tty_change_softcar"
+        ],
+        "type": [],
+        "usage": [
+          "if (get_user(arg, (unsigned int __user *) arg))",
+          "return tty_change_softcar(real_tty, arg);"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "syz_open_dev$KGPT_nci_uart": "syz_open_dev$KGPT_nci_uart(dev ptr[in, string[\"/dev/tty#\"]], id proc[0, 1], flags flags[open_flags]) fd_nci_uart",
+    "ioctl$KGPT_NCIUARTSETDRIVER": "ioctl$KGPT_NCIUARTSETDRIVER(fd fd_nci_uart, cmd const[NCIUARTSETDRIVER], arg intptr)"
+  },
+  "init_syscalls": [
+    "syz_open_dev$KGPT_nci_uart"
+  ],
+  "includes": [
+    "net/nfc/nci_core.h",
+    "arch/powerpc/include/uapi/asm/ioctls.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

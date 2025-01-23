@@ -1,0 +1,45 @@
+{
+  "open": {
+    "filename": "/dev/net/tun",
+    "fd_name": "fd_hdlc_raw",
+    "spec": "openat$KGPT_net_tun(fd const[AT_FDCWD], file ptr[in, string[\"/dev/net/tun\"]], flags flags[open_flags], mode const[0]) fd_hdlc_raw"
+  },
+  "resources": {
+    "fd_hdlc_raw": {
+      "type": "fd",
+      "spec": "resource fd_hdlc_raw[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/net/wan/hdlc_raw.c:29",
+  "ioctls": {
+    "IF_GET_PROTO": {
+      "arg": "ptr[out, raw_hdlc_proto]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    },
+    "IF_PROTO_HDLC": {
+      "arg": "ptr[in, raw_hdlc_proto]",
+      "arg_name_in_usage": "",
+      "arg_inference": null
+    }
+  },
+  "types": {},
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "openat$KGPT_net_tun": "openat$KGPT_net_tun(fd const[AT_FDCWD], file ptr[in, string[\"/dev/net/tun\"]], flags flags[open_flags], mode const[0]) fd_hdlc_raw",
+    "ioctl$KGPT_IF_GET_PROTO": "ioctl$KGPT_IF_GET_PROTO(fd fd_hdlc_raw, cmd const[IF_GET_PROTO], arg ptr[out, raw_hdlc_proto])",
+    "ioctl$KGPT_IF_PROTO_HDLC": "ioctl$KGPT_IF_PROTO_HDLC(fd fd_hdlc_raw, cmd const[IF_PROTO_HDLC], arg ptr[in, raw_hdlc_proto])"
+  },
+  "init_syscalls": [
+    "openat$KGPT_net_tun"
+  ],
+  "includes": [
+    "uapi/linux/fcntl.h",
+    "uapi/linux/if.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "raw_hdlc_proto": "EXISTING"
+  }
+}

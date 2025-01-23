@@ -1,0 +1,95 @@
+{
+  "open": {
+    "filename": "/dev/vfio/vfio",
+    "fd_name": "fd_vfio",
+    "spec": "openat$KGPT_vfio(fd const[AT_FDCWD], file ptr[in, string[\"/dev/vfio/vfio\"]], flags const[O_RDWR], mode const[0]) fd_vfio"
+  },
+  "resources": {
+    "fd_vfio": {
+      "type": "fd",
+      "spec": "resource fd_vfio[fd]"
+    }
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/drivers/vfio/pci/vfio_pci.c:128",
+  "ioctls": {
+    "VFIO_DEVICE_GET_INFO": {
+      "arg": "ptr[out, vfio_device_info]",
+      "arg_name_in_usage": "uarg",
+      "arg_inference": null
+    },
+    "VFIO_DEVICE_GET_IRQ_INFO": {
+      "arg": "ptr[in,out, vfio_irq_info]",
+      "arg_name_in_usage": "uarg",
+      "arg_inference": null
+    },
+    "VFIO_DEVICE_GET_PCI_HOT_RESET_INFO": {
+      "arg": "ptr[inout, vfio_pci_hot_reset_info]",
+      "arg_name_in_usage": "uarg",
+      "arg_inference": null
+    },
+    "VFIO_DEVICE_GET_REGION_INFO": {
+      "arg": "ptr[in,out, vfio_region_info]",
+      "arg_name_in_usage": "uarg",
+      "arg_inference": null
+    },
+    "VFIO_DEVICE_IOEVENTFD": {
+      "arg": "ptr[in, vfio_device_ioeventfd]",
+      "arg_name_in_usage": "uarg",
+      "arg_inference": null
+    },
+    "VFIO_DEVICE_PCI_HOT_RESET": {
+      "arg": "ptr[in, vfio_pci_hot_reset]",
+      "arg_name_in_usage": "uarg",
+      "arg_inference": null
+    },
+    "VFIO_DEVICE_RESET": {
+      "arg": "UNUSED_ARG",
+      "arg_name_in_usage": "uarg",
+      "arg_inference": null
+    },
+    "VFIO_DEVICE_SET_IRQS": {
+      "arg": "ptr[in, vfio_irq_set]",
+      "arg_name_in_usage": "uarg",
+      "arg_inference": null
+    }
+  },
+  "types": {
+    "vfio_device_info": "vfio_device_info {\n\targsz\tint32\n\tflags\tflags[vfio_device_flags, int32]\n\tnum_regions\tint32\n\tnum_irqs\tint32\n\tcap_offset\tint32\n\tpad\tint32\n}",
+    "vfio_region_info": "vfio_region_info {\n\targsz\tint32\n\tflags\tflags[vfio_region_info_flags, int32]\n\tindex\tint32\n\tcap_offset\tint32\n\tsize\tint64\n\toffset\tint64\n}",
+    "vfio_device_ioeventfd": "vfio_device_ioeventfd {\n\targsz\tint32\n\tflags\tflags[vfio_device_ioeventfd_flags, int32]\n\toffset\tint64\n\tdata\tint64\n\tfd\tint32\n\treserved\tint32\n}",
+    "vfio_pci_hot_reset_info": "vfio_pci_hot_reset_info {\n\targsz\tint32\n\tflags\tflags[vfio_pci_hot_reset_flags, int32]\n\tcount\tlen[devices, int32]\n\tdevices\tptr[inout, array[vfio_pci_dependent_device]]\n}",
+    "vfio_pci_hot_reset": "vfio_pci_hot_reset {\n\targsz\tint32\n\tflags\tint32\n\tcount\tlen[group_fds, int32]\n\tgroup_fds\tptr[in, array[int32]]\n}",
+    "vfio_irq_set": "vfio_irq_set {\n\targsz\tint32\n\tflags\tflags[vfio_irq_set_flags, int32]\n\tindex\tint32\n\tstart\tint32\n\tcount\tlen[data, int32]\n\tdata\tarray[int8]\n}",
+    "vfio_irq_info": "vfio_irq_info {\n\targsz\tint32\n\tflags\tflags[vfio_irq_info_flags, int32]\n\tindex\tint32\n\tcount\tint32\n}",
+    "vfio_device_flags": "vfio_device_flags = VFIO_DEVICE_FLAGS_RESET, VFIO_DEVICE_FLAGS_PCI, VFIO_DEVICE_FLAGS_PLATFORM, VFIO_DEVICE_FLAGS_AMBA, VFIO_DEVICE_FLAGS_CCW, VFIO_DEVICE_FLAGS_AP, VFIO_DEVICE_FLAGS_FSL_MC, VFIO_DEVICE_FLAGS_CAPS, VFIO_DEVICE_FLAGS_CDX",
+    "vfio_irq_info_flags": "vfio_irq_info_flags = VFIO_IRQ_INFO_EVENTFD, VFIO_IRQ_INFO_MASKABLE, VFIO_IRQ_INFO_AUTOMASKED, VFIO_IRQ_INFO_NORESIZE",
+    "vfio_pci_hot_reset_flags": "vfio_pci_hot_reset_flags = VFIO_PCI_HOT_RESET_FLAG_DEV_ID, VFIO_PCI_HOT_RESET_FLAG_DEV_ID_OWNED",
+    "vfio_region_info_flags": "vfio_region_info_flags = VFIO_REGION_INFO_FLAG_READ, VFIO_REGION_INFO_FLAG_WRITE, VFIO_REGION_INFO_FLAG_MMAP, VFIO_REGION_INFO_FLAG_CAPS",
+    "vfio_device_ioeventfd_flags": "vfio_device_ioeventfd_flags = VFIO_DEVICE_IOEVENTFD_8, VFIO_DEVICE_IOEVENTFD_16, VFIO_DEVICE_IOEVENTFD_32, VFIO_DEVICE_IOEVENTFD_64",
+    "vfio_irq_set_flags": "vfio_irq_set_flags = VFIO_IRQ_SET_DATA_NONE, VFIO_IRQ_SET_DATA_BOOL, VFIO_IRQ_SET_DATA_EVENTFD, VFIO_IRQ_SET_ACTION_MASK, VFIO_IRQ_SET_ACTION_UNMASK, VFIO_IRQ_SET_ACTION_TRIGGER",
+    "vfio_pci_dependent_device": "vfio_pci_dependent_device {\n\tgroup_id\tint32\n\tsegment\tint16\n\tbus\tint8\n\tdevfn\tint8\n}"
+  },
+  "existing_ioctls": {},
+  "unknown_cmd_ioctls": {},
+  "syscall_specs": {
+    "openat$KGPT_vfio": "openat$KGPT_vfio(fd const[AT_FDCWD], file ptr[in, string[\"/dev/vfio/vfio\"]], flags const[O_RDWR], mode const[0]) fd_vfio",
+    "ioctl$KGPT_VFIO_DEVICE_GET_INFO": "ioctl$KGPT_VFIO_DEVICE_GET_INFO(fd fd_vfio, cmd const[VFIO_DEVICE_GET_INFO], arg ptr[out, vfio_device_info])",
+    "ioctl$KGPT_VFIO_DEVICE_GET_IRQ_INFO": "ioctl$KGPT_VFIO_DEVICE_GET_IRQ_INFO(fd fd_vfio, cmd const[VFIO_DEVICE_GET_IRQ_INFO], arg ptr[inout, vfio_irq_info])",
+    "ioctl$KGPT_VFIO_DEVICE_GET_PCI_HOT_RESET_INFO": "ioctl$KGPT_VFIO_DEVICE_GET_PCI_HOT_RESET_INFO(fd fd_vfio, cmd const[VFIO_DEVICE_GET_PCI_HOT_RESET_INFO], arg ptr[inout, vfio_pci_hot_reset_info])",
+    "ioctl$KGPT_VFIO_DEVICE_GET_REGION_INFO": "ioctl$KGPT_VFIO_DEVICE_GET_REGION_INFO(fd fd_vfio, cmd const[VFIO_DEVICE_GET_REGION_INFO], arg ptr[inout, vfio_region_info])",
+    "ioctl$KGPT_VFIO_DEVICE_IOEVENTFD": "ioctl$KGPT_VFIO_DEVICE_IOEVENTFD(fd fd_vfio, cmd const[VFIO_DEVICE_IOEVENTFD], arg ptr[in, vfio_device_ioeventfd])",
+    "ioctl$KGPT_VFIO_DEVICE_PCI_HOT_RESET": "ioctl$KGPT_VFIO_DEVICE_PCI_HOT_RESET(fd fd_vfio, cmd const[VFIO_DEVICE_PCI_HOT_RESET], arg ptr[in, vfio_pci_hot_reset])",
+    "ioctl$KGPT_VFIO_DEVICE_RESET": "ioctl$KGPT_VFIO_DEVICE_RESET(fd fd_vfio, cmd const[VFIO_DEVICE_RESET], arg ptr[in, array[int8]])",
+    "ioctl$KGPT_VFIO_DEVICE_SET_IRQS": "ioctl$KGPT_VFIO_DEVICE_SET_IRQS(fd fd_vfio, cmd const[VFIO_DEVICE_SET_IRQS], arg ptr[in, vfio_irq_set])"
+  },
+  "init_syscalls": [
+    "openat$KGPT_vfio"
+  ],
+  "includes": [
+    "uapi/linux/vfio.h",
+    "uapi/linux/fcntl.h",
+    "uapi/asm-generic/fcntl.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {}
+}

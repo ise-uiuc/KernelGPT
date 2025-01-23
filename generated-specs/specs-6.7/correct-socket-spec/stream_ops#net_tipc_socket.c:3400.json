@@ -1,0 +1,230 @@
+{
+  "socket": {
+    "domain": "AF_TIPC",
+    "type": "SOCK_STREAM",
+    "spec": "socket$KGPT_tipc(domain const[AF_TIPC], type const[SOCK_STREAM], proto const[0]) sock_tipc_stream"
+  },
+  "resources": {
+    "sock_tipc_stream": {
+      "type": "sock",
+      "spec": "resource sock_tipc_stream[sock]"
+    }
+  },
+  "types": {
+    "tipc_uaddr": "tipc_uaddr {\n\tfamily\tint16\n\taddrtype\tint8\n\tscope\tint8\n\tu\ttipc_uaddr_union\n}",
+    "tipc_uaddr_union": "tipc_uaddr_union [\n\tsa\ttipc_service_addr\n\tlookup_node\tint32\n\tsr\ttipc_service_range\n\tsk\ttipc_socket_addr\n]"
+  },
+  "socket_addr": "tipc_uaddr",
+  "ioctls": {},
+  "existing_ioctls": {
+    "SIOCGETLINKNAME": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp",
+        "lnr"
+      ],
+      "arg_inference": {
+        "function": [
+          "copy_from_user",
+          "tipc_node_get_linkname",
+          "copy_to_user"
+        ],
+        "type": [
+          "tipc_sioc_ln_req"
+        ],
+        "usage": [
+          "struct tipc_sioc_ln_req lnr;",
+          "if (copy_from_user(&lnr, argp, sizeof(lnr)))",
+          "if (!tipc_node_get_linkname(net, lnr.bearer_id & 0xffff, lnr.peer, lnr.linkname, TIPC_MAX_LINK_NAME))",
+          "if (copy_to_user(argp, &lnr, sizeof(lnr)))"
+        ]
+      }
+    },
+    "SIOCGETNODEID": {
+      "arg": "UNKNOWN_ARG",
+      "arg_name_in_usage": [
+        "argp",
+        "nr"
+      ],
+      "arg_inference": {
+        "function": [
+          "copy_from_user",
+          "tipc_node_get_id",
+          "copy_to_user"
+        ],
+        "type": [
+          "tipc_sioc_nodeid_req"
+        ],
+        "usage": [
+          "struct tipc_sioc_nodeid_req nr;",
+          "if (copy_from_user(&nr, argp, sizeof(nr)))",
+          "if (!tipc_node_get_id(net, nr.peer, nr.node_id))",
+          "if (copy_to_user(argp, &nr, sizeof(nr)))"
+        ]
+      }
+    }
+  },
+  "unknown_cmd_ioctls": {},
+  "setsockopt": {
+    "TIPC_IMPORTANCE": {
+      "level": "SOL_TIPC",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]"
+    },
+    "TIPC_SRC_DROPPABLE": {
+      "level": "SOL_TIPC",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]"
+    },
+    "TIPC_DEST_DROPPABLE": {
+      "level": "SOL_TIPC",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]"
+    },
+    "TIPC_CONN_TIMEOUT": {
+      "level": "SOL_TIPC",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]"
+    },
+    "TIPC_NODELAY": {
+      "level": "SOL_TIPC",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]"
+    },
+    "TIPC_GROUP_JOIN": {
+      "level": "SOL_TIPC",
+      "val": "ptr[in, tipc_group_req]",
+      "len": "bytesize[val]"
+    },
+    "TIPC_MCAST_BROADCAST": {
+      "level": "SOL_TIPC",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]"
+    },
+    "TIPC_MCAST_REPLICAST": {
+      "level": "SOL_TIPC",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]"
+    },
+    "TIPC_GROUP_LEAVE": {
+      "level": "SOL_TIPC",
+      "val": "ptr[in, int32]",
+      "len": "bytesize[val]"
+    }
+  },
+  "unknown": [],
+  "setsockopt_unknown": [],
+  "getsockopt": {
+    "TIPC_IMPORTANCE": {
+      "level": "SOL_TIPC",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "TIPC_SRC_DROPPABLE": {
+      "level": "SOL_TIPC",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "TIPC_DEST_DROPPABLE": {
+      "level": "SOL_TIPC",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "TIPC_CONN_TIMEOUT": {
+      "level": "SOL_TIPC",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "TIPC_NODE_RECVQ_DEPTH": {
+      "level": "SOL_TIPC",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "TIPC_SOCK_RECVQ_DEPTH": {
+      "level": "SOL_TIPC",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "TIPC_SOCK_RECVQ_USED": {
+      "level": "SOL_TIPC",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": null
+    },
+    "TIPC_GROUP_JOIN": {
+      "level": "SOL_TIPC",
+      "val": "ptr[out, int32]",
+      "len": "ptr[inout, bytesize[val, int32]]",
+      "val_inference": {
+        "function": [
+          "tipc_group_self"
+        ],
+        "type": [
+          "tipc_service_range"
+        ],
+        "usage": [
+          "tipc_group_self(tsk->group, &seq, &scope);\nvalue = seq.type;"
+        ]
+      }
+    }
+  },
+  "getsockopt_unknown": [],
+  "proto_ops": {
+    "bind": "tipc_bind",
+    "connect": "tipc_connect",
+    "accept": "tipc_accept",
+    "poll": "tipc_poll",
+    "ioctl": "tipc_ioctl",
+    "sendmsg": "tipc_sendstream",
+    "recvmsg": "tipc_recvstream",
+    "setsockopt": "tipc_setsockopt",
+    "getsockopt": "tipc_getsockopt"
+  },
+  "path": "/scratch/xxxxxx-data/xxxxxx/linux/net/tipc/socket.c:3400",
+  "ops_name": "stream_ops",
+  "syscall_specs": {
+    "socket$KGPT_tipc": "socket$KGPT_tipc(domain const[AF_TIPC], type const[SOCK_STREAM], proto const[0]) sock_tipc_stream",
+    "bind$KGPT_stream_ops": "bind$KGPT_stream_ops(fd sock_tipc_stream, addr ptr[in, tipc_uaddr], addrlen len[addr])",
+    "connect$KGPT_stream_ops": "connect$KGPT_stream_ops(fd sock_tipc_stream, addr ptr[in, tipc_uaddr], addrlen len[addr])",
+    "accept4$KGPT_stream_ops": "accept4$KGPT_stream_ops(fd sock_tipc_stream, peer ptr[out, tipc_uaddr, opt], peerlen ptr[inout, len[peer, int32]], flags flags[accept_flags]) sock_tipc_stream",
+    "sendto$KGPT_stream_ops": "sendto$KGPT_stream_ops(fd sock_tipc_stream, buf ptr[in, array[int8]], len len[buf], f flags[send_flags], addr ptr[in, tipc_uaddr, opt], addrlen len[addr])",
+    "recvfrom$KGPT_stream_ops": "recvfrom$KGPT_stream_ops(fd sock_tipc_stream, buf ptr[out, array[int8]], len len[buf], f flags[recv_flags], addr ptr[in, tipc_uaddr, opt], addrlen len[addr])",
+    "getsockopt$KGPT_TIPC_IMPORTANCE": "getsockopt$KGPT_TIPC_IMPORTANCE(fd sock_tipc_stream, level const[SOL_TIPC], opt const[TIPC_IMPORTANCE], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_TIPC_SRC_DROPPABLE": "getsockopt$KGPT_TIPC_SRC_DROPPABLE(fd sock_tipc_stream, level const[SOL_TIPC], opt const[TIPC_SRC_DROPPABLE], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_TIPC_DEST_DROPPABLE": "getsockopt$KGPT_TIPC_DEST_DROPPABLE(fd sock_tipc_stream, level const[SOL_TIPC], opt const[TIPC_DEST_DROPPABLE], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_TIPC_CONN_TIMEOUT": "getsockopt$KGPT_TIPC_CONN_TIMEOUT(fd sock_tipc_stream, level const[SOL_TIPC], opt const[TIPC_CONN_TIMEOUT], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_TIPC_NODE_RECVQ_DEPTH": "getsockopt$KGPT_TIPC_NODE_RECVQ_DEPTH(fd sock_tipc_stream, level const[SOL_TIPC], opt const[TIPC_NODE_RECVQ_DEPTH], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_TIPC_SOCK_RECVQ_DEPTH": "getsockopt$KGPT_TIPC_SOCK_RECVQ_DEPTH(fd sock_tipc_stream, level const[SOL_TIPC], opt const[TIPC_SOCK_RECVQ_DEPTH], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_TIPC_SOCK_RECVQ_USED": "getsockopt$KGPT_TIPC_SOCK_RECVQ_USED(fd sock_tipc_stream, level const[SOL_TIPC], opt const[TIPC_SOCK_RECVQ_USED], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "getsockopt$KGPT_TIPC_GROUP_JOIN": "getsockopt$KGPT_TIPC_GROUP_JOIN(fd sock_tipc_stream, level const[SOL_TIPC], opt const[TIPC_GROUP_JOIN], val ptr[out, int32], len ptr[inout, bytesize[val, int32]])",
+    "setsockopt$KGPT_TIPC_IMPORTANCE": "setsockopt$KGPT_TIPC_IMPORTANCE(fd sock_tipc_stream, level const[SOL_TIPC], opt const[TIPC_IMPORTANCE], val ptr[in, int32], len bytesize[val])",
+    "setsockopt$KGPT_TIPC_SRC_DROPPABLE": "setsockopt$KGPT_TIPC_SRC_DROPPABLE(fd sock_tipc_stream, level const[SOL_TIPC], opt const[TIPC_SRC_DROPPABLE], val ptr[in, int32], len bytesize[val])",
+    "setsockopt$KGPT_TIPC_DEST_DROPPABLE": "setsockopt$KGPT_TIPC_DEST_DROPPABLE(fd sock_tipc_stream, level const[SOL_TIPC], opt const[TIPC_DEST_DROPPABLE], val ptr[in, int32], len bytesize[val])",
+    "setsockopt$KGPT_TIPC_CONN_TIMEOUT": "setsockopt$KGPT_TIPC_CONN_TIMEOUT(fd sock_tipc_stream, level const[SOL_TIPC], opt const[TIPC_CONN_TIMEOUT], val ptr[in, int32], len bytesize[val])",
+    "setsockopt$KGPT_TIPC_NODELAY": "setsockopt$KGPT_TIPC_NODELAY(fd sock_tipc_stream, level const[SOL_TIPC], opt const[TIPC_NODELAY], val ptr[in, int32], len bytesize[val])",
+    "setsockopt$KGPT_TIPC_GROUP_JOIN": "setsockopt$KGPT_TIPC_GROUP_JOIN(fd sock_tipc_stream, level const[SOL_TIPC], opt const[TIPC_GROUP_JOIN], val ptr[in, tipc_group_req], len bytesize[val])",
+    "setsockopt$KGPT_TIPC_MCAST_BROADCAST": "setsockopt$KGPT_TIPC_MCAST_BROADCAST(fd sock_tipc_stream, level const[SOL_TIPC], opt const[TIPC_MCAST_BROADCAST], val ptr[in, int32], len bytesize[val])",
+    "setsockopt$KGPT_TIPC_MCAST_REPLICAST": "setsockopt$KGPT_TIPC_MCAST_REPLICAST(fd sock_tipc_stream, level const[SOL_TIPC], opt const[TIPC_MCAST_REPLICAST], val ptr[in, int32], len bytesize[val])",
+    "setsockopt$KGPT_TIPC_GROUP_LEAVE": "setsockopt$KGPT_TIPC_GROUP_LEAVE(fd sock_tipc_stream, level const[SOL_TIPC], opt const[TIPC_GROUP_LEAVE], val ptr[in, int32], len bytesize[val])"
+  },
+  "init_syscalls": [
+    "socket$KGPT_tipc"
+  ],
+  "includes": [
+    "uapi/linux/tipc.h",
+    "linux/net.h"
+  ],
+  "unused_types": {},
+  "ignored_types": {
+    "tipc_group_req": "EXISTING",
+    "tipc_service_addr": "EXISTING",
+    "tipc_service_range": "EXISTING",
+    "tipc_socket_addr": "EXISTING"
+  }
+}
