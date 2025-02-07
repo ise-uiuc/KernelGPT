@@ -128,3 +128,15 @@ python eval_spec.py -u -s spec-output/_generated --output-name debug -o eval-out
 This will validate the specification and generate the repaired specification in the `eval-output` directory.
 It will invoke the `spec-eval/run-specs.py`.
 
+### Reuse the Generated Specifications
+
+If you want to reuse our generated specifications for drivers (or sockets), you could use `eval_spec.py`:
+
+```bash
+# Under the directory `spec-gen`
+python eval_spec.py -u -s ../generated-specs/specs-6.7/correct-driver-spec --output-name debug -o eval-output --merge
+```
+This command will translate all specification written in `json` to `syzkaller` format and run the syzkaller.
+The log for this process is `spec-eval/debug/merged.log`.
+
+Then, all the textural specifications will be under `spec-eval/debug/default-tmp/syzkaller/sys/linux` directory, with `gpt4_`as the prefix.
