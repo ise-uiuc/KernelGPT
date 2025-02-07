@@ -383,6 +383,7 @@ if __name__ == "__main__":
         "--kernel-config",
         type=str,
         help="the kernel config used to make shared linux build",
+        default="",
     )
     args = parser.parse_args()
 
