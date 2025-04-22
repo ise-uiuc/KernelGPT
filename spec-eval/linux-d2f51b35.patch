@@ -1,0 +1,26 @@
+diff --git a/net/ipv4/tcp_output.c b/net/ipv4/tcp_output.c
+index f558c054cf6e..6064895daece 100644
+--- a/net/ipv4/tcp_output.c
++++ b/net/ipv4/tcp_output.c
+@@ -658,7 +658,7 @@ static void tcp_options_write(struct tcphdr *th, struct tcp_sock *tp,
+ 			memset(ptr, TCPOPT_NOP, sizeof(*ptr));
+ 			ptr++;
+ 		}
+-out_ao:
++out_ao:;
+ #endif
+ 	}
+ 	if (unlikely(opts->mss)) {
+diff --git a/sound/soc/codecs/aw88399.c b/sound/soc/codecs/aw88399.c
+index ce30bc7cdea9..47fe38d0def5 100644
+--- a/sound/soc/codecs/aw88399.c
++++ b/sound/soc/codecs/aw88399.c
+@@ -438,7 +438,7 @@ static int aw_dev_set_vcalb(struct aw88399 *aw88399)
+ 	if (ret)
+ 		return ret;
+ 
+-	vsense_select = vsense_select & (~AW88399_VDSEL_MASK);
++	vsense_select = vsense_value & (~AW88399_VDSEL_MASK);
+ 
+ 	ret = aw88399_dev_get_icalk(aw88399, &icalk);
+ 	if (ret) {
