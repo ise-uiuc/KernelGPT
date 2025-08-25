@@ -204,19 +204,19 @@ Then, all the textural specifications will be under `spec-eval/debug/default-tmp
 
 ## 📝 Citation
 
-```
-@inproceedings{yang2025kernelgpt,
-author = {Yang, Chenyuan and Zhao, Zijie and Zhang, Lingming},
-title = {KernelGPT: Enhanced Kernel Fuzzing via Large Language Models},
-year = {2025},
-isbn = {9798400710797},
-publisher = {Association for Computing Machinery},
-address = {New York, NY, USA},
-url = {https://doi.org/10.1145/3676641.3716022},
-doi = {10.1145/3676641.3716022},
-pages = {560–573},
-numpages = {14},
-location = {Rotterdam, Netherlands},
-series = {ASPLOS '25}
+```bibtex
+@inproceedings{kernelgpt,
+    author = {Yang, Chenyuan and Zhao, Zijie and Zhang, Lingming},
+    title = {KernelGPT: Enhanced Kernel Fuzzing via Large Language Models},
+    year = {2025},
+    isbn = {9798400710797},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    url = {https://doi.org/10.1145/3676641.3716022},
+    doi = {10.1145/3676641.3716022},
+    pages = {560–573},
+    numpages = {14},
+    location = {Rotterdam, Netherlands},
+    series = {ASPLOS '25}
 }
 ```
